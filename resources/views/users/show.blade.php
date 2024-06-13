@@ -7,6 +7,9 @@
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
                 @if (Auth::check() && Auth::id() !== $user->id)
                     @include('follow.follow_button', ['user' => $user])
+                        <!-- @if (isset($follows) && isset($followers))
+                            {{相互フォロー中}}
+                        @endif -->
                 @endif
             </div>
             <div class="card-body">
