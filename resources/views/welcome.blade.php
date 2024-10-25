@@ -5,4 +5,5 @@
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
 </div>
+@include('posts.posts',['posts'=> $posts])
 @endsection
