@@ -12,3 +12,9 @@
 */
 
 Route::get('/', 'PostsController@index');
+
+// ユーザ
+Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
