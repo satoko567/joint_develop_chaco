@@ -11,6 +11,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        
         DB::table('posts')->insert([
             'content' => 'テスト1',
             'user_id' => '1',
@@ -28,6 +29,46 @@ class PostsTableSeeder extends Seeder
 
         DB::table('posts')->insert([
             'content' => 'テスト4',
+            'user_id' => '4',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト5',
+            'user_id' => '1',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト6',
+            'user_id' => '2',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト7',
+            'user_id' => '3',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト8',
+            'user_id' => '4',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト9',
+            'user_id' => '1',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト10',
+            'user_id' => '2',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト11',
+            'user_id' => '3',
+        ]);
+
+        DB::table('posts')->insert([
+            'content' => 'テスト12',
             'user_id' => '4',
         ]);
 
