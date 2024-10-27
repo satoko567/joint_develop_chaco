@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Post;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -9,10 +11,10 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->post()->orderBy('id', 'desc')->paginate(10);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data=[
             'user' => $user,
-            'posts' => $postss,
+            'posts' => $posts,
         ];
         return view('users.show',$data);
     }
