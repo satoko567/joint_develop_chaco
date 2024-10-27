@@ -22,11 +22,6 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content, justify-content-center">
-    @foreach ($posts as $post)
-        @if ($loop->iteration % 10 === 1 && $loop->iteration !== 1)
-        @endif
-    @endforeach
+<div class="m-auto" style="width: fit-content">
+    {{ $posts->links('pagination::bootstrap-4') }}
 </div>
-<ul class="pagination justify-content-center">{{ $posts->links('pagination::bootstrap-4') }}</ul>
-
