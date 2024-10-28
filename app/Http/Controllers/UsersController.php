@@ -12,7 +12,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $data=[
+        $data = [
             'user' => $user,
             'posts' => $posts,
         ];
