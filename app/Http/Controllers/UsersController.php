@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -12,9 +13,11 @@ class UsersController extends Controller
     {
         $user = \Auth::user();
         $user = User::findOrFail($id);
-        $data = ['user' => $user,];
+        $data = [
+            'user' => $user,
+        ];
 
-        return view('user.edit', $data);
+        return view('users.edit', $data);
     }
     
     public function update(UserRequest $request, $id)
@@ -25,6 +28,6 @@ class UsersController extends Controller
         $user->password = $request->Hash::make($request->password);
         $user->save();
         
-        return back
+        return back();
     }
 }
