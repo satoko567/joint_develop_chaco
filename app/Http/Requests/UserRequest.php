@@ -24,9 +24,16 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'password.confirmed' => 'パスワードが一致しません',
         ];
     }
 }

@@ -1,5 +1,21 @@
 @extends('layouts.app')
 @section('content')
+<div class="container">
+    @if (session('success'))
+        <div class="alert alert-succes">
+            {{ session('success')}}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-denger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="POST" action="{{ route('user.update', $user->id) }}">
         @csrf
@@ -26,12 +42,17 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
+            <!-- <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a> -->
+            @if (session('updated'))
+                <a href="{{ route('user.show', $user->id) }}" class="btn btn-secondary">閉じる</a>
+            @else
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">戻る</a>
+            @endif
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
 
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <!-- <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -45,4 +66,9 @@
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
 @endsection
