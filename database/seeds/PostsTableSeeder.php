@@ -9,37 +9,24 @@ class PostsTableSeeder extends Seeder
      *
      * @return void
      */
+    //  userIDカラムが必要
     public function run()
     {
         DB::table('posts')->insert([
-            'name' => 'sake',
-            'email' => 'test1@test.com',
-            'password' => bcrypt('test1')
+            'user_id' => 1,
+            'content' => 'sake'
         ]);
         DB::table('posts')->insert([
-            'name' => 'soju',
-            'email' => 'test2@test.com',
-            'password' => bcrypt('test2')
+            'user_id' => 2,
+            'content' => 'soju'
         ]);
         DB::table('posts')->insert([
-            'name' => 'beer',
-            'email' => 'test3@sample.com',
-            'password' => bcrypt('test3')
+            'user_id' => 3,
+            'content' => 'wine'
         ]);
         DB::table('posts')->insert([
-            'name' => 'wine',
-            'email' => 'test4@test.com',
-            'password' => bcrypt('test4')
-        ]);
-        DB::table('posts')->insert([
-            'name' => 'cocktail',
-            'email' => 'test5@test.com',
-            'password' => bcrypt('test5')
-        ]);
-        DB::table('posts')->insert([
-            'name' => 'sour',
-            'email' => 'test6@test.com',
-            'password' => bcrypt('test6')
+            'user_id' => 4,
+            'content' => 'beer'
         ]);
     }
 }
