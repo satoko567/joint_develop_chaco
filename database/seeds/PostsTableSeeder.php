@@ -11,15 +11,16 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 11; $i <= 10; $i++) {
+        for ($id = 1; $id <= 3; $id++) {
+            for ($i = 1; $i <= 3; $i++){
                 DB::table('posts')->insert([
-                    'user_id' => $i,
-                    'content' => 'テスト投稿'. $i,
-                    'password' => bcrypt('test1')
+                    'user_id' => $id,
+                    'content, 140' => 'テスト投稿'. $i,
                     'created_at' => now(),
                     'updated_at' => now(),
                     'deleted_at' => now(),
                 ]);   
             }
-}
+        }
+    }
 }
