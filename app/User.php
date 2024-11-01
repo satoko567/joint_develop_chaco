@@ -12,6 +12,11 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -39,8 +44,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
 }
