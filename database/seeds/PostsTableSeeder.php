@@ -13,19 +13,19 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'user_id' => 7,
+            'user_id' => 1,
             'content' => 'sake'
         ]);
         DB::table('posts')->insert([
-            'user_id' => 8,
+            'user_id' => 2,
             'content' => 'soju'
         ]);
         DB::table('posts')->insert([
-            'user_id' => 9,
+            'user_id' => 3,
             'content' => 'wine'
         ]);
         DB::table('posts')->insert([
-            'user_id' => 10,
+            'user_id' => 4,
             'content' => 'beer'
         ]);
     }
