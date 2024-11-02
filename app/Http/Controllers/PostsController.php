@@ -20,10 +20,9 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $data = [
+        return view('posts.edit', [
             'post' => $post,
-        ];
-        return view('posts.edit', $data);
+        ]);
     }
 
     public function update(PostRequest $request, $id)
