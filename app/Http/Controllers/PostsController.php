@@ -19,10 +19,8 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $data=[
-            'user' => $user,
+        $data = [
             'post' => $post,
         ];
         return view('posts.edit', $data);
@@ -34,6 +32,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect()->route('index');
+        return redirect()->route('post.index');
     }
 }
