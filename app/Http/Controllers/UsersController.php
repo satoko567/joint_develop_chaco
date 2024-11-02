@@ -24,11 +24,12 @@ class UsersController extends Controller
     {
         $user = \Auth::user();
         $user = User::findOrFail($id);
-        $date = [
+        if (Auth::user()->id !== $user->id) {
+            abort(403);
+        }
+        return view('users.edit',[
             'user' => $user,
-        ];
-
-        return view('users.edit', $date);
+        ]);
     }
 
     public function update(UserRequest $request, $id)
