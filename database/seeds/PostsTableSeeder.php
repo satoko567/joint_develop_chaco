@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\UsersTableSeeder;
 
 class PostsTableSeeder extends Seeder
 {
@@ -12,8 +11,8 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($id = 1; $id <= 3; $id++) {
-            for ($i = 1; $i <= 3; $i++){
+        for ($id = 1; $id <= 4; $id++) {
+            for ($i = 1; $i <= 11; $i++){
                 DB::table('posts')->insert([
                     'user_id' => $id,
                     'content, 140' => 'テスト投稿',
