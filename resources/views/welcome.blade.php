@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -100,3 +101,14 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
+=======
+@extends('layouts.app')
+@section('content')
+    <div class="center jumbotron bg-info">
+        <div class="text-center text-white mt-2 pt-1">
+            <h1><i class="fa-brands fa-telegram pr-3 d-inline"></i>Topic Posts</h1>
+        </div>
+    </div>
+
+@endsection
+>>>>>>> 08b01a2e607ffc52f22a4287e4c4f13dc3d2e55f
