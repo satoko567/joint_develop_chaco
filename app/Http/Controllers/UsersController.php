@@ -24,8 +24,8 @@ class UsersController extends Controller
     {
         $user = \Auth::user();
         $user = User::findOrFail($id);
-        if (Auth::user()->id !== $user->id) {
-            abort(403);
+        if (\Auth::user()->id !== $user->id) {
+            abort(403, 'このページへのアクセスは許可されていません');
         }
         return view('users.edit',[
             'user' => $user,
