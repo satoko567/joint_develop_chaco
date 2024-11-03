@@ -18,7 +18,6 @@ class PostsTableSeeder extends Seeder
                     'content, 140' => 'テスト投稿',
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'deleted_at' => now(),
                 ]);   
             }
         }
