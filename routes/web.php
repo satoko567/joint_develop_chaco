@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('post.index');
 
 // ユーザ
 Route::prefix('users')->group(function () {
@@ -21,6 +21,14 @@ Route::prefix('users')->group(function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        // 投稿編集画面表示
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        // 投稿編集
+        Route::put('{id}', 'PostsController@update')->name('post.update');
+    });
+});
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
