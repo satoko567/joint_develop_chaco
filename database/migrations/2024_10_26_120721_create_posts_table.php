@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id'); 
             $table->bigInteger('user_id')->unsigned()->index(); // user_idがマイナスにならないように/user_idカラムへの検索速度を早める
-            $table->string('content, 140');
+            $table->string('content', 140);
             $table->timestamps();
             $table->softDeletes(); 
             // 外部キー制約
