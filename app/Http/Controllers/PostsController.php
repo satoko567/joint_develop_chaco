@@ -20,9 +20,12 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.edit', [
-            'post' => $post,
-        ]);
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit', [
+                'post' => $post,
+            ]);
+        }
+        abort(403);
     }
 
     public function update(PostRequest $request, $id)
