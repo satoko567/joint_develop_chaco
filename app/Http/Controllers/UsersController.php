@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -49,4 +50,13 @@ class UsersController extends Controller
 
         return redirect()->route('user.show', ['id' => $user->id ]);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->posts()->delete();
+        $user->delete();
+        Auth::logout();
+        return redirect()->route('post.index');
+     }
 }

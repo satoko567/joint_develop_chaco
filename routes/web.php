@@ -16,6 +16,7 @@ Route::get('/', 'PostsController@index')->name('post.index');
 // ユーザ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::delete('{id}/delete', 'UsersController@destroy')->name('user.delete');
 });
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -41,7 +42,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
 });
-
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 投稿新規登録
