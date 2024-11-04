@@ -28,4 +28,11 @@ class PostRequest extends FormRequest
         ];
     }
 
+    public function attributes()
+    {
+        return [
+            'content' => ['投稿']
+        ];
+    }
+
 }
