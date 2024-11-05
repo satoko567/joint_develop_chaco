@@ -38,18 +38,6 @@ class PostsController extends Controller
         return redirect()->route('post.index');
     }
 
-    public function create()
-    {
-        $user = \Auth::user();
-        $post = $user->post()->orderBy('id', 'desc')->paginate(9);
-        $data = [
-            'user' => $user,
-            'post' => $post,
-        ];
-
-        return view('posts.create', $data);
-    }
-
     public function store(PostRequest $request)
     {
         $post = new Post;

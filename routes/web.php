@@ -24,6 +24,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
+        // 投稿新規登録
+        Route::post('', 'PostsController@store')->name('post.store');
         // 投稿編集画面表示
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集
@@ -40,12 +42,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
-    });
-});
-// ログイン後
-Route::group(['middleware' => 'auth'], function () {
-    // 投稿新規登録
-    Route::prefix('posts')->group(function () {
-        Route::post('', 'PostsController@store')->name('post.store');
     });
 });
