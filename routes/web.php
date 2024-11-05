@@ -15,4 +15,5 @@
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post'); //フォームに入力されたデータを実行
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+//トップページの表示
 Route::get('/', 'PostsController@index');
