@@ -5,7 +5,6 @@
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
 </div>
-@auth
     @if (Auth::check())
         <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">
@@ -24,6 +23,5 @@
             </form>
         </div>
     @endif
-@endauth
 @include('posts.posts',['posts'=> $posts])
 @endsection
