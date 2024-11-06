@@ -4,8 +4,10 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger">フォロー解除</button>
     </form>
-    @if ($user->isFollow(Auth::user()))
-    
+    @if ($user->isFollow(Auth::user()->id))
+    <h5><a class="text-muted">相互フォロー中</a></h5>
+    @endif
+
 @else
     <form method="POST" action="{{ route('follow', $user->id) }}">
         @csrf
