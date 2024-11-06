@@ -45,6 +45,8 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
 
+        session()->flash('flash-message', '投稿しました。');
+
         return back();
     }
 }
