@@ -47,7 +47,9 @@ class UsersController extends Controller
         }
 
         $user->save();
-
+        
+        session()->flash('flash-message', 'ユーザ情報が更新されました。');
+        
         return redirect()->route('user.show', ['id' => $user->id ]);
     }
 
