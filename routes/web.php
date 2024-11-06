@@ -24,6 +24,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
+        // 投稿新規登録
+        Route::post('', 'PostsController@store')->name('post.store');
         // 投稿編集画面表示
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集

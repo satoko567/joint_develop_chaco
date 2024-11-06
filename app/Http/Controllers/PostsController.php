@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\PostRequest;
+use App\User;
 
 class PostsController extends Controller
 {
@@ -35,5 +36,15 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
         return redirect()->route('post.index');
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
+
+        return back();
     }
 }
