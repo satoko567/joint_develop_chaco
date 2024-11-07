@@ -35,6 +35,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
+        session()->flash('flash-message', '投稿を編集しました。');
         return redirect()->route('post.index');
     }
 
@@ -44,6 +45,8 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
+
+        session()->flash('flash-message', '投稿しました。');
 
         return back();
     }

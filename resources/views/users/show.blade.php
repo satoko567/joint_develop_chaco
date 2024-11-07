@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+@include('commons.flash_message')
+@yield('scripts')
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">

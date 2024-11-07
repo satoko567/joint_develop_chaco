@@ -1,0 +1,13 @@
+#flash-message
+{
+    top: 5%;
+    right: 10%;
+    position: fixed;
+    border-radius: 5px;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    z-index: 9999;
+}
+.fade-out {
+    opacity: 0;
+}

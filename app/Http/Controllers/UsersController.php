@@ -47,7 +47,9 @@ class UsersController extends Controller
         }
 
         $user->save();
-
+        
+        session()->flash('flash-message', 'ユーザ情報が更新されました。');
+        
         return redirect()->route('user.show', ['id' => $user->id ]);
     }
 
@@ -57,6 +59,7 @@ class UsersController extends Controller
         $user->posts()->delete();
         $user->delete();
         Auth::logout();
+        session()->flash('flash-message', 'ユーザが削除されました。');
         return redirect()->route('post.index');
      }
 }
