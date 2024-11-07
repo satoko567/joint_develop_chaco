@@ -5,5 +5,5 @@
             <h1><i class="fa-brands fa-telegram pr-3 d-inline"></i>Topic Posts</h1>
         </div>
     </div>
-
+    @include('posts.posts', ['posts' => $posts])
 @endsection
