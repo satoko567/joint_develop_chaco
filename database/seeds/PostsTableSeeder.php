@@ -18,7 +18,7 @@ class PostsTableSeeder extends Seeder
                     'content' => 'テスト投稿',
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]);   
+                ]);
             }
         }
     }
