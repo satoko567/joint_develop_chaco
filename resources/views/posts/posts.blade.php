@@ -1,4 +1,3 @@
-<h2 class="mt-5 mb-5">"○○"について140字以内で会話しよう！</h2>
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
@@ -23,6 +22,6 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
-
+<div class="m-auto" style="width: fit-content">
 {{ $posts->links('pagination::bootstrap-4') }}
+</div>
