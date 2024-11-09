@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="text-center">
-@include('commons.error_messages')
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
     </div>
     <div class="text-center mt-3">
@@ -10,7 +9,8 @@
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
     </div>
-<div class="row mt-5 mb-5">
+    @include('commons.error_messages')
+    <div class="row mt-5 mb-5">
     <div class="col-sm-6 offset-sm-3">
         <form method="POST" action="{{ route('login.post') }}">
         @csrf    
