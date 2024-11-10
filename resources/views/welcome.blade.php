@@ -14,13 +14,19 @@
             @include('commons.error_messages')
         </div>
         <div class="text-center mb-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75 mb-3">
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4"></textarea>
-                    <div class="text-left mt-3">
-                        <button type="submit" class="btn btn-primary">投稿する</button>
+                    <div class="d-flex justify-content-end mt-3">
+                            <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
+                </div>
+            </form>
+            <form method="GET" action="{{ route('search.index') }}" class="d-inline-block w-75">
+                <div class="d-flex justify-content-end">
+                    <input type="text" name="keyword" placeholder="キーワードで検索" value="{{ request('keyword') }}">
+                    <button type="submit" class="btn btn-secondary">検索</button>
                 </div>
             </form>
         </div>
