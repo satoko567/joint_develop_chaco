@@ -23,6 +23,9 @@
                     </div>
                 </div>
             </form>
+        </div>
+    @endif
+        <div class="text-center mb-3">
             <form method="GET" action="{{ route('search.index') }}" class="d-inline-block w-75">
                 <div class="d-flex justify-content-end">
                     <input type="text" name="keyword" placeholder="キーワードで検索" value="{{ request('keyword') }}">
@@ -30,6 +33,5 @@
                 </div>
             </form>
         </div>
-    @endif
-@include('posts.posts',['posts'=> $posts])
+@include('posts.posts',['posts' => $posts, 'users' => $users])
 @endsection

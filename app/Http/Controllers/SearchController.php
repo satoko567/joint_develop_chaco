@@ -12,20 +12,16 @@ class SearchController extends Controller
     {
         $keyword = $request->input('keyword');
 
+        $posts = Post::orderBy('id', 'desc');
+        $users = User::orderBy('id', 'desc');
+
         if ($keyword) {
-            $posts = Post::where('content', 'like', '%' . $keyword . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
-            $users = User::where('name', 'like', '%' . $keyword . '%')
-                    ->with('posts')
-                    ->with(['posts' => function ($query) {
-                        $query->latest();
-                    }])
-                    ->paginate(10);
-        } else {
-            $posts = Post::orderBy('id', 'desc')->paginate(10);
-            $users = collect();
+            $posts->where('content', 'like', '%' . $keyword . '%');
+            $users->where('name', 'like', '%' . $keyword . '%');
         }
+
+        $posts = $posts->paginate(10)->appends(['keyword' => $keyword]);
+        $users = $users->paginate(10)->appends(['keyword' => $keyword]);
 
         return view('welcome', [
             'posts' => $posts,

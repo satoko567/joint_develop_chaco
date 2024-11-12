@@ -27,7 +27,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
         session()->flash('flash-message', '投稿を編集しました。');
-        return redirect()->route('post.index');
+        return redirect()->route('search.index');
     }
 
     public function store(PostRequest $request)
