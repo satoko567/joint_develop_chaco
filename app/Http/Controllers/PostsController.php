@@ -9,15 +9,6 @@ use App\User;
 
 class PostsController extends Controller
 {
-    public function index()
-    {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        
-        return view('welcome',[
-            'posts' => $posts,
-        ]);
-    }
-
     public function edit($id)
     {
         $post = Post::findOrFail($id);
@@ -36,7 +27,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
         session()->flash('flash-message', '投稿を編集しました。');
-        return redirect()->route('post.index');
+        return redirect()->route('search.index');
     }
 
     public function store(PostRequest $request)
