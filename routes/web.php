@@ -31,6 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // 投稿詳細画面表示
+        Route::get('{id}/show', 'PostsController@show')->name('post.show');
+        // コメント
+        Route::post('{id}/comments', 'CommentController@store')->name('comments.store');
     });
 });
 // ログイン
