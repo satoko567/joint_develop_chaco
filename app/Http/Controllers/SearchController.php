@@ -23,6 +23,8 @@ class SearchController extends Controller
         $posts = $posts->paginate(10)->appends(['keyword' => $keyword]);
         $users = $users->paginate(10)->appends(['keyword' => $keyword]);
 
+        $posts = Post::withCount('comments')->orderBy('id', 'desc')->paginate(10); // コメント数の表示
+
         return view('welcome', [
             'posts' => $posts,
             'users' => $users,

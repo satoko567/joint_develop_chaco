@@ -10,8 +10,6 @@
                         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                         <p class="mt-3 mb-0 d-inline-block">
                             <a href="{{ route('user.show', $user->id) }}" class="mr-3">{{ $user->name }}</a>
-                            <a href="{{ route('post.show', $user->id) }}">投稿詳細</a>
-
                         </p>
                     </div>
                     <div class="text-left d-inline-block w-75">
@@ -19,6 +17,12 @@
                             @foreach($user->posts as $post)
                                 <p class="mb-2">{{ $post->content }}</p>
                                 <p class="text-muted">{{ $post->created_at }}</p>
+                                <p>
+                                    <a href="{{ route('post.show', $post->id) }}">
+                                        <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
+                                        {{ $post->comments_count }}
+                                    </a>
+                                </p>
                             @endforeach
                         @else
                             <p>このユーザには投稿がありません。</p>

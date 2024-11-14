@@ -13,7 +13,7 @@ class UsersController extends Controller
     public function show($id, Request $request)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $posts = $user->posts()->withCount('comments')->orderBy('id', 'desc')->paginate(10);
         $keyword = $request->input('keyword');
         
         return view('users.show', [

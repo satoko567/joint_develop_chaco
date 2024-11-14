@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comment;
+use App\Post;
 
 class CommentController extends Controller
 {
@@ -18,6 +20,6 @@ class CommentController extends Controller
         $comment->post_id = $post->id;
         $comment->save();
 
-        return redirect()->ruote('search.index', $post->id);
+        return redirect()->route('post.show', $post->id);
     }
 }

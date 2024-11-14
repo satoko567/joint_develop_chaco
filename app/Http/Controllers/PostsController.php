@@ -18,6 +18,7 @@ class PostsController extends Controller
         ]);
         abort(403);
     }
+    
     public function edit($id)
     {
         $post = Post::findOrFail($id);

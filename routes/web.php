@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
         // 投稿詳細画面表示
         Route::get('{id}/show', 'PostsController@show')->name('post.show');
         // コメント
-        Route::post('{id}/comments', 'CommentController@store')->name('comments.store');
+        Route::post('{post}/comments', 'CommentController@store')->name('comments.store');
     });
 });
 // ログイン
