@@ -45,3 +45,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
 });
+
+// Follow & Unfollow
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/follow/{id}', 'FollowController@store')->name('follow');
+    Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow');
+});
