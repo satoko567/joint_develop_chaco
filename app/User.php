@@ -54,14 +54,14 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
     }
 
-    public function followingCheck($id)
+    public function isFollowing($id)
     {
         return $this->following()->where('followed_id', $id)->exists();
     }
 
     public function follow($id)
     {
-        $exist = $this->followingCheck($id);
+        $exist = $this->isFollowing($id);
         if ($exist) {
             return false;
         } else {
@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function unfollow($id)
     {
-        $exist = $this->followingCheck($id);
+        $exist = $this->isFollowing($id);
         if ($exist) {
             $this->following()->detach($id);
             return true;
