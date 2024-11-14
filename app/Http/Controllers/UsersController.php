@@ -10,15 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function show($id)
+    public function show($id, Request $request)
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $data = [
+        $keyword = $request->input('keyword');
+        
+        return view('users.show', [
             'user' => $user,
             'posts' => $posts,
-        ];
-        return view('users.show',$data);
+            'users' => $users ?? collect(),
+            'keyword' => $keyword ?? ''
+        ]);
     }
 
     public function edit($id)

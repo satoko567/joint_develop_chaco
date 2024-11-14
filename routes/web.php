@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'PostsController@index')->name('post.index');
+// トップページの表示と検索機能
+Route::get('/', 'SearchController@index')->name('search.index');
 
 // ユーザ
 Route::prefix('users')->group(function () {
