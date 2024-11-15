@@ -65,4 +65,28 @@ class UsersController extends Controller
         session()->flash('flash-message', 'ユーザが削除されました。');
         return redirect()->route('post.index');
      }
+
+    public function getFollowings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->following()->paginate(5);
+
+        return view('users.show', [
+            'user' => $user,
+            'users' => $followings,
+            'message' => $user->name."は他のユーザをフォローしていません。",
+        ]);
+    }
+
+    public function getFollowers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(5);
+
+        return view('users.show', [
+            'user' => $user,
+            'users' => $followers,
+            'message' => $user->name."は他のユーザからフォローされていません。",
+        ]);
+    }
 }
