@@ -18,25 +18,26 @@
 
 <!-- コメント一覧 -->
 <h5>コメント一覧</h5>
-        @foreach($post->comments as $comment)
+    @foreach($post->comments as $comment)
         <ul class="list-unstyled">
             <li class="mb-3 text-center">
                 <div class="text-left d-inline-block w-75 mb-2">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 40px; height: 40px;">
                     <p class="mt-3 mb-0 d-inline-block">
                         <a href="{{ route('user.show', $post->user->id) }}">{{ $comment->user->name }}</a>
                     </p>
                 </div>
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $comment->body }}</p>
-                    <p class="text-muted">{{ $comment->created_at }}</p>
+                    <p style="font-size: 14px;" class="mb-2">{{ $comment->body }}</p>
+                    <p style="font-size: 14px;" class="text-muted">{{ $comment->created_at }}</p>
                 </div>
             </li>
         </ul>
-        @endforeach
-
+    @endforeach
         <!-- コメント投稿フォーム -->
-        <form action="{{ route('comments.store', $post->id) }}" method="POST">
+        {{-- Error Messages --}}
+        @include('commons.error_messages')
+        <form action="{{ route('comments.store', $post->id) }}" method="POST" class="w-75 mx-auto">
             @csrf
             <div class="form-group">
                 <textarea name="body" class="form-control" rows="4" placeholder="コメントを入力"></textarea>
