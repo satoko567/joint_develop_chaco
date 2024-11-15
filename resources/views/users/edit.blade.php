@@ -2,10 +2,9 @@
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 <form method="POST" action="{{ route('user.update', $user->id) }}">
-@include('commons.error_messages')
-@csrf
-@method('PUT')
-    <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
+    @include('commons.error_messages')
+    @csrf
+    @method('PUT')
     <div class="form-group">
         <label for="name">ユーザ名</label>
         <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />

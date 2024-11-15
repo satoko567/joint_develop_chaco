@@ -13,7 +13,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = \Auth::user();
-        $data=[
+        $data = [
             'user' => $user,
         ];
         return view('users.edit', $data);
