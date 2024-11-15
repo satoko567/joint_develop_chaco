@@ -33,7 +33,7 @@
              {{-- 投稿 --}}
             @include('posts.posts',['posts'=> $posts])
         @else 
-            @include('users.follow_list', ['users'=> $users, 'message'=> $message])
+            @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
         @endif
     </div>
 </div>
