@@ -15,8 +15,19 @@
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post'); //フォームに入力されたデータを実行
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+    });
+});
+
 //トップページの表示
 Route::get('/', 'PostsController@index');
+
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
