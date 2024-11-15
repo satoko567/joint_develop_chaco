@@ -74,7 +74,7 @@ class UsersController extends Controller
         return view('users.show', [
             'user' => $user,
             'users' => $followings,
-            'message' => $user->name."はフォローしていません。",
+            'message' => $user->name."は他のユーザをフォローしていません。",
         ]);
     }
 
@@ -86,7 +86,7 @@ class UsersController extends Controller
         return view('users.show', [
             'user' => $user,
             'users' => $followers,
-            'message' => $user->name."はフォローされていません。",
+            'message' => $user->name."は他のユーザからフォローされていません。",
         ]);
     }
 }
