@@ -25,11 +25,16 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ route('users.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中 <span class="badge badge-primary">{{ $user->following()->count() }}</span></a></li>
+            <li class="nav-item"><a href="{{ route('users.followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー <span class="badge badge-primary">{{ $user->followers()->count() }}</span></a></li>
         </ul>
-        {{-- 投稿 --}}
-        @include('posts.posts',['posts'=> $posts])
+       
+        @if (isset($posts))
+             {{-- 投稿 --}}
+            @include('posts.posts',['posts'=> $posts])
+        @else 
+            @include('users.follow_list', ['users'=> $users, 'message'=> $message])
+        @endif
     </div>
 </div>
 @endsection

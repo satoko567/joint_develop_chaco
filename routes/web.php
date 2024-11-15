@@ -50,4 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/follow/{id}', 'FollowController@store')->name('follow');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow');
+    Route::get('users/{id}/followings', 'UsersController@getFollowings')->name('users.followings');
+    Route::get('users/{id}/followers', 'UsersController@getFollowers')->name('users.followers');
 });
