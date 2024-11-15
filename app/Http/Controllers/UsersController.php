@@ -66,7 +66,7 @@ class UsersController extends Controller
         return redirect()->route('post.index');
      }
 
-     public function getFollowings($id)
+    public function getFollowings($id)
     {
         $user = User::findOrFail($id);
         $followings = $user->following()->paginate(5);
