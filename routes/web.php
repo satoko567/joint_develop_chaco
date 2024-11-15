@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // Like Button
+        Route::post('{id}/like', 'LikeController@store')->name('posts.like');
+        Route::delete('{id}/unlike', 'LikeController@destroy')->name('posts.unlike');
     });
 });
 // ログイン

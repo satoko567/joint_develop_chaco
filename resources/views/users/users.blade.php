@@ -15,7 +15,8 @@
                     <div class="text-left d-inline-block w-75">
                         @if($user->posts->isNotEmpty())
                             @foreach($user->posts as $post)
-                                <p class="mb-2">{{ $post->content }}</p>
+                                <p class="mb-0">{{ $post->content }}</p>
+                                @include('commons.like_button')
                                 <p class="text-muted">{{ $post->created_at }}</p>
                             @endforeach
                         @else

@@ -7,7 +7,8 @@
             </p>
         </div>
         <div class="text-left d-inline-block w-75">
-            <p class="mb-2">{{ $post->content }}</p>
+            <p class="mb-0">{{ $post->content }}</p>
+            @include('commons.like_button')
             <p class="text-muted">{{ $post->created_at }}</p>
         </div>
         @if (Auth::id() === $post->user_id)

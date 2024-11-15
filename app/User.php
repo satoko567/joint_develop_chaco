@@ -80,4 +80,36 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
+    }
+
+    public function like($postId)
+    {
+        $exist = $this->hasLiked($postId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->likedPosts()->attach($postId);
+            return true;
+        }
+    }
+
+    public function unlike($postId)
+    {
+        $exist = $this->hasLiked($postId);
+        if ($exist) {
+            $this->likedPosts()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hasLiked($postId)
+    {
+        return $this->likedPosts()->where('post_id', $postId)->exists();
+    }
 }
