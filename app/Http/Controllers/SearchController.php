@@ -12,18 +12,16 @@ class SearchController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        $posts = Post::orderBy('id', 'desc');
-        $users = User::orderBy('id', 'desc');
+        $posts = Post::withCount('comments')->orderBy('id', 'desc');
+        $users = User::withCount('comments')->orderBy('id', 'desc');
 
-        if ($keyword) {
+        if ($keyword !== null) {
             $posts->where('content', 'like', '%' . $keyword . '%');
             $users->where('name', 'like', '%' . $keyword . '%');
         }
 
         $posts = $posts->paginate(10)->appends(['keyword' => $keyword]);
         $users = $users->paginate(10)->appends(['keyword' => $keyword]);
-
-        $posts = Post::withCount('comments')->orderBy('id', 'desc')->paginate(10); // コメント数の表示
 
         return view('welcome', [
             'posts' => $posts,

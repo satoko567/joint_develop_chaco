@@ -13,7 +13,7 @@
             <p>
                 <a href="{{ route('post.show', $post->id) }}">
                     <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
-                    {{ $post->comments_count }}
+                    {{ $post->comments_count ?? 0 }}
                 </a>
             </p>
         </div>

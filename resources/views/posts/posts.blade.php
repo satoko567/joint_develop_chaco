@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
     <!-- 検索結果がある場合 -->
-    @if(isset($keyword) && $keyword)
+    @if($keyword !== null && $keyword)
         <div class="text-left d-inline-block w-75 mb-2">
             <h5>「{{ $keyword }}」の検索結果</h5>
         </div>
@@ -41,7 +41,7 @@
     @else
         @include('commons.posts_list')
         <div class="m-auto" style="width: fit-content">
-            {{ $posts->appends(['keyword' => $keyword])->links('pagination::bootstrap-4') }}
+            {{ $posts->links('pagination::bootstrap-4') }}
         </div>
     @endif
 </ul>

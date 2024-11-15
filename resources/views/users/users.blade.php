@@ -19,8 +19,8 @@
                                 <p class="text-muted">{{ $post->created_at }}</p>
                                 <p>
                                     <a href="{{ route('post.show', $post->id) }}">
-                                        <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
-                                        {{ $post->comments_count }}
+                                        <i class="fas fa-comment"></i> 
+                                        {{ $post->comments_count ?? 0 }}
                                     </a>
                                 </p>
                             @endforeach
