@@ -13,6 +13,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = \Auth::user();
+        if ($user->id !== (int) $id) {
+            abort(403);
+        }
         $data = [
             'user' => $user,
         ];
