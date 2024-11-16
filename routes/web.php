@@ -21,4 +21,6 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 //ユーザ削除
-Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+Route::group(['middleware' => 'auth'], function () {
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+});
