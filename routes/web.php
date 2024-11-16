@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('/', 'UsersController@update')->name('user.update');
+        Route::delete('', 'PostsController@destroy')->name('post.delete'); //ユーザ削除
     });
 });
 //トップページの表示
@@ -28,7 +29,3 @@ Route::get('/', 'PostsController@index');
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-//ユーザ削除
-Route::group(['middleware' => 'auth'], function () {
-    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-});
