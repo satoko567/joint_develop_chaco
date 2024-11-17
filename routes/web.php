@@ -23,6 +23,8 @@ Route::prefix('users')->group(function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// 投稿詳細画面表示
+Route::get('posts/{id}/show', 'PostsController@show')->name('post.show');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         // 投稿新規登録
@@ -31,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // コメント
+        Route::post('{post}/comments', 'CommentController@store')->name('comments.store');
     });
 });
 // ログイン

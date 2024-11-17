@@ -9,6 +9,16 @@ use App\User;
 
 class PostsController extends Controller
 {
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        
+        return view('posts.show', [
+            'post' => $post,
+        ]);
+        abort(403);
+    }
+    
     public function edit($id)
     {
         $post = Post::findOrFail($id);
