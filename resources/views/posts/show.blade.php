@@ -34,9 +34,10 @@
             </li>
         </ul>
     @endforeach
-        <!-- コメント投稿フォーム -->
-        {{-- Error Messages --}}
-        @include('commons.error_messages')
+<!-- コメント投稿フォーム -->
+@auth
+    {{-- Error Messages --}}
+    @include('commons.error_messages')
         <form action="{{ route('comments.store', $post->id) }}" method="POST" class="w-75 mx-auto">
             @csrf
             <div class="form-group">
@@ -47,5 +48,5 @@
             </div>
         </form>
         <a href="{{ url('/') }}" class="btn btn-secondary mt-3">トップページへ戻る</a>
-    </div>
+@endauth
 @endsection

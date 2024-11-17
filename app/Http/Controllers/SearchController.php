@@ -14,8 +14,8 @@ class SearchController extends Controller
 
         $posts = Post::withCount('comments')->orderBy('id', 'desc');
         $users = User::with(['posts' => function ($query) {
-            $query->withCount('comments');}])
-            ->orderBy('id', 'desc');
+            $query->withCount('comments');
+        }])->orderBy('id', 'desc');
 
         if ($keyword !== null) {
             $posts->where('content', 'like', '%' . $keyword . '%');
