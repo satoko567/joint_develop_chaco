@@ -11,15 +11,11 @@
             <p class="mb-1">{{ $post->content }}</p>
             <p class="text-muted mb-0">{{ $post->created_at }}</p>
             <div class="d-flex align-items-center">
-                <span class="mr-1">
-                    <a href="{{ route('post.show', $post->id) }}">
-                        <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
-                        {{ $post->comments_count ?? 0 }}
-                    </a>
-                </span>
-                <span>
-                    @include('commons.like_button') <!--Like Button -->
-                </span>
+                <a href="{{ route('post.show', $post->id) }}" class="mr-2">
+                    <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
+                    {{ $post->comments_count ?? 0 }}
+                </a>
+                @include('commons.like_button') <!--Like Button -->
             </div>
         </div>
         @if (Auth::id() === $post->user_id)
