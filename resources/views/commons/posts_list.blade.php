@@ -8,14 +8,15 @@
             </p>
         </div>
         <div class="text-left d-inline-block w-75">
-            <p class="mb-2">{{ $post->content }}</p>
-            <p class="text-muted">{{ $post->created_at }}</p>
-            <p>
-                <a href="{{ route('post.show', $post->id) }}">
+            <p class="mb-1">{{ $post->content }}</p>
+            <p class="text-muted mb-0">{{ $post->created_at }}</p>
+            <div class="d-flex align-items-center">
+                <a href="{{ route('post.show', $post->id) }}" class="mr-2">
                     <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
                     {{ $post->comments_count ?? 0 }}
                 </a>
-            </p>
+                @include('commons.like_button') <!--Like Button -->
+            </div>
         </div>
         @if (Auth::id() === $post->user_id)
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">

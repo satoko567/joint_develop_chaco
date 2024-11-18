@@ -15,14 +15,15 @@
                     <div class="text-left d-inline-block w-75">
                         @if($user->posts->isNotEmpty())
                             @foreach($user->posts as $post)
-                                <p class="mb-2">{{ $post->content }}</p>
+                                <p class="mb-0">{{ $post->content }}</p>
                                 <p class="text-muted">{{ $post->created_at }}</p>
-                                <p>
-                                    <a href="{{ route('post.show', $post->id) }}">
-                                        <i class="fas fa-comment"></i> 
+                                <div class="d-flex align-items-center">
+                                    <a href="{{ route('post.show', $post->id) }}" class="mr-2">
+                                        <i class="fas fa-comment"></i> <!-- 吹き出しアイコン -->
                                         {{ $post->comments_count ?? 0 }}
                                     </a>
-                                </p>
+                                    @include('commons.like_button') <!--Like Button -->
+                                </div>
                             @endforeach
                         @else
                             <p>このユーザには投稿がありません。</p>

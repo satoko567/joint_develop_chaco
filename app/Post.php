@@ -14,6 +14,16 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
+    public function isLikedBy($userId)
+    {
+        return $this->likedByUsers()->where('user_id', $userId)->exists();
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

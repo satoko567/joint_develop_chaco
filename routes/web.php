@@ -33,10 +33,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // Like Button
+        Route::post('{id}/like', 'LikeController@store')->name('posts.like');
+        Route::delete('{id}/unlike', 'LikeController@destroy')->name('posts.unlike');
         // コメント
         Route::post('{post}/comments', 'CommentController@store')->name('comments.store');
     });
 });
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
