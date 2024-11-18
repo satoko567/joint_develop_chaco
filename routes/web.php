@@ -23,6 +23,8 @@ Route::prefix('users')->group(function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// 投稿詳細画面表示
+Route::get('posts/{id}/show', 'PostsController@show')->name('post.show');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         // 投稿新規登録
@@ -34,8 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
         // Like Button
         Route::post('{id}/like', 'LikeController@store')->name('posts.like');
         Route::delete('{id}/unlike', 'LikeController@destroy')->name('posts.unlike');
+        // コメント
+        Route::post('{post}/comments', 'CommentController@store')->name('comments.store');
     });
 });
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -53,4 +58,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/follow/{id}', 'FollowController@store')->name('follow');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow');
+    Route::get('users/{id}/followings', 'UsersController@getFollowings')->name('users.followings');
+    Route::get('users/{id}/followers', 'UsersController@getFollowers')->name('users.followers');
 });

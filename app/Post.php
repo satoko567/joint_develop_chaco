@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use SoftDeletes;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -21,5 +22,10 @@ class Post extends Model
     public function isLikedBy($userId)
     {
         return $this->likedByUsers()->where('user_id', $userId)->exists();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

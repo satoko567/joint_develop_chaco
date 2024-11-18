@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->likedPosts()->where('post_id', $postId)->exists();
     }
+    
+    public function comments()
+    {
+        return $this->hasManyThrough(Comment::class, Post::class);
+    }
 }

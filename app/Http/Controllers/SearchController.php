@@ -12,10 +12,12 @@ class SearchController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        $posts = Post::orderBy('id', 'desc');
-        $users = User::orderBy('id', 'desc');
+        $posts = Post::withCount('comments')->orderBy('id', 'desc');
+        $users = User::with(['posts' => function ($query) {
+            $query->withCount('comments');
+        }])->orderBy('id', 'desc');
 
-        if ($keyword) {
+        if ($keyword !== null) {
             $posts->where('content', 'like', '%' . $keyword . '%');
             $users->where('name', 'like', '%' . $keyword . '%');
         }

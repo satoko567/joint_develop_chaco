@@ -9,7 +9,7 @@
                     <div class="text-left d-inline-block w-75 mb-2">
                         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                         <p class="mt-3 mb-0 d-inline-block">
-                            <a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a>
+                            <a href="{{ route('user.show', $user->id) }}" class="mr-3">{{ $user->name }}</a>
                         </p>
                     </div>
                     <div class="text-left d-inline-block w-75">
@@ -18,6 +18,12 @@
                                 <p class="mb-0">{{ $post->content }}</p>
                                 @include('commons.like_button')
                                 <p class="text-muted">{{ $post->created_at }}</p>
+                                <p>
+                                    <a href="{{ route('post.show', $post->id) }}">
+                                        <i class="fas fa-comment"></i> 
+                                        {{ $post->comments_count ?? 0 }}
+                                    </a>
+                                </p>
                             @endforeach
                         @else
                             <p>このユーザには投稿がありません。</p>
