@@ -25,6 +25,9 @@ Route::group(['middleware' => 'auth'], function () {
 //トップページの表示
 Route::get('/', 'PostsController@index');
 
+//検索機能
+Route::get('/posts', 'PostsController@search')->name('search.index');
+
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');

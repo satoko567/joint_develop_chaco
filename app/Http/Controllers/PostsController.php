@@ -15,4 +15,20 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $query = Post::query();
+
+        if ($request->has('search'))
+        { $search = $request->input('search');
+            $query->where('title', 'LIKE', "%{$search}%")
+                  ->orWhere('content', 'LIKE', "%{$search}%");
+        }
+        
+        $posts = $query->get();
+        $posts = $query->paginate(10);
+        
+        return view('posts.index', compact('posts'));
+    }
 }
