@@ -11,12 +11,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function userCounts($user)
-    {
-        $countPosts = $user->posts()->count(); // ユーザの投稿した数
+    // public function userCounts($user)
+    // {
+    //     $countPosts = $user->posts()->count(); // ユーザの投稿した数
 
-        return [
-            'countPosts' => $countPosts,
-        ];
-    }
+    //     return [
+    //         'countPosts' => $countPosts,
+    //     ];
+    // }
 }
