@@ -26,7 +26,8 @@ class UserRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email,'. $this->id],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png']
         ];
     }
 
@@ -34,6 +35,7 @@ class UserRequest extends FormRequest
     {
         return [
             'password.confirmed' => 'パスワードが一致しません',
+            'avatar.image' => '画像ファイルを選択してください。'
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -38,7 +39,6 @@ class UsersController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-
         if ($request->filled('name')) {
             $user->name = $request->name;
         }
@@ -48,12 +48,18 @@ class UsersController extends Controller
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
-
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::delete($user->avatar);
+            }
+            $path = $request->file('avatar')->store('public/avatars');
+            $user->avatar = $path;
+        }
         $user->save();
-        
         session()->flash('flash-message', 'ユーザ情報が更新されました。');
-        
-        return redirect()->route('user.show', ['id' => $user->id ]);
+        return redirect()->route('user.show', [
+            'id' => $user->id
+        ]);
     }
 
     public function destroy($id)

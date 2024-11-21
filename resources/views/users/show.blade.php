@@ -11,7 +11,11 @@
                 @include('commons.follow_button',['user'=> $user])
             </div>
             <div class="card-body">
-                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
+                @if($user->avatar)
+                    <img class="rounded-circle img-fluid" src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像">
+                @else
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
+                @endif  
                 @auth
                     @if (Auth::id() === $user->id)
                         <div class="mt-3">
