@@ -22,10 +22,18 @@
         <ul class="list-unstyled">
             <li class="mb-3 text-center">
                 <div class="text-left d-inline-block w-75 mb-2">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 40px; height: 40px;">
-                    <p class="mt-3 mb-0 d-inline-block">
-                        <a href="{{ route('user.show', $post->user->id) }}">{{ $comment->user->name }}</a>
-                    </p>
+                    <div class="d-inline-block">
+                        @if($comment->user->avatar)
+                            <img class="mr-2 rounded-circle" src="{{ Storage::url($comment->user->avatar) }}" alt="現在のプロフィール画像" style="width: 45px; height: 45px;">
+                        @else
+                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($comment->user->email) }}" alt="ユーザのアバター画像" style="width: 45px; height: 45px;">
+                        @endif
+                    </div>
+                    <div class="d-inline-block align-middle">
+                        <p class="mt-3 mb-3">
+                            <a href="{{ route('user.show', $post->user->id) }}">{{ $comment->user->name }}</a>
+                        </p>
+                    </div>
                 </div>
                 <div class="text-left d-inline-block w-75">
                     <p style="font-size: 14px;" class="mb-2">{{ $comment->body }}</p>
