@@ -18,6 +18,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete'); //ユーザ削除
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('/', 'UsersController@update')->name('user.update');
