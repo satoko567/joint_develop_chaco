@@ -37,5 +37,9 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
+        // 投稿編集画面
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        // 投稿更新
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 });
