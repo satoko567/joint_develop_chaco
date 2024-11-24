@@ -11,7 +11,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
 
         return view('welcome', [
             'posts' => $posts,
@@ -25,14 +25,18 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    // 投稿編集画面
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $data=[
+        $data = [
             'post' => $post,
         ];
         return view('posts.edit', $data);
     }
+
+    // 投稿更新
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
