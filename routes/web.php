@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\UsersController;
 
 // トップページの表示と検索機能
 Route::get('/', 'SearchController@index')->name('search.index');
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
+    Route::delete('/profile/avatar', 'UsersController@deleteAvatar')->name('profile.avatar.delete');
 });
 
 // Follow & Unfollow

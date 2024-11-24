@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+@include('commons.flash_message')
+@yield('scripts')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="POST" action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data">
         {{-- Error Messages --}}
@@ -36,7 +38,12 @@
                 </div>
                 @if($user->avatar)
                 <div>
-                    <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 150px; height: 150px;">
+                    <img src="{{ Storage::url($user->avatar) }}?{{ time() }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 150px; height: 150px;">
+                    <form method="POST" action="{{ route('profile.avatar.delete') }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">プロフィール画像を削除</button>
+                    </form>
                 </div>
                 @else
                 <div class="card-body">
@@ -48,7 +55,7 @@
 
         <div class="d-flex justify-content-between">
             <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-            
+
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
