@@ -29,7 +29,12 @@ class PostsController extends Controller
     // 投稿編集画面
     public function edit($id)
     {
+        $user = \Auth::user();
         $post = Post::findOrFail($id);
+        // 投稿者以外であればエラーを出す
+        if($user->id !== $post->user_id){
+            abort(403);
+        }
         $data = [
             'post' => $post,
         ];
