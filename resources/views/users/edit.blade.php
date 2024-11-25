@@ -6,22 +6,22 @@
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 <!-- プロフィール画像 -->
 <div class="row">
-    <div class="col-md-4 text left">
+    <div class="col-md-4 text center">
         <div class="d-flex flex-column align-items-center">
-            <label for="avatar">プロフィール画像</label>
-            <input type="file" name="avatar" id="avatar" style="padding: 8px;">
+            <label for="avatar" style="margin: 10px;">プロフィール画像</label>
+            
         @if($user->avatar)
             <div class="mt-3">
-                <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 150px; height: 150px;">
+                <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 300px; height: 300px;">
                 <form method="POST" action="{{ route('profile.avatar.delete') }}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger" style="mt-20;">プロフィール画像を削除</button>
+                    <button type="submit" class="btn btn-danger" style="margin: 31px;">画像を削除</button>
                 </form>
             </div>
         @else
             <div class="card-body">
-                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像">
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
             </div>
         @endif
     </div>
@@ -33,7 +33,11 @@
         @include('commons.error_messages')
         @csrf
         @method('PUT')
-
+        <div class="form-group">
+                <label for="avatar">新しいプロフィール画像</label>
+                <input type="file" name="avatar" id="avatar" class="form-control">
+            </div>
+    
         <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
