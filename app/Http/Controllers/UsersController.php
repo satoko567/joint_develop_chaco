@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -66,7 +65,6 @@ class UsersController extends Controller
     public function deleteAvatar()
     {
         $user = auth()->user();
-        Log::info('deleteAvatar called', ['user_id' => $user->id]);
         if ($user->avatar) {
             Storage::delete($user->avatar);
             $user->avatar = null;
