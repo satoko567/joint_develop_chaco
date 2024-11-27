@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
+    Route::delete('/profile/avatar', 'UsersController@deleteAvatar')->name('profile.avatar.delete');
 });
 
 // Follow & Unfollow

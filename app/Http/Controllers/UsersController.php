@@ -62,6 +62,18 @@ class UsersController extends Controller
         ]);
     }
 
+    public function deleteAvatar()
+    {
+        $user = auth()->user();
+        if ($user->avatar) {
+            Storage::delete($user->avatar);
+            $user->avatar = null;
+            $user->save();
+            session()->flash('flash-message', 'プロフィール画像が削除されました。');
+        }
+        return back();
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);

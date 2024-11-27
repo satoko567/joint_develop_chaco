@@ -1,59 +1,72 @@
 @extends('layouts.app')
 @section('content')
+@include('commons.flash_message')
+@yield('scripts')
+
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+<!-- プロフィール画像 -->
+<div class="row">
+    <div class="col-md-4 text center">
+        <div class="d-flex flex-column align-items-center">
+            <label for="avatar" style="margin: 10px;">プロフィール画像</label>
+            
+        @if($user->avatar)
+            <div class="mt-3">
+                <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 300px; height: 300px;">
+                <form method="POST" action="{{ route('profile.avatar.delete') }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" style="margin: 31px;">画像を削除</button>
+                </form>
+            </div>
+        @else
+            <div class="card-body">
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
+            </div>
+        @endif
+    </div>
+</div>
+<!-- ユーザ情報 -->
+<div class="col-md-8">
     <form method="POST" action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data">
         {{-- Error Messages --}}
         @include('commons.error_messages')
         @csrf
         @method('PUT')
-        <div style="display: flex; justify-content: space-between; gap: 20px; padding: 20px;"> 
-            <div style="flex: 1; max-width: 60%; padding-right: 20px;">
-                <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
-                <div class="form-group">
-                    <label for="name">ユーザ名</label>
-                    <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
-                </div>
-
-                <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
-                </div>
-
-                <div class="form-group">
-                    <label for="password">パスワード</label>
-                    <input class="form-control" type="password" name="password" />
-                </div>
-
-                <div class="form-group">
-                    <label for="password_confirmation">パスワードの確認</label>
-                    <input class="form-control" type="password" name="password_confirmation" />
-                </div>
+        <div class="form-group">
+                <label for="avatar">新しいプロフィール画像</label>
+                <input type="file" name="avatar" id="avatar" class="form-control">
             </div>
-            <div style="flex: 0 0 30%; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <div>
-                    <label for="avatar" >プロフィール画像</label>
-                    <input type="file" name="avatar" id="avatar" style="padding: 8px;">
-                </div>
-                @if($user->avatar)
-                <div>
-                    <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 150px; height: 150px;">
-                </div>
-                @else
-                <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像">
-                </div>
-                @endif
-            </div>
+    
+        <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
+        <div class="form-group">
+            <label for="name">ユーザ名</label>
+            <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
+        </div>
+
+        <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">パスワード</label>
+            <input class="form-control" type="password" name="password" />
+        </div>
+
+        <div class="form-group">
+            <label for="password_confirmation">パスワードの確認</label>
+            <input class="form-control" type="password" name="password_confirmation" />
         </div>
 
         <div class="d-flex justify-content-between">
             <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-            
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
-
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+</div>
+    
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
