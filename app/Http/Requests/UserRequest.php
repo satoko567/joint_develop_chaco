@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email,'. $this->id],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png']
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048']
         ];
     }
 
