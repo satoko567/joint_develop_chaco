@@ -35,7 +35,8 @@ class UserRequest extends FormRequest
     {
         return [
             'password.confirmed' => 'パスワードが一致しません',
-            'avatar.image' => '画像ファイルを選択してください。'
+            'avatar.image' => '画像ファイルを選択してください',
+            'avatar.max' => '最大2MBまでの画像ファイルを選択してください'
         ];
     }
 }
