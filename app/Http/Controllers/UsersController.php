@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
@@ -41,5 +42,15 @@ class UsersController extends Controller
             'posts' => $posts,
         ];
         return view('users.show', $data);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            Auth::logout();
+            return redirect()->route('post.index');
+        }
     }
 }
