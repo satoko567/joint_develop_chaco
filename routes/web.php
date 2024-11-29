@@ -23,11 +23,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/', 'UsersController@update')->name('user.update');
         // ユーザ詳細
         Route::get('/', 'UsersController@show')->name('user.show');
+        // ユーザー退会
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
 });
 
 //トップページの表示
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('post.index');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
