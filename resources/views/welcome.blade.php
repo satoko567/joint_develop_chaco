@@ -6,5 +6,7 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h2>
-    @include('posts.posts', ['posts' => $posts])
+    @include('commons.error_messages')
+    @include('posts.index')
+    @include('posts.posts', ['posts' => $posts ?? ''])
 @endsection
