@@ -32,11 +32,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('tofollow','FollowController@store')->name('tofollow');
         // フォロー外す
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        // ユーザー退会
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
 });
 
 //トップページの表示
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('post.index');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
