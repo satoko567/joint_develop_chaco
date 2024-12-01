@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
+    Route::get('/password/change', 'UsersController@showChangePass')->name('password.change');
+    Route::post('/password/change', 'UsersController@updatePass')->name('password.update');
 });
 
 // Follow & Unfollow

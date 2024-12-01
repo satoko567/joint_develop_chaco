@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -94,5 +95,29 @@ class UsersController extends Controller
             'users' => $followers,
             'message' => $user->name."は他のユーザからフォローされていません。",
         ]);
+    }
+
+    // Password
+    public function showChangePass()
+    {
+        return view('users.password_change');
+    }
+
+    public function updatePass(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'new_password' => ['required', 'string', 'min:4', 'confirmed'],
+        ]);
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => '現在のパスワードが正しくありません。']);
+        }
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('password.change');
     }
 }
