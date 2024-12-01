@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserRequest extends FormRequest
 {
@@ -38,5 +40,13 @@ class UserRequest extends FormRequest
             'avatar.image' => '画像ファイルを選択してください',
             'avatar.max' => '最大2MBまでの画像ファイルを選択してください'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // 失敗したバリデーションルールを確認
+        // dd($validator->failed());
+
+        parent::failedValidation($validator); // 通常の処理も確認する場合
     }
 }
