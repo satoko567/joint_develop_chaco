@@ -22,7 +22,7 @@
                         @endif
                     @elseif ($tab === 'users' && $users)
                         @if (!$users->isEmpty())
-                            @include('users.users', ['users' => $users])
+                            @include('users.show', ['users' => $users])
                         @else
                             <p>該当するユーザーはありません。</p>
                         @endif

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
@@ -30,5 +31,26 @@ class UsersController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         return back();
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show', $data);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            Auth::logout();
+            return redirect()->route('post.index');
+        }
     }
 }
