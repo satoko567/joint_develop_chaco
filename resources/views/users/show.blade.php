@@ -5,6 +5,7 @@
         <div class="card bg-info">
             <div class="card-header">
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
+                @include('follow.follow', ['user' => $user])
             </div>
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
@@ -16,11 +17,15 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+            <li class="nav-item"><a href="{{ route('user.following', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/tofollow') ? 'active' : '' }}">フォロー中 {{ $countFollowing }}人</a></li>
+            <li class="nav-item"><a href="{{ route('user.followed', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/unfollow') ? 'active' : '' }}">フォロワー {{ $countFollowed }}人</a></li>
         </ul>
-        @include('posts.posts', ['user' => $user, 'posts' => $posts])
+        @if ($followIf === 1)
+            @include('follow.users_follow')
+        @else
+            @include('posts.posts', ['user' => $user, 'posts' => $posts])
+        @endif
     </div>
 </div>
 @endsection

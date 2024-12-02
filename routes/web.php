@@ -24,6 +24,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/', 'UsersController@update')->name('user.update');
         // ユーザ詳細
         Route::get('/', 'UsersController@show')->name('user.show');
+        // フォロー中
+        Route::get('following','UsersController@following')->name('user.following');
+        // フォロワー
+        Route::get('followed','UsersController@followed')->name('user.followed');
+        // フォローする
+        Route::post('tofollow','FollowController@store')->name('tofollow');
+        // フォロー外す
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
         // ユーザー退会
         Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
