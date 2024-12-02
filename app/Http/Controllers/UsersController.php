@@ -38,11 +38,11 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         // フォローのタブ切り替え
-        $follow_if = 0;
+        $followIf = 0;
         $data = [
             'user' => $user,
             'posts' => $posts,
-            'follow_if' => $follow_if,
+            'followIf' => $followIf,
         ];
         $data += $this->followCounts($user);
         return view('users.show', $data);
@@ -55,11 +55,11 @@ class UsersController extends Controller
         // ユーザ一覧取得
         $users = $user->following()->orderBy('id', 'desc')->paginate(10);
         // フォローのタブ切り替え
-        $follow_if = 1;
+        $followIf = 1;
         $data = [
             'user' => $user,
             'users' => $users,
-            'follow_if' => $follow_if,
+            'followIf' => $followIf,
         ];
         $data += $this->followCounts($user);
         return view('users.show', $data);
@@ -72,11 +72,11 @@ class UsersController extends Controller
         // ユーザ一覧取得
         $users = $user->followed()->orderBy('id', 'desc')->paginate(10);
         // フォローのタブ切り替え
-        $follow_if = 1;
+        $followIf = 1;
         $data = [
             'user' => $user,
             'users' => $users,
-            'follow_if' => $follow_if,
+            'followIf' => $followIf,
         ];
         $data += $this->followCounts($user);
         return view('users.show', $data);

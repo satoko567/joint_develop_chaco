@@ -21,7 +21,7 @@
             <li class="nav-item"><a href="{{ route('user.following', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/tofollow') ? 'active' : '' }}">フォロー中 {{ $countFollowing }}人</a></li>
             <li class="nav-item"><a href="{{ route('user.followed', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/unfollow') ? 'active' : '' }}">フォロワー {{ $countFollowed }}人</a></li>
         </ul>
-        @if ($follow_if === 1)
+        @if ($followIf === 1)
             @include('follow.users_follow')
         @else
             @include('posts.posts', ['user' => $user, 'posts' => $posts])
