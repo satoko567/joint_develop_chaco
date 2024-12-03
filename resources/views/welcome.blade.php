@@ -22,6 +22,6 @@
         </form>
     </div>
     @endif
-    @include('posts.index')
+    @include('posts.index',['search' => $search])
     @include('posts.posts', ['posts' => $posts])
 @endsection
