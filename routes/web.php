@@ -19,6 +19,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete'); //ユーザ削除
+    // 返信削除
+    Route::delete('{id}/replies/delete', 'ReplyController@destroy')->name('reply.delete');
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('/', 'UsersController@update')->name('user.update');
@@ -48,9 +50,19 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
-        // 投稿編集画面
-        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
-        // 投稿更新
-        Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::prefix('{id}')->group(function () {
+            // 投稿編集画面
+            Route::get('edit', 'PostsController@edit')->name('post.edit');
+            // 投稿更新
+            Route::put('', 'PostsController@update')->name('post.update');
+            // 返信画面
+            Route::get('reply', 'ReplyController@reply')->name('post.reply');
+            // 返信機能
+            Route::post('replies', 'ReplyController@store')->name('post.replies');
+            // 返信編集画面
+            Route::get('reply/edit', 'ReplyController@edit')->name('reply.edit');
+            // 返信更新
+            Route::put('replies/update', 'ReplyController@update')->name('reply.update');
+        });
     });
 });

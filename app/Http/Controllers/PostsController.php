@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Reply;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -41,10 +42,11 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        // 投稿者以外であればエラーを出す
+        // 投稿者以外であればエラーを出す   
         if($user->id !== $post->user_id){
             abort(403);
         }
+
         $data = [
             'post' => $post,
         ];
