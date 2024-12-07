@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="text-center">
+<div class="text-center h5">
     <div class="text-left d-inline-block w-75 mb-2">
         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
         <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a></p>
@@ -13,6 +13,7 @@
 <div class="w-75 m-auto">
         @include('commons.error_messages')
     </div>
+    @if (Auth::check())
     <div class="text-center mb-3">
         <form method="POST" action="{{ route('post.replies', $post->id) }}" class="d-inline-block w-75">
         @csrf
@@ -24,6 +25,7 @@
             </div>
         </form>
     </div>
+    @endif
 <ul class="list-unstyled">
     @foreach ($replies as $reply)       
             <li class="mb-3 text-center">
@@ -34,7 +36,7 @@
                 
                 <div class="">
                     <div class="text-left d-inline-block w-75">
-                        <p class="mb-2">{{ $reply->reply }}</p>
+                        <p class="mb-2">{{ $reply->content }}</p>
                         <p class="text-muted">{{ $reply->updated_at }}</p>
                     </div>
                     <!-- ログインしている場合 -->
@@ -53,9 +55,7 @@
                         </div>
                         @endif
                 </div>
-                
             </li>
-       
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">

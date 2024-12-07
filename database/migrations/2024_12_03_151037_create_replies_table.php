@@ -17,7 +17,7 @@ class CreateRepliesTable extends Migration
             $table->bigIncrements('id'); 
             $table->bigInteger('user_id')->unsigned()->index();
             $table->bigInteger('post_id')->unsigned()->index();
-            $table->string('reply', 140);
+            $table->string('content', 140);
             $table->timestamps();
             $table->softDeletes();
             // 外部キー制約
