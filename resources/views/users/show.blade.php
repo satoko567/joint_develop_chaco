@@ -35,7 +35,9 @@
        
         @if (isset($posts))
              {{-- 投稿 --}}
-            @include('posts.posts',['posts'=> $posts])
+             <div class="w-75">
+                @include('posts.posts',['posts'=> $posts])
+             </div>
         @else 
             @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
         @endif

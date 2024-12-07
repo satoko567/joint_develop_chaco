@@ -1,5 +1,5 @@
 @if (auth()->check() && $post->isLikedBy(auth()->user()->id))
-    <form action="{{ route('posts.unlike', $post->id) }}" method="POST" style="display: inline;">
+    <form action="{{ route('posts.unlike', $post->id) }}" method="POST" style="display: inline; margin-bottom: 0;">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-link p-0 text-decoration-none">
@@ -8,7 +8,7 @@
         </button>
     </form>
 @else
-    <form action="{{ route('posts.like', $post->id) }}" method="POST" style="display: inline;">
+    <form action="{{ route('posts.like', $post->id) }}" method="POST" style="display: inline; margin-bottom: 0;">
         @csrf
         <button type="submit" class="btn btn-link p-0 text-decoration-none">
             <i class="far fa-heart text-muted"></i>
