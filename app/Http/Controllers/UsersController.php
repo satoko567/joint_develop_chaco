@@ -37,10 +37,48 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        // フォローのタブ切り替え
+        $followIf = 0;
         $data = [
             'user' => $user,
             'posts' => $posts,
+            'followIf' => $followIf,
         ];
+        $data += $this->followCounts($user);
+        return view('users.show', $data);
+    }
+
+    // フォロー中の画面
+    public function following($id)
+    {
+        $user = User::findOrFail($id);
+        // ユーザ一覧取得
+        $users = $user->following()->orderBy('id', 'desc')->paginate(10);
+        // フォローのタブ切り替え
+        $followIf = 1;
+        $data = [
+            'user' => $user,
+            'users' => $users,
+            'followIf' => $followIf,
+        ];
+        $data += $this->followCounts($user);
+        return view('users.show', $data);
+    }
+
+    //フォロワーの画面
+    public function followed($id)
+    {
+        $user = User::findOrFail($id);
+        // ユーザ一覧取得
+        $users = $user->followed()->orderBy('id', 'desc')->paginate(10);
+        // フォローのタブ切り替え
+        $followIf = 1;
+        $data = [
+            'user' => $user,
+            'users' => $users,
+            'followIf' => $followIf,
+        ];
+        $data += $this->followCounts($user);
         return view('users.show', $data);
     }
 
