@@ -50,7 +50,6 @@ class ReplyController extends Controller
     // 返信編集更新
     public function update(PostRequest $request, $id)
     {
-        $user = \Auth::user();
         $reply = Reply::findOrFail($id);
         $reply->content = $request->content;
         $reply->save();
