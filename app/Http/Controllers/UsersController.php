@@ -63,6 +63,18 @@ class UsersController extends Controller
         ]);
     }
 
+    public function deleteAvatar()
+    {
+        $user = auth()->user();
+        if ($user->avatar) {
+            Storage::delete($user->avatar);
+            $user->avatar = null;
+            $user->save();
+            session()->flash('flash-message', 'プロフィール画像が削除されました。');
+        }
+        return back();
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -105,13 +117,23 @@ class UsersController extends Controller
 
     public function updatePass(Request $request)
     {
-        $request->validate([
+        $errors = collect();
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            $errors->put('current_password', ['現在のパスワードが正しくありません。']);
+        }
+
+        $validator = validator($request->all(), [
             'current_password' => ['required'],
             'new_password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
 
-        if (!Hash::check($request->current_password, Auth::user()->password)) {
-            return back()->withErrors(['current_password' => '現在のパスワードが正しくありません。']);
+        if ($validator->fails()) {
+            $errors = $errors->merge($validator->errors()->messages());
+        }
+
+        if ($errors->isNotEmpty()) {
+            return back()->withErrors($errors->toArray())->withInput();
         }
 
         $user = Auth::user();

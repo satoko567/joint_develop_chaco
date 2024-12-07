@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/password/change', 'UsersController@showChangePass')->name('password.change');
     Route::post('/password/change', 'UsersController@updatePass')->name('password.update');
+    Route::delete('/profile/avatar', 'UsersController@deleteAvatar')->name('profile.avatar.delete');
 });
 
 // Follow & Unfollow
