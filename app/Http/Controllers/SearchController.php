@@ -10,14 +10,14 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
-          $search = $request->input('search', '');
+        $search = $request->input('search', '');
 
-            $posts = Post::where('content', 'LIKE', '%' .$search . '%')->orderBy('id', 'desc')->paginate(10);
+        $posts = Post::where('content', 'LIKE', '%' .$search . '%')->orderBy('id', 'desc')->paginate(10);
         
-                $data = [
-                    'posts' => $posts,
-                    'search' => $search,
-                ];
+        $data = [
+            'posts' => $posts,
+            'search' => $search,
+        ];
 
         return view('welcome', $data);
     }
