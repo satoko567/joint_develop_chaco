@@ -48,9 +48,21 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
-        // 投稿編集画面
-        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
-        // 投稿更新
-        Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::prefix('{id}')->group(function () {
+            // 投稿編集画面
+            Route::get('edit', 'PostsController@edit')->name('post.edit');
+            // 投稿更新
+            Route::put('', 'PostsController@update')->name('post.update');
+            // 返信機能
+            Route::post('replies', 'ReplyController@store')->name('post.replies');
+            // 返信編集画面
+            Route::get('reply/edit', 'ReplyController@edit')->name('reply.edit');
+            // 返信更新
+            Route::put('replies/update', 'ReplyController@update')->name('reply.update');
+            // 返信削除
+            Route::delete('replies/delete', 'ReplyController@destroy')->name('reply.delete');
+        });
     });
 });
+// 返信画面
+Route::get('posts/{id}/reply', 'ReplyController@index')->name('post.reply');
