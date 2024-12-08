@@ -11,9 +11,7 @@
                     <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        @if (Auth::check())
                             <a href="{{ route('post.reply', $post->id) }}" class="btn btn-success">返信する({{ $post->replies->count() }})</a>
-                        @endif
                         @if (Auth::id() === $post->user_id)
                             <div class="d-flex justify-content-start">
                                 <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
