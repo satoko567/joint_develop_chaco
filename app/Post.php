@@ -28,4 +28,15 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function bookmarkedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks')->withTimestamps();
+    }
+
+    public function isBookmarkedBy($userId)
+    {
+        return $this->bookmarkedByUsers()->where('user_id', $userId)->exists();
+    }
+
 }

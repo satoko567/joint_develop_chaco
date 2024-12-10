@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAvatarToUsersTable extends Migration
+class AddBodyToCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAvatarToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->nullable();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->text('body')->nullable(); // 必要に応じて NULL を許可する
         });
     }
 
@@ -25,8 +25,8 @@ class AddAvatarToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('avatar');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropColumn('body');
         });
     }
 }
