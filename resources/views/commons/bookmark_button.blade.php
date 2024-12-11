@@ -23,6 +23,6 @@
 @guest
     <!-- ゲストユーザーにはアイコン非表示またはログインリンク -->
     <a href="{{ route('login') }}" class="btn btn-link p-0 text-decoration-none">
-        <i class="far fa-bookmark text-muted"></i> <!-- ブックマークアイコン -->
+        <i class="far fa-bookmark text-muted" style="margin-left: 10px; margin-top: 7px;"></i> <!-- ブックマークアイコン -->
     </a>
 @endguest

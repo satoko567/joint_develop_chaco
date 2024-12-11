@@ -32,7 +32,7 @@
             <li class="nav-item"><a href="{{ route('users.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中 <span class="badge badge-primary">{{ $user->following()->count() }}</span></a></li>
             <li class="nav-item"><a href="{{ route('users.followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー <span class="badge badge-primary">{{ $user->followers()->count() }}</span></a></li>
             @if (Auth::id() === $user->id)
-                <li class="nav-item"><a href="{{ route('bookmarkedPosts.index') }}" class="nav-link {{ Request::is('users/bookmarkedPosts') ? 'active' : '' }}">ブックマーク</a></li>
+                <li class="nav-item"><a href="{{ route('bookmarkedPosts.index', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/bookmarkedPosts') ? 'active' : '' }}">ブックマーク</a></li>
             @endif
         </ul>
        
@@ -42,7 +42,7 @@
         @elseif (isset($users))
             @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
         @elseif (isset($bookmarkedPosts))
-            @include('commons.bookmarkedPosts_index', ['bookmarkedPosts' => $bookmarkedPosts, 'bookmarks' => $bookmarks])
+            @include('commons.bookmarkedPosts_index', ['bookmarkedPosts' => $bookmarkedPosts])
         @endif
     </div>
 </div>

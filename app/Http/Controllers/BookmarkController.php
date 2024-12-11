@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
 {
@@ -27,10 +28,10 @@ class BookmarkController extends Controller
     }
 
     // 自分のブックマーク一覧
-    public function index()
+    public function index($id)
     {
-        $user = Auth::user();
-        $bookmarkedPosts = $user->bookmarkedPosts()->with('user');
+        $user = Auth::user($id);
+        $bookmarkedPosts = $user->bookmarkedPosts()->with('user')->paginate(10);
         return view('users.show', [
             'user' => $user,
             'bookmarkedPosts' => $bookmarkedPosts,

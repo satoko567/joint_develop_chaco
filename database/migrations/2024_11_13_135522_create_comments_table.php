@@ -18,7 +18,7 @@ class CreateCommentsTable extends Migration
         $table->text('body');
         
         // user_idとpost_idをunsignedBigIntegerで設定
-        $table->unsignedBigInteger('user_id')->nullable()->change();
+        $table->unsignedBigInteger('user_id');
         $table->unsignedBigInteger('post_id');
         
         $table->timestamps();
@@ -38,8 +38,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable(false)->change(); // 元に戻す
-        });
+        Schema::dropIfExists('comments');
     }
 }
