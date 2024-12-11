@@ -22,5 +22,8 @@
         </form>
     </div>
     @endif
-    @include('posts.posts', ['posts' => $posts])
+    @include('posts.index',['search' => $search])
+    <div class="mt-4">
+        @include('posts.posts', ['posts' => $posts])
+    </div>
 @endsection

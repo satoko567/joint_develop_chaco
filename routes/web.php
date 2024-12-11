@@ -37,8 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-//トップページの表示
-Route::get('/', 'PostsController@index')->name('post.index');
+//検索機能
+Route::get('/', 'SearchController@search')->name('post.index');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
