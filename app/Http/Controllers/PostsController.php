@@ -55,10 +55,10 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id) {
-            $post->delete();
-        }
-       session()->flash('flash-message', '投稿を削除しました。');
+            if (\Auth::id() === $post->user_id) {
+                $post->delete();
+            }
+        session()->flash('flash-message', '投稿を削除しました。');
         return back();
     }
 }
