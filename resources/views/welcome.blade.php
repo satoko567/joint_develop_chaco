@@ -23,5 +23,7 @@
     </div>
     @endif
     @include('posts.index',['search' => $search])
-    @include('posts.posts', ['posts' => $posts])
+    <div class="mt-4">
+        @include('posts.posts', ['posts' => $posts])
+    </div>
 @endsection
