@@ -30,7 +30,10 @@ class BookmarkController extends Controller
     // 自分のブックマーク一覧
     public function index($id)
     {
-        $user = Auth::user($id);
+        if (Auth::id() != $id) {
+            abort(404);
+        }
+        $user = User::findOrFail($id);
         $bookmarkedPosts = $user->bookmarkedPosts()->with('user')->paginate(10);
         return view('users.show', [
             'user' => $user,
