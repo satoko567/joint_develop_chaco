@@ -41,8 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
         // ブックマーク
         Route::post('{id}/bookmark', 'BookmarkController@store')->name('bookmark.store');
         Route::delete('{id}/unbookmark', 'BookmarkController@destroy')->name('unbookmark.destroy');
-        // 投稿削除
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     Route::get('users/{id}/bookmarkedPosts', 'BookmarkController@index')->name('bookmarkedPosts.index');
 });
