@@ -38,10 +38,10 @@
             @include('users.users')
         </div>
     <!-- キーワードがない場合の全投稿一覧 -->
-    @else
+     @else
         @include('commons.posts_list')
         <div class="m-auto" style="width: fit-content">
             {{ $posts->links('pagination::bootstrap-4') }}
         </div>
-    @endif
+     @endif
 </ul>
