@@ -67,4 +67,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // 設定画面
-Route::get('/settings', 'SettingsController@index')->name('settings.index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/settings', 'SettingsController@index')->name('settings.index');
+});
