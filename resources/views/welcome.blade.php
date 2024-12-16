@@ -9,9 +9,13 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="card w-100 shadow-sm border-secondary">
                     <div class="card-header bg-light text-dark text-center border-secondary">
-                        <h5 class="mb-0 fw-bold">"○○"について140字以内で会話しよう！</h5>
+                        <span class="message-title">
+                            <i class="fas fa-code"></i> プログラミング学習記録
+                        </span>
+                        <span class="message-subtitle">
+                            を140字以内でシェアしよう！
+                        </span>
                     </div>
-
                     <div class="card-body">
                         <form method="POST" action="{{ route('post.store') }}">
                             @csrf
@@ -48,5 +52,13 @@
     background: linear-gradient(45deg, #1b50ab, #2a0750);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: scale(1.03); */
+}
+
+.message-title {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.message-subtitle {
+    font-size: 1.1em;
 }
 </style>

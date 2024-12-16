@@ -18,7 +18,7 @@
                     <div class="text-center">
                         <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像">
                     </div>
-                @endif  
+                @endif
                 @auth
                     @if (Auth::id() === $user->id)
                         <div class="mt-3">
@@ -34,13 +34,18 @@
             <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
             <li class="nav-item"><a href="{{ route('users.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中 <span class="badge badge-primary">{{ $user->following()->count() }}</span></a></li>
             <li class="nav-item"><a href="{{ route('users.followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー <span class="badge badge-primary">{{ $user->followers()->count() }}</span></a></li>
+            @if (Auth::id() === $user->id)
+                <li class="nav-item"><a href="{{ route('bookmarkedPosts.index', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/bookmarkedPosts') ? 'active' : '' }}">ブックマーク</a></li>
+            @endif
         </ul>
-       
+
         @if (isset($posts))
-             {{-- 投稿 --}}
+            {{-- 投稿 --}}
             @include('posts.posts',['posts'=> $posts])
-        @else 
+        @elseif (isset($users))
             @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
+        @elseif (isset($bookmarkedPosts))
+            @include('commons.bookmarkedPosts_index', ['bookmarkedPosts' => $bookmarkedPosts])
         @endif
     </div>
 </div>

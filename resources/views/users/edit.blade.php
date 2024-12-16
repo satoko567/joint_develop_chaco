@@ -10,7 +10,7 @@
     <div class="col-md-4 text center">
         <div class="d-flex flex-column align-items-center">
             <label for="avatar" style="margin: 10px;">プロフィール画像</label>
-            
+
         @if($user->avatar)
             <div class="mt-3">
                 <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 300px; height: 300px;">

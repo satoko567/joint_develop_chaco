@@ -117,4 +117,37 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Comment::class, Post::class);
     }
+
+    public function bookmarkedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'bookmarks')->withTimestamps();
+    }
+
+    public function bookmark($postId)
+    {
+        $exist = $this->hasBookmarked($postId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->bookmarkedPosts()->attach($postId);
+            return true;
+        }
+    }
+
+    public function unbookmark($postId)
+    {
+        $exist = $this->hasBookmarked($postId);
+        if ($exist) {
+            $this->bookmarkedPosts()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function hasBookmarked($postId)
+    {
+        return $this->bookmarkedPosts()->where('post_id', $postId)->exists();
+    }
+
 }

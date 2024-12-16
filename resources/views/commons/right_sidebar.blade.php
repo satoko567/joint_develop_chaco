@@ -1,6 +1,6 @@
 <!-- 右のサイドバー -->
 <div class="col-3 pr-5">
-    <div class="card shadow-sm mx-0 border-secondary" style="position: sticky; top: 0;">
+    <div class="card shadow-sm mx-0 border-secondary" style="position: sticky; top: 20px;">
         <div class="card-header bg-light text-dark text-left border-secondary" >
             <h5 class="m-0 p-0">Search</h5>
         </div>
