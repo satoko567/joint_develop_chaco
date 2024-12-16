@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label for="date_of_birth">生年月日</label>
-                    <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ $data }}" required>
+                    <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ old('date_of_birth') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
