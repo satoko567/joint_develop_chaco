@@ -2,6 +2,7 @@
 @section('content')
 @include('commons.flash_message')
 @yield('scripts')
+<div class="container">
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
@@ -14,8 +15,10 @@
                 @if($user->avatar)
                     <img class="rounded-circle img-fluid" src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像">
                 @else
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
-                @endif  
+                    <div class="text-center">
+                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像">
+                    </div>
+                @endif
                 @auth
                     @if (Auth::id() === $user->id)
                         <div class="mt-3">
@@ -35,7 +38,7 @@
                 <li class="nav-item"><a href="{{ route('bookmarkedPosts.index', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/bookmarkedPosts') ? 'active' : '' }}">ブックマーク</a></li>
             @endif
         </ul>
-       
+
         @if (isset($posts))
             {{-- 投稿 --}}
             @include('posts.posts',['posts'=> $posts])
@@ -45,5 +48,6 @@
             @include('commons.bookmarkedPosts_index', ['bookmarkedPosts' => $bookmarkedPosts])
         @endif
     </div>
+</div>
 </div>
 @endsection
