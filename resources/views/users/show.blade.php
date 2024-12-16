@@ -2,6 +2,7 @@
 @section('content')
 @include('commons.flash_message')
 @yield('scripts')
+<div class="container">
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
@@ -14,7 +15,9 @@
                 @if($user->avatar)
                     <img class="rounded-circle img-fluid" src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像">
                 @else
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
+                    <div class="text-center">
+                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像">
+                    </div>
                 @endif  
                 @auth
                     @if (Auth::id() === $user->id)
@@ -35,12 +38,11 @@
        
         @if (isset($posts))
              {{-- 投稿 --}}
-             <div class="w-75">
-                @include('posts.posts',['posts'=> $posts])
-             </div>
+            @include('posts.posts',['posts'=> $posts])
         @else 
             @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
         @endif
     </div>
+</div>
 </div>
 @endsection

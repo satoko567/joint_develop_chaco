@@ -3,6 +3,7 @@
 @include('commons.flash_message')
 @yield('scripts')
 
+<div class="container">
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 <!-- プロフィール画像 -->
 <div class="row">
@@ -36,7 +37,7 @@
         <div class="form-group">
                 <label for="avatar">新しいプロフィール画像</label>
                 <input type="file" name="avatar" id="avatar" class="form-control">
-            </div>
+        </div>
     
         <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
         <div class="form-group">
@@ -86,5 +87,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

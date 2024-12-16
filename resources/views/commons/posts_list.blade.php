@@ -1,27 +1,8 @@
-<style>
-    /* 通常時の色 */
-.icon-ini{
-    color: gray; /* 通常は灰色 */
-    transition: color 0.3s ease; /* 色の変更をスムーズに */
-}
-
-.icon-red:hover {
-    color: red;
-    transform: scale(1.2); /* アイコンを1.2倍に拡大 */
-    transition: color 0.3s ease, transform 0.3s ease; /* 色と拡大をスムーズに */
-}
-.icon-blue:hover {
-    color: blue;
-    transform: scale(1.2); /* アイコンを1.2倍に拡大 */
-    transition: color 0.3s ease, transform 0.3s ease; /* 色と拡大をスムーズに */
-}
-</style>
-
 <div class="mt-4">
     <ul class="list-unstyled">
         @foreach ($posts as $post)
         <div class="d-flex justify-content-center align-items-center">
-            <li class="card mb-3 shadow-sm dynamic-shadow w-100">
+            <li class="card mb-3 shadow-sm dynamic-shadow w-100 border-secondary border-3">
                 <div class="card-body">
                     <!-- ヘッダー部分 -->
                     <div class="d-flex align-items-center mb-3">
@@ -65,19 +46,38 @@
                 </div>
             </li>
         </div>
-            <script>
-                document.querySelectorAll('.dynamic-shadow').forEach(card => {
-                    card.addEventListener('mouseover', () => {
-                        card.style.transform = 'scale(1.05)';
-                        card.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.3)';
-                        card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease';
-                    });
-                    card.addEventListener('mouseout', () => {
-                        card.style.transform = 'scale(1)';
-                        card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                    });
-                });
-            </script>
         @endforeach
     </ul>
 </div>
+
+<style>
+.icon-ini{
+    color: gray;
+    transition: color 0.3s ease;
+}
+
+.icon-red:hover {
+    color: red;
+    transform: scale(1.2);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.icon-blue:hover {
+    color: blue;
+    transform: scale(1.2);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+</style>
+
+<script>
+    document.querySelectorAll('.dynamic-shadow').forEach(card => {
+        card.addEventListener('mouseover', () => {
+            card.style.transform = 'scale(1.05)';
+            card.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.3)';
+            card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease';
+        });
+        card.addEventListener('mouseout', () => {
+            card.style.transform = 'scale(1)';
+            card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        });
+    });
+</script>
