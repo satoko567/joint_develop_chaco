@@ -3,13 +3,14 @@
 @include('commons.flash_message')
 @yield('scripts')
 
+<div class="container">
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 <!-- プロフィール画像 -->
 <div class="row">
     <div class="col-md-4 text center">
         <div class="d-flex flex-column align-items-center">
             <label for="avatar" style="margin: 10px;">プロフィール画像</label>
-            
+
         @if($user->avatar)
             <div class="mt-3">
                 <img src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="border-radius: 50%; object-fit: cover; width: 300px; height: 300px;">
@@ -36,7 +37,7 @@
         <div class="form-group">
                 <label for="avatar">新しいプロフィール画像</label>
                 <input type="file" name="avatar" id="avatar" class="form-control">
-            </div>
+        </div>
     
         <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
         <div class="form-group">
@@ -86,5 +87,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
