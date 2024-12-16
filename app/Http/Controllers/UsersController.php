@@ -47,9 +47,7 @@ class UsersController extends Controller
         }
         if ($request->has('profile')) {
             $user->profile = $request->profile;
-        } else {
-            $user->profile = 'プロフィール文が設定されていません';
-        }
+        } 
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Storage::delete($user->avatar);

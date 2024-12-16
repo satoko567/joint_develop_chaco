@@ -52,9 +52,7 @@
         <div class="form-group">
             <label for="profile">プロフィール文</label>
             <textarea class="form-control" name="profile" rows="4">{{ old('profile', $user->profile) }}</textarea>
-            <div class="text-right mt-3">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i></button>
-            </div>
+            
         </div>
         <div class="d-flex justify-content-between">
             <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
