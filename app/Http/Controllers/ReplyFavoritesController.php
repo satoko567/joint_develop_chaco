@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class FavoritesController extends Controller
+class ReplyFavoritesController extends Controller
 {
     public function store($id)
     {
-        \Auth::user()->favorite($id);
+        \Auth::user()->replyFavorite($id);
         return back();
     }
 
     public function destroy($id)
     {
-        \Auth::user()->unfavorite($id);
+        \Auth::user()->replyUnFavorite($id);
         return back();
     }
 }
