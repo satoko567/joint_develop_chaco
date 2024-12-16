@@ -21,7 +21,7 @@
                 <!-- 設定 -->
                 <li class="list-group-item">
                     @if(Auth::check())
-                        <a href="/settings" class="text-decoration-none text-dark">
+                        <a href="{{ route('settings.index') }}" class="text-decoration-none text-dark">
                     @endif
                             <i class="fas fa-cog mr-2"></i> 設定
                         </a>
