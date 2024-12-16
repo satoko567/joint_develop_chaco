@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
+    // Password変更
     Route::get('/password/change', 'UsersController@showChangePass')->name('password.change');
     Route::post('/password/change', 'UsersController@updatePass')->name('password.update');
     Route::delete('/profile/avatar', 'UsersController@deleteAvatar')->name('profile.avatar.delete');
@@ -64,3 +65,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/{id}/followings', 'UsersController@getFollowings')->name('users.followings');
     Route::get('users/{id}/followers', 'UsersController@getFollowers')->name('users.followers');
 });
+
+// 設定画面
+Route::get('/settings', 'SettingsController@index')->name('settings.index');
