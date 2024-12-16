@@ -47,13 +47,11 @@
     font-weight: bold;
     transition: transform 0.3s ease, background 0.3s ease;
 }
-
 .btn-gradient:hover {
     background: linear-gradient(45deg, #1b50ab, #2a0750);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.03); */
+    transform: scale(1.03);
 }
-
 .message-title {
     font-weight: bold;
     font-size: 1.1em;
