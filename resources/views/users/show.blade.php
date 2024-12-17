@@ -14,7 +14,7 @@
                         @if (Auth::id() === $user->id)
                             <div class="mt-3" style="display: inline-block;">
                                 <a href="{{ route('user.edit', $user->id) }}" style="text-decoration: none;">
-                                    <i class="fas fa-cog fa-2x"></i>
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
                                 </a>
                             </div>
                         @endif
@@ -34,7 +34,7 @@
                         <h4>{{ $user->name }}のプロフィール</h4>
                     </div>
                     <div class="card-body">
-                        @if($user->avatar)
+                        @if($user->profile)
                             <p>{{ $user->profile }}</p>
                         @endif
                     </div>
