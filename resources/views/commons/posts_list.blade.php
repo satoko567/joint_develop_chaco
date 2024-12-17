@@ -15,7 +15,7 @@
                             <h6 class="mb-0">
                                 <a href="{{ route('user.show', $post->user->id) }}" class="text-decoration-none text-dark">{{ $post->user->name }}</a>
                             </h6>
-                            <small class="text-muted">{{ $post->created_at->format('Y年m月d日 H:i') }}</small>
+                            <small class="text-muted">{{ $post->created_at }}</small>
                         </div>
                     </div>
                     <!-- コンテンツ部分 -->
@@ -39,7 +39,8 @@
                     <!-- アクション部分 -->
                     <div class="d-flex align-items-center mt-3">
                         <a href="{{ route('post.show', $post->id) }}" class="text-decoration-none mr-2">
-                            <i class="fas fa-comment"></i> {{ $post->comments_count ?? 0 }}
+                            <i class="fas fa-comment text-muted"></i>
+                            <span class="text-muted">{{ $post->comments_count ?? 0 }}</span>
                         </a>
                         @include('commons.like_button') <!-- Like Button -->
                         @include('commons.bookmark_button', ['post' => $post]) <!-- Bookmark Button -->
