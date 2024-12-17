@@ -24,6 +24,10 @@
                     <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="form-group">
+                    <label for="date_of_birth">生年月日</label>
+                    <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ old('date_of_birth') }}" required>
+                </div>
+                <div class="form-group">
                     <label for="password">パスワード</label>
                     <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
                 </div>
