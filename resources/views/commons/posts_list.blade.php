@@ -15,7 +15,7 @@
                             <h6 class="mb-0">
                                 <a href="{{ route('user.show', $post->user->id) }}" class="text-decoration-none text-dark">{{ $post->user->name }}</a>
                             </h6>
-                            <small class="text-muted">{{ $post->created_at->format('Y年m月d日 H:i') }}</small>
+                            <small class="text-muted">{{ $post->created_at }}</small>
                         </div>
                     </div>
                     <!-- コンテンツ部分 -->

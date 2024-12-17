@@ -5,11 +5,11 @@
 <div class="container">
 <div class="row">
     <aside class="col-sm-4 mb-5">
-        <div class="card-container">
-            <div class="card" onclick="toggleCard(this)">
-                <div class="card-front">
-                    <div class="card-header">
-                        <h3 class="card-title" style="display: inline-block; margin-right: 200px;">
+        <div class="userCard-container">
+            <div class="userCard" onclick="toggleCard(this)">
+                <div class="userCard-front">
+                    <div class="userCard-header">
+                        <h3 class="userCard-title" style="display: inline-block; margin-right: 200px;">
                             {{ $user->name }}
                         </h3>
                         @if (Auth::id() === $user->id)
@@ -22,7 +22,7 @@
                         {{-- Follow Button --}}
                         @include('commons.follow_button',['user'=> $user])
                     </div>
-                    <div class="card-body">
+                    <div class="userCard-body">
                         @if($user->avatar)
                             <img class="rounded-circle img-fluid" src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像">
                         @else
@@ -30,11 +30,11 @@
                         @endif  
                     </div>
                 </div>
-                <div class="card-back">
-                    <div class="card-header">
-                        <h4>{{ $user->name }}のプロフィール</h4>
+                <div class="userCard-back">
+                    <div class="userCard-header">
+                        <h4>{{ $user->name }}</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="userCard-body">
                         @if($user->profile)
                             <p>{{ $user->profile }}</p>
                         @endif
@@ -63,15 +63,15 @@
         @endif
     </div>
 </div>
-<<<<<<< HEAD
 @endsection
 @push('styles')
     <style>
-        .card-container {
+        .userCard-container {
             perspective: 1000px;
         }
 
-        .card {
+        .userCard {
+            background-color: #f2f2f2;
             width: 100%;
             height: 500px;
             position: relative;
@@ -80,7 +80,8 @@
             cursor: pointer;
         }
 
-        .card-front, .card-back {
+        .userCard-front, .userCard-back {
+            background-color: #f2f2f2;
             position: absolute;
             width: 100%;
             height: 100%;
@@ -93,30 +94,27 @@
             overflow: hidden;
         }
 
-        .card-front {
+        .userCard-front {
             color: #2a0750;
             z-index: 2;
         }
 
-        .card-back {
+        .userCard-back {
             color: #2a0750;
             transform: rotateY(180deg);
             z-index: 1;
         }
 
-        .card.is-flipped {
+        .userCard.is-flipped {
             transform: rotateY(180deg);
         }
     </style>
 @endpush
 @push('scripts')
 <script>
-        function toggleCard(card) {
-            card.classList.toggle('is-flipped'); // クラスを切り替える
+        function toggleCard(userCard) {
+            userCard.classList.toggle('is-flipped'); // クラスを切り替える
         }
 </script>
 @endpush
-=======
-</div>
-@endsection
->>>>>>> develop_a_kannaduki_dra
+
