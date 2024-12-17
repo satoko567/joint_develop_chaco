@@ -2,6 +2,7 @@
 @section('content')
 @include('commons.flash_message')
 @yield('scripts')
+<div class="container">
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card-container">
@@ -51,7 +52,7 @@
                 <li class="nav-item"><a href="{{ route('bookmarkedPosts.index', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/bookmarkedPosts') ? 'active' : '' }}">ブックマーク</a></li>
             @endif
         </ul>
-       
+
         @if (isset($posts))
             {{-- 投稿 --}}
             @include('posts.posts',['posts'=> $posts])
@@ -62,6 +63,7 @@
         @endif
     </div>
 </div>
+<<<<<<< HEAD
 @endsection
 @push('styles')
     <style>
@@ -114,3 +116,7 @@
         }
 </script>
 @endpush
+=======
+</div>
+@endsection
+>>>>>>> develop_a_kannaduki_dra

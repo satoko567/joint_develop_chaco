@@ -23,6 +23,7 @@
                                         {{ $post->comments_count ?? 0 }}
                                     </a>
                                     @include('commons.like_button') <!--Like Button -->
+                                    @include('commons.bookmark_button', ['post' => $post]) <!-- Bookmark Button -->
                                 </div>
                             @endforeach
                         @else

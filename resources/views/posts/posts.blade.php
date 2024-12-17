@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
     <!-- 検索結果がある場合 -->
     @if($keyword !== null && $keyword)
-        <div class="text-left d-inline-block w-75 mb-2">
+        <div class="text-left d-inline-block w-75 mb-2 mt-5">
             <h5>「{{ $keyword }}」の検索結果</h5>
         </div>
         
