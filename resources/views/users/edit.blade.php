@@ -35,8 +35,8 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-                <label for="avatar">新しいプロフィール画像</label>
-                <input type="file" name="avatar" id="avatar" class="form-control">
+            <label for="avatar">新しいプロフィール画像</label><br>
+            <input type="file" name="avatar" id="avatar">
         </div>
     
         <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
@@ -51,15 +51,10 @@
         </div>
 
         <div class="form-group">
-            <label for="password">パスワード</label>
-            <input class="form-control" type="password" name="password" />
+            <label for="profile">プロフィール文</label>
+            <textarea class="form-control" name="profile" rows="4">{{ old('profile', $user->profile) }}</textarea>
+            
         </div>
-
-        <div class="form-group">
-            <label for="password_confirmation">パスワードの確認</label>
-            <input class="form-control" type="password" name="password_confirmation" />
-        </div>
-
         <div class="d-flex justify-content-between">
             <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
             <button type="submit" class="btn btn-primary">更新する</button>

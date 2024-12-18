@@ -45,9 +45,9 @@ class UsersController extends Controller
         if ($request->filled('email')) {
             $user->email = $request->email;
         }
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
-        }
+        if ($request->has('profile')) {
+            $user->profile = $request->profile;
+        } 
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Storage::delete($user->avatar);
