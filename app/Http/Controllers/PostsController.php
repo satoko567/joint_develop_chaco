@@ -12,9 +12,12 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $posts = Post::paginate(10);
+
         
         return view('posts.show', [
             'post' => $post,
+            'posts' => $posts,
         ]);
         abort(403);
     }
