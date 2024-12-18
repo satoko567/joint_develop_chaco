@@ -13,7 +13,7 @@
                 <!-- ブックマーク -->
                 <li class="list-group-item">
                     @if(Auth::check())
-                        <a href="/bookmarks" class="text-decoration-none text-dark">
+                        <a href="{{ route('bookmarkedPosts.index', Auth::id()) }}" class="text-decoration-none text-dark">
                     @endif
                             <i class="fas fa-bookmark mr-2"></i> ブックマーク
                         </a>

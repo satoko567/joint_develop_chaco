@@ -35,7 +35,7 @@ class BookmarkController extends Controller
         }
         $user = User::findOrFail($id);
         $bookmarkedPosts = $user->bookmarkedPosts()->with('user')->paginate(10);
-        return view('users.show', [
+        return view('bookmarks.show', [
             'user' => $user,
             'bookmarkedPosts' => $bookmarkedPosts,
         ]);

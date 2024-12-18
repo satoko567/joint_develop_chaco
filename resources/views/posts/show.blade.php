@@ -7,7 +7,11 @@
             <div class="card mx-auto shadow-sm">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                        @if($post->user->avatar)
+                            <img class="mr-2 rounded-circle" src="{{ Storage::url($post->user->avatar) }}" alt="プロフィール画像" style="width: 55px; height: 55px;">
+                        @else
+                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="アバター画像">
+                        @endif
                         <div>
                             <a href="{{ route('user.show', $post->user->id) }}" class="text-decoration-none">
                                 <strong>{{ $post->user->name }}</strong>
