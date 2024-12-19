@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/password/change', 'UsersController@showChangePass')->name('password.change');
     Route::post('/password/change', 'UsersController@updatePass')->name('password.update');
     Route::delete('/profile/avatar', 'UsersController@deleteAvatar')->name('profile.avatar.delete');
+    // 設定画面
+    Route::get('/settings', 'UsersController@settings')->name('settings');
 });
 
 // Follow & Unfollow
@@ -70,9 +72,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow');
     Route::get('users/{id}/followings', 'UsersController@getFollowings')->name('users.followings');
     Route::get('users/{id}/followers', 'UsersController@getFollowers')->name('users.followers');
-});
-
-// 設定画面
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/settings', 'SettingsController@index')->name('settings.index');
 });

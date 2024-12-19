@@ -126,6 +126,8 @@ class UsersController extends Controller
         $validator = validator($request->all(), [
             'current_password' => ['required'],
             'new_password' => ['required', 'string', 'min:4', 'confirmed'],
+        ], [
+            'new_password.confirmed' => '新しいパスワードが一致しません。',
         ]);
 
         if ($validator->fails()) {
@@ -141,5 +143,11 @@ class UsersController extends Controller
         $user->save();
 
         return redirect()->route('password.change');
+    }
+
+    //　設定画面の表示
+    public function settings()
+    {
+        return view('settings.index');
     }
 }
