@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -106,5 +107,47 @@ class UsersController extends Controller
             'users' => $followers,
             'message' => $user->name."は他のユーザからフォローされていません。",
         ]);
+    }
+
+    // Password
+    public function showChangePass()
+    {
+        return view('users.password_change');
+    }
+
+    public function updatePass(Request $request)
+    {
+        $errors = collect();
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            $errors->put('current_password', ['現在のパスワードが正しくありません。']);
+        }
+
+        $validator = validator($request->all(), [
+            'current_password' => ['required'],
+            'new_password' => ['required', 'string', 'min:4', 'confirmed'],
+        ], [
+            'new_password.confirmed' => '新しいパスワードが一致しません。',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $errors->merge($validator->errors()->messages());
+        }
+
+        if ($errors->isNotEmpty()) {
+            return back()->withErrors($errors->toArray())->withInput();
+        }
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('password.change');
+    }
+
+    //　設定画面の表示
+    public function settings()
+    {
+        return view('settings.index');
     }
 }
