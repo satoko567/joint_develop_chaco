@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -151,4 +153,16 @@ class User extends Authenticatable
         return $this->bookmarkedPosts()->where('post_id', $postId)->exists();
     }
 
+    public function scopeWithSimilarAges(Builder $query, $dateOfBirth, $ageRange = 5, $excludeIds = [])
+    {
+        $currentAge = Carbon::parse($dateOfBirth)->age;
+        $minAge = $currentAge - $ageRange;
+        $maxAge = $currentAge + $ageRange;
+        $maxDate = Carbon::now()->subYears($minAge)->format('Y-m-d');
+        $minDate = Carbon::now()->subYears($maxAge)->format('Y-m-d');
+        return $query->whereBetween('date_of_birth', [$minDate, $maxDate])
+                    ->when(!empty($excludeIds), function ($query) use ($excludeIds) {
+                        return $query->whereNotIn('id', $excludeIds);
+                    });
+    }
 }
