@@ -27,18 +27,22 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
 
-        // DBからアップロードした名前が同じものがあるか検索
-        $imageName=Post::where('image', 'public/images/' . $image->getClientOriginalName())->first();
+        // 画像をアップロードした場合
+        if($image !== null){
 
-        // storage/app/public/imagesフォルダに保存される
-        // 同じ画像名が存在する場合は、適当な名前で保存
-        if($imageName !== null){
-            $post->image = $image->store('public/images');
-        }else{
-            // 同じ画像名が存在しない場合は、アップロードした画像名で保存
-            $post->image = $image->storeAs('public/images', $image->getClientOriginalName());
+            // DBからアップロードした名前が同じものがあるか検索
+            $imageName = Post::where('image', 'public/images/' . $image->getClientOriginalName())->first();
+
+            // storage/app/public/imagesフォルダに保存される
+            // 同じ画像名が存在する場合は、適当な名前で保存
+            if ($imageName !== null) {
+                $post->image = $image->store('public/images');
+            } else {
+                // 同じ画像名が存在しない場合は、アップロードした画像名で保存
+                $post->image = $image->storeAs('public/images', $image->getClientOriginalName());
+            }
         }
-
+        
         $post->save();
         return back();
     }

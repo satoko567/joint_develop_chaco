@@ -28,9 +28,9 @@ class PictureRule implements Rule
         // 画像の横幅を取得
         list($width) = getimagesize($value);
 
-        if($width > 800){
+        if ($width > 800) {
             return false; // 横幅が800pxより大きければ、バリデーションエラーを返す
-        }else{
+        } else {
             return true; // 横幅が800以下だったら処理が実行される
         }
     }
