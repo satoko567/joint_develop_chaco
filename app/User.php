@@ -165,4 +165,31 @@ class User extends Authenticatable
                         return $query->whereNotIn('id', $excludeIds);
                     });
     }
+
+    public function isAllFollowing ()
+    {
+        if (!$this->date_of_birth) {
+            return false; // 生年月日がない場合
+        }
+
+        $followingsCount = $this->following()->count();
+        $similarUsersWithFollowingsCount = self::where('id', '!=', $this->id)
+                ->WithSimilarAges($this->date_of_birth, 5)
+                ->get()
+                ->count();
+                
+        return $followingsCount === $similarUsersWithFollowingsCount && $followingsCount > 0;
+    }
+
+    public function getUsersWithSimilarAges(int $ageRange = 5, array $excludeIds = [])
+    {
+        if (!$this->date_of_birth) {
+            return collect();
+        }
+
+        return self::where('id', '!=', $this->id)
+            ->WithSimilarAges($this->date_of_birth, $ageRange, $excludeIds)
+            ->take(5)
+            ->get();
+    }
 }

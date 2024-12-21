@@ -19,9 +19,9 @@
             <h5 class="m-0 p-0">who to follow</h5>
             </div>
                 <div class="card-body">
-                    @if (!$hasSimilarUsers && $similarUsers->isEmpty())
+                    @if ($isAllFollowing)
                         <small>おすすめユーザは全員フォローしています。</small>
-                    @elseif (!$hasSimilarUsers)
+                    @elseif ($similarUsers->isEmpty())
                         <small>おすすめユーザはいません。</small>
                     @else
                         <ul class="list-unstyled">

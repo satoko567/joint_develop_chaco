@@ -29,33 +29,20 @@ class SearchController extends Controller
 
         // おすすめユーザーの取得
         $similarUsers = collect();
-        $hasSimilarUsers = false;
+        $isAllFollowing = false;
+        
         if (Auth::check()) {
-            $similarUsers = $this->getUsersWithSimilarAges(Auth::id());
-            $hasSimilarUsers = $similarUsers->isNotEmpty();
-        } else {
-            $hasSimilarUsers = false;
+            $followingIds = Auth::user()->following()->pluck('followed_id')->toArray();
+            $similarUsers = Auth::user()->getUsersWithSimilarAges(5, $followingIds);
+            $isAllFollowing = Auth::user()->isAllFollowing();
         }
+        
         return view('welcome', [
             'posts' => $posts,
             'users' => $users,
             'keyword' => $keyword,
             'similarUsers' => $similarUsers,
-            'hasSimilarUsers' => $hasSimilarUsers,
+            'isAllFollowing' => $isAllFollowing,
         ]);
-    }
-
-    private function getUsersWithSimilarAges($id)
-    {
-        $user = User::find($id);
-        if (!$user || !$user->date_of_birth) {
-            return collect();
-        }
-        $followingIds = $user->following()->pluck('followed_id')->toArray();
-
-        return User::where('id', '!=', $id)
-            ->WithSimilarAges($user->date_of_birth, 5, $followingIds)
-            ->take(5)
-            ->get();
     }
 }
