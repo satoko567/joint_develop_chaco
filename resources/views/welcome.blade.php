@@ -80,4 +80,47 @@
             tagsInput.value = tags.join(',');
         });
     </script>
+    <script>
+        // テキスト内のURLを判定して青文字リンクに変換する関数
+        function highlightUrls(text) {
+            const urlPattern = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlPattern, function(url) {
+                return `<a href="${url}" class="highlighted-url" target="_blank">${url}</a>`;
+            });
+        }
+
+        // コメント欄の入力を監視してURLを判定
+        document.getElementById('content').addEventListener('input', function() {
+            const commentText = this.value;
+            const formattedText = highlightUrls(commentText);
+            document.getElementById('content-preview').innerHTML = formattedText;
+        });
+
+        // 画像選択時のプレビュー表示
+        document.getElementById('image_file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('image_preview');
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // 画像プレビューを表示
+                    document.getElementById('video_preview').style.display = 'none'; // 動画プレビューを非表示
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 動画選択時のプレビュー表示
+        document.getElementById('video').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const videoPreview = document.getElementById('video_preview');
+                const videoURL = URL.createObjectURL(file);
+                videoPreview.src = videoURL;
+                videoPreview.style.display = 'block'; // 動画プレビューを表示
+                document.getElementById('image_preview').style.display = 'none'; // 画像プレビューを非表示
+            }
+        });
+    </script>
 @endsection

@@ -38,7 +38,17 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = new Post;
-        $post->content = $request->content;
+
+        // 新規投稿処理の一部
+        $content = $request->content;
+        $content = preg_replace(
+            '/(https?:\/\/[^\s]+)/', // URLを検出
+            '<a href="$1" target="_blank" class="url-link">$1</a>', // URLをリンクとして変換
+            $content
+        );
+
+        $post->content = $content;
+        
         $post->user_id = $user->id;
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('public/img');
