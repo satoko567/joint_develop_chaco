@@ -24,9 +24,9 @@
                         </div>
                         <div class="userCard-body">
                             @if($user->avatar)
-                                <img class="rounded-circle img-fluid" src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像" style="width: 300px; height: 300px;">
+                                <img class="rounded-circle img-fluid" src="{{ Storage::url($user->avatar) }}" alt="現在のプロフィール画像">
                             @else
-                                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
+                                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
                             @endif  
                         </div>
                     </div>
@@ -43,19 +43,20 @@
                 </div>
             </div>
         </aside>
-    <div class="col-sm-8">
-        <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="{{ route('users.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中 <span class="badge badge-primary">{{ $user->following()->count() }}</span></a></li>
-            <li class="nav-item"><a href="{{ route('users.followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー <span class="badge badge-primary">{{ $user->followers()->count() }}</span></a></li>
-        </ul>
+        <div class="col-sm-8">
+            <ul class="nav nav-tabs nav-justified mb-3">
+                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="{{ route('users.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中 <span class="badge badge-primary">{{ $user->following()->count() }}</span></a></li>
+                <li class="nav-item"><a href="{{ route('users.followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー <span class="badge badge-primary">{{ $user->followers()->count() }}</span></a></li>
+            </ul>
 
-        @if (isset($posts))
-            {{-- 投稿 --}}
-            @include('posts.posts',['posts'=> $posts])
-        @else (isset($users))
-            @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
-        @endif
+            @if (isset($posts))
+                {{-- 投稿 --}}
+                @include('posts.posts',['posts'=> $posts])
+            @else (isset($users))
+                @include('commons.follow_list', ['users'=> $users, 'message'=> $message])
+            @endif
+        </div>
     </div>
 </div>
 @endsection

@@ -23,16 +23,16 @@
                             <div class="card-text">{{ $post->content }}</div>
                             @if (Auth::id() === $post->user_id)
                                 <div>
-                                    <form method="POST" action="" class="d-inline">
+                                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-link icon-ini icon-blue" title="編集">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="POST" action="{{ route('post.delete', $post->id) }}" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-link icon-ini icon-red" title="削除">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
-                                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-link icon-ini icon-blue" title="編集">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
                                 </div>
                             @endif
                     </div>
