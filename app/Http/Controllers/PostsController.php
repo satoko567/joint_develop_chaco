@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Http\Requests\PostRequest;
-use App\Rules\PictureRule;
 
 class PostsController extends Controller
 {
@@ -30,7 +29,7 @@ class PostsController extends Controller
 
         // DBからアップロードした名前が同じものがあるか検索
         $imageName=Post::where('image', 'public/images/' . $image->getClientOriginalName())->first();
-        
+
         // storage/app/public/imagesフォルダに保存される
         // 同じ画像名が存在する場合は、適当な名前で保存
         if($imageName !== null){
@@ -49,7 +48,6 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        // dd($post);
         // 投稿者以外であればエラーを出す
         if ($user->id !== $post->user_id) {
             abort(403);

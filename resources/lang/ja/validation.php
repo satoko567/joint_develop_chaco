@@ -116,7 +116,6 @@ return [
     'uploaded' => ':attributeのアップロードに失敗しました。',
     'url' => ':attributeは、有効なURL形式で指定してください。',
     'uuid' => ':attributeは、有効なUUIDでなければなりません。',
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

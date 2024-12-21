@@ -14,7 +14,6 @@ class PictureRule implements Rule
     public function __construct()
     {
         //
-        // $this->$num = $num;
     }
 
     /**
