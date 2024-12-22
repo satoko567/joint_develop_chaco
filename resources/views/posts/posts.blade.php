@@ -8,6 +8,10 @@
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->content }}</p>
+                    <!-- 画像を選択していれば、画像が表示される -->
+                    @if ($post->image !== null)
+                        <img class="mb-2" src="{{ Storage::url($post->image) }}" alt="画像投稿">
+                    @endif
                     <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">

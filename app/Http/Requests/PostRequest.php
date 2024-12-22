@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\PictureRule;
 
 class PostRequest extends FormRequest
 {
@@ -25,12 +26,14 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'max:140'],
+            'image' => ['image', 'mimes:jpeg,png,jpg', new PictureRule],
         ];
     }
     public function attributes()
     {
         return [
             'content' => '投稿',
+            'image' => 'アップロードファイル',
         ];
     }
 }
