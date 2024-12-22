@@ -42,11 +42,11 @@ class PostsController extends Controller
         // 新規投稿処理の一部
         $content = $request->content;
         $content = preg_replace(
-            '/(https?:\/\/[^\s]+)/', // URLを検出
-            '<a href="$1" target="_blank" class="url-link">$1</a>', // URLをリンクとして変換
-            $content
+        '/\b((http|https):\/\/[^\s]+)/i', // http:// または https:// で始まるURLを検出
+        '<a href="$1" target="_blank" class="url-link">$1</a>', // URLをリンク化            
+        e($content) // エスケープ処理を先に適用
         );
-
+    
         $post->content = $content;
         
         $post->user_id = $user->id;

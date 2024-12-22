@@ -13,6 +13,7 @@
                             @if (!empty($post->image_path))
                                 <img src="{{ asset('storage/img/' . $post->image_path) }}" alt="投稿画像" style="width: 100%;">
                             @endif
+
                             @if (!empty($post->video_path))
                                 <video controls class="video">
                                     <source src="{{ asset('storage/videos/' . $post->video_path) }}" type="video/mp4">
