@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}/unlike', 'LikeController@destroy')->name('posts.unlike');
         // コメント
         Route::post('{post}/comments', 'CommentController@store')->name('comments.store');
+        Route::put('{id}/edit', 'CommentController@update')->name('comment.update');
+        Route::delete('{id}/delete', 'CommentController@destroy')->name('comment.delete');
         // ブックマーク
         Route::post('{id}/bookmark', 'BookmarkController@store')->name('bookmark.store');
         Route::delete('{id}/unbookmark', 'BookmarkController@destroy')->name('unbookmark.destroy');
