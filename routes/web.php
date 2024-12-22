@@ -11,7 +11,7 @@
 |
 */
 
-// トップページの表示と検索機能
+// トップページの表示と検索機能とwho_to_follow
 Route::get('/', 'SearchController@index')->name('search.index');
 
 // ユーザ

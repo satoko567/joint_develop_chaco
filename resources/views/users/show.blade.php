@@ -107,10 +107,10 @@
     </style>
 @endpush
 @push('scripts')
-<script>
+    <script>
         function toggleCard(userCard) {
             userCard.classList.toggle('is-flipped'); // クラスを切り替える
         }
-</script>
+    </script>
 @endpush
 

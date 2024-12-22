@@ -35,7 +35,7 @@
             </div>
             @include('posts.posts',['posts' => $posts, 'users' => $users])
         </div>
-        @include('commons.right_sidebar')
+        @include('commons.right_sidebar',['similarUsers' => $similarUsers])
     </div>
 </div>
 @endsection

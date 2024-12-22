@@ -6,7 +6,11 @@
         <li class="mb-3 text-center">
             <div class="row align-items-center w-75 mx-auto">
                 <div class="col-8 d-flex align-items-center">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                    @if($user->avatar)
+                        <img class="mr-2 rounded-circle" src="{{ Storage::url($user->avatar) }}" alt="プロフィール画像" style="width: 55px; height: 55px;">
+                    @else
+                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="アバター画像">
+                    @endif
                     <p class="mb-0">
                         <a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a>
                     </p>
