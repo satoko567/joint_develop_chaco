@@ -2,10 +2,11 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fa-brands fa-telegram pr-3 d-inline"></i>Topic Posts</h1>
+            <h1><i class="fa-brands fa-telegram pr-3 d-inline"></i>Tune Talk</h1>
+            <h3><i class="fa-brands fa-telegram pr-3 d-inline"></i>皆で音楽について語りましょう♫</h3>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">音楽について140字以内で会話しよう！</h5>
     @if(Auth::check())
     <div class="w-75 m-auto">
         @include('commons.error_messages')
