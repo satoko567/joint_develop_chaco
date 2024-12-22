@@ -125,7 +125,7 @@ class User extends Authenticatable
     // いいね機能・リレーション
     public function favorites()
     {
-        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withPivot('original_post_id')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
     }
 
     // いいねをする
