@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Tag;
+use App\Activity;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -14,7 +15,24 @@ class PostsController extends Controller
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
         $topPosts = $this->mostFavorite();
-        return view('welcome', ['posts' => $posts, 'topPosts' => $topPosts]);
+        $data = [
+            'posts' => $posts,
+            'topPosts' => $topPosts,
+            'tab' => 'posts'
+        ];
+        return view('welcome', $data);
+    }
+
+    // 活動記録の一覧表示
+    public function activities()
+    {
+        $activities = Activity::orderBy('id','desc')->paginate(10);
+        $topPosts = $this->mostFavorite();
+        return view('welcome', [
+            'activities' => $activities,
+            'topPosts' => $topPosts,
+            'tab' => 'activities'
+        ]);
     }
 
     // 投稿編集画面の表示
@@ -40,6 +58,15 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $user->id;
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('public/img');
+            $post->image_path = basename($path);
+        }
+        if ($request->hasFile('video')) {
+            $path = $request->file('video')->store('public/videos');
+            $post->video_path = basename($path);
+        }
+
         $post->save();
 
         // タグの処理

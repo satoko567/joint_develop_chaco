@@ -21,6 +21,13 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
+// 活動記録
+Route::prefix('activities')->group(function(){
+    // 活動記録の一覧表示（トップページ）
+    Route::get('', 'PostsController@activities')->name('post.activities');
+    // 活動記録の詳細ページ
+    Route::get('{id}', 'ActivitiesController@show')->name('activity.show');
+});
 
 // タグのリンク先の表示
 Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
@@ -37,6 +44,8 @@ Route::prefix('users/{id}')->group(function(){
     Route::get('followers', 'UsersController@followers')->name('user.followers');
     // フォロー中の表示
     Route::get('followings', 'UsersController@followings')->name('user.followings');
+    // ユーザーの活動記録一覧ページ
+    Route::get('activities', 'ActivitiesController@userActivities')->name('user.activities');
 });
 
 // 返信ページの表示
@@ -55,20 +64,32 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow', 'FollowController@store')->name('user.follow');
         // フォロー解除
         Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
+        // ブックマーク一覧ページの取得
+        Route::get('bookmark', 'BookmarksController@index')->name('bookmark.index');
     });
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
     //投稿関係
-    Route::prefix('posts')->group(function(){
+    Route::prefix('posts/{id}')->group(function(){
         // 投稿編集画面
-        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::get('edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集処理
-        Route::put('{id}/edit', 'PostsController@update')->name('post.update');
+        Route::put('edit', 'PostsController@update')->name('post.update');
         // 投稿の削除
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-
+        Route::delete('', 'PostsController@destroy')->name('post.delete');
+        // いいねの登録
+        Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
+        // いいねの削除
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('post.unfavorite');
+        // ブックマーク関係
+        Route::prefix('bookmark')->group(function(){
+            // ブックマークの登録
+            Route::post('', 'BookmarksController@store')->name('bookmark.store');
+            // ブックマークの解除
+            Route::delete('delete', 'BookmarksController@destroy')->name('bookmark.delete');
+        });
         // 返信関係
-        Route::prefix('{id}/reply')->group(function(){
+        Route::prefix('reply')->group(function(){
             // 返信の追加処理
             Route::post('', 'RepliesController@store')->name('reply.store');
             // 返信の編集画面
@@ -77,11 +98,28 @@ Route::group(['middleware' => 'auth'], function(){
             Route::put('edit', 'RepliesController@update')->name('reply.update');
             // 返信の削除
             Route::delete('delete', 'RepliesController@destroy')->name('reply.delete');
+            //返信に対するいいねの登録
+            Route::post('favorite', 'ReplyFavoritesController@store')->name('reply.favorite');
+            // 返信に対するいいねの削除
+            Route::delete('unfavorite', 'ReplyFavoritesController@destroy')->name('reply.unfavorite');
+        });
+        // リポスト関係
+        Route::prefix('repost')->group(function(){
+            Route::post('', 'RepostsController@store')->name('repost.store');
+            Route::delete('delete', 'RepostsController@destroy')->name('repost.delete');
         });
     });
-    // いいね機能
-    Route::group(['prefix' => 'posts/{id}'], function(){
-        Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
-        Route::delete('unfavorite', 'FavoritesController@destroy')->name('post.unfavorite');
+    // 活動記録関係
+    Route::prefix('activity')->group(function(){
+        // 活動記録の新規登録ページ
+        Route::get('create', 'ActivitiesController@create')->name('activity.create');
+        // 活動記録の新規登録処理
+        Route::post('', 'ActivitiesController@store')->name('activity.store');
+        // 活動記録の編集ページ
+        Route::get('{id}/edit', 'ActivitiesController@edit')->name('activity.edit');
+        // 活動記録の編集処理
+        Route::put('{id}', 'ActivitiesController@update')->name('activity.update');
+        // 活動記録の削除
+        Route::delete('{id}', 'ActivitiesController@destroy')->name('activity.delete');
     });
 });
