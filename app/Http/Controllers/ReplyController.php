@@ -78,7 +78,7 @@ class ReplyController extends Controller
         $reply->content = $request->content;
 
         // 画像をアップロードした場合
-        if($image !== null){
+        if ($image !== null){
 
             // DBからアップロードした名前が同じものがあるか検索
             $imageName = Reply::where('image', 'public/images/replies' . $image->getClientOriginalName())->first();
@@ -104,6 +104,7 @@ class ReplyController extends Controller
     {
         $reply = Reply::findOrFail($id);
         if (\Auth::id() === $reply->user_id) {
+            // 保存されていた画像を削除する
             Storage::delete($reply->image);
             $reply->delete();
         }

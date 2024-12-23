@@ -14,6 +14,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
+            // 保存されていた画像を削除する
             Storage::delete($post->image);
             $post->delete();
         }
@@ -30,7 +31,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
 
         // 画像をアップロードした場合
-        if($image !== null){
+        if ($image !== null){
 
             // DBからアップロードした名前が同じものがあるか検索
             $imageName = Post::where('image', 'public/images/' . $image->getClientOriginalName())->first();
@@ -74,7 +75,7 @@ class PostsController extends Controller
         $post->content = $request->content;
 
         // 画像をアップロードした場合
-        if($image !== null){
+        if ($image !== null){
 
             // DBからアップロードした名前が同じものがあるか検索
             $imageName = Post::where('image', 'public/images/' . $image->getClientOriginalName())->first();
