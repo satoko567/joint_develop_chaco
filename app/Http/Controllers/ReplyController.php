@@ -35,7 +35,7 @@ class ReplyController extends Controller
         $reply->content = $request->content;
 
         // 画像をアップロードした場合
-        if($image !== null){
+        if ($image !== null){
 
             // DBからアップロードした名前が同じものがあるか検索
             $imageName = Reply::where('image', 'public/images/replies/' . $image->getClientOriginalName())->first();
