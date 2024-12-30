@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class UsersTableSeeder_J extends Seeder
 {
@@ -11,21 +12,18 @@ class UsersTableSeeder_J extends Seeder
      */
     public function run()
     {
-        $users = [
-            ['name' => 'masa', 'gender' => 'male'],
-            ['name' => 'yurika', 'gender' => 'female'],
-            ['name' => 'jin', 'gender' => 'male'],
-            ['name' => 'laravel', 'gender' => 'other'],
-            ['name' => 'joint', 'gender' => 'unknown'],
-        ];
+        $users = array('masa', 'yurika', 'jin', 'laravel', 'joint');
+        $time = Carbon::now();
         
         foreach ($users as $user) {
             DB::table('users')->insert([
-                'nickname' => $user['name'],
-                'email' => $user['name'] . '@test.com',
+                'nickname' => $user,
+                'email' => $user.'@test.com',
                 'password' => 'Laravel', // 固定値として
-                'gender' => $user['gender'],
+                'created_at' => $time,
+                'updated_at' => $time,
             ]);
+            $time = $time->addMinutes(10);
         }
         
     }
