@@ -1,4 +1,4 @@
-@extends('components.tempLayout')<!--モックアップの共通HTMLファイルに基づき作成-->
+@extends('components.tempLayout')<!--モックアップの共通HTMLファイルに基づき作成。後日まささんの作成分に入れ替え-->
 @section('content')<!--下記はモックアップのトップページに基づき作成-->
 <div class="center jumbotron bg-info">
     <div class="text-center text-white mt-2 pt-1">
@@ -7,14 +7,14 @@
 </div>
 
 <!--下記は最新登録した3つのユーザーをアナウンスする部分-->
-<div class="container">
+<div class="container mb-5">
     <div class="row my-0">
         @foreach ($newUsers as $newUser)
         <div class="col-md-12 text-center col p-0">
             <p>
                 <img src="https://www.gravatar.com/avatar/{{ md5(strtolower(trim($newUser->email))) }}?s=50&d=identicon" alt="User Avatar" class="rounded-circle mb-0">
                 {{ $newUser->nickname }}が新規登録しました👏👏
-                {{ $newUser->created_at->format('Y-m-d') }}
+                {{ $newUser->created_at->format('Y-m-d H:i:s') }}
             </p>
         </div>
         @endforeach
@@ -36,7 +36,7 @@
 <div class="text-center mb-3">
     <form method="" action="" class="d-inline-block w-75">
         <div class="form-group">
-            <textarea class="form-control" name="" rows="5" placeholder="何でも話そう"></textarea>
+            <textarea class="form-control" name="" rows="5" placeholder="共同開発について話してみては？"></textarea>
             <div class="text-left mt-3">
                 <button type="submit" class="btn btn-primary">投稿する</button>
             </div>
@@ -44,16 +44,17 @@
     </form>
 </div>
 
-<!--下記は仮内容後日削除-->
+<!--下記は表示確認用の仮内容、後日削除-->
 @php
 $factors = [];
 
 foreach ($users as $user) {
-    $factors[] = [
-        'nickname' => $user->nickname,
-        'comment' => $user->comment . "{$user->nickname}です！　よろしく！",
-        'email' => $user->email, // Gravatar 用
-    ];
+$factors[] = [
+'nickname' => $user->nickname,
+'comment' => $user->comment . "{$user->nickname}です！<br>よろしく！",
+'email' => $user->email,
+'updated_at' => $user->updated_at
+];
 }
 @endphp
 
@@ -68,14 +69,18 @@ foreach ($users as $user) {
             </h3>
         </div>
         <div class="profile-info">
-            <p class="comment">{{ $factor['comment'] }}</p>
+            <p class="comment">{!! $factor['comment'] !!}</p>
+            <by>
+                <small>{{ $factor['updated_at']->format('Y-m-d H:i:s') }}</small>
         </div>
     </div>
 </div>
 @endforeach
 
+<div class="pagination justify-content-center">
+    {{ $users->links('pagination::bootstrap-4') }}
+</div>
 
-{{ $users->links('pagination::bootstrap-4') }}
-<!--上記は仮内容後日削除-->
+<!--ここまでは表示確認用の仮内容、後日削除-->
 
 @endsection
