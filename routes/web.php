@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +12,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('user/{id}')->group(function () {
+        Route::get('/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('/update', 'UsersController@update')->name('users.update');
+    });
+//});
