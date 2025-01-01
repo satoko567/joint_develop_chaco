@@ -26,6 +26,11 @@
         @else
             @include('posts.posts', ['user' => $user, 'posts' => $posts])
         @endif
+        <ul class="nav nav-tabs nav-justified mb-3">
+        <li class="nav-item nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"><a href="{{ route('user.show', $user->id) }}">投稿<br><div class="badge badge-secondary">{{ $countPosts }}</div></a></li>
+        <li class="nav-item nav-link {{ Request::is('users/'. $user->id. '/favorites') ? 'active' : '' }}"><a href="{{ route('user.favorites', $user->id) }}">お気に入り<br><div class="badge badge-secondary">{{ $countFavorites }}</div></a></li>
+        </ul>
+            @include('posts.posts', ['user' => $user, 'posts' => $posts])
     </div>
 </div>
 @endsection

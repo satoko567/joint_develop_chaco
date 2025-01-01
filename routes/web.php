@@ -18,6 +18,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // いいね
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
     Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete'); //ユーザ削除
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
