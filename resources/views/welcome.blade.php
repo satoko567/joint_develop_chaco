@@ -6,6 +6,13 @@
     </div>
 </div>
 
+<!--post.postからのメッセージ-->
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
 <!--ここは最新登録した3つのユーザーをアナウンスする部分-->
 
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
@@ -24,7 +31,7 @@
 @include('post.post')
 
 <div class="pagination justify-content-center">
-    {{ $users->links('pagination::bootstrap-4') }}
+    {{ $posts->links('pagination::bootstrap-4') }}
 </div>
 
 @endsection
