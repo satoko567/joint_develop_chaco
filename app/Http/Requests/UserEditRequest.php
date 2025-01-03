@@ -26,7 +26,7 @@ class UserEditRequest extends FormRequest
         return [
             'nickname' => 'required|string|max:25|unique:users,nickname,' . auth()->id(),
             'email' => 'required|string|max:30|email|unique:users,email' . auth()->id(),
-            'password' => 'nullable|string|min:8|max:12|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z@$!%*?&]+$/',
+            'password' => 'nullable|string|min:8|max:12|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]+$/',
         ];
     }
 
@@ -38,4 +38,12 @@ class UserEditRequest extends FormRequest
             'password' => 'パスワード'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'password.regex' => 'パスワードは大文字小文字各最小一つ含めてください。',
+        ];
+    }
+
 }
