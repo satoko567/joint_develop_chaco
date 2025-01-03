@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {//
+    return view('welcome');//
+})->name('home');//
+
 //Route::group(['middleware' => 'auth'], function () {
     Route::prefix('user/{id}')->group(function () {
         Route::get('/edit', 'UsersController@edit')->name('users.edit');

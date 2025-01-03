@@ -36,8 +36,7 @@ class UsersController extends Controller
         $user = user::find(6); 
         $user->delete();
         
-        return back()->with('status', '後悔すんなよ👀');//
-        //return redirect()->route('home')->with('status', '後悔すんなよ👀');
+        return redirect()->route('home')->with('status', '後悔すんなよ👀');
     }
     
 }
