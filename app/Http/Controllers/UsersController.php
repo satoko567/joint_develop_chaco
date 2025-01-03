@@ -19,7 +19,7 @@ class UsersController extends Controller
 
     public function update(UserEditRequest $request){
 
-        //$user = Auth::user();
+        //$user = Auth::user();　//Parameter is not needed.
         $user = User::find(6); //後日入れ替え
         $user->nickname = $request->nickname;
         $user->email = $request->email;
@@ -29,4 +29,15 @@ class UsersController extends Controller
         //return redirect()->view('users.edit', ['user' => $user])->with('編集に成功しました');
         return back()->with('hahaha', '編集に成功しました');
     }
+
+    public function destroy(){
+
+        //$user = Auth::user();
+        $user = user::find(6); 
+        $user->delete();
+        
+        return back()->with('status', '後悔すんなよ👀');//
+        //return redirect()->route('home')->with('status', '後悔すんなよ👀');
+    }
+    
 }
