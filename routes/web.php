@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('replies/update', 'ReplyController@update')->name('reply.update');
             // 返信削除
             Route::delete('replies/delete', 'ReplyController@destroy')->name('reply.delete');
+            // 画像のみ削除
+            Route::delete('image/delete', 'PostsController@imageDestroy')->name('image.delete');
         });
     });
 });

@@ -92,4 +92,17 @@ class PostsController extends Controller
         $post->save();
         return redirect("/");
     }
+
+    // 画像のみ削除
+    public function imageDestroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            // 保存されていた画像を削除する
+            Storage::delete($post->image);
+            $post->image = null;
+            $post->save();
+        }
+        return back();
+    }
 }
