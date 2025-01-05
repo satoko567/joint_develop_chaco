@@ -110,4 +110,17 @@ class ReplyController extends Controller
         }
         return back();
     }
+
+    // 画像のみ削除
+    public function imageDestroy($id)
+    {
+        $reply = Reply::findOrFail($id);
+        if (\Auth::id() === $reply->user_id) {
+            // 保存されていた画像を削除する
+            Storage::delete($reply->image);
+            $reply->image = null;
+            $reply->save();
+        }
+        return back();
+    }
 }
