@@ -1,19 +1,17 @@
-@extends('components.tempLayout')<!--モックアップの共通HTMLファイルに基づき作成。後日まささんの作成分に入れ替え-->
-@section('content')
+{{--@extends('')--}}
+{{--@section('content')--}}
 <div class="center jumbotron bg-info">
     <div class="text-center text-white mt-2 pt-1">
         <h1><i class="pr-3"></i>Topic Posts</h1>
     </div>
 </div>
 
-<!--post.postからのメッセージ-->
+{{--削除成功後のメッセージ--}}
 @if (session('status'))
     <div class="alert alert-success">
         {{ session('status') }}
     </div>
 @endif
-
-<!--ここは最新登録した3つのユーザーをアナウンスする部分-->
 
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
 
@@ -34,4 +32,4 @@
     {{ $posts->links('pagination::bootstrap-4') }}
 </div>
 
-@endsection
+{{--@endsection--}}
