@@ -15,6 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostsController@index');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
-});
+

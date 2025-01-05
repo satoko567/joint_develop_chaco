@@ -6,13 +6,6 @@
     </div>
 </div>
 
-{{--削除成功後のメッセージ--}}
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
-
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
 
 <div class="text-center mb-3">
