@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +12,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//トップ投稿表示
+
+
+Route::get('/', 'PostController@index')->name('post_list');
+
+//postの本人確認
+Route::resource('posts', PostController::class)->middleware('auth');
+
