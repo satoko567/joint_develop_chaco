@@ -11,15 +11,21 @@
                 <p class="text-muted">{{$post->created_at->format('Y-m-d H:i:s')}}</p>
             </div>
 
+            @if(Auth::check() && Auth::user()->id === $post->user_id)
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                 <form method="" action="">
                     <button type="submit" class="btn btn-danger">削除</button>
                 </form>
                 <a href="" class="btn btn-primary">編集する</a>
             </div>
+            @endif
 
         </div>
     </li>
 </ul>
 <div class="m-auto" style="width: fit-content"></div>
 @endforeach
+
+<div class="pagination justify-content-center">
+    {{ $posts->links('pagination::bootstrap-4') }}
+</div>

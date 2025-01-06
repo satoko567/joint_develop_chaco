@@ -21,8 +21,4 @@
 
 @include('post.post')
 
-<div class="pagination justify-content-center">
-    {{ $posts->links('pagination::bootstrap-4') }}
-</div>
-
 {{--@endsection--}}
