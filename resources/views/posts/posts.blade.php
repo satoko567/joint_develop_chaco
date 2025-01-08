@@ -1,4 +1,3 @@
-@extends('layouts.app')
 @if ($posts->isEmpty())
     <p>投稿がありません</p>
     @else
@@ -16,15 +15,18 @@
                     <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
                 </div>
 
-                
-               
-                        <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                            <form action="" method="" onsubmit="">
-                                <button type="submit" class="btn btn-danger">削除</button>
-                            </form>
-                            <a href="" class="btn btn-primary">編集する</a>
-                        </div>
+            @if (Auth::id() === $post->user_id)
+                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                    <form action="" method="" onsubmit="">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">削除</button>
+                    </form>
+                    <a href="" class="btn btn-primary">編集する</a>
+                </div>
+            @endif
             </div>
+        
 
         </li>
     @endforeach

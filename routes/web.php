@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +15,3 @@ use App\Http\Controllers\PostController;
 
 
 Route::get('/', 'PostController@index')->name('post_list');
-
-
-//ログイン後
-Route::middleware('auth')->group(function () {
-  
-});

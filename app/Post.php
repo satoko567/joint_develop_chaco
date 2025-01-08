@@ -9,7 +9,7 @@ class Post extends Model
 {
     public function user()
     {
-        //Userモデルとのリレーション
+        // Userモデルとのリレーション
         return $this->belongsTo(User::class);
     }
 }
