@@ -17,14 +17,6 @@ class PostController extends Controller
      // 投稿の削除
     public function destroy(Post $post)
     {
-        // 投稿者本人かどうか確認
-        if (auth()->user()->id !== $post->user_id) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $post->delete();
-
-        return redirect()->route('posts.index')->with('success', '投稿を削除しました。');
     }
 
     // 投稿の編集ページ表示

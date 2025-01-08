@@ -17,6 +17,9 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', 'PostController@index')->name('post_list');
 
-//postの本人確認
-Route::resource('posts', PostController::class)->middleware('auth');
 
+//ログイン後
+Route::middleware('auth')->group(function () {
+  // 投稿削除
+  Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+});

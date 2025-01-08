@@ -19,11 +19,10 @@
                 
                
                         <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                            <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
-                                @csrf
+                            <form action="" method="" onsubmit="">
                                 <button type="submit" class="btn btn-danger">削除</button>
                             </form>
-                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                            <a href="" class="btn btn-primary">編集する</a>
                         </div>
             </div>
 
@@ -32,5 +31,7 @@
     </ul>
 @endif
 
-<div class="m-auto" style="width: fit-content"></div> 
+<div class="m-auto" style="width: fit-content">
+{{ $posts->links('pagination::bootstrap-4') }}
+</div> 
 <!-- ページネーション追加 -->
