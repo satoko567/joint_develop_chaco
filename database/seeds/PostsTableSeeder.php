@@ -12,7 +12,6 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-
         for ($i = 1; $i <= 12; $i++) {
             DB::table('posts')->insert([
                 'user_id' => (($i - 1) % 4) + 1, // 1から4までのuser_idを繰り返し
