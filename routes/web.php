@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//トップ投稿表示
+
+
+Route::get('/', 'PostController@index')->name('post_list');
