@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-<<<<<<< HEAD
 use Illuminate\Database\SoftDeletes;
-=======
->>>>>>> develop_b_shimotsuki_dra
 
 class PostsTableSeeder extends Seeder
 {
@@ -15,18 +12,6 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        for ($i = 1; $i <= 11; $i++){//ここから追加
-            DB::table('posts')->insert([
-                'user_id' => $i,
-                'content' => 'これは最初の投稿の内容です。',
-                'title'=>'string',
-                'created_at' => now(),
-                'updated_at' => now(),
-                'softDeletes'=> now(),
-            ]);
-        }
-=======
         DB::table('posts')->insert([
             'user_id' => 1,
             'content' => 'これは1番目の投稿の内容です。',
@@ -93,6 +78,5 @@ class PostsTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
->>>>>>> develop_b_shimotsuki_dra
     }
 }
