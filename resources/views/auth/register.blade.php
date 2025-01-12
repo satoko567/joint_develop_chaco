@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends($posts ?? '')
 @section('content')
-<div class="text-center">
+    <div class="text-center">
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
     </div>
     <div class="text-center mt-3">
@@ -33,3 +33,4 @@
             </form>
         </div>
     </div>
+@endsection
