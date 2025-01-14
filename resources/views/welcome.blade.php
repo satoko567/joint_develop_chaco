@@ -17,4 +17,7 @@
                 </div>
             </form>
         </div>
-        @endsection("content")
+
+<!-- 投稿一覧の表示 -->
+@include('posts.posts')
+@endsection("content")
