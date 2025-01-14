@@ -11,6 +11,8 @@
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
+            @include('commons.error_messages')
+            {{--@yeild('content')--}}
             <form method="POST" action="{{ route('signup.post')}}">
                 @csrf
                 <div class="form-group">
@@ -23,11 +25,11 @@
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="{{ old('psaaword') }}">
+                    <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">パスワード確認</label>
-                    <input id="password_confirmation" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">新規登録</button>
             </form>
