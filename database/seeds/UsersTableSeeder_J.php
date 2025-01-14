@@ -22,6 +22,7 @@ class UsersTableSeeder_J extends Seeder
                 'password' => 'Laravel', // 固定値として
                 'created_at' => $time,
                 'updated_at' => $time,
+                'deleted_at' => $time,
             ]);
             $time = $time->addMinutes(10);
         }
