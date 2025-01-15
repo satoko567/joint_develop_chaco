@@ -43,19 +43,13 @@ class UserEditRequest extends FormRequest
     {
         return [
             'nickname.required' => 'ニックネームは必須です。',
-            'nickname.max' => 'ニックネームは最大25文字までです。',
-            'nickname.unique' => 'そのニックネームは既に使用されています。',
-
+            'nickname.max' => 'ニックネームは25文字以内で入力してください。',
             'email.required' => 'Eメールアドレスは必須です。',
-            'email.max' => 'Eメールアドレスは最大30文字までです。',
             'email.email' => '有効なEメールアドレスを入力してください。',
-            'email.unique' => 'そのEメールアドレスは既に使用されています。',
-
-            'password.nullable' => 'パスワードは必須ではありません。',
-            'password.min' => 'パスワードは最低8文字必要です。',
-            'password.max' => 'パスワードは最大12文字までです。',
-            'password.confirmed' => 'パスワードが一致していません。',
-            'password.regex' => 'パスワードには、大文字と小文字をそれぞれ最低1つ含めてください。',
+            'email.unique' => 'そのEメールアドレスはすでに登録されています。',
+            'password.regex' => 'パスワードは大文字、小文字、数字を含む必要があります。',
+            'password.confirmed' => 'パスワードが一致しません。',
         ];
     }
+    
 }
