@@ -10,37 +10,30 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function edit()
-    {
+    public function edit(){
 
-        //$user = Auth::user();
-        $user = user::find(6); 
+        $user = Auth::user(); 
         return view('users.edit', ['user' => $user]);
     }
 
-    public function update(UserEditRequest $request)
-    {
+    public function update(UserEditRequest $request){
 
-        //$user = Auth::user();
-        $user = user::find(6); 
+        $user = Auth::user();
         $user->nickname = $request->nickname;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->save();
+        $user->save(); 
 
-        return back()->with('status', '編集に成功しました');
+        return back()->with('status', '編集に成功しました✅');
     }
 
-    public function destroy()
-    {
+    public function destroy(){
 
-        //$user = Auth::user();
-        $user = user::find(6); 
+        $user = Auth::user();
         Auth::logout();
         $user->delete();
-        // 必要に応じてイベントを発行
-        event(new UserDeleted($user));
+        
         return redirect()->route('home')->with('status', 'ご利用ありがとうございました😢');
     }
+    
 }
-
