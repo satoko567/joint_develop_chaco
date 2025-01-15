@@ -42,8 +42,14 @@ class UserEditRequest extends FormRequest
     public function messages()
     {
         return [
-            'password.regex' => 'パスワードは大文字小文字各最小一つ含めてください。',
+            'nickname.required' => 'ニックネームは必須です。',
+            'nickname.max' => 'ニックネームは25文字以内で入力してください。',
+            'email.required' => 'Eメールアドレスは必須です。',
+            'email.email' => '有効なEメールアドレスを入力してください。',
+            'email.unique' => 'そのEメールアドレスはすでに登録されています。',
+            'password.regex' => 'パスワードは大文字、小文字を最小一つ含む必要があります。',
+            'password.confirmed' => 'パスワードが一致しません。',
         ];
     }
-
+    
 }

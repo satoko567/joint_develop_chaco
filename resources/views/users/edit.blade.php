@@ -1,10 +1,9 @@
 @extends('components.tempLayout')
 @section('content')
 
-<!--下記は削除-->
-@if (session('hahaha'))
+@if (session('status'))
     <div class="alert alert-success">
-        {{ session('hahaha') }}
+        {{ session('status') }}
     </div>
 @endif
 @if ($errors->any())
@@ -16,7 +15,6 @@
         </ul>
     </div>
 @endif
-<!--ここまで-->
 
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="POST" action="{{route('users.update', $user->id)}}">
