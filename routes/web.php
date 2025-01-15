@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,7 @@ use Illuminate\Support\Facades\Route;
         Route::put('/update', 'UsersController@update')->name('users.update');
     });
 //});
+
+Route::get('/', 'PostsController@index');
+
+
