@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('home');
 
-
+Route::group([ 'middleware' => 'auth' ], function(){
+    Route::prefix('post/{id}')->group(function(){
+        Route::get('/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('/update', 'PostsController@update')->name('post.update');
+    });
+});
