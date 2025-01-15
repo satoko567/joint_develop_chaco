@@ -12,21 +12,18 @@ class UsersController extends Controller
 {
     public function edit(){
 
-        //$user = Auth::user(); //
-        $user = User::find(6);//後日入れ替え
+        $user = Auth::user(); 
         return view('users.edit', ['user' => $user]);
     }
 
     public function update(UserEditRequest $request){
 
-        //$user = Auth::user();
-        $user = User::find(6); //後日入れ替え
+        $user = Auth::user();
         $user->nickname = $request->nickname;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save(); 
 
-        //return redirect()->view('users.edit', ['user' => $user])->with('編集に成功しました');
-        return back()->with('hahaha', '編集に成功しました');
+        return back()->with('status', '編集に成功しました');
     }
 }
