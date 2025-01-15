@@ -47,7 +47,7 @@ class UserEditRequest extends FormRequest
             'email.required' => 'Eメールアドレスは必須です。',
             'email.email' => '有効なEメールアドレスを入力してください。',
             'email.unique' => 'そのEメールアドレスはすでに登録されています。',
-            'password.regex' => 'パスワードは大文字、小文字、数字を含む必要があります。',
+            'password.regex' => 'パスワードは大文字、小文字を最小一つ含む必要があります。',
             'password.confirmed' => 'パスワードが一致しません。',
         ];
     }
