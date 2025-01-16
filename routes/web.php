@@ -23,3 +23,4 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
+

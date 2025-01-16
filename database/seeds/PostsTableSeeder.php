@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostsTableSeeder extends Seeder
 {
@@ -29,4 +31,7 @@ class PostsTableSeeder extends Seeder
             ]);
         }
     }
+
+
+    
 }
