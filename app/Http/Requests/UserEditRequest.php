@@ -25,7 +25,7 @@ class UserEditRequest extends FormRequest
     {
         return [
             'nickname' => 'required|string|max:25|unique:users,nickname,' . auth()->id(),
-            'email' => 'required|string|max:30|email|unique:users,email' . auth()->id(),
+            'email' => 'required|string|max:30|email|unique:users,email,' . auth()->id(),
             'password' => 'nullable|string|min:8|max:12|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]+$/',
         ];
     }
@@ -42,13 +42,7 @@ class UserEditRequest extends FormRequest
     public function messages()
     {
         return [
-            'nickname.required' => 'ニックネームは必須です。',
-            'nickname.max' => 'ニックネームは25文字以内で入力してください。',
-            'email.required' => 'Eメールアドレスは必須です。',
-            'email.email' => '有効なEメールアドレスを入力してください。',
-            'email.unique' => 'そのEメールアドレスはすでに登録されています。',
             'password.regex' => 'パスワードは大文字、小文字を最小一つ含む必要があります。',
-            'password.confirmed' => 'パスワードが一致しません。',
         ];
     }
     

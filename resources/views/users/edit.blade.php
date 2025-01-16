@@ -6,6 +6,15 @@
         {{ session('status') }}
     </div>
 @endif
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="POST" action="{{route('users.update', $user->id)}}">
