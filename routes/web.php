@@ -20,4 +20,8 @@ Route::group([ 'middleware' => 'auth' ], function(){
         Route::get('/edit', 'PostsController@edit')->name('post.edit');
         Route::put('/update', 'PostsController@update')->name('post.update');
     });
+    Route::prefix('user/{user}')->group(function(){
+        Route::get('/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('/update', 'UsersController@update')->name('users.update');
+    });
 });

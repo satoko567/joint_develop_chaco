@@ -1,16 +1,10 @@
-{{--@extends('')--}}
-{{--@section('content')--}}
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@extends('layouts.app')
+@section('content')
 
 <h2 class="mt-5">投稿を編集する</h2>
+
+@include('commons.error_messages')
+
 <form method="POST" action="{{route('post.update', $post->id)}}">
     @csrf
     @method('PUT')
@@ -20,4 +14,4 @@
     <button type="submit" class="btn btn-primary">更新する</button>
 </form>
 
-{{--@endsection--}}
+@endsection
