@@ -1,5 +1,5 @@
-{{--@extends('')--}}
-{{--@section('content')--}}
+@extends('layouts.app')
+@section('content')
 
 @if (session('status'))
     <div class="alert alert-success">
@@ -60,4 +60,4 @@
         </div>
     </div>
 
-{{--@endsection--}}
+@endsection
