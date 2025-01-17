@@ -1,5 +1,5 @@
-{{--@extends('')--}}
-{{--@section('content')--}}
+@extends('layouts.app')
+@section('content')
 
 @if (session('status'))
 <div class="alert alert-success">
@@ -8,6 +8,7 @@
 @endif
 
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+<<<<<<< HEAD
 <form method="POST" action="{{route('users.update', $user->id)}}">
     @csrf
     @method('PUT')
@@ -16,6 +17,19 @@
         <label for="name">ユーザ名</label>
         <input class="form-control" value="{{old('nickname', $user->nickname)}}" name="nickname" />
     </div>
+=======
+
+    @include('commons.error_messages')
+    
+    <form method="POST" action="{{route('users.update', $user->id)}}">
+        @csrf 
+        @method('PUT')
+        <input type="hidden" name="id" value="" />
+        <div class="form-group">
+            <label for="name">ユーザ名</label>
+            <input class="form-control" value="{{old('nickname', $user->nickname)}}" name="nickname" />
+        </div>
+>>>>>>> feature/jin/user_edit_update
 
     <div class="form-group">
         <label for="email">メールアドレス</label>
@@ -59,4 +73,8 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 {{--@endsection--}}
+=======
+@endsection
+>>>>>>> feature/jin/user_edit_update
