@@ -20,14 +20,7 @@ Route::group([ 'middleware' => 'auth' ], function(){
         Route::get('/edit', 'PostsController@edit')->name('post.edit');
         Route::put('/update', 'PostsController@update')->name('post.update');
     });
-<<<<<<< HEAD
-});
-
-Route::group(['middleware' => 'auth'], function (){
-    Route::prefix('user/{id}')->group(function(){
-=======
     Route::prefix('user/{user}')->group(function(){
->>>>>>> feature/jin/user_edit_update
         Route::get('/edit', 'UsersController@edit')->name('users.edit');
         Route::put('/update', 'UsersController@update')->name('users.update');
         Route::delete('/delete', 'UsersController@destroy')->name('users.destroy');
