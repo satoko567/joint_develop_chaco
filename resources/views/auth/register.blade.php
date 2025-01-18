@@ -17,7 +17,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="name">名前</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                    <input id="nickname" type="text" class="form-control" name="nickname" value="{{ old('nickname') }}">
                 </div>
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
