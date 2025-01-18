@@ -11,6 +11,13 @@
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
+            @if (count($errors) > 0)
+                <ul class="alert alert-danger" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <li class="ml-4">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
