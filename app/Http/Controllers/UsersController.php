@@ -11,8 +11,7 @@ use App\User;
 class UsersController extends Controller
 {
     public function edit(User $user)
-    {
-        
+    {       
         if (Auth::id() !== $user->id) {
             return redirect()->route('home')->with('status', '権限がありません🙅');
         }
@@ -21,8 +20,7 @@ class UsersController extends Controller
     }
 
     public function update(UserEditRequest $request)
-    {
-
+    {        
         $user = Auth::user();
         $user->nickname = $request->nickname;
         $user->email = $request->email;
@@ -32,8 +30,8 @@ class UsersController extends Controller
         return back()->with('status', '編集に成功しました✅');
     }
 
-    public function destroy(){
-
+    public function destroy()
+    {       
         $user = Auth::user();
         Auth::logout();
         $user->delete();

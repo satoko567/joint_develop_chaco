@@ -1,15 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-@if (session('status'))
-<div class="alert alert-success">
-    {{ session('status') }}
-</div>
-@endif
-
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-
-    @include('commons.error_messages')
     
     <form method="POST" action="{{route('users.update', $user->id)}}">
         @csrf 
