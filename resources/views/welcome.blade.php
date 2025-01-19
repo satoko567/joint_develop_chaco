@@ -19,6 +19,6 @@
     </form>
 </div>
 
-@include('post.post')
+@include('posts.post')
 
 @endsection

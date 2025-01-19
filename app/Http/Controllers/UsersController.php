@@ -35,6 +35,7 @@ class UsersController extends Controller
         $user = Auth::user();
         Auth::logout();
         $user->delete();
+        $user->posts()->delete(); //外部キー制約が無効の場合実施？
         
         return redirect()->route('home')->with('status', 'ご利用ありがとうございました😢');
     }
