@@ -14,7 +14,8 @@
 //トップ投稿表示
 
 
-Route::get('/', 'PostController@index')->name('post_list');
+Route::get('/', 'PostController@index')->name('post.list');
+
 
 // ログイン・ログアウト
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -24,3 +25,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
+//ログイン後
+Route::group(['middleware' => 'auth'], function () {
+  Route::prefix('posts')->group(function () {
+    Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
+    Route::put('{id}', 'PostController@update')->name('post.update');
+  });
+});
