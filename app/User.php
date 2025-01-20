@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
     
-    public function post()
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }

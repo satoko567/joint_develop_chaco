@@ -19,7 +19,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if(\Auth::id() === $post->user_id){
-            return view('post.edit', compact('post'));
+            return view('posts.edit', compact('post'));
         }
         
         return back()->with('権限がありません🙅');
