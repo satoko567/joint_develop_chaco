@@ -11,10 +11,4 @@ use Illuminate\Http\Request;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
-    public function showSignupForm()
-    {
-        // ここでユーザー登録ページ（signupフォーム）を表示する
-        return view('auth.signup');  // resources/views/auth/signup.blade.php というビューを返す
-    }
 }
