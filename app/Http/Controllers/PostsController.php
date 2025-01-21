@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostEditRequest;
 use App\Post;
-use Gravatar;
 
 class PostsController extends Controller
 {
