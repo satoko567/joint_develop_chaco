@@ -1,8 +1,8 @@
-@foreach($posts as $post)
+@foreach($posts ?? '' as $post)
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
-            <img src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            <img src="{{ Gravatar::src($post->user->email, 55)}}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
             <p class="mt-3 mb-0 d-inline-block"><a href="">{{$post->user->nickname}}</a></p>
         </div>
         <div class="">
@@ -27,5 +27,5 @@
 @endforeach
 
 <div class="pagination justify-content-center">
-    {{ $posts->links('pagination::bootstrap-4') }}
+    {{ $posts ?? ''->links('pagination::bootstrap-4') }}
 </div>

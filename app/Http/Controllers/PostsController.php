@@ -37,5 +37,4 @@ class PostsController extends Controller
 
         return back()->with('権限がありません🙅');
     }
-
 }
