@@ -22,17 +22,28 @@ class PostController extends Controller
         $user = Auth::user();
         $post = Post::findOrFail($id);
 
-        return view('posts.edit',compact('post'));
+        //投稿の所有者と認証済みユーザーが一致しているか確認
+        if ($post->user_id !== $user->id) {
+            abort(403);
+        }
+
+        //セッションにリダイレクト先を保存
+        session(['redirect_to' => url()->previous()]);
+
+        return view('posts.edit', compact('post'));
     }
 
     public function update(PostRequest $request, $id)
     {
-            $post = Post::findOrFail($id);
-            $post->content = $request->content;
-            $post->user_id = $request->user()->id;
-            $post->save();
-    
-            return redirect()->route('post.list');
+        $post = Post::findOrFail($id);
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
+
+        //セッションからリダイレクト先を取得
+        $redirectUrl = session('redirect_to', route('post.list'));
+
+        return redirect($redirectUrl);
         
     }
 
