@@ -19,4 +19,20 @@ Route::get('/', 'UsersController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+// ユーザ新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::get('/', 'PostsController@index')->name('home');
+
+Route::group([ 'middleware' => 'auth' ], function(){
+    Route::prefix('post/{id}')->group(function(){
+        Route::get('/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('/update', 'PostsController@update')->name('post.update');
+    });
+    Route::prefix('user/{user}')->group(function(){
+        Route::get('/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('/update', 'UsersController@update')->name('users.update');
+        Route::delete('/delete', 'UsersController@destroy')->name('users.destroy');
+    });
+});
