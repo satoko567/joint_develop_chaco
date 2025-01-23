@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// ユーザ新規登録
-Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
-Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-
 Route::get('/', 'PostsController@index')->name('home');
 
 Route::group([ 'middleware' => 'auth' ], function(){
@@ -29,4 +25,13 @@ Route::group([ 'middleware' => 'auth' ], function(){
         Route::put('/update', 'UsersController@update')->name('users.update');
         Route::delete('/delete', 'UsersController@destroy')->name('users.destroy');
     });
-});
+    Route::get('/following', 'FollowController@following')->name('follow.following');
+    Route::get('/followers', 'FollowController@followers')->name('follow.followers');
+    Route::post('/follow/{user}', 'FollowController@follow')->name('follow');//{id}はユーザのidだとしたら、{user}は何でしょう？
+    Route::delete('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
+}); 
+
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');

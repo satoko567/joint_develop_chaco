@@ -1,10 +1,24 @@
 @foreach($posts ?? '' as $post)
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
+
         <div class="text-left d-inline-block w-75 mb-2">
-            <img src="{{ Gravatar::src($post->user->email, 55)}}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
-            <p class="mt-3 mb-0 d-inline-block"><a href="">{{$post->user->nickname}}</a></p>
+
+            <div class="d-flex align-items-center">
+                <img src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+
+                <div class="d-flex align-items-center">
+                    <p class="mb-0">
+                        <a href="">{{ $post->user->nickname }}</a>
+                    </p>
+                    <div class="ml-2">
+                        @include('follow.followButton')
+                    </div>
+                </div>
+            </div>
+            
         </div>
+
         <div class="">
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>

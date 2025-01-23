@@ -12,14 +12,14 @@ class UsersTableSeeder_J extends Seeder
      */
     public function run()
     {
-        $users = array('masa', 'yurika', 'jin', 'laravel', 'joint');
+        $users = array('masa', 'yurika', 'jin', 'laravel', 'joint', 'tinker', 'php', 'artisan');
         $time = Carbon::now();
         
         foreach ($users as $user) {
             DB::table('users')->insert([
                 'nickname' => $user,
                 'email' => $user.'@test.com',
-                'password' => 'Laravel', // 固定値として
+                'password' => bcrypt('Laravel'), // 固定値として
                 'created_at' => $time,
                 'updated_at' => $time,
             ]);
