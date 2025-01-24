@@ -19,7 +19,7 @@ class UsersTableSeeder_J extends Seeder
             DB::table('users')->insert([
                 'nickname' => $user,
                 'email' => $user.'@test.com',
-                'password' => 'Laravel', // 固定値として
+                'password' => bcrypt('Laravel'), // 固定値として
                 'created_at' => $time,
                 'updated_at' => $time,
             ]);
