@@ -24,7 +24,14 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //ユーザ
-Route::get('/', 'UsersController@indrx');
 Route::prefix('users')->group(function() {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+});
+// ユーザ
+Route::get('users/{id}', 'UsersController@show')->name('user.show');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // ユーザ退会
+    Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
 });
