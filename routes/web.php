@@ -27,8 +27,8 @@ Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
-        Route::prefix('posts')->group(function () {
-          Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
-          Route::put('{id}', 'PostController@update')->name('post.update');
-        });
+    Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
+        Route::put('{id}', 'PostController@update')->name('post.update');
+    });
 });

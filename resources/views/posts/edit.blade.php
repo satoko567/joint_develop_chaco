@@ -4,6 +4,8 @@
 
 <h2 class="mt-5">投稿を編集する</h2>
 
+@include('commons.error_messages')
+
 <form method="POST" action="{{ route('post.update', $post->id) }}">
     @csrf
     @method('PUT')
