@@ -21,4 +21,16 @@ class UsersController extends Controller
 
         return view('users.show', $data);
     }
+
+    // 対象ユーザの退会(削除)とそのユーザが所有している投稿情報を削除
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            $user->posts()->delete();
+        }
+
+        return redirect()->route('post_list');
+    }
 }

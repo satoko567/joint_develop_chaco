@@ -24,3 +24,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // ユーザ退会
+    Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
+});
