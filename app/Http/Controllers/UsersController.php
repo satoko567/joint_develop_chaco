@@ -51,14 +51,4 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         return view('users.show',$data);
     }
-
-    public function index()
-    {
-    // ユーザー一覧を取得
-    $users = User::paginate(10);  // 1ページに10ユーザーを表示
-
-    // ユーザー一覧をビューに渡す
-    return view('users.index', compact('users'));
-    }
-
 }

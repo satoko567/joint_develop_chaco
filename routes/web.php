@@ -18,12 +18,8 @@ use App\Http\Controllers\UsersController;
 Route::get('/', 'PostsController@index')->name('home');
 
 // ユーザー関連
-Route::prefix('users')->group(function () {
-    Route::get('/', [UsersController::class, 'index'])->name('users.index'); // ユーザー一覧
-    Route::get('/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
-    Route::get('/{id}/following', [UsersController::class, 'following'])->name('users.following'); // フォロー中
-    Route::get('/{id}/followers', [UsersController::class, 'followers'])->name('users.followers'); // フォロワー
-});
+Route::get('/', 'PostsController@index')->name('home');
+Route::get('/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
