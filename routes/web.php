@@ -14,9 +14,6 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-// 投稿関連
-Route::get('/', 'PostsController@index')->name('home');
-
 // ユーザー関連
 Route::get('/', 'PostsController@index')->name('home');
 Route::get('/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
@@ -24,6 +21,11 @@ Route::get('/{id}', [UsersController::class, 'show'])->name('users.show'); // �
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group([ 'middleware' => 'auth' ], function(){
     Route::prefix('post/{id}')->group(function(){

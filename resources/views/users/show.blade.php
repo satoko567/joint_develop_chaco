@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="row">
     <aside class="col-sm-4 mb-5">
@@ -8,7 +7,9 @@
                 <h3 class="card-title text-light">{{ $user->nickname }} さんのプロフィール</h3>
             </div>
             <div class="card-body">
-                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($post->user->email, 55)}}" alt="{{ $user->nickname }}">
+        @foreach ($posts as $post)
+            <img class="rounded-circle img-fluid"src="{{ Gravatar::src($post->user->email, 55) }}"alt="{{ $post->user->nickname }}">
+        @endforeach
                 <div class="mt-3">
                     <!-- ユーザー情報の編集ボタン -->
                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
