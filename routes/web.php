@@ -25,6 +25,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
+<<<<<<< HEAD
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
@@ -32,3 +33,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostController@update')->name('post.update');
     });
 });
+=======
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // ユーザ退会
+    Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
+});
+>>>>>>> develop_a_shimotsuki_dra
