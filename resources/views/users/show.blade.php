@@ -7,9 +7,7 @@
                 <h3 class="card-title text-light">{{ $user->nickname }} さんのプロフィール</h3>
             </div>
             <div class="card-body">
-        @foreach ($posts as $post)
-            <img class="rounded-circle img-fluid"src="{{ Gravatar::src($post->user->email, 55) }}"alt="{{ $post->user->nickname }}">
-        @endforeach
+            <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="{{ $user->nickname }}">
                 <div class="mt-3">
                     <!-- ユーザー情報の編集ボタン -->
                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
@@ -31,9 +29,7 @@
             </li>
         </ul>
     </div>
+   <!-- ユーザーの投稿を表示 -->
+@include('posts.post', ['user' => $user]) 
 </div>
-
-<!-- ユーザーの投稿を表示 -->
-@include('posts.post', ['user' => $user])
-
 @endsection

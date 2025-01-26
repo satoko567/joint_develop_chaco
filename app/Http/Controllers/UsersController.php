@@ -44,7 +44,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        return view('posts.post', [
+        return view('users.show', [
+            'user' => $user,
             'posts' => $posts,
         ]);
         //$data += $this->userCounts($user);
