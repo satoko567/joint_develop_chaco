@@ -40,4 +40,14 @@ class UsersController extends Controller
         return redirect()->route('home')->with('status', 'ご利用ありがとうございました😢');
     }
     
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        return view('users.show', [
+            'user' => $user,
+            'posts' => $posts,
+        ]);
+        //$data += $this->userCounts($user);
+    }
 }
