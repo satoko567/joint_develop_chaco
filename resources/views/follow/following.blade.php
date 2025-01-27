@@ -8,7 +8,7 @@
             <img src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像" class="rounded-circle mb-2">
 
             <p class="mb-0">
-                <a href="">{{ $user->nickname }}</a>
+                <a href="{{ route('users.show', $user->id) }}">{{ $user->nickname }}</a>
             </p>
 
             <p class="mb-1 " style="color: white;">

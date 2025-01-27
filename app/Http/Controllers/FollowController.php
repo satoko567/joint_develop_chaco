@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class FollowController extends Controller
 {
     public function follow(User $user)
@@ -13,7 +14,6 @@ class FollowController extends Controller
         $currentUser = Auth::user();
         if (!$currentUser->following->contains($user->id)) {
             $currentUser->following()->attach($user->id);
-
         }
         return back();
     }
@@ -30,17 +30,16 @@ class FollowController extends Controller
     public function following(User $user)
     {
         $following = $user->following;
-        $totalCount = totalCount($user);
+        //$totalCount = totalCount($user);　←　勉強として残しておく
 
-        return view('users.following', compact('user', 'following', 'totalCount'));
+        return view('users.following', compact('user', 'following'));
     }
 
     public function followers(User $user)
     {
         $followers = $user->followers;
-        $totalCount = totalCount($user);
 
-        return view('users.followers', compact('user', 'followers', 'totalCount'));
+        return view('users.followers', compact('user', 'followers'));
     }
     
 }

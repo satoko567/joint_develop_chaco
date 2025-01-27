@@ -9,11 +9,8 @@
 
                 <div class="d-flex align-items-center">
                     <p class="mb-0">
-                        <a href="">{{ $post->user->nickname }}</a>
+                        <a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->nickname }}</a>
                     </p>
-                    <div class="ml-2">
-                    @include('follow.followButton', [ 'user' => $post->user ])                       
-                    </div>
                 </div>
             </div>
             
