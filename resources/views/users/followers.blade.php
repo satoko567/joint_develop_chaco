@@ -5,8 +5,8 @@
     <div class="col-sm-8">
         <!-- ナビゲーションタブ -->
         @include('commons.navigation')
-        <!-- ユーザーの投稿を表示 -->
-        @include('posts.post', ['user' => $user])
+        <!-- Followersを表示 -->
+        @include('follow.followers')
     </div>
 </div>
 @endsection

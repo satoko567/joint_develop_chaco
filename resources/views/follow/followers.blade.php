@@ -1,12 +1,4 @@
-@extends('layouts.app')
-@section('content')
-
 <div class="container" style="direction: rtl;">
-
-    <h2 class="mb-5 text-center">
-        Followers
-        <span class="badge badge-pill badge bg-warning">{{ totalCount($user)['totalFollowers'] }}</span>
-    </h2>
 
     <div class="row justify-content-center" style="row-gap: 20px; margin-bottom: 20px;">
 
@@ -37,4 +29,3 @@
 
     </div>
 </div>
-@endsection

@@ -32,7 +32,7 @@ class FollowController extends Controller
         $following = $user->following;
         $totalCount = totalCount($user);
 
-        return view('follow.following', compact('user', 'following', 'totalCount'));
+        return view('users.following', compact('user', 'following', 'totalCount'));
     }
 
     public function followers(User $user)
@@ -40,7 +40,7 @@ class FollowController extends Controller
         $followers = $user->followers;
         $totalCount = totalCount($user);
 
-        return view('follow.followers', compact('user', 'followers', 'totalCount'));
+        return view('users.followers', compact('user', 'followers', 'totalCount'));
     }
     
 }
