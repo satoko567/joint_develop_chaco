@@ -7,11 +7,13 @@
                 <h3 class="card-title text-light">{{ $user->nickname }} さんのプロフィール</h3>
             </div>
             <div class="card-body">
-            <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="{{ $user->nickname }}">
-                <div class="mt-3">
-                    <!-- ユーザー情報の編集ボタン -->
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                </div>
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="{{ $user->nickname }}">
+                @if(Auth::check()) 
+                    <div class="mt-3">
+                        <!-- ユーザー情報の編集ボタン -->
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                    </div>
+                @endif
             </div>
         </div>
     </aside>
@@ -28,8 +30,8 @@
                 <a href="" class="nav-link">フォロワー</a>
             </li>
         </ul>
+        <!-- ユーザーの投稿を表示 -->
+        @include('posts.post', ['user' => $user])
     </div>
-   <!-- ユーザーの投稿を表示 -->
-@include('posts.post', ['user' => $user]) 
 </div>
 @endsection
