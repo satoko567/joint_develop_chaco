@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ユーザー関連
+Route::get('/', 'PostsController@index')->name('home');
+Route::get('users/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
+
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -21,8 +26,6 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/', 'PostsController@index')->name('home');
 
 Route::group([ 'middleware' => 'auth' ], function(){
     Route::prefix('post/{id}')->group(function(){
