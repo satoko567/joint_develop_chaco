@@ -19,6 +19,16 @@
                 <a href="{{route('post.edit', $post->id)}}" class="btn btn-primary">編集する</a>
             </div>
             @endif
+            <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除しますか？')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">削除</button>
+            </form>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
         </div>
     </li>

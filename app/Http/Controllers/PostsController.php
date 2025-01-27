@@ -37,4 +37,20 @@ class PostsController extends Controller
 
         return back()->with('権限がありません🙅');
     }
+
+    // 投稿削除
+    public function destroy(Post $post)
+    {
+        // 投稿が存在し、ユーザーがその投稿を所有しているかを確認
+        if ($post->user_id !== auth()->id()) {
+            // 権限がない場合はエラーメッセージを返す
+            return redirect()->route('posts.post')->with('error', 'この投稿を削除する権限がありません');
+        }
+
+        // 投稿削除
+        $post->delete();
+
+        // 削除後、投稿一覧ページへリダイレクト
+        return redirect()->route('posts.post')->with('success', '投稿が削除されました');
+    }
 }

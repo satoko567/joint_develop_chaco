@@ -37,4 +37,6 @@ Route::group([ 'middleware' => 'auth' ], function(){
         Route::put('/update', 'UsersController@update')->name('users.update');
         Route::delete('/delete', 'UsersController@destroy')->name('users.destroy');
     });
+// 投稿削除
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
