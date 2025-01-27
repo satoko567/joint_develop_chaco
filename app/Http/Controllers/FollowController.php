@@ -27,22 +27,20 @@ class FollowController extends Controller
         return back();
     }
 
-    public function following()
+    public function following(User $user)
     {
-        $user = Auth::user();
         $following = $user->following;
-        $totalCount = $this->totalCounts($user);
+        $totalCount = totalCount($user);
 
-        return view('follow.following', compact('following', 'totalCount'));
+        return view('follow.following', compact('user', 'following', 'totalCount'));
     }
 
-    public function followers()
+    public function followers(User $user)
     {
-        $user = Auth::user();
         $followers = $user->followers;
-        $totalCount = $this->totalCounts($user);
+        $totalCount = totalCount($user);
 
-        return view('follow.followers', compact('followers', 'totalCount'));
+        return view('follow.followers', compact('user', 'followers', 'totalCount'));
     }
     
 }

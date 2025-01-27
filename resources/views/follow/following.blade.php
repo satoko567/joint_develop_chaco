@@ -1,12 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
 
 <div class="container" style="direction: rtl;">
 
     <h2 class="mb-5 text-center">
         Following
-        <span class="badge bg-warning ms-2">{{ $totalCount['totalFollowing'] }}</span>
+        <span class="badge bg-warning ms-2">{{ totalCount($user)['totalFollowing'] }}</span>
     </h2>
 
     <div class="row justify-content-center" style="row-gap: 20px; margin-bottom: 20px;">
@@ -20,18 +19,14 @@
                 <a href="">{{ $user->nickname }}</a>
             </p>
 
-            <p class="mb-0 " style="color: white;">
+            <p class="mb-1 " style="color: white;">
                 <span class="badge bg-info ms-2">
-                    Post数 {{ $user->posts()->count() }}
+                    Post数 {{ totalCount($user)['totalPosts'] }}
                 </span>
             </p>
 
-            <form method="POST" action="{{ route('unfollow', $user) }}" class="mt-2">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Unfollow</button>
-            </form>
-
+            @include('follow.followButton')
+            
         </div>
 
         @if (($index + 1) % 5 == 0)
@@ -42,6 +37,4 @@
 
     </div>
 </div>
-
-
 @endsection

@@ -12,7 +12,7 @@
                         <a href="">{{ $post->user->nickname }}</a>
                     </p>
                     <div class="ml-2">
-                        @include('follow.followButton')
+                    @include('follow.followButton', [ 'user' => $post->user ])                       
                     </div>
                 </div>
             </div>
