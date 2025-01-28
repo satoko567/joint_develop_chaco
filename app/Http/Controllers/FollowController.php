@@ -30,7 +30,7 @@ class FollowController extends Controller
     public function following(User $user)
     {
         $following = $user->following;
-        //$totalCount = totalCount($user);　←　勉強として残しておく
+        //$totalCount = totalCount($user); ←　勉強用として残す
 
         return view('users.following', compact('user', 'following'));
     }
