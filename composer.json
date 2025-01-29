@@ -37,6 +37,9 @@
         },
         "classmap": [
             "database/seeds"
+        ],
+        "files": [
+            "app/Helpers/CommonHelper.php"
         ]
     },
     "autoload-dev": {

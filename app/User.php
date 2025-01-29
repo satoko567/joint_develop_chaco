@@ -11,10 +11,20 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
-    
+
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_user_id', 'user_id');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_user_id')->withTimestamps();
     }
 
     /**
@@ -23,7 +33,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nickname', 'email', 'password',
+        'nickname',
+        'email',
+        'password',
     ];
 
     /**
@@ -32,7 +44,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
