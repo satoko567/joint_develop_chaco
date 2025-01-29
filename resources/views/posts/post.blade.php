@@ -1,3 +1,8 @@
+@if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 @foreach($posts ?? '' as $post)
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
@@ -13,23 +18,14 @@
 
             @if(Auth::check() && Auth::user()->id === $post->user_id)
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                <form method="" action="">
-                    <button type="submit" class="btn btn-danger">削除</button>
-                </form>
-                <a href="{{route('post.edit', $post->id)}}" class="btn btn-primary">編集する</a>
-            </div>
-            @endif
             <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除しますか？')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">削除</button>
             </form>
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
+                <a href="{{route('post.edit', $post->id)}}" class="btn btn-primary">編集する</a>
+            </div>
             @endif
-
         </div>
     </li>
 </ul>
