@@ -9,6 +9,7 @@
     <body>
         @include('commons.header')
         <div class="container">
+            @include('components.flash_message')
             @yield('content')
         </div>
         @include('commons.footer')
