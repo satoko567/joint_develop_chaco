@@ -1,8 +1,3 @@
-@if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
 @foreach($posts ?? '' as $post)
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
