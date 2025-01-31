@@ -14,6 +14,20 @@ class PostsController extends Controller
         return view('welcome', compact('posts'));
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|string|max:140', 
+        ]);
+    
+        $post = new Post();
+        $post->content = $request->input('content');
+        $post->user_id = $request->user()->id;
+        $post->save();
+    
+        return redirect()->back()->with('success', '投稿が完了しました！');
+    }
+    
     public function edit($id)
     {
         $post = Post::findOrFail($id);
