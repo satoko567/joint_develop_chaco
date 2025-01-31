@@ -13,12 +13,16 @@
         <div class="form-group">
             <textarea class="form-control" name="" rows="5" placeholder="共同開発について話してみては？"></textarea>
             <div class="text-left mt-3">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
                 <button type="submit" class="btn btn-primary">投稿する</button>
             </div>
         </div>
     </form>
 </div>
-
 @include('posts.post')
 
 @endsection
