@@ -41,8 +41,8 @@ class PostsController extends Controller
     // 投稿削除
     public function destroy($id)
     {
-            $post = Post::findOrFail($id);
-            if ($post->user_id !== auth()->id()) {
+        $post = Post::findOrFail($id);
+        if ($post->user_id !== auth()->id()) {
             // 権限がない場合はエラーメッセージを返す
             return redirect()->route('home')->with('error', 'この投稿を削除する権限がありません');
         }
