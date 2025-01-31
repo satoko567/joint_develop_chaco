@@ -12,7 +12,7 @@ class UsersTableSeeder_J extends Seeder
      */
     public function run()
     {
-        $users = array('masa', 'yurika', 'jin', 'laravel', 'joint');
+        $users = array('masa', 'yurika', 'jin', 'laravel', 'joint', 'tinker', 'php', 'artisan');
         $time = Carbon::now();
         
         foreach ($users as $user) {

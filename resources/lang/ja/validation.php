@@ -146,10 +146,10 @@ return [
         'nickname' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'content' => '投稿'
     ],
     'max' => [
         'string' => ':attributeは:max文字以内で入力してください。',
     ],
     'required' => ':attributeを入力してください。',
-
 ];
