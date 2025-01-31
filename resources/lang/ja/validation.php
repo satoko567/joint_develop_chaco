@@ -4,33 +4,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
-    |
-    */
-
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
-
-];
- 150 changes: 150 additions & 0 deletions150  
-resources/lang/ja/validation.php
-Viewed
-Original file line number	Diff line number	Diff line change
-@@ -0,0 +1,150 @@
-<?php
-
-return [
-
-    /*
-    |--------------------------------------------------------------------------
     | Validation Language Lines
     |--------------------------------------------------------------------------
     |

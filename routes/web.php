@@ -11,25 +11,28 @@
 |
 */
 
-//トップ投稿表示
 
+// ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+// トップ投稿表示
+Route::get('/', 'PostController@index')->name('post.list');
 
-Route::get('/', 'PostController@index')->name('post_list');
 
 // ログイン・ログアウト
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-//ユーザ
-
 // ユーザ
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
+        Route::put('{id}', 'PostController@update')->name('post.update');
+    });
     // ユーザ退会
     Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
 });
