@@ -17,7 +17,7 @@
 
             @if (Auth::id() === $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form action="" method="" onsubmit="">
+                    <form action="{{ route('post.delete', $post->id) }}" method="POST" onsubmit="">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
