@@ -11,9 +11,11 @@
 |
 */
 
-//トップ投稿表示
 
-
+// ユーザ登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+// トップ投稿表示
 Route::get('/', 'PostController@index')->name('post.list');
 
 
