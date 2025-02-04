@@ -32,6 +32,6 @@ class UsersController extends Controller
             $user->posts()->delete();
         }
 
-        return redirect()->route('post_list');
+        return redirect()->route('post.list')->with('delete', '退会が完了しました');
     }
 }
