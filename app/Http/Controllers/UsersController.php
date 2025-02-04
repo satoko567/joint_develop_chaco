@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
+
 class UsersController extends Controller
 {
     // 対象のユーザ情報とそのユーザが所有している投稿情報を取得し、

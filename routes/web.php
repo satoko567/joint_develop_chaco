@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FollowController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +33,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
         Route::put('{id}', 'PostController@update')->name('post.update');
     });
+
+    //フォロー
+    Route::group(['prefix' => 'users/{id}'],function() {
+        Route::post('follow', 'FollowController@follow')->name('follow');
+        Route::post('unfollow', 'FollowController@unfollow')->name('unfollow');
+        Route::get('followings', 'FollowController@showFollowings')->name('followings');
+        Route::get('followers', 'FollowController@showFollowers')->name('followers');
+    });
+
+
     // ユーザ退会
     Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\Http\Requests\PostRequest;
 
 use Illuminate\Http\Request;
@@ -44,8 +45,5 @@ class PostController extends Controller
         $redirectUrl = session('redirect_to', route('post.list'));
 
         return redirect($redirectUrl);
-        
     }
-
-
 }
