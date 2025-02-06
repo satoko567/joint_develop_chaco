@@ -14,4 +14,10 @@ class Post extends Model
         // Userモデルとのリレーション
         return $this->belongsTo(User::class);
     }
+
+    // Replyモデルとのリレーション
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }

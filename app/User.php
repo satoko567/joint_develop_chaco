@@ -43,4 +43,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    // Replyモデルとのリレーション
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }
