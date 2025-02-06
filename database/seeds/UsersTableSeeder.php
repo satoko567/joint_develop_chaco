@@ -32,7 +32,14 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('test4')
         ]);
 
+        // ユーザを8人追加
+        for ($i = 5; $i <= 12; $i++) {
+            DB::table('users')->insert([
+                'name' => 'test' . $i,
+                'email' => 'test' . $i . '@test.com',
+                'password' => bcrypt('test' . $i),
+                'created_at' => now(),
+            ]);
+        }
     }
-
-
 }
