@@ -1,4 +1,4 @@
-@if (Auth::id() !== $user->id) 
+@if (Auth::check() && Auth::id() !== $user->id) 
     @if (Auth::user()->followings->contains($user->id))
         <form method="POST" action="{{ route('unfollow', $user->id) }}">
             @csrf
