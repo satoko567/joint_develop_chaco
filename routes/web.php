@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
         Route::put('{id}', 'PostController@update')->name('post.update');
+        Route::delete('{id}', 'PostController@destroy')->name('post.delete');
     });
     //フォロー
     Route::group(['prefix' => 'users/{id}'], function () {

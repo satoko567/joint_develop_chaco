@@ -47,4 +47,15 @@ class PostController extends Controller
 
         return redirect($redirectUrl)->with('success', '投稿内容を更新しました');
     }
+
+    // ユーザの投稿を削除
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() == $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }
+
 }

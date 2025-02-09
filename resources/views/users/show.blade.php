@@ -51,6 +51,9 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
             @include('posts.posts')
+            <div class="m-auto" style="width: fit-content">
+                {{ $posts->links('pagination::bootstrap-4') }}
+            </div>
         </div>
     </div>
 @endsection
