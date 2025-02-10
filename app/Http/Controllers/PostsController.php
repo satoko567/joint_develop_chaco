@@ -25,7 +25,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
     
-        return redirect()->back()->with('success', '投稿が完了しました！');
+        return redirect('/')->with('status', '投稿が完了しました！');
     }
     
     public function edit($id)

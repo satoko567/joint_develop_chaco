@@ -29,9 +29,8 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //新規投稿
-Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
-
 Route::group([ 'middleware' => 'auth' ], function(){
+    Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
     Route::prefix('post/{id}')->group(function(){
         Route::get('/edit', 'PostsController@edit')->name('post.edit');
         Route::put('/update', 'PostsController@update')->name('post.update');
