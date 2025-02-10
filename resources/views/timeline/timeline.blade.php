@@ -1,0 +1,48 @@
+<div class="container">
+    @foreach($activities as $activity)
+    @if($activity->activity_type === 'post')
+    <!-- 投稿の場合 -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <img src="{{ Gravatar::src($activity->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            <a href="{{ route('users.show', $activity->user->id) }}">
+                {{ $activity->user->nickname }}
+            </a>
+            が投稿をしました。
+            <span class="float-right">{{ $activity->created_at }}</span>
+        </div>
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <p class="mb-2">{!! nl2br(e($activity->content)) !!}</p>
+
+            @if(Auth::check() && Auth::user()->id === $activity->user_id)
+            <div class="d-flex">
+                <form method="" action="" class="me-2">
+                    <button type="submit" class="mr-1 btn btn-danger">削除</button>
+                </form>
+                <a href="{{route('post.edit', $activity->id)}}" class="btn btn-primary">編集する</a>
+            </div>
+            @endif
+        </div>
+    </div>
+    @elseif($activity->activity_type === 'following')
+    <!-- フォローの場合 -->
+    <div class="alert alert-info">
+
+        <img src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+        <a href="{{ route('users.show', $user->id) }}">
+            {{ $user->nickname }}
+        </a>
+        が
+        <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
+        <a href="{{ route('users.show', $activity->id) }}">
+            {{ $activity->nickname }}
+        </a>
+        をフォローしました。
+        <span class="float-right">{{ $activity->pivot->created_at }}</span>
+    </div>
+    @endif
+    @endforeach
+
+    <!-- ページネーションリンク -->
+    {{ $activities->links() }}
+</div>
