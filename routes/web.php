@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,13 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+//新規投稿
 Route::group([ 'middleware' => 'auth' ], function(){
+    Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
     Route::prefix('post/{id}')->group(function(){
         Route::get('/edit', 'PostsController@edit')->name('post.edit');
         Route::put('/update', 'PostsController@update')->name('post.update');
+        Route::delete('/delete', 'PostsController@destroy')->name('posts.destroy');
     });
     Route::prefix('user/{user}')->group(function(){
         Route::get('/edit', 'UsersController@edit')->name('users.edit');

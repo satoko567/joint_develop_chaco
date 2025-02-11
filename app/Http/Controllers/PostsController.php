@@ -13,6 +13,20 @@ class PostsController extends Controller
         return view('welcome', compact('posts'));
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|string|max:140', 
+        ]);
+    
+        $post = new Post();
+        $post->content = $request->input('content');
+        $post->user_id = $request->user()->id;
+        $post->save();
+    
+        return redirect('/')->with('status', '投稿が完了しました！');
+    }
+    
     public function edit($id)
     {
         $post = Post::findOrFail($id);
@@ -37,4 +51,19 @@ class PostsController extends Controller
         return back()->with('権限がありません🙅');
     }
 
+    // 投稿削除
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->user_id !== auth()->id()) {
+            // 権限がない場合はエラーメッセージを返す
+            return redirect()->route('home')->with('error', 'この投稿を削除する権限がありません');
+        }
+
+        // 投稿削除
+        $post->delete();
+
+        // 削除後、投稿一覧ページへリダイレクト
+        return redirect()->route('home')->with('success', '投稿が削除されました');
+    }
 }
