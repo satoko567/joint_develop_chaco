@@ -27,8 +27,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
 //フォロー一覧
-Route::get('followings', 'FollowController@showFollowings')->name('followings');
-Route::get('followers', 'FollowController@showFollowers')->name('followers');
+Route::get('{id}/followings', 'FollowController@showFollowings')->name('followings');
+Route::get('{id}/followers', 'FollowController@showFollowers')->name('followers');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {

@@ -50,34 +50,25 @@
                 <li class="nav-item"><a href="{{ route('followings' , ['id' => $user->id]) }}" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="{{ route('followers' , ['id' => $user->id]) }}" class="nav-link">フォロワー</a></li>
             </ul>
-        
-            @foreach ($posts as $post)
-                <ul class="list-unstyled">
-                    <li class="mb-3 text-center">
-                        <div class="text-left d-inline-block w-75 mb-2">
-                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}"
-                                alt="ユーザのアバター画像">
-                            <p class="mt-3 mb-0 d-inline-block">
-                                <a href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
-                            </p>
-                        </div>
-                        <div class="text-left d-inline-block w-75">
-                            <p class="mb-2">{{ $post->content }}</p>
-                            <p class="text-muted">{{ $post->created_at }}</p>
-                        </div>
-                        @if (Auth::id() === $post->user_id)
-                            <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                                <form action="" method="" onsubmit="">
-                                    <button type="submit" class="btn btn-danger">削除</button>
-                                </form>
-                                <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
-                            </div>
-                        @endif
-                    </li>
-                </ul>
-            @endforeach
+            @if ($followers->isEmpty())
+    <p>フォロワーはいません。</p>
+@else
+        @foreach ($followers as $follower)
+        <ul class="list-unstyled">
+            <li class="mb-3 text-center">
+                <div class="text-left d-inline-block w-75 mb-2">
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follower->email, 55) }}"alt="ユーザのアバター画像">
+                    <p class="mt-3 mb-0 d-inline-block">
+                        <a href="{{ route('followers', $follower->id) }}">{{ $follower->name }}</a>
+                    </p>
+                </div>
+            </li>
+        </ul>
+        @endforeach
+
+@endif
             <div class="m-auto" style="width: fit-content">
-                {{ $posts->links('pagination::bootstrap-4') }}
+                {{ $followers->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>
