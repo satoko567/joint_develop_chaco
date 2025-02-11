@@ -1,6 +1,6 @@
 <div class="container">
     @foreach($activities as $activity)
-    @if($activity->activity_type === 'post')
+    @if(isset($activity->content))
     <!-- 投稿の場合 -->
     <div class="card mb-3">
         <div class="card-header">
@@ -24,7 +24,7 @@
             @endif
         </div>
     </div>
-    @elseif($activity->activity_type === 'following')
+    @else
     <!-- フォローの場合 -->
     <div class="alert alert-info">
 

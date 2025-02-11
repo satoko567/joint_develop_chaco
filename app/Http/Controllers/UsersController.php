@@ -36,7 +36,7 @@ class UsersController extends Controller
         $user = Auth::user();
         Auth::logout();
         $user->delete();
-        $user->posts()->delete(); 
+        $user->posts()->delete();
 
         return redirect()->route('home')->with('status', 'ご利用ありがとうございました😢');
     }
@@ -56,26 +56,14 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-        //Postの取得、map(function(){...})を使用しデーター種類の定義をする
-        $posts = $user->posts()->with('user')->get()->map(function ($post) {
-            $post->activity_type = 'post';
-            return $post;
-        });
+        $posts = $user->posts()->with('user')->get();
+        $followings = $user->following()->withPivot('created_at')->get();
 
-        //フォローしたユーザーの取得、map(function(){...})を使用しデーター種類の定義をする
-        $followings = $user->following()->withPivot('created_at')->get()->map(function ($following) {
-            $following->activity_type = 'following';
-            return $following;
-        });
-
-        //データーのマージ
         $activities = $followings->merge($posts);
 
-        //データー種類により、参照するcreated_atを定義
+        // contentでソート（postかどうかを判定）
         $activities = $activities->sortByDesc(function ($activity) {
-            return $activity->activity_type === 'post'
-                ? $activity->created_at
-                : $activity->pivot->created_at;
+            return isset($activity->content) ? $activity->created_at : $activity->pivot->created_at;
         });
 
         //$activitiesはcollectionデーターであり、 paginate() メソッドが存在しない為、手動で定義。
