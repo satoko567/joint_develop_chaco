@@ -17,7 +17,7 @@ use App\Http\Controllers\PostsController;
 
 // ユーザー関連
 Route::get('/', 'PostsController@index')->name('home');
-Route::get('users/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
+Route::get('users/{id}', [UsersController::class, 'timeline'])->name('users.show'); //'timeline'を'show'に戻せば本来のユーザー詳細となる。
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
