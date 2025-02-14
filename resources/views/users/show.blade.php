@@ -6,7 +6,7 @@
         <!-- ナビゲーションタブ -->
         @include('commons.navigation')
         <!-- ユーザーの投稿を表示 -->
-        @include('posts.post', ['user' => $user])
+        @include('timeline.timeline')
     </div>
 </div>
 @endsection

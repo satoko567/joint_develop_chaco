@@ -24,7 +24,9 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_user_id')
+        ->withTimestamps()
+        ->orderBy('followers.created_at', 'desc'); // ピボットテーブルの created_at で並び替え
     }
 
     /**
