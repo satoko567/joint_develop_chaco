@@ -1,0 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.reply > a:hover span {
+    color: #007bff;
+}

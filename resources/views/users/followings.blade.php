@@ -47,13 +47,13 @@
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('user.show', $user->id) }}"
                         class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-                <li class="nav-item"><a href="{{ route('followings' , ['id' => $user->id]) }}" class="nav-link">フォロー中</a></li>
-                <li class="nav-item"><a href="{{ route('followers' , ['id' => $user->id]) }}" class="nav-link">フォロワー</a></li>
+                <li class="nav-item"><a href="{{ route('followings' , ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="{{ route('followers' , ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">フォロワー</a></li>
             </ul>
-            @if ($followings->isEmpty())
+@if ($followings->isEmpty())
     <p>フォロワーはいません。</p>
 @else
-@foreach ($followings as $following)
+    @foreach ($followings as $following)
         <ul class="list-unstyled">
             <li class="mb-3 text-center">
                 <div class="text-left d-inline-block w-75 mb-2">
@@ -64,7 +64,7 @@
                 </div>
             </li>
         </ul>
-        @endforeach
+    @endforeach
 @endif
             <div class="m-auto" style="width: fit-content">
                 {{ $followings->links('pagination::bootstrap-4') }}

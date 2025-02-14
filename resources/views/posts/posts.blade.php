@@ -12,12 +12,19 @@
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->content }}</p>
-                    <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                    <p class="text-muted mb-0">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                    <hr class="m-0">
+                    <p class="mb-0 reply">
+                        <a class="text-dark text-decoration-none" href="{{ route('reply.index', $post->id) }}" data-toggle="tooltip" title="Reply">
+                            <i class="far fa-comment-dots fa-lg"></i>
+                            <span>{{ $post->replies->count() }}</span>
+                        </a>
+                    </p>
                 </div>
 
             @if (Auth::id() === $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form action="" method="" onsubmit="">
+                    <form action="{{ route('post.delete', $post->id) }}" method="POST" onsubmit="">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
