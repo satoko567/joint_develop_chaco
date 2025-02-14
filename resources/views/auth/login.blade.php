@@ -11,9 +11,10 @@
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
-        @include('commons.error_messages')
+            @include('commons.error_messages')
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
+                <input type="hidden" name="intended" id="intended-url" value="">
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
                     <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
@@ -29,3 +30,14 @@
         </div>
     </div>
 @endsection
+
+<script>
+    // ログイン画面遷移前のURLをセッションから取得
+    document.addEventListener("DOMContentLoaded", function() {
+        var previousUrl = sessionStorage.getItem('previousUrl');
+        if (previousUrl) {
+            sessionStorage.removeItem('previousUrl');
+            document.getElementById("intended-url").value = previousUrl;
+        }
+    });
+</script>

@@ -40,6 +40,30 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    // ログイン処理
+    public function login(Request $request)
+    {
+        // バリデーション
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // 認証処理
+        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            // intended が送信されていれば、それをセッションに保存
+            if ($request->has('intended')) {
+                session(['url.intended' => $request->input('intended')]);
+            }
+
+            // intended に保存されているURLがあればそこへリダイレクト、なければデフォルトのページへ
+            return redirect()->intended();
+        }
+
+        // 認証失敗時の処理
+        return back()->withErrors(['email' => '認証に失敗しました'])->withInput();
+    }
+
     // ユーザ認証成功時の処理
     protected function authenticated(Request $request, $user)
     {

@@ -4,7 +4,7 @@
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header d-flex">
-                    <h3 class="card-title text-light flex-fill">{{ $user->name }}</h3> 
+                    <h3 class="card-title text-light flex-fill">{{ $user->name }}</h3>
                     <div class="flex-fill">
                         @include('follow.follow_btn')
                     </div>
@@ -51,9 +51,6 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
             @include('posts.posts')
-            <div class="m-auto" style="width: fit-content">
-                {{ $posts->links('pagination::bootstrap-4') }}
-            </div>
         </div>
     </div>
 @endsection

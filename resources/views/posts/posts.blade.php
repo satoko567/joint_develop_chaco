@@ -11,14 +11,26 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
-                    <p class="text-muted mb-0">{{ $post->created_at->format('Y-m-d H:i') }}</p>
-                    <hr class="m-0">
+                    <a href="{{ route('reply.index', $post->id) }}" class="text-dark text-decoration-none">
+                        <p class="mb-2">{{ $post->content }}</p>
+                        <p class="text-muted mb-0">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                        <hr class="m-0">	
+                    </a>
                     <p class="mb-0 reply">
-                        <a class="text-dark text-decoration-none" href="{{ route('reply.index', $post->id) }}" data-toggle="tooltip" title="Reply">
+                        <a class="text-dark text-decoration-none" href="javascript:void(0);" id="reply-button-{{ $post->id }}" data-toggle="tooltip" title="Reply">
                             <i class="far fa-comment-dots fa-lg"></i>
-                            <span>{{ $post->replies->count() }}</span>
+                            <span id="reply-count-{{ $post->id }}">{{ $post->replies->count() }}</span>
                         </a>
+                        <form method="POST" action="{{ route('reply.store', $post->id) }}" class="d-inline-block w-75 hidden" id="reply-form-{{ $post->id }}">
+                            @csrf
+                            <div class="form-group">
+                                <textarea class="form-control" name="content" rows="2" placeholder="ここに返信内容を入力..." id="textarea-{{ $post->id }}"></textarea>
+                                <div class="text-right mt-3">
+                                    <button type="button" class="btn btn-outline-secondary ml-2" id="cancel-button-{{ $post->id }}">キャンセル</button>
+                                    <button type="submit" class="btn btn-outline-primary">返信する</button>
+                                </div>
+                            </div>                    
+                        </form>
                     </p>
                 </div>
 
@@ -44,3 +56,78 @@
 {{ $posts->links('pagination::bootstrap-4') }}
 </div> 
 <!-- ページネーション追加 -->
+
+{{-- リプライ投稿処理 --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @foreach($posts as $post)
+            const replyButton{{ $post->id }} = document.getElementById('reply-button-{{ $post->id }}');
+            const replyForm{{ $post->id }} = document.getElementById('reply-form-{{ $post->id }}');
+            const cancelButton{{ $post->id }} = document.getElementById('cancel-button-{{ $post->id }}');
+            const textarea{{ $post->id }} = document.getElementById('textarea-{{ $post->id }}');
+            const replyCount{{ $post->id }} = document.getElementById('reply-count-{{ $post->id }}');
+            var isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+            var loginUrl = "{{ route('login') }}";
+
+            if (replyButton{{ $post->id }} && replyForm{{ $post->id }} && cancelButton{{ $post->id }} && textarea{{ $post->id }} && replyCount{{ $post->id }}) {
+                // コメントアイコンをクリックした時、返信用formを表示・非表示する
+                replyButton{{ $post->id }}.addEventListener('click', function(event) {
+                    replyForm{{ $post->id }}.classList.toggle('hidden');
+                });
+
+                // キャンセルボタンをクリックした時、フォームを隠す
+                cancelButton{{ $post->id }}.addEventListener('click', function() {
+                    replyForm{{ $post->id }}.classList.add('hidden');
+                    textarea{{ $post->id }}.value = '';
+                });
+
+                // 返信するボタンをクリックした時、form送信前にログインチェックする
+                replyForm{{ $post->id }}.addEventListener('submit', function(event) {
+                    if (!isLoggedIn) {
+                        event.preventDefault();
+                        var currentUrl = window.location.href;
+                        sessionStorage.setItem('previousUrl', currentUrl);
+                        const confirmRedirect = confirm('ログインが必要です。ログインページに移動しますか？');
+                        if (confirmRedirect) {
+                            window.location.href = loginUrl;
+                        } else {
+                            replyForm{{ $post->id }}.classList.add('hidden');
+                            textarea{{ $post->id }}.value = '';
+                            return;
+                        }
+                    } else {
+                        // ログイン確認できたら、バリデーションチェック
+                        const content = textarea{{ $post->id }}.value.trim();
+                        if (content === '') {
+                            event.preventDefault();
+                            alert('返信内容を入力してください（空白や改行のみは無効です）。');
+                        } else {
+                            const formData = new FormData(replyForm{{ $post->id }});
+                            fetch(replyForm{{ $post->id }}.action, {
+                                method: 'POST',
+                                body: formData,
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status) {
+                                    // リプライ投稿成功時、リプライ数を更新し返信用formを隠す
+                                    replyCount{{ $post->id }}.textContent = data.reply_count;
+                                    replyForm{{ $post->id }}.classList.add('hidden');
+                                    textarea{{ $post->id }}.value = '';
+                                } else {
+                                    // バリデーションエラーメッセージダイアログ
+                                    alert(data.errors.content[0]);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('リプライの投稿に失敗しました。');
+                            });
+                            event.preventDefault();
+                        }
+                    }
+                });
+            }
+        @endforeach
+    });
+</script>

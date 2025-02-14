@@ -5,3 +5,7 @@ html {
 .reply > a:hover span {
     color: #007bff;
 }
+
+.hidden {
+    display: none !important;
+}

@@ -26,8 +26,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
-// リプライ一覧
-Route::get('posts/{id}/reply/', 'RepliesController@index')->name('reply.index');
+// リプライ
+Route::group(['prefix' => 'posts/{id}'], function () {
+    Route::get('', 'RepliesController@index')->name('reply.index');
+    Route::post('reply', 'RepliesController@store')->name('reply.store');
+});
 
 //フォロー一覧
 Route::get('followings', 'FollowController@showFollowings')->name('followings');
