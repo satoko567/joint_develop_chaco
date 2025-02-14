@@ -5,8 +5,11 @@
         <div class="text-left d-inline-block w-75 mb-2">
 
             <div class="d-flex align-items-center">
-                <img src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
-
+                        @if($post->user->icon && Storage::disk('public')->exists('icons/'.$post->user->icon))
+                                <img src="{{ asset('storage/icons/'.$post->user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="65">
+                        @else
+                                <img src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+                        @endif
                 <div class="d-flex align-items-center">
                     <p class="mb-0">
                         <a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->nickname }}</a>

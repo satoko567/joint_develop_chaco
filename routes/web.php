@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\UsersController;
 // ユーザー関連
 Route::get('/', 'PostsController@index')->name('home');
 Route::get('users/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
+Route::post('/user/upload-icon', [UsersController::class, 'uploadIcon'])->name('user.uploadIcon');
+Route::delete('/delete', [UsersController::class, 'uploadIcon'])->name('storage.uploadIcon');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -42,6 +45,4 @@ Route::group([ 'middleware' => 'auth' ], function(){
         Route::post('/follow', 'FollowController@follow')->name('follow');
         Route::delete('/unfollow', 'FollowController@unfollow')->name('unfollow');
     });
-
-}); 
-
+});
