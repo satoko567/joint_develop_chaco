@@ -52,7 +52,6 @@ class UsersController extends Controller
         ]);
         //$data += $this->userCounts($user);
     }
-    // アイコンのアップロード処理
     public function uploadIcon(Request $request)
     {
         $request->validate([

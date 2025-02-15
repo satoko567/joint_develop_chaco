@@ -4,10 +4,13 @@
     <!-- 投稿の場合 -->
     <div class="card mb-3">
         <div class="card-header">
-            <img src="{{ Gravatar::src($activity->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
-            <a href="{{ route('users.show', $activity->user->id) }}">
+                @if(Auth::check())
+                    <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
+                @else
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                @endif 
+                <a href="{{ route('users.show', $user->id) }}">
                 {{ $activity->user->nickname }}
-            </a>
             が投稿をしました。
             <span class="float-right">{{ $activity->created_at }}</span>
         </div>
@@ -28,10 +31,13 @@
     <!-- フォローの場合 -->
     <div class="alert alert-info">
 
-        <img src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
-        <a href="{{ route('users.show', $user->id) }}">
+                @if(Auth::check())
+                    <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
+                @else
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                @endif 
+                    <a href="{{ route('users.show', $user->id) }}">
             {{ $user->nickname }}
-        </a>
         が
         <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
         <a href="{{ route('users.show', $activity->id) }}">
