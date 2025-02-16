@@ -4,7 +4,7 @@
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header d-flex">
-                    <h3 class="card-title text-light flex-fill">{{ $user->name }}</h3>
+                    <h3 class="card-title text-light flex-fill">{{ $user->name }}</h3> 
                     <div class="flex-fill">
                         @include('follow.follow_btn')
                     </div>
@@ -47,10 +47,28 @@
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('user.show', $user->id) }}"
                         class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-                <li class="nav-item"><a href="{{ route('followings' , $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中</a></li>
-                <li class="nav-item"><a href="{{ route('followers' , $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー</a></li>
+                <li class="nav-item"><a href="{{ route('followings' , ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="{{ route('followers' , ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー</a></li>
             </ul>
-            @include('posts.posts')
+            @if ($followers->isEmpty())
+                <p>フォロワーはいません。</p>
+            @else
+                @foreach ($followers as $follower)
+                    <ul class="list-unstyled">
+                        <li class="mb-3 text-center">
+                            <div class="text-left d-inline-block w-75 mb-2">
+                                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follower->email, 55) }}"alt="ユーザのアバター画像">
+                                <p class="mt-3 mb-0 d-inline-block">
+                                    <a href="{{ route('followers', $follower->id) }}">{{ $follower->name }}</a>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                @endforeach
+            @endif
+            <div class="m-auto" style="width: fit-content">
+                {{ $followers->links('pagination::bootstrap-4') }}
+            </div>
         </div>
     </div>
 @endsection

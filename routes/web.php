@@ -33,8 +33,8 @@ Route::group(['prefix' => 'posts/{id}'], function () {
 });
 
 //フォロー一覧
-Route::get('followings', 'FollowController@showFollowings')->name('followings');
-Route::get('followers', 'FollowController@showFollowers')->name('followers');
+Route::get('users/{id}/followings', 'FollowController@showFollowings')->name('followings');
+Route::get('users/{id}/followers', 'FollowController@showFollowers')->name('followers');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
