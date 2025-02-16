@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="d-flex flex-column">
+        {{-- リプライ成功時のアラート --}}
+        <div id="reply-alert" class="alert alert-success text-center" style="display: none; position: fixed; top: 50px; left: 50%; transform: translateX(-50%); z-index: 1000;">
+            リプライが追加されました！
+        </div>
         {{-- 投稿内容 --}}
         <div class="w-75 m-auto">
             <div class="mb-0 text-center">
@@ -95,6 +99,7 @@
         const textarea{{ $post->id }} = document.getElementById('textarea-{{ $post->id }}');
         const replyCount{{ $post->id }} = document.getElementById('reply-count-{{ $post->id }}');
         var isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+        const replyAlert = document.getElementById('reply-alert');
 
         if (isLoggedIn) {
             // キャンセルボタンをクリックしたときテキストエリアを空にする
@@ -125,6 +130,7 @@
                             // リプライ投稿成功
                             replyCount{{ $post->id }}.textContent = data.reply_count;
                             textarea{{ $post->id }}.value = '';
+                            sessionStorage.setItem('showReplyAlert', 'true');
                             location.reload();
                         } else {
                             // バリデーションエラーメッセージダイアログ
@@ -136,6 +142,30 @@
                         alert('リプライの投稿に失敗しました。');
                     });
             });
+        }
+        // sessionStorageがtrueの場合アラート表示処理
+        if (sessionStorage.getItem('showReplyAlert') === 'true') {
+            // アラートを表示
+            replyAlert.style.display = 'block';
+            replyAlert.style.opacity = '1';
+
+            // 3秒後にフェードアウト
+            setTimeout(() => {
+                var fadeEffect = setInterval(() => {
+                    if (!replyAlert.style.opacity) {
+                        replyAlert.style.opacity = '1';
+                    }
+                    if (replyAlert.style.opacity > '0') {
+                        replyAlert.style.opacity -= '0.1';
+                    } else {
+                        clearInterval(fadeEffect);
+                        replyAlert.style.display = 'none';
+                    }
+                }, 100);
+            }, 3000);
+
+            // フラグを削除
+            sessionStorage.removeItem('showReplyAlert');
         }
     });
 

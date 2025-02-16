@@ -55,6 +55,8 @@ class LoginController extends Controller
             if ($request->has('intended')) {
                 session(['url.intended' => $request->input('intended')]);
             }
+            // ログイン成功時のフラッシュメッセージ
+            session()->flash('success', 'ログインに成功しました');
 
             // intended に保存されているURLがあればそこへリダイレクト、なければデフォルトのページへ
             return redirect()->intended();
@@ -62,13 +64,6 @@ class LoginController extends Controller
 
         // 認証失敗時の処理
         return back()->withErrors(['email' => '認証に失敗しました'])->withInput();
-    }
-
-    // ユーザ認証成功時の処理
-    protected function authenticated(Request $request, $user)
-    {
-        // ログイン成功時のフラッシュメッセージ
-        session()->flash('success', 'ログインに成功しました');
     }
 
     // ログアウト処理

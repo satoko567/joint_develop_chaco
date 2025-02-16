@@ -1,3 +1,7 @@
+{{-- リプライ成功時のアラート --}}
+<div id="reply-alert" class="alert alert-success text-center" style="display: none; position: fixed; top: 50px; left: 50%; transform: translateX(-50%); z-index: 1000;">
+    リプライが追加されました！
+</div>
 @if ($posts->isEmpty())
     <p>投稿がありません</p>
     @else
@@ -60,6 +64,9 @@
 {{-- リプライ投稿処理 --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const replyAlert = document.getElementById('reply-alert');
+        console.log(replyAlert);
+
         @foreach($posts as $post)
             const replyButton{{ $post->id }} = document.getElementById('reply-button-{{ $post->id }}');
             const replyForm{{ $post->id }} = document.getElementById('reply-form-{{ $post->id }}');
@@ -114,6 +121,25 @@
                                     replyCount{{ $post->id }}.textContent = data.reply_count;
                                     replyForm{{ $post->id }}.classList.add('hidden');
                                     textarea{{ $post->id }}.value = '';
+
+                                    // アラートを表示
+                                    replyAlert.style.display = 'block';
+                                    replyAlert.style.opacity = '1';
+
+                                    // 3秒後にフェードアウト
+                                    setTimeout(() => {
+                                        var fadeEffect = setInterval(() => {
+                                            if (!replyAlert.style.opacity) {
+                                                replyAlert.style.opacity = '1';
+                                            }
+                                            if (replyAlert.style.opacity > '0') {
+                                                replyAlert.style.opacity -= '0.1';
+                                            } else {
+                                                clearInterval(fadeEffect);
+                                                replyAlert.style.display = 'none';
+                                            }
+                                        }, 100);
+                                    }, 3000);
                                 } else {
                                     // バリデーションエラーメッセージダイアログ
                                     alert(data.errors.content[0]);
