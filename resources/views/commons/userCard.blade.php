@@ -4,7 +4,7 @@
                 <h3 class="card-title text-light">{{ $user->nickname }} さんのプロフィール</h3>
                 @include('follow.followButton')
             </div>
-            <form action="{{ route('user.uploadIcon') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('users.uploadIcon', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="icon">ユーザーアイコンのアップロード</label>

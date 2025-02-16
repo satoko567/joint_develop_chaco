@@ -9,8 +9,9 @@
                 @else
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                 @endif 
-                <a href="{{ route('users.show', $user->id) }}">
+                <a href="{{ route('users.show', $activity->user->id) }}">
                 {{ $activity->user->nickname }}
+                </a>
             が投稿をしました。
             <span class="float-right">{{ $activity->created_at }}</span>
         </div>
@@ -38,6 +39,7 @@
                 @endif 
                     <a href="{{ route('users.show', $user->id) }}">
             {{ $user->nickname }}
+            </a>
         が
         <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
         <a href="{{ route('users.show', $activity->id) }}">
