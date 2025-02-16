@@ -30,8 +30,8 @@ Route::get('users/{id}', 'UsersController@show')->name('user.show');
 Route::get('posts/{id}/reply/', 'RepliesController@index')->name('reply.index');
 
 //フォロー一覧
-Route::get('{id}/followings', 'FollowController@showFollowings')->name('followings');
-Route::get('{id}/followers', 'FollowController@showFollowers')->name('followers');
+Route::get('users/{id}/followings', 'FollowController@showFollowings')->name('followings');
+Route::get('users/{id}/followers', 'FollowController@showFollowers')->name('followers');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
