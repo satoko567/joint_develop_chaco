@@ -7,6 +7,7 @@
         @include('commons.navigation')
         <!-- ユーザーの投稿を表示 -->
         @include('timeline.timeline')
+        @include('commons.error_messages')
     </div>
 </div>
 @endsection

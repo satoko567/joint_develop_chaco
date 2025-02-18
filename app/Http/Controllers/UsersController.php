@@ -62,8 +62,8 @@ class UsersController extends Controller
         $user = User::findOrFail(Auth::id());
          // 既存のアイコンがあれば削除
         if ($user->icon) {
-                Storage::disk('public')->delete('icons/'.$user->icon);
-            }
+            Storage::disk('public')->delete('icons/'.$user->icon);
+        }
         
         // アイコン画像が送信されているか確認
         if ($request->hasFile('icon')) {

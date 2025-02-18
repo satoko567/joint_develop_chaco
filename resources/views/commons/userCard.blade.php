@@ -12,7 +12,7 @@
                 </div>
                     <button type="submit" class="btn btn-primary">アップロード</button>
             </form>
-                @if(Auth::check())
+                @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon))
                     <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="350">
                 @else
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">

@@ -4,13 +4,13 @@
     <!-- 投稿の場合 -->
     <div class="card mb-3">
         <div class="card-header">
-                @if(Auth::check())
+                @if(Auth::check()) 
                     <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
                 @else
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                 @endif 
                 <a href="{{ route('users.show', $activity->user->id) }}">
-                {{ $activity->user->nickname }}
+                    {{ $activity->user->nickname }}
                 </a>
             が投稿をしました。
             <span class="float-right">{{ $activity->created_at }}</span>
@@ -23,7 +23,7 @@
                 <form method="" action="" class="me-2">
                     <button type="submit" class="mr-1 btn btn-danger">削除</button>
                 </form>
-                <a href="{{route('post.edit', $activity->id)}}" class="btn btn-primary">編集する</a>
+                    <a href="{{route('post.edit', $activity->id)}}" class="btn btn-primary">編集する</a>
             </div>
             @endif
         </div>
@@ -32,14 +32,14 @@
     <!-- フォローの場合 -->
     <div class="alert alert-info">
 
-                @if(Auth::check())
+                @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon))
                     <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
                 @else
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                 @endif 
-                    <a href="{{ route('users.show', $user->id) }}">
-            {{ $user->nickname }}
-            </a>
+                <a href="{{ route('users.show', $user->id) }}">
+                    {{ $user->nickname }}
+                </a>
         が
         <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
         <a href="{{ route('users.show', $activity->id) }}">
