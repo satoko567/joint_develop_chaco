@@ -50,4 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // ユーザ退会
     Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
+    // リプライ編集・更新
+    Route::put('{id}', 'RepliesController@update')->name('reply.update');
 });
