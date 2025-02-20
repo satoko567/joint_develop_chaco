@@ -17,12 +17,18 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'content' => 'required|string|max:140', 
+            'content' => 'nullable|string|max:140', // テキストは任意、140文字以内
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像アップロード制限
         ]);
     
         $post = new Post();
         $post->content = $request->input('content');
         $post->user_id = $request->user()->id;
+        // 画像がアップロードされた場合
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('uploads', 'public'); // storage/app/public/uploads に保存
+            $post->image = $imagePath;
+        }
         $post->save();
     
         return redirect('/')->with('status', '投稿が完了しました！');

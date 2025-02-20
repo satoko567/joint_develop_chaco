@@ -19,6 +19,9 @@
         <div class="">
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
+                @if ($post->image)
+                     <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-2" alt="投稿画像">
+                @endif
                 <p class="text-muted">{{$post->created_at->format('Y-m-d H:i:s')}}</p>
             </div>
 
