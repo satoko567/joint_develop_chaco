@@ -39,6 +39,7 @@ Route::get('users/{id}/followers', 'FollowController@showFollowers')->name('foll
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
+        Route::post('/','PostController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
         Route::put('{id}', 'PostController@update')->name('post.update');
         Route::delete('{id}', 'PostController@destroy')->name('post.delete');

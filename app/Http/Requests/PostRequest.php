@@ -16,6 +16,7 @@ class PostRequest extends FormRequest
         return true;;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,6 +26,13 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|string|max:140', // バリデーションルール
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'content' => '投稿内容',
         ];
     }
 }
