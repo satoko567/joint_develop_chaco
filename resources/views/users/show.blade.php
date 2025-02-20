@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    @include('commons.error_messages')
 <div class="row">
     @include('commons.userCard', ['user' => $user])
     <div class="col-sm-8">
@@ -7,7 +8,6 @@
         @include('commons.navigation')
         <!-- ユーザーの投稿を表示 -->
         @include('timeline.timeline')
-        @include('commons.error_messages')
     </div>
 </div>
 @endsection
