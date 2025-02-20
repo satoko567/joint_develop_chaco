@@ -1,8 +1,17 @@
         <!-- ナビゲーションタブ -->
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item">
-                <a href="{{ route('users.show', $user->id) }}" class="nav-link {{ Request::is('users/'.$user->id) ? 'active' : '' }}">タイムライン</a>
+                <a href="{{ route('users.show', $user->id) }}" class="nav-link {{ Request::is('users/'.$user->id) ? 'active' : '' }}">
+                    タイムライン
+                </a>
             </li>
+            @if(Auth::check() && Auth::user()->id === $user->id)
+            <li class="nav-item">
+                <a href="{{ route('user.notice', $user->id) }}" class="nav-link {{ Request::is('user/'.$user->id.'/notice') ? 'active' : '' }}">
+                    レスポンス
+                </a>
+            </li>
+            @endif
             <li class="nav-item">
                 <a href="{{ route('users.following', $user->id) }}" class="nav-link {{ Request::is('user/'.$user->id.'/following') ? 'active' : '' }}">
                     フォロー中

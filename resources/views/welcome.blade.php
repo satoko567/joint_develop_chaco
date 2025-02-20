@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+<h5 class="text-center mb-3">トピックを作ろう！</h5>
 
 @if(Auth::check())
 <div class="text-center mb-3">

@@ -10,3 +10,14 @@ if (!function_exists('totalCounts')) {
         ];
     }
 }
+
+if (!function_exists('totalCommentCounts')) {
+    function totalCommentCounts($post)
+    {
+        $countAllReplies = function ($comments) use (&$countAllReplies) {
+            return $comments->sum(fn($comment) => 1 + $countAllReplies($comment->replies));
+        };
+
+        return ['totalReplies' => $countAllReplies($post->comments()->with('replies')->get())];
+    }
+}
