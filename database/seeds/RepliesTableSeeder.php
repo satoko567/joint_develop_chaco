@@ -19,6 +19,7 @@ class RepliesTableSeeder extends Seeder
                 'post_id' => 48,
                 'content' =>  $i . '番目コメントです！',
                 'created_at' => Carbon::create(2025, 2, 16, 12, 0, 0)->addSeconds($i * 60),
+                'updated_at' => Carbon::create(2025, 2, 16, 12, 0, 0)->addSeconds($i * 60),
             ]);
         }
     }

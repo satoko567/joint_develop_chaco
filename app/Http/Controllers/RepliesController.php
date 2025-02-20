@@ -13,7 +13,10 @@ class RepliesController extends Controller
     public function index($id)
     {
         $post = Post::findOrFail($id);
-        $replies = $post->replies()->orderBy('created_at', 'desc')->paginate(10);
+        $replies = $post->replies()
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         $data = [
             'post' => $post,
             'replies' => $replies,
@@ -40,5 +43,25 @@ class RepliesController extends Controller
             'status' => true,
             'reply_count' => $replyCount,
         ], 200);
+    }
+
+    // リプライ編集・更新
+    public function update(ReplyRequest $request, $reply_id)
+    {
+        $reply = Reply::findOrFail($reply_id);
+        
+        // 編集権限チェック
+        if (\Auth::id() === $reply->user_id) {
+            $reply->content = $request->content;
+            $reply->save();
+            return response()->json([
+                'status' => true,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'このリプライを編集する権限がありません。'
+            ], 403);
+        }
     }
 }
