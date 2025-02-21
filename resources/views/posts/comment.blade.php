@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+@include('commons.error_messages')
 <div class="container mt-5">
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-info text-white">
