@@ -4,7 +4,7 @@
     <!-- 投稿の場合 -->
     <div class="card mb-3">
         <div class="card-header">
-                @if(Auth::check()) 
+                @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon)) 
                     <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
                 @else
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
@@ -41,7 +41,11 @@
                     {{ $user->nickname }}
                 </a>
         が
-        <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
+        @if(Auth::check())
+            <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
+        @else
+            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+        @endif 
         <a href="{{ route('users.show', $activity->id) }}">
             {{ $activity->nickname }}
         </a>

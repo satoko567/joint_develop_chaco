@@ -4,6 +4,7 @@
                 <h3 class="card-title text-light">{{ $user->nickname }} さんのプロフィール</h3>
                 @include('follow.followButton')
             </div>
+            @if(Auth::check())
             <form action="{{ route('users.uploadIcon', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
@@ -11,6 +12,7 @@
                     <input type="file" name="icon" id="icon" class="form-control" accept="image/*">
                 </div>
                     <button type="submit" class="btn btn-primary">アップロード</button>
+            @endif
             </form>
                 @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon))
                     <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="350">
