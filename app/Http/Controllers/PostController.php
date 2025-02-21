@@ -20,15 +20,15 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-    // データを保存
-    $post = new Post;
-    $post->content = $request->content;
-    $post->user_id = Auth::id(); 
-    $post->save();
+       // データを保存
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = Auth::id(); 
+        $post->save();
 
-    $redirectUrl = session('redirect_to', route('post.list'));
+        $redirectUrl = session('redirect_to', route('post.list'));
 
-    return redirect($redirectUrl)->with('success', '投稿しました');
+        return redirect($redirectUrl)->with('success', '投稿しました');
     }
 
     public function edit($id)
