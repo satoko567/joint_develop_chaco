@@ -64,4 +64,23 @@ class RepliesController extends Controller
             ], 403);
         }
     }
+
+    // リプライ削除
+    public function destroy($reply_id)
+    {
+        $reply = Reply::findOrFail($reply_id);
+
+        // 削除権限チェック
+        if (\Auth::id() === $reply->user_id) {
+            $reply->delete();
+            return response()->json([
+                'status' => true,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'このリプライを削除する権限がありません。'
+            ], 403);
+        }
+    }
 }
