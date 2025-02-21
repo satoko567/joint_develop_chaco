@@ -1,9 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- リプライ削除モーダル --}}
+    <div class="modal fade" id="deleteReplyConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>確認</h4>
+                </div>
+                <div class="modal-body">
+                    <label>本当に削除しますか？</label>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <form id="deleteReplyForm" action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">削除する</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="d-flex flex-column">
-        {{-- リプライ成功時のアラート --}}
-        <div id="reply-alert" class="alert alert-success text-center"
+        {{-- リプライアラート --}}
+        <div id="reply-alert" class="alert text-center"
             style="display: none; position: fixed; top: 50px; left: 50%; transform: translateX(-50%); z-index: 1000;">
         </div>
         {{-- 投稿内容 --}}
@@ -86,8 +108,9 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <button class="dropdown-item text-center" type="button"
                                                     onclick="btnEditMode({{ $reply->id }})">編集</button>
-                                                <button class="dropdown-item text-center text-danger"
-                                                    type="button">削除</button>
+                                                <button class="dropdown-item text-center text-danger" type="button"
+                                                    data-toggle="modal" data-target="#deleteReplyConfirmModal"
+                                                    onclick="setDeleteModal({{ $reply->id }})">削除</button>
                                             </div>
                                         </div>
                                     </div>
@@ -186,15 +209,20 @@
         }
         // sessionStorageがtrueの場合アラート表示内容の設定
         if (sessionStorage.getItem('showReplyAlert') === 'true') {
-            showAlert("リプライが追加されました！");
+            showAlert("リプライが追加されました！", "alert-success");
             sessionStorage.removeItem('showReplyAlert');
         } else if (sessionStorage.getItem('showEditAlert') === 'true') {
-            showAlert("リプライを編集しました！");
+            showAlert("リプライを編集しました！", "alert-success");
             sessionStorage.removeItem('showEditAlert');
+        } else if (sessionStorage.getItem('showDeleteAlert') === 'true') {
+            showAlert("リプライを削除しました！", "alert-danger");
+            sessionStorage.removeItem('showDeleteAlert');
         }
         // アラートメッセージ表示・非表示処理
-        function showAlert(message) {
+        function showAlert(message, alertClass) {
             replyAlert.innerHTML = message;
+            replyAlert.classList.remove("alert-success", "alert-danger");
+            replyAlert.classList.add(alertClass);
             replyAlert.style.display = 'block';
             replyAlert.style.opacity = '1';
 
@@ -295,6 +323,53 @@
                 });
         });
     }
+
+    // 削除ボタンをクリックした時の処理
+    function setDeleteModal(replyId) {
+        var routeUrl = "{{ route('reply.delete', ':id') }}";
+        routeUrl = routeUrl.replace(':id', replyId);
+        document.getElementById('deleteReplyForm').action = routeUrl;
+    }
+
+    // リプライ削除確認ダイアログの削除するボタンをクリックした時の処理
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteReplyForm = document.getElementById('deleteReplyForm');
+        if (deleteReplyForm) {
+            deleteReplyForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const form = this;
+                fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status) {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                            sessionStorage.setItem('showDeleteAlert', 'true');
+                            setTimeout(() => {
+                                location.reload();
+                            }, 500);
+                        } else {
+                            if (data.message) {
+                                alert(data.message);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('リプライの削除に失敗しました。');
+                    });
+            });
+        }
+    });
 
     // コメントアイコンクリックした時の処理
     function scrollReplyList(event) {
