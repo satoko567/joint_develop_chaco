@@ -41,10 +41,10 @@
                     {{ $user->nickname }}
                 </a>
         が
-        @if(Auth::check())
-            <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
+        @if($activity->icon && Storage::disk('public')->exists('icons/'. $activity->icon))
+            <img src="{{ asset('storage/icons/'.$activity->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
         @else
-            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($activity->email, 55) }}" alt="ユーザのアバター画像">
         @endif 
         <a href="{{ route('users.show', $activity->id) }}">
             {{ $activity->nickname }}
