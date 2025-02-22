@@ -23,20 +23,10 @@
                 </p>
                 <p class="text-muted mb-2">{{$post->created_at->format('Y-m-d H:i:s')}}</p>
                 <p class="mb-2 mt-2">
-                        Comment数
-                        <span class="badge bg-warning ms-2 ">{{ totalCommentCounts($post)['totalReplies'] }}</span>
-                        @if( totalCommentCounts($post)['totalReplies'] >=10 )
-                        🔥🔥🔥🔥🔥 
-                        @elseif( totalCommentCounts($post)['totalReplies'] >=9 )
-                        🔥🔥🔥🔥
-                        @elseif( totalCommentCounts($post)['totalReplies'] >=8 )
-                        🔥🔥🔥
-                        @elseif( totalCommentCounts($post)['totalReplies'] >=7)
-                        🔥🔥
-                        @elseif( totalCommentCounts($post)['totalReplies'] >=6 )
-                        🔥
-                        @endif          
-                </p>               
+                    Comment数
+                    <span class="badge bg-warning ms-2 ">{{ CommentCounts($post)['totalReplies'] }}</span>
+                    {{ getFireIcons(CommentCounts($post)['totalReplies']) }}
+                </p>
             </div>
 
             @if(Auth::check() && Auth::user()->id === $post->user_id)

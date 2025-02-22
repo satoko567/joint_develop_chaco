@@ -11,13 +11,22 @@ if (!function_exists('totalCounts')) {
     }
 }
 
-if (!function_exists('totalCommentCounts')) {
-    function totalCommentCounts($post)
+if (!function_exists('CommentCounts')) {
+    function CommentCounts($post)
     {
-        $countAllReplies = function ($comments) use (&$countAllReplies) {
-            return $comments->sum(fn($comment) => 1 + $countAllReplies($comment->replies));
-        };
+        return ['totalReplies' => count($post->allComments()->get())];
+    }
+}
 
-        return ['totalReplies' => $countAllReplies($post->comments()->with('replies')->get())];
+if (!function_exists('getFireIcons')) {
+    function getFireIcons($totalReplies)
+    {
+        $thresholds = config('constants.FIRE');
+        foreach ($thresholds as $threshold => $icons) {
+            if ($totalReplies >= $threshold) {
+                return $icons;
+            }
+        }
+        return '';
     }
 }
