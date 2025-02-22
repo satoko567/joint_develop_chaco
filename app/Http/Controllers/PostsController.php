@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostEditRequest;
+use Illuminate\Http\Request;
 use App\Post;
 
 class PostsController extends Controller
@@ -35,7 +36,7 @@ class PostsController extends Controller
             return view('posts.edit', compact('post'));
         }
 
-        return back()->with('権限がありません🙅');
+        return back()->with('status', '権限がありません🙅');
     }
 
     public function update(PostEditRequest $request, $id)
@@ -45,10 +46,10 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->content = $request->content;
             $post->save();
-            return redirect()->route('home')->with('更新に成功しました✅');
+            return redirect()->route('home')->with('status', '更新に成功しました✅');
         }
 
-        return back()->with('権限がありません🙅');
+        return back()->with('status', '権限がありません🙅');
     }
 
     // 投稿削除
@@ -62,8 +63,9 @@ class PostsController extends Controller
 
         // 投稿削除
         $post->delete();
+        $post->allComments()->delete();
 
         // 削除後、投稿一覧ページへリダイレクト
-        return redirect()->route('home')->with('success', '投稿が削除されました');
+        return redirect()->route('home')->with('status', '投稿が削除されました');
     }
 }
