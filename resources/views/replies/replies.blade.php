@@ -39,6 +39,9 @@
                 </div>
                 <div class="p-2 text-left d-inline-block w-75" style="background-color: #eff7ff">
                     <p class="mb-2">{{ $post->content }}</p>
+                    @if ($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" alt="投稿画像" class="img-fluid mt-2">
+                    @endif
                     <p class="text-muted mb-0">{{ $post->created_at }}</p>
                     <hr class="m-0 mb-1">
                     <a class="text-dark text-decoration-none" href="#replyList" onclick="scrollReplyList(event)"
