@@ -24,7 +24,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|string|max:140', // バリデーションルール
+            'content' => 'required|string|max:140',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // バリデーションルール
         ];
     }
 

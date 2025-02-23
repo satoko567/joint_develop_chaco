@@ -17,6 +17,9 @@
                 <div class="text-left d-inline-block w-75">
                     <a href="{{ route('reply.index', $post->id) }}" class="text-dark text-decoration-none">
                         <p class="mb-2">{{ $post->content }}</p>
+                        @if ($post->image)
+                            <img src="{{ asset('storage/' . $post->image) }}" alt="投稿画像" class="img-fluid mt-2" style="width: 300px; height: 200px; object-fit: cover;">
+                        @endif
                         <p class="text-muted mb-0">{{ $post->created_at->format('Y-m-d H:i') }}</p>
                         <hr class="m-0">	
                     </a>
