@@ -10,14 +10,32 @@
 
 @if(Auth::check())
 <div class="text-center mb-3">
-    <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
+    <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75" enctype="multipart/form-data">
         <div class="text-left mt-1">@include('commons.error_messages')</div>
         @csrf
         <div class="form-group">
-            <textarea class="form-control" name="content" rows="5" placeholder="共同開発について話してみては？"required oninput="updateCharCount(this)"></textarea>
+            <textarea class="form-control" name="content" rows="5" placeholder="共同開発について話してみては？"required oninput="updateCharCount(this)">{{ old('content') }}</textarea>
             <div class="text-left mt-1">
                 <small id="charCount" class="text-muted">残り140文字</small>
             </div>
+
+             <!-- 画像アップロードフィールド -->
+             <div class="form-group mt-3">
+                <input type="file" name="image" class="form-control mt-2">
+                <!-- ファイル名を表示 -->
+                <p id="fileName" class="mt-2 text-muted"></p>
+
+                <!-- 画像プレビュー -->
+                <img id="imagePreview" class="img-fluid mt-2 d-none" style="max-width: 200px;" alt="投稿画像">
+            </div>
+
+            <!-- エラーメッセージ -->
+            @error('image')
+                <div class="text-left mt-1">
+                    <small class="text-danger">{{ $message }}</small>
+                </div>
+            @enderror
+
             <div class="text-left mt-3">
                 <button type="submit" class="btn btn-primary">投稿する</button>
             </div>
