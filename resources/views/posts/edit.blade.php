@@ -14,7 +14,7 @@
         <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
     </div>
     
-    <button type="submit" class="btn btn-primary">更新する</button>
+    <button type="submit" class="btn btn-bg-common">更新する</button>
 </form>
 
 @endsection

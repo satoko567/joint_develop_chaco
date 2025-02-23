@@ -30,7 +30,7 @@
                     <label for="password_confirmation">パスワード確認</label>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{old('password_confirmation')}}">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+                <button type="submit" class="btn mt-2" style="background-color: #2E8B57; color: white;">新規登録</button>
             </form>
         </div>
     </div>

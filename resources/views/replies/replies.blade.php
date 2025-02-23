@@ -31,13 +31,13 @@
         {{-- 投稿内容 --}}
         <div class="w-75 m-auto">
             <div class="mb-0 text-center">
-                <div class="p-2 text-left d-inline-block w-75" style="background-color: #eff7ff">
+                <div class="p-2 text-left d-inline-block w-75 target-posts">
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 65) }}" alt="ユーザのアバター画像">
                     <p class="mt-3 mb-0 d-inline-block">
                         <a href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
                     </p>
                 </div>
-                <div class="p-2 text-left d-inline-block w-75" style="background-color: #eff7ff">
+                <div class="p-2 text-left d-inline-block w-75 target-posts">
                     <p class="mb-2">{{ $post->content }}</p>
                     <p class="text-muted mb-0">{{ $post->created_at }}</p>
                     <hr class="m-0 mb-1">
@@ -58,13 +58,13 @@
                             <div class="text-right mt-2">
                                 <button type="button" class="btn btn-outline-secondary ml-2"
                                     id="cancel-button-{{ $post->id }}">キャンセル</button>
-                                <button type="submit" class="btn btn-outline-primary">返信する</button>
+                                <button type="submit" class="btn btn-outline-success">返信する</button>
                             </div>
                         </div>
                     </form>
                 @else
                     <div class="mt-2 d-inline-block w-75 text-right">
-                        <button type="button" class="btn btn-primary" onclick="confirmLogin()">返信する</button>
+                        <button type="button" class="btn" style="background-color: #2E8B57; color: white;" onclick="confirmLogin()">返信する</button>
                     </div>
                 @endif
             </div>
@@ -131,7 +131,7 @@
                                     <div class="text-right mt-3">
                                         <button type="button" class="btn btn-outline-secondary ml-2"
                                             id="cancel-btn-{{ $reply->id }}">キャンセル</button>
-                                        <button type="submit" class="btn btn-outline-primary"
+                                        <button type="submit" class="btn btn-outline-success"
                                             id="update-btn-{{ $reply->id }}">更新する</button>
                                     </div>
                                 </div>
