@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\User;
 
 class FollowerSeeder extends Seeder
@@ -10,6 +11,7 @@ class FollowerSeeder extends Seeder
     {
         // 全ユーザーを取得
         $users = User::all();
+        $time = Carbon::now();
 
         // すべてのユーザー間でフォロー関係を作成
         foreach ($users as $user) {
@@ -22,10 +24,11 @@ class FollowerSeeder extends Seeder
                             'followed_user_id' => $otherUser->id,
                         ],
                         [
-                            'created_at' => now(),
-                            'updated_at' => now(),
+                            'created_at' => $time,
+                            'updated_at' => $time,
                         ]
                     );
+                    $time = $time->addMinutes(3);
                 }
             }
         }

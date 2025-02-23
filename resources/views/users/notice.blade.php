@@ -5,8 +5,8 @@
     <div class="col-sm-8">
         <!-- ナビゲーションタブ -->
         @include('commons.navigation')
-        <!-- ユーザーの投稿を表示 -->
-        @include('timeline.timeline')
+        <!-- Followingを表示 -->
+        @include('posts.notice')
     </div>
 </div>
 @endsection

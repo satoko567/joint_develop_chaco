@@ -14,4 +14,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comments()//parentのみ
+    {
+        return $this->hasMany(Comment::class)->whereNull('parent_id')->orderBy('created_at', 'desc');
+    }
+
+    public function allComments()
+    {
+        return $this->hasMany(Comment::class)->with('replies', 'user')->orderBy('created_at', 'desc');
+    }
 }

@@ -24,7 +24,19 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_user_id')
+            ->withTimestamps()
+            ->orderBy('followers.created_at', 'desc'); // ピボットテーブルの created_at で並び替え
+    }
+
+    public function comments()//parentのみ
+    {
+        return $this->hasMany(Comment::class)->whereNull('parent_id')->orderBy('created_at', 'desc');
+    }
+
+    public function allComments()
+    {
+        return $this->hasMany(Comment::class)->with('replies', 'user')->orderBy('created_at', 'desc');
     }
 
     /**
