@@ -20,12 +20,17 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
+
+        if($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts', 'public');
+        }
+
        // データを保存
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = Auth::id(); 
+        $post->image = $imagePath;
         $post->save();
-
         $redirectUrl = session('redirect_to', route('post.list'));
 
         return redirect($redirectUrl)->with('success', '投稿しました');
