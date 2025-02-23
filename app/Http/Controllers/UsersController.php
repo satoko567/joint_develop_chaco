@@ -39,6 +39,7 @@ class UsersController extends Controller
         Auth::logout();
         $user->delete();
         $user->posts()->delete();
+        $user->allComments()->delete();
 
         return redirect()->route('home')->with('status', 'ご利用ありがとうございました😢');
     }
@@ -85,8 +86,9 @@ class UsersController extends Controller
 
         $posts = $user->posts()->with('user')->get();
         $followings = $user->following()->withPivot('created_at')->get();
+        $comments = $user->allComments()->with('user', 'post', 'replies.user')->get();	
 
-        $activities = $followings->merge($posts);
+        $activities = $followings->merge($comments)->merge($posts);	
 
         // contentでソート（postかどうかを判定）
         $activities = $activities->sortByDesc(function ($activity) {
@@ -95,7 +97,7 @@ class UsersController extends Controller
 
         //$activitiesはcollectionデーターであり、 paginate() メソッドが存在しない為、手動で定義。
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 5;
+        $perPage = 10;
         $total = $activities->count();
 
         $currentItems = $activities->slice(($currentPage - 1) * $perPage, $perPage)->all();

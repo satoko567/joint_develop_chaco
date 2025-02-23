@@ -6,7 +6,7 @@
         <!-- ナビゲーションタブ -->
         @include('commons.navigation')
         <!-- Followingを表示 -->
-        @include('follow.following')
+        @include('posts.notice')
     </div>
 </div>
 @endsection
