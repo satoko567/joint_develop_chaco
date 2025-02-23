@@ -18,14 +18,12 @@
 
         <div class="">
             <div class="text-left d-inline-block w-75">
-                <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
-                @if ($post->image)
-                     <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-2" alt="投稿画像">
-                @endif
-                <p class="text-muted">{{$post->created_at->format('Y-m-d H:i:s')}}</p>
                 <p class="mb-2 ">
                     <a href="{{ route('posts.comment', $post->id)}}" class="text-dark">{!! nl2br(e($post->content)) !!}</a>
                 </p>
+                @if ($post->image)
+                     <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-2" alt="投稿画像">
+                @endif
                 <p class="text-muted mb-2">{{$post->created_at->format('Y-m-d H:i:s')}}</p>
                 <p class="mb-2 mt-2">
                     Comment数
