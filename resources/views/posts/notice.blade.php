@@ -3,8 +3,12 @@
     @include('commons.error_messages')
         @foreach($comments as $comment)
         <div class="card mb-3">
-            <div class="card-header">
-                <img src="{{ Gravatar::src($comment->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            <div class="card-header">                
+                @if($comment->user->icon && Storage::disk('public')->exists('icons/'.$comment->user->icon))
+                    <img src="{{ asset('storage/icons/'.$comment->user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="65">
+                @else
+                    <img src="{{ Gravatar::src($comment->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+                @endif
                 <a href="{{ route('users.show', $comment->user->id) }}">
                     {{ $comment->user->nickname }}
                 </a>

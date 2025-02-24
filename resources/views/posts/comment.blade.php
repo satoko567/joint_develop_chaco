@@ -7,12 +7,19 @@
             <h3 class="mb-0">トピック</h3>
         </div>
         <div class="card-body">
-            <img src="{{ Gravatar::src($post->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            @if($post->user->icon && Storage::disk('public')->exists('icons/'.$post->user->icon))
+                <img src="{{ asset('storage/icons/'.$post->user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="60">
+            @else
+                <img src="{{ Gravatar::src($post->user->email, 60) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            @endif
             <a href="{{ route('users.show', $post->user->id) }}">
                 {{ $post->user->nickname }}
             </a>
             <h2 class="card-title">{{ $post->title }}</h2>
             <p class="lead">{!! nl2br(e($post->content)) !!}</p>
+            @if ($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-2" width="300" alt="投稿画像">
+            @endif
         </div>
     </div>
 
