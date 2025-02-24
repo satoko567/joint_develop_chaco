@@ -1,7 +1,11 @@
 <li class="list-group-item">
     <div class=" m-auto pb-3 pt-3 ">{{--border-bottom--}}
         <div class="d-flex align-items-center mb-2">
-            <img src="{{ Gravatar::src($comment->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            @if($comment->user->icon && Storage::disk('public')->exists('icons/'.$comment->user->icon))
+                <img src="{{ asset('storage/icons/'.$comment->user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="50">
+            @else
+                <img src="{{ Gravatar::src($comment->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
+            @endif
             <a href="{{ route('users.show', $comment->user->id) }}">
                 {{ $comment->user->nickname ?? '名無し' }}
             </a>
