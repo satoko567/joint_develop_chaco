@@ -39,7 +39,7 @@
                                 <textarea class="form-control" name="content" rows="2" placeholder="ここに返信内容を入力..." id="textarea-{{ $post->id }}"></textarea>
                                 <div class="text-right mt-3">
                                     <button type="button" class="btn btn-outline-secondary ml-2" id="cancel-button-{{ $post->id }}">キャンセル</button>
-                                    <button type="submit" class="btn btn-outline-primary">返信する</button>
+                                    <button type="submit" class="btn btn-outline-success">返信する</button>
                                 </div>
                             </div>                    
                         </form>
@@ -51,9 +51,9 @@
                     <form action="{{ route('post.delete', $post->id) }}" method="POST" onsubmit="">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">削除</button>
+                        <button type="submit" class="btn" style="background-color: #dc3545; color: white;">削除</button>
                     </form>
-                    <a href="{{route('post.edit',$post->id)}}" class="btn btn-primary">編集する</a>
+                    <a href="{{route('post.edit',$post->id)}}" class="btn" style="background-color: #0078ba; color: white;">編集する</a>
                 </div>
             @endif
             </div>

@@ -2,9 +2,9 @@
 @section('content')
     <div class="row">
         <aside class="col-sm-4 mb-5">
-            <div class="card bg-info">
+            <div class="card card-bg-common">
                 <div class="card-header d-flex">
-                    <h3 class="card-title text-light flex-fill">{{ $user->name }}</h3>
+                    <h3 class="card-title flex-fill user-name">{{ $user->name }}</h3>
                     <div class="flex-fill">
                         @include('follow.follow_btn')
                     </div>
@@ -14,9 +14,9 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
                     @if (Auth::id() === $user->id)
                         <div class="mt-3">
-                            <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="" class="btn btn-block btn-bg-common">ユーザ情報の編集</a>
                             {{-- ユーザ退会ボタンあとで削除ここから↓ --}}
-                            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
+                            <a class="btn text-light" data-toggle="modal" data-target="#deleteConfirmModal" style="background-color: #dc3545; color: white;">退会する</a>
                             <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
