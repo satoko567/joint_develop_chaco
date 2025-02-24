@@ -4,11 +4,18 @@
     <!-- 投稿の場合 -->
     <div class="card mb-3">
         <div class="card-header">
-            <img src="{{ Gravatar::src($activity->user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
-            <a href="{{ route('users.show', $activity->user->id) }}">
-                {{ $activity->user->nickname }}
-            </a>
-            が
+
+                @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon))
+                    <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
+                @else
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                @endif 
+                <a href="{{ route('users.show', $activity->user->id) }}">
+                    {{ $activity->user->nickname }}
+                </a>
+                
+            が投稿をしました。
+        
             @if (!is_null($activity->parent_id) && $activity->post)
             <a href="{{ route('posts.comment', $activity->post->id) }}" class="text-primary">
                 コメント
@@ -61,7 +68,7 @@
                     @method('DELETE')
                     <button type="submit" class="mr-1 btn btn-danger">削除</button>
                 </form>
-                <a href="{{route('post.edit', $activity->id)}}" class="btn btn-primary">編集する</a>
+                    <a href="{{route('post.edit', $activity->id)}}" class="btn btn-primary">編集する</a>
             </div>
             @endif
             @endif
@@ -71,12 +78,20 @@
     <!-- フォローの場合 -->
     <div class="alert alert-info">
 
-        <img src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 rounded-circle">
-        <a href="{{ route('users.show', $user->id) }}">
-            {{ $user->nickname }}
-        </a>
+                @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon))
+                    <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
+                @else
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                @endif 
+                <a href="{{ route('users.show', $user->id) }}">
+                    {{ $user->nickname }}
+                </a>
         が
-        <img src="{{ Gravatar::src($activity->email, 50) }}" alt="ユーザのアバター画像" class="mr-2 ml-2 rounded-circle">
+        @if($activity->icon && Storage::disk('public')->exists('icons/'. $activity->icon))
+            <img src="{{ asset('storage/icons/'.$activity->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
+        @else
+            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($activity->email, 55) }}" alt="ユーザのアバター画像">
+        @endif 
         <a href="{{ route('users.show', $activity->id) }}">
             {{ $activity->nickname }}
         </a>

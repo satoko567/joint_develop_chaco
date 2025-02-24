@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\PostsController;
 
 /*
@@ -17,6 +18,7 @@ use App\Http\Controllers\PostsController;
 
 // ユーザー関連
 Route::get('/', 'PostsController@index')->name('home');
+Route::get('users/{id}', [UsersController::class, 'show'])->name('users.show'); // ユーザー詳細
 Route::get('users/{id}', [UsersController::class, 'timeline'])->name('users.show'); //'timeline'を'show'に戻せば本来のユーザー詳細となる。
 
 // ユーザ新規登録
@@ -48,12 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit', 'UsersController@edit')->name('users.edit');
         Route::put('/update', 'UsersController@update')->name('users.update');
         Route::delete('/delete', 'UsersController@destroy')->name('users.destroy');
+        Route::post('/user/upload-icon', [UsersController::class, 'uploadIcon'])->name('users.uploadIcon');
         Route::get('/following', 'FollowController@following')->name('users.following');
         Route::get('/followers', 'FollowController@followers')->name('users.followers');
         Route::post('/follow', 'FollowController@follow')->name('follow');
         Route::delete('/unfollow', 'FollowController@unfollow')->name('unfollow');
         Route::get('/notice', 'CommentsController@notice')->name('user.notice');//レスポンス
     });
-
-
 });

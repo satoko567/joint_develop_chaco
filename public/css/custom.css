@@ -1,0 +1,5 @@
+.user-icon {
+    width: 150px;  /* アイコンの幅 */
+    height: 150px; /* アイコンの高さ */
+    object-fit: cover; /* 画像が丸い枠に収まるように */
+}

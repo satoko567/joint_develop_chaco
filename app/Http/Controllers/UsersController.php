@@ -6,8 +6,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -52,7 +54,32 @@ class UsersController extends Controller
         ]);
         //$data += $this->userCounts($user);
     }
+    public function uploadIcon(Request $request)
+    {
+        $request->validate([
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        // 現在ログイン中のユーザーを取得
+        $user = User::findOrFail(Auth::id());
+         // 既存のアイコンがあれば削除
+        if ($user->icon) {
+            Storage::disk('public')->delete('icons/'.$user->icon);
+        }
+        
+        // アイコン画像が送信されているか確認
+        if ($request->hasFile('icon')) {
+            
+            // 画像をストレージに保存（publicディスク）
+            $path = $request->file('icon')->store('icons', 'public');
+            
+            // ユーザーのアイコンを更新
+            $user->icon = basename($path);
+            $user->save();
+        }
 
+        return redirect()->route('users.show', $user->id)
+                         ->with('success', 'アイコンがアップロードされました');
+    }
     public function timeline($id)
     {
         $user = User::findOrFail($id);

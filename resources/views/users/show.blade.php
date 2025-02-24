@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @include('commons.error_messages')
 <div class="row">
-    @include('commons.userCard')
+    @include('commons.userCard', ['user' => $user])
     <div class="col-sm-8">
         <!-- ナビゲーションタブ -->
         @include('commons.navigation')

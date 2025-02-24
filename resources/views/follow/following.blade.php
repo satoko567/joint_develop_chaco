@@ -5,8 +5,12 @@
         @foreach($following as $index => $user)
         <div class="col-md-2 text-center d-flex flex-column align-items-center">
 
-            <img src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像" class="rounded-circle mb-2">
-
+                @if($user->icon && Storage::disk('public')->exists('icons/'. $user->icon)) 
+                    <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="ユーザーアイコン" class="rounded-circle img-fluid" width="55">
+                @else
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                @endif 
+                
             <p class="mb-0">
                 <a href="{{ route('users.show', $user->id) }}">{{ $user->nickname }}</a>
             </p>
