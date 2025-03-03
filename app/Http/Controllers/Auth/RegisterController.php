@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers; //トレイト使用
+//①【showRegistrationForm】ユーザ新規登録画面表示メソッド
+//②【register】ユーザ新規登録後のログインメソッド
+//メソッドの内容は【trait/RegisterUsers.text】に記載（保守性を考慮し記載）
 
 class RegisterController extends Controller
 {

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +14,10 @@
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// user新規登録処理
+Route::prefix('/register')->group(function () {
+    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('/','Auth\RegisterController@register')->name('post.register');
 });
