@@ -7,11 +7,9 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers; //トレイト使用
-//①【showRegistrationForm】ユーザ新規登録画面表示メソッド
-//②【register】ユーザ新規登録後のログインメソッド
-//メソッドの内容は【trait/RegisterUsers.text】に記載（保守性を考慮し記載）
-
+use Illuminate\Foundation\Auth\RegistersUsers; // トレイト使用
+// ①【showRegistrationForm】ユーザ新規登録画面表示メソッド
+// ②【register】ユーザ新規登録後のログインメソッド
 class RegisterController extends Controller
 {
     /*
@@ -32,7 +30,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // ユーザ新規登録後【localhost:8080/】にリダイレクト
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -56,6 +55,16 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],[
+            'name.required' => '名前は必須です。',
+            'name.string' => '名前は文字列で入力してください。',
+            'name.max' => '名前は255文字以内で入力してください。',
+            'email.required' => 'メールアドレスは必須です。',
+            'email.email' => '有効なメールアドレスを入力してください。',
+            'email.unique' => 'このメールアドレスは既に使用されています。',
+            'password.required' => 'パスワードは必須です。',
+            'password.min' => 'パスワードは8文字以上で入力してください。',
+            'password.confirmed' => 'パスワードが一致しません。',
         ]);
     }
 

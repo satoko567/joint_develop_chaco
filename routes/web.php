@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 // user新規登録処理
-Route::prefix('/register')->group(function () {
-    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('register');
-    Route::post('/','Auth\RegisterController@register')->name('post.register');
+Route::prefix('/signup')->group(function () {
+    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+    Route::post('/','Auth\RegisterController@register')->name('signup.post');
 });
