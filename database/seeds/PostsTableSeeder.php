@@ -84,7 +84,7 @@ class PostsTableSeeder extends Seeder
                 'content' => 'DEATH NOTE',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
+            ]
         ]);
     }
 }
