@@ -1,5 +1,6 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
+
 <section class="title mt-5 d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center align-items-center">
         <i class="bi bi-send" style="font-size: 2rem;"></i>
