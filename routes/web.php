@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +16,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// user新規登録処理
+Route::prefix('/signup')->group(function () {
+    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+    Route::post('/','Auth\RegisterController@register')->name('signup.post');
+});
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
-// ログアウト
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
+//ログアウト
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
