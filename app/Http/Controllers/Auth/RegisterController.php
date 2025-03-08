@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+//use Illuminate\Support\Facades\Validator;250309:バリデーションファイルをRequestsファイル内に集約する。Validatorは使わない。
 
 class RegisterController extends Controller
 {
@@ -41,7 +41,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    //250309:バリデーションファイルをRequestsファイル内に集約する。そのため、以下のvalidatorメソッドは使わない。
+    //250309:バリデーションファイルをRequestsファイル内に集約する。そのため、以下のバリデーションコードは使わない。
     // /**
     //  * Get a validator for an incoming registration request.
     //  *

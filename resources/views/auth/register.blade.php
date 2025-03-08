@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('content')
+{{-- @extends('layouts.app') --}}
+{{-- @section('content') --}}
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -43,4 +43,4 @@
             </form>
         </div>
     </div>
-@endsection    
+{{-- @endsection     --}}
