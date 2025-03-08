@@ -1,5 +1,16 @@
+@extends('layouts.app')
+@section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
-<div class="text-center">
+    <div class="text-center">
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
     </div>
     <div class="text-center mt-3">
@@ -22,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="">
+                    <input id="password" type="password" class="form-control" name="password" value="{{old('password')}}">
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">パスワード確認</label>
@@ -32,3 +43,4 @@
             </form>
         </div>
     </div>
+@endsection    
