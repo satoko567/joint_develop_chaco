@@ -47,8 +47,9 @@ class UsersDetailController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id','desc')->paginate(6);
 
-        return view('user.show',);
+        return view('user.show',compact('user','posts'));
     }
 
     /**

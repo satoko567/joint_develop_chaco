@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers; // トレイト使用
 // ①【showRegistrationForm】ユーザ新規登録画面表示メソッド
 // ②【register】ユーザ新規登録後のログインメソッド
@@ -49,31 +50,24 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ],[
-            'name.required' => '名前は必須です。',
-            'name.string' => '名前は文字列で入力してください。',
-            'name.max' => '名前は255文字以内で入力してください。',
-            'email.required' => 'メールアドレスは必須です。',
-            'email.email' => '有効なメールアドレスを入力してください。',
-            'email.unique' => 'このメールアドレスは既に使用されています。',
-            'password.required' => 'パスワードは必須です。',
-            'password.min' => 'パスワードは8文字以上で入力してください。',
-            'password.confirmed' => 'パスワードが一致しません。',
-        ]);
-    }
-
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\User
      */
+
+    //オーバーライド(トレイト使用のため)
+    public function register(RegisterRequest $request)
+    {
+        event(new Registered($user = $this->create($request->validated())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
     protected function create(array $data)
     {
         return User::create([
@@ -81,5 +75,16 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function redirectPath()
+    {
+        $userId = auth()->id();
+
+        if (!$userId) {
+            abort(500, "ユーザーIDが取得できませんでした。");
+        }
+
+        return route('user.show', ['id' => $userId]);
     }
 }
