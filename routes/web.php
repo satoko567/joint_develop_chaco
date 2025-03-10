@@ -26,7 +26,3 @@ Route::prefix('/signup')->group(function () {
 Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersDetailController@show')->name('user.show');
 });
-
-Route::get('/sample',function(){
-    return view('users/detail');
-});

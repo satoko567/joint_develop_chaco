@@ -3,16 +3,16 @@
 
 <main class="row mt-5">
   <section class="user-card col-sm-4">
-    <div class="card text-bg-light mb-3">
+    <div class="card text-bg-light mb-3 bg-info">
       <div class="card-header fs-auto pb-3">
         <h3>{{ $user->name }}</h3>
       </div>
       <div class="card-body">
-        <div class="d-flex d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
           <!-- usersテーブルにアイコンのカラムを追加し修正 -->
           <i class="bi bi-github" style="font-size: 900%"></i>
         </div>
-        <div class="d-flex d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-primary ">ユーザ情報の編集</button>
         </div>
       </div>
