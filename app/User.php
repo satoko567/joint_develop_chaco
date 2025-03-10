@@ -40,8 +40,8 @@ class User extends Authenticatable
     ];
 
     // 投稿とリレーション（postクラスと一時過程）
-    // public function posts()
-    // {
-    //     return $this->hasMany(Post::class);
-    // }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

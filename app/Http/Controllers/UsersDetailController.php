@@ -49,7 +49,7 @@ class UsersDetailController extends Controller
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id','desc')->paginate(6);
 
-        return view('user.show',compact('user','posts'));
+        return view('users.detail',compact('user','posts'));
     }
 
     /**
