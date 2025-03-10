@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,3 +13,9 @@
 */
 
 Route::get('/', 'PostsController@index');
+
+// user新規登録処理
+Route::prefix('/signup')->group(function () {
+    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+    Route::post('/','Auth\RegisterController@register')->name('signup.post');
+});
