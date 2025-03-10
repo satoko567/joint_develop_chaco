@@ -1,17 +1,18 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+{{-- layouts.appでエラーメッセージを表示コードが書かれる予定。このif文は後に削除する。 --}}
+    @if ($errors->any()) 
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+        <h1><i class="fa-solid fa-face-grin-wide"></i>Topic Post</h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
