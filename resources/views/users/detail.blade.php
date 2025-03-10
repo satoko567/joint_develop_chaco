@@ -9,8 +9,13 @@
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-center">
-          <!-- usersテーブルにアイコンのカラムを追加し修正 -->
+          <!-- userのアイコンが設定されていなければ既存の画像を表示 -->
+          <!-- アイコン登録処理はユーザー編集、更新処理開発時に合わせて実施 -->
+          @if($user->icon)
+          <img src="{{ asset('storage/' . $user->icon) }}" alt="User Icon" class="rounded-circle" width="150" height="150">
+          @else
           <i class="bi bi-github" style="font-size: 900%"></i>
+          @endif
         </div>
         <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-primary ">ユーザ情報の編集</button>
@@ -36,6 +41,7 @@
       </div>
       <div class="card-body">
         <!-- user post作成後 extends -->
+        <!-- 応急処置として対象ユーザの投稿(post)を表示する処理を実施 -->
         @if($posts->count() > 0)
         @foreach($posts as $post)
         <div class="post mb-4 mx-4">
