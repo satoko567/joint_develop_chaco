@@ -43,7 +43,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
-        return back();
+        return header('users/'.$id);
     }
 
 }
