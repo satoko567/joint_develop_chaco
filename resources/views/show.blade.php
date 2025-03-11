@@ -1,22 +1,24 @@
-<div class="row">
-    <aside class="col-sm-4 mb-5">
-        <div class="card bg-info">
-            <div class="card-header">
-                <h3 class="card-title text-light"></h3>
+<div class="container">
+    <div class="row">
+        <aside class="col-sm-4 mb-5">
+            <div class="card bg-info">
+                <div class="card-header">
+                    <h3 class="card-title text-light">{{$user->name}}</h3>
+                </div>
+                <div class="card-body">
+                    <img class="rounded-circle img-fluid" src="https://secure.gravatar.com/avatar/d10ca8d11301c2f4993ac2279ce4b930?s=400&r=g&d=identicon" alt="">
+                        <div class="mt-3">
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        </div>
+                </div>
             </div>
-            <div class="card-body">
-                <img class="rounded-circle img-fluid" src="" alt="">
-                    <div class="mt-3">
-                        {{-- <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a> --}}
-                    </div>
-            </div>
+        </aside>
+        <div class="col-sm-8">
+            <ul class="nav nav-tabs nav-justified mb-3">
+                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="#" class="nav-link {{ Request::is('users/'. $user->id. '#') ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="##" class="nav-link {{ Request::is('users/'. $user->id. '##') ? 'active' : '' }}">フォロワー</a></li>
+            </ul>
         </div>
-    </aside>
-    <div class="col-sm-8">
-        <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="" class="nav-link {{ Request::is() ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
-        </ul>
     </div>
 </div>

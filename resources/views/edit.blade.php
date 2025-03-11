@@ -1,14 +1,16 @@
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-<form method="" action="">
+<form method="POST" action="{{ route('user.update', $id) }}">
+    @csrf
+    @method('PUT')
     <input type="hidden" name="id" value="" />
     <div class="form-group">
         <label for="name">ユーザ名</label>
-        <input class="form-control" value="" name="name" />
+        <input class="form-control" value="{{ old('name', $user_name) }}" name="name" />
     </div>
 
     <div class="form-group">
         <label for="email">メールアドレス</label>
-        <input class="form-control" value="" name="" />
+        <input class="form-control" value="{{ old('email', $user_email) }}" name="email" />
     </div>
 
     <div class="form-group">
