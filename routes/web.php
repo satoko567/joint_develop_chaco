@@ -12,17 +12,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostsController@index');
 
 // user新規登録処理
 Route::prefix('/signup')->group(function () {
     Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup');
     Route::post('/','Auth\RegisterController@register')->name('signup.post');
 });
+<<<<<<< HEAD
 
 //user詳細
 Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersDetailController@show')->name('user.show');
 });
+=======
+>>>>>>> develop_a_kisaragi_sna
