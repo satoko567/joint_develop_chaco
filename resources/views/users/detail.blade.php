@@ -8,11 +8,11 @@
         <h3>{{ $user->name }}</h3>
       </div>
       <div class="card-body">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mb-3">
           <!-- userのアイコンが設定されていなければ既存の画像を表示 -->
           <!-- アイコン登録処理はユーザー編集、更新処理開発時に合わせて実施 -->
           @if($user->icon)
-          <img src="{{ asset('storage/' . $user->icon) }}" alt="User Icon" class="rounded-circle" width="150" height="150">
+          <img src="{{ asset('profile_img/' . $user->icon) }}" alt="User Icon" class="rounded-circle" width="150" height="150">
           @else
           <i class="bi bi-github" style="font-size: 900%"></i>
           @endif
@@ -46,7 +46,11 @@
         @foreach($posts as $post)
         <div class="post mb-4 mx-4">
           <div class="d-flex justify-content-start align-items-center">
-            <i class="bi bi-github" style="font-size: 300%"></i>
+          @if($user->icon)
+          <img src="{{ asset('profile_img/' . $user->icon) }}" alt="User Icon" class="rounded-circle" width="50" height="50">
+          @else
+          <i class="bi bi-github" style="font-size:300%"></i>
+          @endif
             <a class="mx-2" href="">{{ $user->name }}</a>
           </div>
           <p class="card-text d-flex justify-content-start">{{ $post->content }}</p>
