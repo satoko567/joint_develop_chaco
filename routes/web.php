@@ -22,5 +22,5 @@ Route::prefix('/signup')->group(function () {
 
 //user詳細
 Route::prefix('/users')->group(function(){
-    Route::get('/{id}','UsersDetailController@show')->name('user.show');
+    Route::get('/{id}','UsersController@show')->name('user.show');
 });
