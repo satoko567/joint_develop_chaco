@@ -2,20 +2,14 @@
 @section('content')
 
 <main class="row mt-5">
-    <section class="user-card col-sm-4">
+    <section class="user-card col-md-4">
         <div class="card text-bg-light mb-3 bg-info">
             <div class="card-header fs-auto pb-3">
                 <h3>{{ $user->name }}</h3>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-3">
-                    <!-- userのアイコンが設定されていなければ既存の画像を表示 -->
-                    <!-- アイコン登録処理はユーザー編集、更新処理開発時に合わせて実施 -->
-                    @if($user->icon)
-                    <img src="{{ asset('profile_img/' . $user->icon) }}" alt="User Icon" class="rounded-circle" width="150" height="150">
-                    @else
-                    <i class="bi bi-github" style="font-size: 900%"></i>
-                    @endif
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 150) }}" alt="ユーザのアバター画像">
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary ">ユーザ情報の編集</button>
@@ -24,7 +18,7 @@
         </div>
     </section>
 
-    <section class="col-sm-8">
+    <section class="col-md-8">
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
@@ -46,12 +40,8 @@
                 @foreach($posts as $post)
                 <div class="post mb-4 mx-4">
                     <div class="d-flex justify-content-start align-items-center">
-                        @if($user->icon)
-                        <img src="{{ asset('profile_img/' . $user->icon) }}" alt="User Icon" class="rounded-circle" width="50" height="50">
-                        @else
-                        <i class="bi bi-github" style="font-size:300%"></i>
-                        @endif
-                        <a class="mx-2" href="">{{ $user->name }}</a>
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像">
+                    <a class="mx-2" href="">{{ $user->name }}</a>
                     </div>
                     <p class="card-text d-flex justify-content-start">{{ $post->content }}</p>
                     <small class="text-muted d-flex justify-content-start">投稿日: {{ $post->created_at->format('Y-m-d H:i:s') }}</small>
