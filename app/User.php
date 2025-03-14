@@ -39,8 +39,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //UserクラスがPostクラスを所有
-     public function posts()
+    // 投稿とリレーション（postクラスと一時過程）
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }
