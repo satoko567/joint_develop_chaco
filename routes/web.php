@@ -13,14 +13,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PostsController@index');
+// 投稿処理
+Route::prefix('/posts')->group(function(){
+    Route::get('/','postsController@create')->name('posts.create'); // 投稿画面表示
+    Route::post('/','PostsController@store')->name('posts.store'); // 新規投稿処理
+});
 
 // user新規登録処理
 Route::prefix('/signup')->group(function () {
-    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup');
-    Route::post('/','Auth\RegisterController@register')->name('signup.post');
+    Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup'); //画面表示
+    Route::post('/','Auth\RegisterController@register')->name('signup.post'); //登録処理
 });
 
-//user詳細
+// user詳細
 Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersController@show')->name('user.show');
 });
