@@ -76,16 +76,4 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-
-    // 仮リダイレクト処理（新規登録後　ユーザ詳細へ）※ログイン機能実装後削除予定
-    protected function redirectPath()
-    {
-        $userId = auth()->id();
-
-        if (!$userId) {
-            abort(500, "ユーザーIDが取得できませんでした。");
-        }
-
-        return route('user.show', ['id' => $userId]);
-    }
 }
