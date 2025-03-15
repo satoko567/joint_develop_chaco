@@ -20,8 +20,15 @@ Route::prefix('/signup')->group(function () {
     Route::post('/','Auth\RegisterController@register')->name('signup.post');
 });
 
+<<<<<<< HEAD
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 //ログアウト
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+=======
+//user詳細
+Route::prefix('/users')->group(function(){
+    Route::get('/{id}','UsersController@show')->name('user.show');
+});
+>>>>>>> 78cb0fcc0953e1d48b3f8db5f6caf5eaa569fdbf

@@ -1,9 +1,9 @@
-{{-- @extends('layouts.app') --}}
-{{-- @section('content') --}}
+@extends('layouts.app')
+@section('content')
 
 <section class="title mt-5 d-flex flex-column align-items-center">
     <div class="d-flex justify-content-center align-items-center">
-        <i class="bi bi-send" style="font-size: 2rem;"></i>
+        <i class="bi bi-send mx-3" style="font-size: 2rem;"></i>
         <h1 class="ms-3 fs-1 fw-bold">Topic Post</h1>
     </div>
     <div class="mt-3 text-start w-50 fs-5">
@@ -58,4 +58,4 @@
     </form>
 </section>
 
-{{-- @endsection --}}
+@endsection
