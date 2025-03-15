@@ -13,12 +13,6 @@ class PostsController extends Controller
         return view('welcome');
     }
 
-    // 投稿画面表示
-    public function create()
-    {
-        return view('welcome');
-    }
-
     // 投稿新規処理
     public function store(StorePostRequest $request)
     {
@@ -27,6 +21,6 @@ class PostsController extends Controller
             'content' => $request->validated()['content'],
         ]);
 
-        return redirect('/posts');
+        return redirect('/');
     }
 }

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PostsController@index');
 // 投稿処理
 Route::prefix('/posts')->group(function(){
-    Route::get('/','postsController@create')->name('posts.create'); // 投稿画面表示
     Route::post('/','PostsController@store')->name('posts.store'); // 新規投稿処理
 });
 
