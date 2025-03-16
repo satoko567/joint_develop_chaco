@@ -13,12 +13,8 @@
                     <li class="nav-item">
                         <a href="" class="nav-link text-light">{{ Auth::user()->name }}</a>
                     </li>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="nav-link btn btn-link text-light">ログアウト</button>
-                        </form>
-                    </li>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
+
                 @else
                     <!-- ログアウト中（ログイン & 新規登録） -->
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
