@@ -8,6 +8,6 @@
         <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
             @include('commons.error_messages')
             @if(auth()->check())
-                @include('components.addPost')
+                @include('posts.add_post')
             @endif
 @endsection

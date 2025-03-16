@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class PostsController extends Controller
     }
 
     // 投稿新規処理
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
         Post::create([
             'user_id' => auth()->id(),

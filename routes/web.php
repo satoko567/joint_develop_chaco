@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostsController@index');
 // 投稿処理
-Route::prefix('/posts')->group(function(){
-    Route::post('/','PostsController@store')->name('posts.store'); // 新規投稿処理
+Route::prefix('/posts')->middleware('auth')->group(function(){
+    Route::post('/','PostsController@store')->name('post.store'); // 新規投稿処理
 });
 
 // user新規登録処理
