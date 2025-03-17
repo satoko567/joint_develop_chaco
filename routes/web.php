@@ -20,7 +20,9 @@ Route::prefix('/signup')->group(function () {
     Route::post('/','Auth\RegisterController@register')->name('signup.post');
 });
 
-//user詳細
-Route::prefix('/users')->group(function(){
+Route::middleware('auth')->prefix('/users')->group(function(){
+    // user詳細
     Route::get('/{id}','UsersController@show')->name('user.show');
+    // user退会
+    Route::delete('/','UsersController@destroy')->name('user.delete');
 });
