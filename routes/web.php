@@ -35,6 +35,6 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::prefix('/users')->group(function(){
-    //ユーザ詳細
+    // ユーザ詳細
     Route::get('/{id}','UsersController@show')->name('user.show');
 });
