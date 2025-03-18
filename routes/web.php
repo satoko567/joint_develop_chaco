@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,17 @@ Route::prefix('/signup')->group(function () {
     Route::post('/','Auth\RegisterController@register')->name('signup.post');
 });
 
-Route::middleware('auth')->prefix('/users')->group(function(){
-    // user詳細
-    Route::get('/{id}','UsersController@show')->name('user.show');
-    // user退会
-    Route::delete('/','UsersController@destroy')->name('user.delete');
+
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+//ログアウト
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::group(['middleware' => 'auth'],function(){
+    // 以下、ログイン後のみ実行できるルーティングを記述可能
+    Route::prefix('/users')->group(function(){
+        Route::get('/{id}','UsersController@show')->name('user.show');  // ユーザ詳細
+        Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
+    });
 });

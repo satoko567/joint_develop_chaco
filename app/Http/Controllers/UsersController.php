@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
 {
@@ -16,9 +15,9 @@ class UsersController extends Controller
         return view('users.detail',compact('user','posts'));
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        $user = Auth::user();
+        $user = User::findOrFail($id);
         $user->delete();
 
         return redirect('/');
