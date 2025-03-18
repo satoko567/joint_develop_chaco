@@ -10,4 +10,5 @@
             @if(auth()->check())
                 @include('posts.add_post')
             @endif
+    @include('posts.posts', ['posts' => $posts])
 @endsection
