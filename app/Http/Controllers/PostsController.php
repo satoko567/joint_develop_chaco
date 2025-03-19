@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
+use App\Post;
 use Illuminate\Http\Request;
-use App\Post; // 追記
 
 class PostsController extends Controller
 {
@@ -13,5 +14,16 @@ class PostsController extends Controller
         return view('welcome' , [
             'posts' => $posts,
         ]);
+    }
+
+    // 投稿新規処理
+    public function store(PostRequest $request)
+    {
+        Post::create([
+            'user_id' => auth()->id(),
+            'content' => $request->validated()['content'],
+        ]);
+
+        return redirect('/');
     }
 }
