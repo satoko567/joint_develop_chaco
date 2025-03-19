@@ -4,21 +4,25 @@
 <main class="row mt-5">
     <section class="user-card col-md-4">
         <div class="card text-bg-light mb-3 bg-info">
-            <div class="card-header fs-auto pb-3">
+            <div class="card-header fs-auto pb-3 text-white">
                 <h3>{{ $user->name }}</h3>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-3">
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 150) }}" alt="ユーザのアバター画像">
                 </div>
+                @if(Auth::id() === $user->id)
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary ">ユーザ情報の編集</button>
                 </div>
+                @endif
             </div>
         </div>
 
         <!-- 以下退会ボタン（仮設置）※ユーザ編集画面実装後移動 -->
+        @if(Auth::id() === $user->id)
         <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">退会する</button>
+        @endif
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,26 +68,7 @@
                 </ul>
             </div>
             <div class="card-body">
-                <!-- user post作成後 extends -->
-                <!-- 応急処置として対象ユーザの投稿(post)を表示する処理を実施 -->
-                @if($posts->count() > 0)
-                @foreach($posts as $post)
-                <div class="post mb-4 mx-4">
-                    <div class="d-flex justify-content-start align-items-center">
-                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像">
-                        <a class="mx-2" href="">{{ $user->name }}</a>
-                    </div>
-                    <p class="card-text d-flex justify-content-start">{{ $post->content }}</p>
-                    <small class="text-muted d-flex justify-content-start">投稿日: {{ $post->created_at->format('Y-m-d H:i:s') }}</small>
-                </div>
-                @endforeach
-
-                <div class="d-flex justify-content-center">
-                    {{ $posts->links() }}
-                </div>
-                @else
-                <p>投稿はまだありません。</p>
-                @endif
+            @include('posts.posts', ['posts' => $posts])
             </div>
         </div>
     </section>

@@ -14,6 +14,16 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    // 退会したユーザの投稿削除
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($user){
+            $user->posts()->delete();
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *

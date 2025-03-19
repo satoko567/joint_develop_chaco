@@ -22,12 +22,12 @@ Route::group(['middleware' => 'auth'], function(){
         // 以下、その他post関連のルーティングを記述可能
     });
 
-    Route::prefix('/users')->group(function(){
-        Route::get('/{id}','UsersController@show')->name('user.show');  // ユーザ詳細
-        Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
-        // 以下、その他のUser関連のルーティングを記述可能
-    });
+});
 
+Route::prefix('/users')->group(function(){
+    Route::get('/{id}','UsersController@show')->name('user.show'); // ユーザ詳細
+    Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
+    // 以下、その他のUser関連のルーティングを記述可能
 });
 
 // user新規登録処理
