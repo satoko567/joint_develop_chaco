@@ -10,7 +10,9 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                </div>
+                    <div class="mt-3">
+                        <a href=""></a>
+                    </div>
             </div>
         </aside>
         <div class="col-sm-8">
