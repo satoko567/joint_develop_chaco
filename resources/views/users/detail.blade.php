@@ -8,13 +8,14 @@
                 <h3>{{ $user->name }}</h3>
             </div>
             <div class="card-body">
-                <div class="d-flex justify-content-center mb-3">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 150) }}" alt="ユーザのアバター画像">
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary ">ユーザ情報の編集</button>
-                </div>
+             <div class="d-flex justify-content-center mb-3">
+             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 150) }}" alt="ユーザのアバター画像">
             </div>
+            <div class="d-flex justify-content-center">
+            <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ユーザ情報の編集</a>
+            </div>
+        </div>
+
         </div>
     </section>
 
