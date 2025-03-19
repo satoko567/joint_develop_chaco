@@ -1,5 +1,5 @@
 {{-- ユーザ詳細ページ --}}
-{{-- @extends('layouts.app') まだlayouts.appがないのでコメントアウト --}}
+{{-- @extends('layouts.app') まだlayouts.appがないのでコメントアウト。 --}}
 {{-- @section('content') --}}
 <div class="container">
     <div class="row">
@@ -9,10 +9,7 @@
                     <h3 class="card-title text-light">{{$user->name}}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="https://secure.gravatar.com/avatar/d10ca8d11301c2f4993ac2279ce4b930?s=400&r=g&d=identicon" alt="">
-                        <div class="mt-3">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                        </div>
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                 </div>
             </div>
         </aside>
