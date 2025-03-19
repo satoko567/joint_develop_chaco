@@ -14,3 +14,10 @@
 //ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+//ログイン後
+    //新規投稿
+//    Route::group(['middleware' => 'auth'], function () {
+        Route::get('post', 'PostingController@showPostingForm')->name('post');
+        Route::post('post', 'PostingController@store')->name('post.store');
+//    });
