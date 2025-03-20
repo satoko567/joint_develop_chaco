@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                     <div class="mt-3">
-                        <a href=""></a>
+                        {{-- <a href=""></a> ユーザ編集画面へのリンク --}}
                     </div>
             </div>
         </aside>

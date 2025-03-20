@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePostsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('content');
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->string('post_id')->unsignd()->index();
+            $table->integer('delete_flg');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('user_id')->references(('id'))->on('users')->onDelete('cascade'); //外部キー制約。usersテーブルのidカラムと紐づける。ユーザが削除されたら、そのユーザの投稿も削除される。
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('posts');
+    }
+}
