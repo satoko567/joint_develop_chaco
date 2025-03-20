@@ -9,10 +9,9 @@
         <form method="POST" action="{{route('post.store')}}">
             @csrf
             <div class="form-group">
-                <label for="name">名前</label>
-                <input id="text" type="text" class="form-control" name="name" value="{{old('name')}}">
-            </div>           
-            <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+                <input id="text" type="text" class="form-control" name="text" value="{{old('text')}}">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">投稿する</button>
         </form>
     </div>
 </div>
