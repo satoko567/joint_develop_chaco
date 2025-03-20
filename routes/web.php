@@ -21,3 +21,9 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
         Route::get('post', 'PostingController@showPostingForm')->name('post');
         Route::post('post', 'PostingController@store')->name('post.store');
 //    });
+
+//ユーザ詳細画面
+Route::get('users/{id}', 'UsersController@show')->name('user.show');
+
+
+
