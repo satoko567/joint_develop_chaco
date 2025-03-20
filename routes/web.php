@@ -17,6 +17,11 @@ Route::get('/', 'PostsController@index');
 Route::group(['middleware' => 'auth'], function(){
     // 以下、ログイン後のみ実行できるルーティングを記述可能
 
+    Route::prefix('/users')->group(function(){
+        Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
+        // 以下、【ログイン後に実行可能な】その他のUser関連のルーティングを記述可能
+    });
+
     Route::prefix('/posts')->group(function(){
         Route::post('/','PostsController@store')->name('post.store'); // 新規登録処理
         // 以下、その他post関連のルーティングを記述可能
@@ -26,8 +31,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersController@show')->name('user.show'); // ユーザ詳細
-    Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
-    // 以下、その他のUser関連のルーティングを記述可能
+    // 以下、【ログインが不必要な】その他のUser関連のルーティングを記述可能
 });
 
 // user新規登録処理
