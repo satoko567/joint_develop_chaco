@@ -12,6 +12,18 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+
+    // 退会したユーザの投稿削除
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($user){
+            $user->posts()->delete();
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
