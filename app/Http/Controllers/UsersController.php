@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Http\Requests\UserUpdateRequest; //修正
-use Illuminate\Support\Facades\Auth; // エラーの為追加
+use App\Http\Requests\UserUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -19,30 +19,42 @@ class UsersController extends Controller
 
     // 編集フォーム表示
     public function edit($id)
-{
-    // 自分以外エラー
-    if (Auth::id() != $id) {
-        abort(403, 'このページへのアクセス権限がありません');
+    {
+        if (Auth::id() != $id) {
+            abort(403, 'このページへのアクセス権限がありません');
+        }
+
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
     }
-
-    $user = User::findOrFail($id);
-    return view('users.edit', compact('user'));
-}
-
 
     // 更新
     public function update(UserUpdateRequest $request, $id) 
     {
         $user = User::findOrFail($id);
 
-        // 入力値を保存
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
 
         $user->save();
 
-        // 更新後詳細ページ
         return redirect()->route('user.show', ['id' => $user->id]);
     }
-}
+
+    // 退会
+    public function destroy($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        if(Auth::id() !== $user->id){
+            abort(403,'権限がありません。');
+        }
+        $user->delete();
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+} 

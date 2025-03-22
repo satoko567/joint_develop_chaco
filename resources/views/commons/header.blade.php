@@ -11,7 +11,7 @@
                 @if (Auth::check())
                     <!-- ログイン中（ユーザー名表示 & ログアウトボタン） -->
                     <li class="nav-item">
-                        <a href="" class="nav-link text-light">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('user.show', Auth::user()->id) }}" class="nav-link text-light">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
 

@@ -16,14 +16,15 @@
                 <div class="d-flex justify-content-center">
                     <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ユーザ情報の編集</a>
                 </div>
+
+                <!-- 退会ボタン -->
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">退会する</button>
+                </div>
                 @endif
+
             </div>
         </div>
-
-        <!-- 以下退会ボタン -->
-        @if(Auth::id() === $user->id)
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">退会する</button>
-        @endif
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -49,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <!-- ここまで退会処理ボタン -->
+        <!-- モーダルここまで -->
 
     </section>
 
@@ -76,4 +77,5 @@
 </main>
 
 @endsection
+
 
