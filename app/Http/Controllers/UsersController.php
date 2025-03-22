@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Http\Requests\UserUpdateRequest; //修正
+use Illuminate\Support\Facades\Auth; // エラーの為追加
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -15,24 +17,23 @@ class UsersController extends Controller
         return view('users.detail', compact('user', 'posts'));
     }
 
-    // ユーザ情報編集フォームを表示
+    // 編集フォーム表示
     public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+{
+    // 自分以外エラー
+    if (Auth::id() != $id) {
+        abort(403, 'このページへのアクセス権限がありません');
     }
 
-    // ユーザ情報を更新
-    public function update(Request $request, $id)
+    $user = User::findOrFail($id);
+    return view('users.edit', compact('user'));
+}
+
+
+    // 更新
+    public function update(UserUpdateRequest $request, $id) 
     {
         $user = User::findOrFail($id);
-
-        // バリデーション → パスワード必須
-        $request->validate([
-            'name' => 'required|max:50',
-            'email' => 'required|email',
-            'password' => 'required|min:6|confirmed', 
-        ]);
 
         // 入力値を保存
         $user->name = $request->input('name');
@@ -41,17 +42,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        // 更新後、ユーザ詳細ページへリダイレクト
+        // 更新後詳細ページ
         return redirect()->route('user.show', ['id' => $user->id]);
     }
-
-    // ユーザを削除（退会処理）
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect('/')->with('success', '退会処理が完了しました。');
-    }
 }
-
