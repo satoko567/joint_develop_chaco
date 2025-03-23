@@ -14,6 +14,16 @@
                 <p class="mb-2">{{ $post->content }}</p>
                 <p class="text-muted">{{ $post->created_at }}</p>
             </div>
+            <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                        @if (Auth::id() === $post->user_id)
+                            <form method="" action="">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">削除</button>
+                            </form>
+                        <a href="" class="btn btn-primary">編集する</a>
+                        @endif
+             </div>
         </li>
     @endforeach
 </ul>

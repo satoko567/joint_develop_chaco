@@ -40,7 +40,7 @@
                         本当に退会しますか？
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('users.destroy', ['user'=>$user->id]) }}" method="POST">
+                        <form action="{{ route('users.destroy', ['id'=>$user->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">退会する</button>

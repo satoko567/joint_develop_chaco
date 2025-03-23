@@ -50,7 +50,7 @@
                 <label>本当に退会しますか？</label>
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                <form action="{{ route('users.destroy', ['id' => $user->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">退会する</button>
