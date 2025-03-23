@@ -54,21 +54,21 @@
 
     <section class="col-md-8">
         <div class="card text-center">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="true" href="#">タイムライン</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">フォロー中</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">フォロワー</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="card-body">
-            @include('posts.posts', ['posts' => $posts])
+            <div class="card-header bg-white">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active bg-white text-primary" id="nav-post-tab" data-bs-toggle="tab" data-bs-target="#nav-post" type="button" role="tab" aria-controls="nav-post" aria-selected="true">タイムライン</button>
+                        <button class="nav-link bg-white text-primary" id="nav-follow-tab" data-bs-toggle="tab" data-bs-target="#nav-follow" type="button" role="tab" aria-controls="nav-follow" aria-selected="false">フォロー</button>
+                        <button class="nav-link bg-white text-primary" id="nav-follower-tab" data-bs-toggle="tab" data-bs-target="#nav-follower" type="button" role="tab" aria-controls="nav-follower" aria-selected="false">フォロワー</button>
+                        <button class="nav-link bg-white text-primary" id="nav-favorite-tab" data-bs-toggle="tab" data-bs-target="#nav-favorite" type="button" role="tab" aria-controls="nav-favorite" aria-selected="false">お気に入り</button>
+                    </div>
+                </nav>
+                <div class="tab-content mt-3" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-post" role="tabpanel" aria-labelledby="nav-post-tab" tabindex="0"> @include('posts.posts', ['posts' => $posts])</div>
+                    <div class="tab-pane fade" id="nav-follow" role="tabpanel" aria-labelledby="nav-follow-tab" tabindex="0"> @include('users.follows.following', ['id' => $user->id])</div>
+                    <div class="tab-pane fade" id="nav-follower" role="tabpanel" aria-labelledby="nav-follower-tab" tabindex="0">@include('users.follows.followers', ['id' => $user->id])</div>
+                    <div class="tab-pane fade" id="nav-favorite" role="tabpanel" aria-labelledby="nav-favorite-tab" tabindex="0">今後実装予定</div>
+                </div>
             </div>
         </div>
     </section>

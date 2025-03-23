@@ -54,27 +54,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // 投稿とリレーション（postクラスと一時過程）
+    // 投稿とリレーション
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
-    // フォローリレーション（自身がフォローしているユーザー取得）
+    // フォローリレーション
     public function following()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
 
-    // フォロワーリレーション（自身をフォローしているユーザー取得）
-    public function follower()
+    // フォロワーリレーション
+    public function followers()
     {
         return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
     }
 
-    // フォロー状況確認メソッド
-    public function isFollowing($userId)
-    {
-        return $this->following()->where('following_id', $userId)->exists();
-    }
 }

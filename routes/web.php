@@ -19,6 +19,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::prefix('/users')->group(function(){
         Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
+
+        Route::post('follow/{id}','FollowController@follow')->name('user.follow'); // フォロー処理
+        Route::post('unfollow/{id}','FollowController@unfollow')->name('user.unfollow'); //フォロー解除処理
         // 以下、【ログイン後に実行可能な】その他のUser関連のルーティングを記述可能
     });
 
@@ -31,6 +34,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersController@show')->name('user.show'); // ユーザ詳細
+
+    Route::get('following/{id}','FollowController@followingList')->name('list.following'); // フォローリスト表示
+    Route::get('follower/{id}','FollowController@FollowerList')->name('list.follower'); // フォロワーリスト表示
     // 以下、【ログインが不必要な】その他のUser関連のルーティングを記述可能
 });
 
