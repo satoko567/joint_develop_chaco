@@ -15,14 +15,14 @@ class CreateFollowsTable extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('follower_id')->unsigned()->index(); // フォローする側
-            $table->bigInteger('following_id')->unsigned()->index(); // フォローされる側
+            $table->bigInteger('follower_id')->unsigned()->index();
+            $table->bigInteger('following_id')->unsigned()->index();
             $table->timestamps();
 
             //外部キー制約
             $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('following_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unique(['follower_id', 'following_id']); // 重複防止
+            $table->unique(['follower_id', 'following_id']);
         });
     }
 

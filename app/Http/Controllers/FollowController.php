@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\FuncCall;
 
 class FollowController extends Controller
 {
     // フォロー処理
-    public function follow($userId)
+    public function follow($id)
     {
-        //
+        Auth::user()->follow($id);
+
+        return back();
     }
 
     // フォロー解除処理
-    public function unFollow($userId)
+    public function unFollow($id)
     {
-        //
+        Auth::user()->unFollow($id);
+
+        return back();
     }
 
     // フォローリスト表示

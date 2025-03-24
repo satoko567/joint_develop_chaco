@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('/{id}','UsersController@destroy')->name('user.destroy'); // ユーザ退会
 
         Route::post('follow/{id}','FollowController@follow')->name('user.follow'); // フォロー処理
-        Route::post('unfollow/{id}','FollowController@unfollow')->name('user.unfollow'); //フォロー解除処理
+        Route::delete('unfollow/{id}','FollowController@unfollow')->name('user.unfollow'); //フォロー解除処理
         // 以下、【ログイン後に実行可能な】その他のUser関連のルーティングを記述可能
     });
 
