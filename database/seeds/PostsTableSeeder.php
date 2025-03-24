@@ -54,7 +54,7 @@ class PostsTableSeeder extends Seeder
             'content' => 'test10'
         ]);
         DB::table('posts')->insert([
-            'user_id' => 11,
+            'user_id' => 10,
             'content' => 'test11'
         ]);
     }
