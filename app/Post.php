@@ -10,7 +10,7 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    public function post()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
