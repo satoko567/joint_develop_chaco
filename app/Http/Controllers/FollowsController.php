@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-class FollowController extends Controller
+class FollowsController extends Controller
 {
     // フォロー処理
     public function follow($id)

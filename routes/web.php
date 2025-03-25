@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('/{id}', 'UsersController@destroy')->name('users.destroy'); // ユーザ削除
 
         // ユーザフォロー関係(ログイン必要)
-        Route::post('follow/{id}','FollowController@follow')->name('user.follow'); // フォロー処理
-        Route::delete('unfollow/{id}','FollowController@unfollow')->name('user.unfollow'); // フォロー解除処理
+        Route::post('follow/{id}','FollowsController@follow')->name('user.follow'); // フォロー処理
+        Route::delete('unfollow/{id}','FollowsController@unfollow')->name('user.unfollow'); // フォロー解除処理
     });
 
 });
@@ -37,8 +37,8 @@ Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersController@show')->name('user.show'); // ユーザ詳細
 
     // ユーザフォロー関係(ログイン不要)
-    Route::get('following/{id}','FollowController@followingList')->name('list.following'); // フォローリスト表示
-    Route::get('follower/{id}','FollowController@FollowerList')->name('list.follower'); // フォロワーリスト表示
+    Route::get('following/{id}','FollowsController@followingList')->name('list.following'); // フォローリスト表示
+    Route::get('follower/{id}','FollowsController@FollowerList')->name('list.follower'); // フォロワーリスト表示
 });
 
 // ユーザ登録関係

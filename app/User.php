@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -81,8 +82,19 @@ class User extends Authenticatable
     // フォローメソッド
     public function follow($userId)
     {
+        //自分をフォローした場合処理中断
+        if(Auth::id() === $userId){
+            return false;
+        }
+
+        //存在しないユーザをフォローした場合処理中断
+        if(!User::find($userId)){
+            return false;
+        }
+
         if(!$this->isFollowing($userId)){
             $this->following()->attach($userId);
+            return true;
         }
     }
 
@@ -91,6 +103,7 @@ class User extends Authenticatable
     {
         if($this->isFollowing($userId)){
             $this->following()->detach($userId);
+            return true;
         }
     }
 }
