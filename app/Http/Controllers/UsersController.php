@@ -8,9 +8,9 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function topPage()
     {
-        return view('users.index');
+        return view('users.top_page');
     }
 
     public function show($id)

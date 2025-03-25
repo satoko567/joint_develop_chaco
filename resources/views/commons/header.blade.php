@@ -8,9 +8,9 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
-                    <li class="nav-item"><a href="{{ route('top') }}" class="nav-link">ログアウト</a></li>
+                    <li class="nav-item"><a href="{{ route('top') }}" class="nav-link">ログアウト</a></li>  {{-- routeのアドレス'top'はダミーで書いた。後にログインルートネームに変更する必要がある。Rikoさんへ連絡。 --}}
                 @else
-                    <li class="nav-item"><a href="{{ route('top') }}" class="nav-link">ログイン</a></li>
+                    <li class="nav-item"><a href="{{ route('top') }}" class="nav-link">ログイン</a></li>  {{-- routeのアドレス'top'はダミーで書いた。後にログインルートネームに変更する必要がある。Rikoさんへ連絡。 --}}
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">新規ユーザ登録</a></li>
                 @endif
             </ul>

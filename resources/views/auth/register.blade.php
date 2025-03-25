@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    @include('commons.error_messages')
+    @include('commons.error_messages') {{-- エラーメッセージファイルを呼び出し --}}
 
     <div class="text-center">
         <h1><i class="fa-solid fa-face-grin-wide"></i>Topic Post</h1>

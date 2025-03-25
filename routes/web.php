@@ -12,7 +12,7 @@
 */
 
 //トップページ
-Route::get('/', 'UsersController@index')->name('top');
+Route::get('/', 'UsersController@topPage')->name('top');
 
 //ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
