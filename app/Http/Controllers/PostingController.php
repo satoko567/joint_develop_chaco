@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use App\User;
 use App\Post;
 
 class PostingController extends Controller
@@ -15,7 +16,11 @@ class PostingController extends Controller
      */
     public function showPostingForm()
     {
-        return view('new_post_form');
+        $user = \Auth::user();
+        $data = [
+            'user' => $user,
+        ];
+        return view('new_post_form', $data);
     }
 
     /**
@@ -36,14 +41,14 @@ class PostingController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = new Post();
+        $post = new Post(); //Postモデルのインスタンスを作成＝postsテーブルに、新規レコードを作成
         $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
-        $post->user_id = $request->user()->id; //ログインユーザのidを、postテーブルのuser_idカラムに代入。user・postテーブルのリレーションを作る必要。
+        $post->user_id = $request->user()->id; //ログインユーザのidを、postテーブルのuser_idカラムに代入。user・postテーブルのリレーションを作る必要。ログインしてないと、user()はnullを返すから注意！
         $post->created_at = now(); //現在時刻をpostテーブルのcreated_atカラムに代入
         $post->updated_at = now(); //現在時刻をpostテーブルのupdated_atカラムに代入
         $post->delete_flg = 0; //postテーブルのdelete_flgカラムに0を代入
-        $post->save();
-        return redirect('post')->with('flash_message', __('Registered.'));
+        $post->save(); //postテーブルに保存
+        return redirect('post')->with('flash_message', __('Registered.')); //投稿ボタンを押すと、投稿ページにリダイレクトされ、フラッシュメッセージが表示される
     }
 
     /**

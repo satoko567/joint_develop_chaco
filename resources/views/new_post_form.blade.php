@@ -9,7 +9,7 @@
         <form method="POST" action="{{route('post.store')}}">
             @csrf
             <div class="form-group">
-                <input id="content" type="content" class="form-control" name="content" value="{{old('text')}}">
+                <input id="content" type="content" class="form-control" name="content" value="{{old('content')}}">
             </div>
             <button type="submit" class="btn btn-primary mt-2">投稿する</button>
         </form>
