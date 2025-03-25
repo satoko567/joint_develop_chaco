@@ -1,15 +1,7 @@
-{{-- @extends('layouts.app') --}}
-{{-- @section('content') --}}
-{{-- layouts.appでエラーメッセージを表示コードが書かれる予定。このif文は後に削除する。 --}}
-    @if ($errors->any()) 
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@extends('layouts.app')
+@section('content')
+
+    @include('commons.error_messages')
 
     <div class="text-center">
         <h1><i class="fa-solid fa-face-grin-wide"></i>Topic Post</h1>
@@ -44,4 +36,4 @@
             </form>
         </div>
     </div>
-{{-- @endsection     --}}
+@endsection

@@ -1,6 +1,6 @@
 {{-- ユーザ詳細ページ --}}
-{{-- @extends('layouts.app') まだlayouts.appがないのでコメントアウト。 --}}
-{{-- @section('content') --}}
+@extends('layouts.app')
+@section('content')
 <div class="container">
     <div class="row">
         <aside class="col-sm-4 mb-5">
@@ -23,5 +23,4 @@
             </ul>
         </div>
     </div>
-</div>
-{{-- @endsection --}}
+@endsection
