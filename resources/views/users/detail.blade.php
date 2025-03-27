@@ -7,18 +7,18 @@
             <div class="card-header fs-auto pb-3 text-white d-flex justify-content-between">
                 <h3>{{ $user->name }}</h3>
                 @if(auth()->check() && auth()->user()->id !== $user->id)
-                @if(auth()->user()->isFollowing($user->id))
-                <form action="{{ route('user.unfollow', ['id' => $user->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-info rounded-pill border px-4">フォロー中</button>
-                </form>
-                @else
-                <form action="{{ route('user.follow', ['id' => $user->id]) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-secondary rounded-pill px-3">フォローする</button>
-                </form>
-                @endif
+                    @if(auth()->user()->isFollowing($user->id))
+                        <form action="{{ route('user.unfollow', ['id' => $user->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-info rounded-pill border px-4">フォロー中</button>
+                        </form>
+                    @else
+                        <form action="{{ route('user.follow', ['id' => $user->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-secondary rounded-pill px-3">フォローする</button>
+                        </form>
+                    @endif
                 @endif
             </div>
             <div class="card-body">
@@ -26,9 +26,9 @@
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 150) }}" alt="ユーザのアバター画像">
                 </div>
                 @if(Auth::id() === $user->id)
-                <div class="d-flex justify-content-center">
-                    <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ユーザ情報の編集</a>
-                </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ユーザ情報の編集</a>
+                    </div>
                 @endif
             </div>
         </div>
