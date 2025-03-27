@@ -4,9 +4,6 @@
 
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 
-@include('commons.error_messages')
-
-
 <form method="POST" action="{{ route('users.update', ['user' => $user->id]) }}">
     @csrf
     @method('PUT')
@@ -17,21 +14,33 @@
         <label for="name">ユーザ名</label>
         <input class="form-control" value="{{ old('name', $user->name) }}" name="name" id="name"/>
     </div>
+        @error('name')
+        <p class="text-danger">{{ $message }}</p>
+        @enderror
 
     <div class="form-group">
         <label for="email">メールアドレス</label>
         <input class="form-control" value="{{ old('email', $user->email) }}" name="email" id="email"/>
     </div>
+        @error('email')
+        <p class="text-danger">{{ $message }}</p>
+        @enderror
 
     <div class="form-group">
         <label for="password">パスワード</label>
         <input class="form-control" type="password" name="password" id="password"/>
     </div>
+        @error('password')
+        <p class="text-danger">{{ $message }}</p>
+        @enderror
 
     <div class="form-group">
         <label for="password_confirmation">パスワードの確認</label>
         <input class="form-control" type="password" name="password_confirmation" id="password_confirmation"/>
     </div>
+        @error('password')
+        <p class="text-danger">{{ $message }}</p>
+        @enderror
 
     <div class="d-flex justify-content-between">
         <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
