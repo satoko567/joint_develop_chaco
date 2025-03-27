@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -30,7 +31,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -39,7 +42,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -51,9 +55,55 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // 投稿とリレーション（postクラスと一時過程）
+    // 投稿とリレーション
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    // フォローリレーション(フォローしているユーザを取得)
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+
+    // フォロワーリレーション(フォローされているユーザを取得)
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
+    // フォローチェック
+    public function isFollowing($userId)
+    {
+        return $this->following()->where('following_id', $userId)->exists();
+    }
+
+    // フォローメソッド
+    public function follow($userId)
+    {
+        //自分をフォローした場合処理中断
+        if(Auth::id() === $userId){
+            return false;
+        }
+
+        //存在しないユーザをフォローした場合処理中断
+        if(!User::find($userId)){
+            return false;
+        }
+
+        if(!$this->isFollowing($userId)){
+            $this->following()->attach($userId);
+            return true;
+        }
+    }
+
+    // フォロー解除メソッド
+    public function unFollow($userId)
+    {
+        if($this->isFollowing($userId)){
+            $this->following()->detach($userId);
+            return true;
+        }
     }
 }
