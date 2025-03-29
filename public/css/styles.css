@@ -1,0 +1,46 @@
+.card-body img {
+    width: 100%;  /* カードボディいっぱいの幅 */
+    height: auto;  /* 縦横比を維持 */
+    margin: 0 auto; /* 中央寄せ */
+}
+
+.card-body img.rounded-circle {
+    max-width: 100%;  /* 画像のサイズを適切に設定 */
+    height: auto;  /* 幅と高さを揃えて完全な円にする */
+    display: block;
+    margin: 0 auto;
+}
+
+/* nav.navbar.navbar-dark.bg-info.justify-content-center {
+    max-width: 100%;
+    flex: 100%;
+
+}
+
+nav.navbar-brand {
+    width: 100% !important;
+    text-align: center;  /* テキストを完全中央揃え */
+    /* display: block;
+} */ 
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+}
+
+nav {
+    display: block;
+    unicode-bidi: isolate;
+}

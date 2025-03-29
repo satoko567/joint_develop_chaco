@@ -9,10 +9,11 @@
                     <h3 class="card-title text-light">{{$user->name}}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 100) }}" alt="ユーザのアバター画像">
                     <div class="mt-3">
-                        <a href=""></a>
+                        <a href=""></a> {{-- ユーザのプロフィール編集ページへのリンクを追加 --}}
                     </div>
+                </div>
             </div>
         </aside>
         <div class="col-sm-8">
