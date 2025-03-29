@@ -8,17 +8,12 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function topPage()
-    {
-        return view('users.top_page');
-    }
-
     public function show($id)
     {
         $user = User::findOrFail($id);
         $data = [
             'user' => $user,
         ];
-        return view('users.show', $data);
+        return view('show', $data);
     }
 }

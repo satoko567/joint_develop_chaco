@@ -8,5 +8,5 @@
             </h1>
         </div>
     </div>
-    <h5 class="description text-center"></h5>
+    <h5 class="description text-center">"○○"について140文字以内で会話しよう！</h5>
 @endsection

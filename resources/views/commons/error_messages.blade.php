@@ -1,4 +1,4 @@
-{{-- エラーメッセージはこのファイルに統一。このファイルを呼び出して使う。 --}}
+{{-- エラーメッセージはこのファイルに書く。layouts.blade.phpで呼び出している。 --}}
 @if (count($errors) > 0)
     <ul class="alert alert-danger" role="alert">
         @foreach ($errors->all() as $error)
