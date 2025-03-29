@@ -9,6 +9,12 @@ use App\Post;
 
 class PostingController extends Controller
 {
+    // ユーザとその投稿一覧を表示するメソッド
+    public function index()
+    {
+        return view('users.index');
+    }
+
     /**
      * Display a listing of the resource.
      *
