@@ -17,3 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// ユーザ登録モーダル
+window.registerModal = function() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    document.getElementById('confirm-name').innerText = name;
+    document.getElementById('confirm-email').innerText = email;
+    document.getElementById('confirm-password').innerText = password;
+}

@@ -19395,6 +19395,16 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// ユーザ登録モーダル
+window.registerModal = function () {
+  var name = document.getElementById('name').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  document.getElementById('confirm-name').innerText = name;
+  document.getElementById('confirm-email').innerText = email;
+  document.getElementById('confirm-password').innerText = password;
+};
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

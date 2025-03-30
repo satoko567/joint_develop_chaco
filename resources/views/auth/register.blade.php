@@ -18,14 +18,14 @@
         @csrf
         <div class="w-100 text-start mt-2">
             <label class="form-label">名前</label> <br>
-            <input type="text" name="name" value="{{old('name')}}" class="form-control col-auto">
+            <input type="text" name="name" id="name" value="{{old('name')}}" class="form-control col-auto">
             @error('name')
             <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
         <div class="w-100 text-start mt-2">
             <label class="form-label">メールアドレス</label> <br>
-            <input type="text" name="email" value="{{old('email')}}" class="form-control col-auto">
+            <input type="text" name="email" id="email" value="{{old('email')}}" class="form-control col-auto">
             @error('email')
             <p class="text-danger">{{ $message }}</p>
             @enderror
@@ -33,7 +33,7 @@
         <div class="w-100 text-start mt-2">
             <label class="form-label">パスワード</label> <br>
             <div class="d-flex input-group">
-                <input type="password" name="password" value="{{old('password')}}" class="form-control col-auto">
+                <input type="password" name="password" id="password" value="{{old('password')}}" class="form-control col-auto">
                 <button type="button" class="btn btn-outline-secondary" data-toggle="password">
                     <i class="bi bi-eye"></i>
                 </button>
@@ -54,8 +54,35 @@
             <p class="text-danger">{{ $message }}</p>
             @enderror
         </div>
-        <button type="submit" class="btn btn-primary mt-3 align-self-start">新規登録</button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary mt-3 align-self-start" onclick="registerModal()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            登録する
+        </button>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-3" id="exampleModalLabel">ユーザを登録します。</h1>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item my-2">名前: <span class="mx-2" id="confirm-name"></span></li>
+                            <li class="list-group-item my-2">メールアドレス: <span class="mx-2" id="confirm-email"></span></li>
+                            <li class="list-group-item my-2">パスワード: <span class="mx-2" id="confirm-password"></span></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                        <button type="submit" class="btn btn-primary">登録する</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
+
 </section>
 
 @endsection
