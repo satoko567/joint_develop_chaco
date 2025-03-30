@@ -4,8 +4,8 @@
 
 <h2 class="mt-5">投稿を編集する</h2>
     <form method="POST" action="{{ route('posts.update', $post->id) }}">
-    @csrf
-    @method('PUT')
+        @csrf
+        @method('PUT')
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
         </div>
