@@ -52,7 +52,6 @@ class PostingController extends Controller
         $post->user_id = $request->user()->id; //ログインユーザのidを、postテーブルのuser_idカラムに代入。user・postテーブルのリレーションを作る必要。ログインしてないと、user()はnullを返すから注意！
         $post->created_at = now(); //現在時刻をpostテーブルのcreated_atカラムに代入
         $post->updated_at = now(); //現在時刻をpostテーブルのupdated_atカラムに代入
-        $post->delete_flg = 0; //postテーブルのdelete_flgカラムに0を代入
         $post->save(); //postテーブルに保存
         return redirect('post')->with('flash_message', __('Registered.')); //投稿ボタンを押すと、投稿ページにリダイレクトされ、フラッシュメッセージが表示される
     }
