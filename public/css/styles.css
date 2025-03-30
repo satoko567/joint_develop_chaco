@@ -10,37 +10,3 @@
     display: block;
     margin: 0 auto;
 }
-
-/* nav.navbar.navbar-dark.bg-info.justify-content-center {
-    max-width: 100%;
-    flex: 100%;
-
-}
-
-nav.navbar-brand {
-    width: 100% !important;
-    text-align: center;  /* テキストを完全中央揃え */
-    /* display: block;
-} */ 
-
-.justify-content-center {
-    justify-content: center !important;
-}
-
-.navbar {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: .5rem 1rem;
-}
-
-nav {
-    display: block;
-    unicode-bidi: isolate;
-}

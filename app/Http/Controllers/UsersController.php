@@ -14,6 +14,6 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
         ];
-        return view('show', $data);
+        return view('users.show', $data);
     }
 }
