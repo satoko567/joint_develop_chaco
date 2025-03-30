@@ -53,7 +53,7 @@ class PostingController extends Controller
         $post->created_at = now(); //現在時刻をpostテーブルのcreated_atカラムに代入
         $post->updated_at = now(); //現在時刻をpostテーブルのupdated_atカラムに代入
         $post->save(); //postテーブルに保存
-        return redirect('post')->with('flash_message', __('Registered.')); //投稿ボタンを押すと、投稿ページにリダイレクトされ、フラッシュメッセージが表示される
+        return redirect('post'); //投稿一覧ページにリダイレクト
     }
 
     /**
