@@ -42,6 +42,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id); //投稿を取得（見つからなければ404エラー）
+        
         if (Auth::id() != $post->user_id) {
             abort(403, 'このページへのアクセス権限がありません');
         }
@@ -52,10 +53,10 @@ class PostsController extends Controller
     //投稿更新処理
     public function update(PostRequest $request, $id)
     {
-    $post = Post::findOrFail($id);
-    $post->content = $request->content;
-    $post->save(); // 投稿を取得して更新
+        $post = Post::findOrFail($id);
+        $post->content = $request->content;
+        $post->save(); // 投稿を取得して更新
 
-    return redirect('/'); //トップページにリダイレクト
+        return redirect('/'); //トップページにリダイレクト
     }
 }
