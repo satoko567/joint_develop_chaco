@@ -8,6 +8,9 @@
         @method('PUT')
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
+                @error('content')
+                <p class="text-danger">{{ $message }}</p>
+                @enderror
         </div>
         <button type="submit" class="btn btn-primary">更新する</button>
     </form>
