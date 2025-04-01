@@ -21,10 +21,10 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 //ログイン後
 //    Route::group(['middleware' => 'auth'], function () {
     //新規投稿
-        Route::get('post', 'PostingController@showPostingForm')->name('post');
-        Route::post('post', 'PostingController@store')->name('post.store');
+    Route::get('post', 'PostsController@showPostingForm')->name('post');
+    Route::post('post', 'PostsController@store')->name('post.store');
     //ユーザ詳細画面
-    Route::get('users/{id}', 'UsersController@show')->name('user.show');
+    Route::get('users/{id}', 'UsersController@show')->name('users.show');
 //    });
 
 
