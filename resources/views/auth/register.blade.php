@@ -1,16 +1,5 @@
-{{-- @extends('layouts.app') --}}
-{{-- @section('content') --}}
-{{-- layouts.appでエラーメッセージを表示コードが書かれる予定。このif文は後に削除する。 --}}
-    @if ($errors->any()) 
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
+@extends('layouts.app')
+@section('content')
     <div class="text-center">
         <h1><i class="fa-solid fa-face-grin-wide"></i>Topic Post</h1>
     </div>
@@ -20,6 +9,11 @@
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
     </div>
+
+    {{-- バリデーションエラーの表示 --}}
+    @include('commons.error_messages') 
+
+    {{-- 登録フォーム --}}
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
             <form method="POST" action="{{route('signup.post')}}">
@@ -44,4 +38,4 @@
             </form>
         </div>
     </div>
-{{-- @endsection     --}}
+@endsection
