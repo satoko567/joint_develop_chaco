@@ -1,0 +1,12 @@
+.card-body img {
+    width: 100%;  /* カードボディいっぱいの幅 */
+    height: auto;  /* 縦横比を維持 */
+    margin: 0 auto; /* 中央寄せ */
+}
+
+.card-body img.rounded-circle {
+    max-width: 100%;  /* 画像のサイズを適切に設定 */
+    height: auto;  /* 幅と高さを揃えて完全な円にする */
+    display: block;
+    margin: 0 auto;
+}

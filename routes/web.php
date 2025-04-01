@@ -11,12 +11,15 @@
 |
 */
 
+//トップページ
+Route::get('/', 'PostsController@index')->name('index');
+
 //ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ユーザ詳細画面
-Route::get('users/{id}', 'UsersController@show')->name('user.show');
+Route::get('users/{id}', 'UsersController@show')->name('users.show');
 
 
 
