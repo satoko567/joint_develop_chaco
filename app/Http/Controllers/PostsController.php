@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
+use App\Like;
 
 class PostsController extends Controller
 {
@@ -50,7 +51,7 @@ class PostsController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-    //投稿更新処理
+    // 投稿更新処理
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
@@ -58,5 +59,23 @@ class PostsController extends Controller
         $post->save(); // 投稿を取得して更新
 
         return redirect('/'); //トップページにリダイレクト
+    }
+
+    // いいね
+    public function like($id)
+    {
+        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        // すでにいいねしていたら削除（トグル処理）
+        $existingLike = Like::where('post_id', $post->id)->where('user_id', $user->id)->first();
+        if ($existingLike) {
+            $existingLike->delete();
+        } else {
+        Like::create([
+            'post_id' => $post->id,
+            'user_id' => $user->id,
+        ]);
+        }
     }
 }

@@ -13,6 +13,16 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{{ $post->content }}</p>
                 <p class="text-muted">{{ $post->created_at }}</p>
+                {{-- ここにいいねボタンを追加 --}}
+                <div class="d-inline-block">
+                    <form method="POST" action="{{ route('posts.like', $post->id) }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-light"
+                            @if (Auth::id() === $post->user_id) disabled @endif>
+                            👍 {{ ($post->likes ?? collect([]))->count() }}
+                        </button>
+                    </form>
+                </div>
             </div>
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         @if (Auth::id() === $post->user_id)

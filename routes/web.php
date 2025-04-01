@@ -20,6 +20,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}', 'PostsController@destroy')->name('posts.destroy'); // 投稿削除
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); // 編集画面を表示
         Route::put('{id}', 'PostsController@update')->name('posts.update'); // 更新処理
+
+        // いいね機能の追加
+        Route::post('{id}/like', 'LikeController@like')->name('posts.like'); // いいね
+        Route::delete('{id}/unlike', 'LikeController@unlike')->name('posts.unlike'); // いいね解除
     });
 
     // ユーザ関係(ログイン必要)
