@@ -18,14 +18,16 @@ Route::get('/', 'PostsController@index')->name('index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+//ユーザ詳細画面
+Route::get('users/{id}', 'UsersController@show')->name('users.show');
+
 //ログイン後
-//    Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     //新規投稿
-    Route::get('post', 'PostsController@showPostingForm')->name('post');
+//    Route::get('post', 'PostsController@showPostingForm')->name('post');
     Route::post('post', 'PostsController@store')->name('post.store');
-    //ユーザ詳細画面
-    Route::get('users/{id}', 'UsersController@show')->name('users.show');
-//    });
+});
+
 
 
 
