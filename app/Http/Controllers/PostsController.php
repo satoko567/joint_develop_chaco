@@ -59,4 +59,25 @@ class PostsController extends Controller
 
         return redirect('/'); //トップページにリダイレクト
     }
+
+    // 投稿検索処理
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+    
+        $query = Post::with('user');
+    
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('content', 'like', '%' . $keyword . '%')
+                  ->orWhereHas('user', function ($q2) use ($keyword) {
+                      $q2->where('name', 'like', '%' . $keyword . '%');
+                  });
+            });
+        }
+    
+        $posts = $query->orderBy('created_at', 'desc')->paginate(10);
+    
+        return view('posts.search', compact('posts', 'keyword'));
+    }
 }
