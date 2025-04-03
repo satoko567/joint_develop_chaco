@@ -19405,6 +19405,20 @@ window.registerModal = function () {
   document.getElementById('confirm-password').innerText = password;
 };
 
+//画像表示モーダル
+window.showImageModal = function (imagePath) {
+  document.getElementById('modalImage').src = imagePath;
+  new bootstrap.Modal(document.getElementById('imageModal')).show();
+};
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.clickable-image').forEach(function (img) {
+    img.addEventListener('click', function () {
+      var imagePath = this.getAttribute('data-image');
+      window.showImageModal(imagePath);
+    });
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
