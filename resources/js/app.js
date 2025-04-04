@@ -30,18 +30,11 @@ window.registerModal = function() {
 }
 
 //画像表示モーダル
-window.showImageModal = function(imagePath) {
-    document.getElementById('modalImage').src = imagePath;
+document.querySelectorAll('.clickable-image').forEach(img => {
+    img.addEventListener('click', function() {
+        const imagePath = this.getAttribute('data-image');
+        document.getElementById('modalImage').src = imagePath;
 
-    new bootstrap.Modal(document.getElementById('imageModal')).show();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.clickable-image').forEach(img => {
-        img.addEventListener('click', function() {
-            const imagePath = this.getAttribute('data-image');
-
-            window.showImageModal(imagePath);
-        });
+        new bootstrap.Modal(document.getElementById('imageModal')).show();
     });
 });

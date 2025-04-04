@@ -19406,16 +19406,16 @@ window.registerModal = function () {
 };
 
 //画像表示モーダル
-window.showImageModal = function (imagePath) {
-  document.getElementById('modalImage').src = imagePath;
-  new bootstrap.Modal(document.getElementById('imageModal')).show();
-};
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.clickable-image').forEach(function (img) {
-    img.addEventListener('click', function () {
-      var imagePath = this.getAttribute('data-image');
-      window.showImageModal(imagePath);
-    });
+document.querySelectorAll('.clickable-image').forEach(function (img) {
+  img.addEventListener('click', function () {
+    // クリックした画像のURLを取得
+    var imagePath = this.getAttribute('data-image');
+
+    // モーダル内の画像にセット
+    document.getElementById('modalImage').src = imagePath;
+
+    // モーダル表示
+    new bootstrap.Modal(document.getElementById('imageModal')).show();
   });
 });
 

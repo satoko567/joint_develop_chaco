@@ -43,17 +43,3 @@
     </div>
 </div>
 
-<script>
-document.querySelectorAll('.clickable-image').forEach(img => {
-    img.addEventListener('click', function() {
-        // クリックした画像のURLを取得
-        const imagePath = this.getAttribute('data-image');
-        
-        // モーダル内の画像にセット
-        document.getElementById('modalImage').src = imagePath;
-
-        // モーダル表示
-        new bootstrap.Modal(document.getElementById('imageModal')).show();
-    });
-});
-</script>
