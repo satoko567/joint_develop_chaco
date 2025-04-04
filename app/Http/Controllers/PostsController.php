@@ -29,4 +29,12 @@ class PostsController extends Controller
         $post->save(); //postテーブルに保存
         return back(); //投稿ボタンを押した後、投稿フォームに戻る
     }
+
+    public function edit($id){
+        $post = Post::findOrFail($id); //idが$idの投稿を取得
+        $data = [
+            'post' => $post,
+        ];
+        return view('posts.edit', $data); //posts.editビューを表示
+    }
 }
