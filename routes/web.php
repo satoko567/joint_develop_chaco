@@ -18,6 +18,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::prefix('/posts')->group(function(){
         Route::post('/', 'PostsController@store')->name('post.store'); // 新規投稿
         Route::delete('{id}', 'PostsController@destroy')->name('posts.destroy'); // 投稿削除
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); // 編集画面を表示
+        Route::put('{id}', 'PostsController@update')->name('posts.update'); // 更新処理
     });
 
     // ユーザ関係(ログイン必要)

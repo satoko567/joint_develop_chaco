@@ -9,24 +9,25 @@
             </a>
         </div>
 
-        <div class="text-left d-inline-block w-75">
-            <p class="mb-2">{{ $post->content }}</p>
+            <div class="text-left d-inline-block w-75">
+                <p class="mb-2">{{ $post->content }}</p>
+                <p class="mb-2">{{ $post->content }}</p>
                 @if($post->image_path)
                     <img src="{{ asset('storage/' . $post->image_path) }}" alt="投稿画像" class="img-thumbnail clickable-image" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/' .$post->image_path) }}" >
                 @endif
-            <p class="text-muted">{{ $post->created_at }}</p>
-        </div>
-        <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-            @if (Auth::id() === $post->user_id)
-                <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">削除</button>
-                </form>
-                <a href="" class="btn btn-primary">編集する</a>
-            @endif
-        </div>
-    </li>
+                <p class="text-muted">{{ $post->created_at }}</p>
+            </div>
+            <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                        @if (Auth::id() === $post->user_id)
+                            <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">削除</button>
+                            </form>
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        @endif
+            </div>
+        </li>
     @endforeach
 </ul>
 
