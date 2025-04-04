@@ -14,5 +14,4 @@
     @if (Auth::check())
         @include('posts.new_post_form')
     @endif
-
 @endsection
