@@ -1,5 +1,5 @@
 <div class="text-center mb-3">
-    <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75"enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <textarea class="form-control" name="content">{{ old('content') }}</textarea>
