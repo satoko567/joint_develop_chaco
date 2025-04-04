@@ -4,7 +4,6 @@
         <div class="form-group">
             <textarea class="form-control" name="content">{{ old('content') }}</textarea>
             <div class="form-group">
-                <label for="image">画像</label>
                 <input type="file" name="image" class="form-control-file">
             </div>
             @error('content')

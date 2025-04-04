@@ -11,7 +11,6 @@
 
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{{ $post->content }}</p>
-                <p class="mb-2">{{ $post->content }}</p>
                 @if($post->image_path)
                     <img src="{{ asset('storage/' . $post->image_path) }}" alt="投稿画像" class="img-thumbnail clickable-image" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/' .$post->image_path) }}" >
                 @endif
