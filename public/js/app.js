@@ -19405,6 +19405,18 @@ window.registerModal = function () {
   document.getElementById('confirm-password').innerText = password;
 };
 
+//画像表示モーダル
+document.querySelectorAll('.clickable-image').forEach(function (img) {
+    img.addEventListener('click', function () {
+      // クリックした画像のURLを取得
+      var imagePath = this.getAttribute('data-image');
+      // モーダル内の画像にセット
+      document.getElementById('modalImage').src = imagePath;
+      // モーダル表示
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
