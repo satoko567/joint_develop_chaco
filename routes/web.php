@@ -26,10 +26,11 @@ Route::group(['middleware' => 'auth'], function () {
     //新規投稿
     Route::post('post', 'PostsController@store')->name('post.store');
     //投稿編集
-    Route::get('posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
-    Route::post('posts/{id}/update', 'PostsController@update')->name('posts.update');
-    //投稿削除
-    Route::post('posts/{id}/delete', 'PostsController@destroy')->name('posts.delete');
+    Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update'); //{id}/updateと書いてしまうと、このurlにgetリクエストを行ってしまう。updateは更新メソッドなのでgetではない。よって/updateは書いてはいけない。
+    }); 
+    
 });
 
 

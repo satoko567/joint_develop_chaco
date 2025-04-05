@@ -30,11 +30,20 @@ class PostsController extends Controller
         return back(); //投稿ボタンを押した後、投稿フォームに戻る
     }
 
-    public function edit($id){
-        $post = Post::findOrFail($id); //idが$idの投稿を取得
+    public function edit($id){ //編集ボタンを押した投稿データの、idを取得
+        
+        $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $data = [
             'post' => $post,
         ];
-        return view('posts.edit', $data); //posts.editビューを表示
+        return view('posts.edit_post_form', $data); //posts.editビューを表示
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
+        $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
+        $post->save(); //postテーブルに保存
+        return back(); //投稿ボタンを押した後、トップページにリダイレクト
     }
 }
