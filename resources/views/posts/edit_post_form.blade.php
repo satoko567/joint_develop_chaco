@@ -20,7 +20,7 @@
             <div class="form-group">
                 <textarea type="content" class="form-control custom-textarea" name="content" rows="4">{{$post->content}}</textarea>
                 <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary mt-2">投稿する</button>
+                    <button type="submit" class="btn btn-primary mt-2">更新する</button>
                 </div>
             </div>
         </form>
