@@ -44,6 +44,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
         $post->save(); //postテーブルに保存
-        return back(); //投稿ボタンを押した後、トップページにリダイレクト
+        return view('posts.index'); //投稿ボタンを押した後、トップページにリダイレクト
     }
 }
