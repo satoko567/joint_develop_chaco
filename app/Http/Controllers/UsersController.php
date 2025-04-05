@@ -16,4 +16,11 @@ class UsersController extends Controller
         ];
         return view('users.show', $data);
     }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('index');
+    }
 }
