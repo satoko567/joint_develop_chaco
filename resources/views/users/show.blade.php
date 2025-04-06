@@ -1,5 +1,5 @@
 {{-- ユーザ詳細ページ --}}
-@extends('layouts.app')
+@extends('layouts.app') 
 @section('content')
 <div class="container">
     <div class="row">
@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 100) }}" alt="ユーザのアバター画像">
                     <div class="mt-3">
-                        <a href=""></a> {{-- ユーザのプロフィール編集ページへのリンクを追加 --}}
+                        <a href=""></a> {{-- ユーザ編集画面へのリンク。rikoさんに書いてもらうか、ルートネーム教えてもらって書くか、相談して決める必要 --}}
                     </div>
                 </div>
             </div>
