@@ -30,7 +30,9 @@
     @endforeach
 </ul>
 
-<div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
+<div class="m-auto" style="width: fit-content">
+{{ $posts->appends(['keyword' => request()->query('keyword', '')])->links() }}
+</div>
 
 <!-- モーダル -->
 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
