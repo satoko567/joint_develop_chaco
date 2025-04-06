@@ -76,7 +76,8 @@ class PostsController extends Controller
             });
         }
     
-        $posts = $query->orderBy('created_at', 'desc')->paginate(10);
+        $posts = $query->orderBy('created_at', 'desc')->paginate(10)->appends(['keyword' => $keyword]);
+
     
         return view('posts.search', compact('posts', 'keyword'));
     }

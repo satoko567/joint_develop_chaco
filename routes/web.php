@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 // トップページ
 Route::get('/', 'PostsController@index');
+Route::get('/posts/search', 'PostsController@search')->name('posts.search');//検索機能をログインなしで
+
 
 // ログイン必須のルーティング
 Route::group(['middleware' => 'auth'], function(){
@@ -20,7 +22,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}', 'PostsController@destroy')->name('posts.destroy'); // 投稿削除
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); // 編集画面を表示
         Route::put('{id}', 'PostsController@update')->name('posts.update'); // 更新処理
-        Route::get('search', 'PostsController@search')->name('posts.search'); // 検索機能
     });
 
     // ユーザ関係(ログイン必要)
