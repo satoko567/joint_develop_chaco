@@ -25,5 +25,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //ユーザ詳細画面
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
 
+//ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    //新規投稿
+    Route::post('post', 'PostsController@store')->name('post.store');
+});
+
+
+
+
 
 
