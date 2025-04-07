@@ -15,6 +15,16 @@
                     <img src="{{ asset('storage/' . $post->image_path) }}" alt="投稿画像" class="img-thumbnail clickable-image" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/' .$post->image_path) }}" >
                 @endif
                 <p class="text-muted">{{ $post->created_at }}</p>
+                {{-- ここにいいねボタンを追加 --}}
+                <div class="d-inline-block">
+                    <form method="POST" action="{{ route('posts.like', $post->id) }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-light"
+                        @if (Auth::id() === $post->user_id) disabled @endif>
+                            👍 {{ ($post->likes ?? collect([]))->count() }}
+                        </button>
+                    </form>
+                </div>
             </div>
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         @if (Auth::id() === $post->user_id)

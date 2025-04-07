@@ -14,7 +14,9 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(6);
-        return view('users.detail', compact('user', 'posts'));
+        // いいねした投稿をページネーション
+        $likedPosts = $user->likes()->orderBy('id', 'desc')->paginate(6);
+        return view('users.detail', compact('user', 'posts', 'likedPosts')); // いいね投稿追記
     }
 
     // 編集フォーム表示
