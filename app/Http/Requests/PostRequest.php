@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'max:140'],
-            'images' => ['nullable', 'array', 'max:2048'],
+            'images' => ['nullable', 'array', 'max:4'],
             'images.*' => ['nullable','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
@@ -35,9 +35,10 @@ class PostRequest extends FormRequest
         return [
             'content.required' => '内容は必須です。',
             'content.max' => '投稿は140文字以内で入力してください。',
-            'image.image' => 'アップロードは画像ファイルのみです。',
-            'image.mimes' => '画像形式はjpeg、png、jpg、gifのみです。',
-            'image.max' => '画像サイズは2MB以下にしてください。'
+            'images.max' => '画像は最大4枚までアップロード可能です。',
+            'images.*.image' => 'アップロードは画像ファイルのみです。',
+            'images.*.mimes' => '画像形式はjpeg、png、jpg、gifのみです。',
+            'images.*.max' => '画像サイズは2MB以下にしてください。'
         ];
     }
 }

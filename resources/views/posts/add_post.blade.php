@@ -9,6 +9,17 @@
             @error('content')
             <p class="text-danger">{{ $message }}</p>
             @enderror
+
+            @error('images')
+            <p class="text-danger">{{ $message }}</p>
+            @enderror
+
+            @if ($errors->has('images.*'))
+                @foreach ($errors->get('images.*') as $error)
+                    <p class="text-danger">{{ $error[0] }}</p>
+                @endforeach
+            @endif
+
             <div class="text-left mt-3">
                 <button type="submit" class="btn btn-primary">投稿する</button>
             </div>
