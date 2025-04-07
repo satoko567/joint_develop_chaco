@@ -72,9 +72,9 @@ class PostsController extends Controller
         if ($existingLike) {
             $existingLike->delete();
         } else {
-        Like::create([
-            'post_id' => $post->id,
-            'user_id' => $user->id,
+            Like::create([
+                'post_id' => $post->id,
+                'user_id' => $user->id,
         ]);
         }
     }

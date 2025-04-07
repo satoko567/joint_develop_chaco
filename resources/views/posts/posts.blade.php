@@ -17,10 +17,14 @@
                 <div class="d-inline-block">
                     <form method="POST" action="{{ route('posts.like', $post->id) }}" style="display:inline;">
                         @csrf
-                        <button type="submit" class="btn btn-light"
-                            @if (Auth::id() === $post->user_id) disabled @endif>
+                        <button type="submit" class="btn btn-light">
                             👍 {{ ($post->likes ?? collect([]))->count() }}
                         </button>
+                            @if (session('error') && session('error_post_id') === $post->id)
+                            <div class="alert alert-danger ml-2 d-inline-block" style="vertical-align: middle;">
+                            {{ session('error') }}
+                            </div>
+                            @endif
                     </form>
                 </div>
             </div>
