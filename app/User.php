@@ -106,4 +106,10 @@ class User extends Authenticatable
             return true;
         }
     }
+
+    // いいね
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withTimestamps();
+    }
 }

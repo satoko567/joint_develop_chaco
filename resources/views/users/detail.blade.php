@@ -49,7 +49,7 @@
                     <div class="tab-pane fade show active" id="nav-post" role="tabpanel" aria-labelledby="nav-post-tab" tabindex="0"> @include('posts.posts', ['posts' => $posts])</div>
                     <div class="tab-pane fade" id="nav-follow" role="tabpanel" aria-labelledby="nav-follow-tab" tabindex="0"> @include('users.follows.following', ['id' => $user->id])</div>
                     <div class="tab-pane fade" id="nav-follower" role="tabpanel" aria-labelledby="nav-follower-tab" tabindex="0">@include('users.follows.followers', ['id' => $user->id])</div>
-                    <div class="tab-pane fade text-secondary" id="nav-favorite" role="tabpanel" aria-labelledby="nav-favorite-tab" tabindex="0">to be continued</div>
+                    <div class="tab-pane fade text-secondary" id="nav-favorite" role="tabpanel" aria-labelledby="nav-favorite-tab" tabindex="0">@include('posts.posts', ['posts' => $likedPosts])</div>
                 </div>
             </div>
         </div>

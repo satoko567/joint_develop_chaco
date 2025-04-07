@@ -20,4 +20,10 @@ class Post extends Model
     {
         return $this->hasMany(PostImage::class);
     }
+
+    // いいねのリレーションを追加
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

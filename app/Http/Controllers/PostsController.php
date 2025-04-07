@@ -7,13 +7,14 @@ use App\Post;
 use App\PostImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Like;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome' , [
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('welcome', [
             'posts' => $posts,
         ]);
     }
@@ -55,7 +56,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id); //投稿を取得（見つからなければ404エラー）
-        
+
         if (Auth::id() != $post->user_id) {
             abort(403, 'このページへのアクセス権限がありません');
         }
@@ -63,7 +64,7 @@ class PostsController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-    //投稿更新処理
+    // 投稿更新処理
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
@@ -77,21 +78,39 @@ class PostsController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-    
+
         $query = Post::with('user');
-    
+
         if (!empty($keyword)) {
             $query->where(function ($q) use ($keyword) {
                 $q->where('content', 'like', '%' . $keyword . '%')
-                  ->orWhereHas('user', function ($q2) use ($keyword) {
-                      $q2->where('name', 'like', '%' . $keyword . '%');
-                  });
+                    ->orWhereHas('user', function ($q2) use ($keyword) {
+                        $q2->where('name', 'like', '%' . $keyword . '%');
+                    });
             });
         }
-    
+
         $posts = $query->orderBy('created_at', 'desc')->paginate(10)->appends(['keyword' => $keyword]);
 
-    
+
         return view('posts.search', compact('posts', 'keyword'));
+    }
+
+    // いいね
+    public function like($id)
+    {
+        $post = Post::findOrFail($id);
+        $user = Auth::user();
+
+        // すでにいいねしていたら削除（トグル処理）
+        $existingLike = Like::where('post_id', $post->id)->where('user_id', $user->id)->first();
+        if ($existingLike) {
+            $existingLike->delete();
+        } else {
+            Like::create([
+                'post_id' => $post->id,
+                'user_id' => $user->id,
+            ]);
+        }
     }
 }
