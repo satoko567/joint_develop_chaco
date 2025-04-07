@@ -4,7 +4,7 @@
         <div class="form-group">
             <textarea class="form-control" name="content">{{ old('content') }}</textarea>
             <div class="form-group">
-                <input type="file" name="image" class="form-control-file">
+                <input type="file" name="images[]" multiple class="form-control-file">
             </div>
             @error('content')
             <p class="text-danger">{{ $message }}</p>

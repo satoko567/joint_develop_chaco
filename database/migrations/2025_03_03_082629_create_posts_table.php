@@ -13,12 +13,11 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) 
+        Schema::create('posts', function (Blueprint $table)
         {
             $table->bigIncrements('id'); // 投稿ID（自動採番）
             $table->unsignedBigInteger('user_id')->index(); // ユーザーID（外部キー + 検索高速化）
             $table->string('content', 140); // 投稿内容（最大140文字）
-            $table->string('image_path')->nullable(); // 画像投稿
             $table->timestamps(); // created_at, updated_at
             $table->softDeletes(); // ソフトデリート（論理削除）
 

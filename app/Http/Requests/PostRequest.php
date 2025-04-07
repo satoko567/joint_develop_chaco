@@ -25,7 +25,8 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'max:140'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'images' => ['nullable', 'array', 'max:2048'],
+            'images.*' => ['nullable','image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 
