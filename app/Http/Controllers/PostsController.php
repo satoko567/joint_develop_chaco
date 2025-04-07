@@ -21,13 +21,20 @@ class PostsController extends Controller
     // 投稿新規処理
     public function store(PostRequest $request)
     {
+        $imagePath = null;
+        if($request->hasFile('image')){
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
+
         Post::create([
             'user_id' => auth()->id(),
             'content' => $request->validated()['content'],
+            'image_path' => $imagePath,
         ]);
 
         return redirect('/');
     }
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
@@ -61,12 +68,34 @@ class PostsController extends Controller
         return redirect('/'); //トップページにリダイレクト
     }
 
+    // 投稿検索処理
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+    
+        $query = Post::with('user');
+    
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('content', 'like', '%' . $keyword . '%')
+                  ->orWhereHas('user', function ($q2) use ($keyword) {
+                      $q2->where('name', 'like', '%' . $keyword . '%');
+                  });
+            });
+        }
+    
+        $posts = $query->orderBy('created_at', 'desc')->paginate(10)->appends(['keyword' => $keyword]);
+
+    
+        return view('posts.search', compact('posts', 'keyword'));
+    }
+
     // いいね
     public function like($id)
     {
         $post = Post::findOrFail($id);
         $user = Auth::user();
-
+    
         // すでにいいねしていたら削除（トグル処理）
         $existingLike = Like::where('post_id', $post->id)->where('user_id', $user->id)->first();
         if ($existingLike) {

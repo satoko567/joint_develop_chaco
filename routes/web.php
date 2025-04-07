@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 // トップページ
 Route::get('/', 'PostsController@index');
+Route::get('/posts/search', 'PostsController@search')->name('posts.search');//検索機能をログインなしで
+
 
 // ログイン必須のルーティング
 Route::group(['middleware' => 'auth'], function(){

@@ -28,3 +28,13 @@ window.registerModal = function() {
     document.getElementById('confirm-email').innerText = email;
     document.getElementById('confirm-password').innerText = password;
 }
+
+//画像表示モーダル
+document.querySelectorAll('.clickable-image').forEach(img => {
+    img.addEventListener('click', function() {
+        const imagePath = this.getAttribute('data-image');
+        document.getElementById('modalImage').src = imagePath;
+
+        new bootstrap.Modal(document.getElementById('imageModal')).show();
+    });
+});

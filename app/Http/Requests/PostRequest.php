@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'max:140'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 
@@ -33,6 +34,9 @@ class PostRequest extends FormRequest
         return [
             'content.required' => '内容は必須です。',
             'content.max' => '投稿は140文字以内で入力してください。',
+            'image.image' => 'アップロードは画像ファイルのみです。',
+            'image.mimes' => '画像形式はjpeg、png、jpg、gifのみです。',
+            'image.max' => '画像サイズは2MB以下にしてください。'
         ];
     }
 }
