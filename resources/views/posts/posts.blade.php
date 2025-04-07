@@ -13,7 +13,7 @@
                 <p class="mb-2">{{ $post->content }}</p>
 
                 @foreach ($post->images as $image)
-                    <img src="{{ asset('storage/' . $image->image_path) }}" class="img-thumbnail mb-2" style="width: 200px;">
+                    <img alt="投稿画像" src="{{ asset('storage/' . $image->image_path) }}" class="img-thumbnail clickable-image mb-2" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/'. $image->image_path) }}">
                 @endforeach
                 <p class="text-muted">{{ $post->created_at }}</p>
             </div>
