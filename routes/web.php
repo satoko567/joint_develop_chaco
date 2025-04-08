@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function(){
         // いいね機能の追加
         Route::post('{id}/like', 'LikeController@like')->name('posts.like'); // いいね
         Route::delete('{id}/unlike', 'LikeController@unlike')->name('posts.unlike'); // いいね解除
+        
+        // リプライ機能の追加
+        Route::get('{post}/replies', [App\Http\Controllers\ReplyController::class, 'index'])->name('replies.index'); // リプライ一覧
     });
 
     // ユーザ関係(ログイン必要)
