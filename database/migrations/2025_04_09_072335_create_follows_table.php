@@ -15,7 +15,13 @@ class CreateFollowsTable extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigIncrements('user_id');
+            $table->bigIncrements('post_id');
             $table->timestamps();
+            // 外部キー制約を追加
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->unique(['user_id','post_id']);
         });
     }
 
