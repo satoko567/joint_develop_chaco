@@ -30,6 +30,6 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
         ];
-        return view('users.user_edit', $data);
+        return view('buttons.user_withdrawal_button', $data);  //
     }
 }
