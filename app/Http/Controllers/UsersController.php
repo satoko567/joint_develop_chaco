@@ -30,6 +30,6 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
         ];
-        return view('buttons.user_withdrawal_button', $data);  //
+        return view('buttons.user_withdrawal_button', $data);  //ユーザ退会ボタンを表示するために記述した。編集ページがマージされたら、このedit関数は削除。rikoさんの書いたものを使う。
     }
 }

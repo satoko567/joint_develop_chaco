@@ -1,6 +1,7 @@
-@extends('layouts.app')
-@section('content')
-    @if (Auth::check())
+{{-- rikoさんユーザ編集ページにこのファイルをincludeしてもらう --}}
+@extends('layouts.app') {{-- rikoさんユーザ編集ページがマージされたら、削除する --}}
+@section('content') {{-- rikoさんユーザ編集ページがマージされたら、削除する --}}
+    @if (Auth::check()) {{-- rikoさんユーザ編集ページがマージされたら、削除する --}}
         @include('commons.delete_modal')
 
         <!-- 削除ボタン：data-url でURLを渡す -->
@@ -12,5 +13,5 @@
         data-btn_name="退会">
         退会
         </button>
-    @endif
-@endsection
+    @endif {{-- rikoさんユーザ編集ページがマージされたら、削除する --}}
+@endsection {{-- rikoさんユーザ編集ページがマージされたら、削除する --}}
