@@ -44,8 +44,41 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    // ユーザがフォローしている投稿を取得するメソッド 
     public function follows()
     {
         return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+    }
+
+    // ユーザがフォローしているか判定するメソッド
+    public function isFollow($postId)
+    {
+        return $this->follows()->where('post_id', $postId)->exists();
+    }
+
+    // フォロー状態を作るメソッド
+    public function follow($postId)
+    {
+        // すでにフォローしている場合は何もしない
+        $exists = $this->isFollow($postId);
+        if ($exists) {
+            return;
+        } else {
+        // フォローしていない場合は、フォローを追加
+        $this->follows()->attach($postId);
+        }
+    }
+
+    // フォローを解除するメソッド
+    public function unfollow($postId)
+    {
+        // フォローしていない場合は何もしない
+        $exists = $this->isFollow($postId);
+        if ($exists) {
+            return;
+        } else {
+        // フォローしている場合は、フォローを解除
+        $this->follows()->detach($postId);
+        }
     }
 }
