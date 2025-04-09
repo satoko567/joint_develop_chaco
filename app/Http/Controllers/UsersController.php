@@ -20,7 +20,8 @@ class UsersController extends Controller
     public function delete($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
+        $user->posts()->delete(); // ユーザの投稿を論理削除
+        $user->delete(); // ユーザを論理削除
         return redirect()->route('index');
     }
 
