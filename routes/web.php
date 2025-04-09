@@ -30,6 +30,10 @@ Route::get('users/{id}', 'UsersController@show')->name('users.show');
 Route::group(['middleware' => 'auth'], function () {
     //新規投稿
     Route::post('post', 'PostsController@store')->name('post.store');
+
+    //フォロー
+    Route::post('follow/{id}', 'FollowsController@store')->name('follow.store');
+    Route::delete('unfollow/{id}', 'FollowsController@destroy')->name('follow.destroy');
 });
 
 
