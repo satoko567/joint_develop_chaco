@@ -30,13 +30,19 @@ class PostsController extends Controller
         return back(); //投稿ボタンを押した後、投稿フォームに戻る
     }
 
-    public function edit($id){ //編集ボタンを押した投稿データの、idを取得
+    public function edit($id) //編集ボタンを押した投稿データの、idを取得
+    { 
+        $post = Post::findOrFail($id); //選択した投稿に該当する、投稿データを取得。
+        if (\Auth::id() === $post->user_id) { //自分の投稿以外は編集できないようにする。そのために、ログインユーザのidと、投稿データのidが一致しない場合はエラーを出す。
+            $data = [
+                'post' => $post,
+            ];
+            return view('posts.edit_post_form', $data); //posts.editビューを表示
+
+        } else {
+            abort(404); //404エラーを返す
+        }
         
-        $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
-        $data = [
-            'post' => $post,
-        ];
-        return view('posts.edit_post_form', $data); //posts.editビューを表示
     }
 
     public function update(PostRequest $request, $id)
@@ -44,6 +50,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
         $post->save(); //postテーブルに保存
-        return view('posts.index'); //投稿ボタンを押した後、トップページにリダイレクト
+        return redirect('/'); //投稿ボタンを押した後、トップページにリダイレクト
     }
 }
