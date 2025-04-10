@@ -25,6 +25,6 @@ class Post extends Model
     //リプライのリレーションを追加
     public function replies()
     {
-    return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class);
     }
 }
