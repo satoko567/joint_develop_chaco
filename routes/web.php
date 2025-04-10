@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //フォロー
     Route::post('follow/{id}', 'FollowsController@store')->name('follow.store');
-    Route::delete('unfollow/{id}', 'FollowsController@destroy')->name('follow.destroy');
+    Route::delete('unfollow/{id}', 'FollowsController@delete')->name('follow.delete');
 });
 
 
