@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2 class="mt-5">投稿を編集する</h2>
+<h2 class="mt-5">投稿内容を編集する</h2>
     <form method="POST" action="{{ route('posts.update', $post->id) }}">
         @csrf
         @method('PUT')
@@ -16,7 +16,7 @@
     </form>
 
     <section class="img-edit">
-        <h2 class="mt-5">画像を編集する</h2>
+        <h2 class="mt-5">投稿画像を編集する</h2>
         @foreach ($post->images as $image)
             <img alt="投稿画像" class="img-thumbnail clickable-image my-2" src="{{ asset('storage/' . $image->image_path) }}" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/'. $image->image_path) }}">
                 <form method="POST" action="{{ route('postImages.update', $image->id)}}" enctype="multipart/form-data">
