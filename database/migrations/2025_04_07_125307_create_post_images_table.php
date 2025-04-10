@@ -19,6 +19,7 @@ class CreatePostImagesTable extends Migration
             $table->unsignedBigInteger('post_id')->index();
             $table->string('image_path')->nullable(); // 画像投稿
             $table->timestamps();
+            $table->softDeletes();
 
             // 外部キー制約
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
