@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 
-class ReplyController extends Controller
+class RepliesController extends Controller
 {
     public function index(Post $post)
     {

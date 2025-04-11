@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 // トップページ
 Route::get('/', 'PostsController@index');
 Route::get('/posts/search', 'PostsController@search')->name('posts.search');//検索機能をログインなしで
-Route::get('{post}/replies', 'ReplyController@index')->name('replies.index');//リプライ一覧
+Route::get('/posts/{post}/replies', 'RepliesController@index')->name('replies.index');//リプライ一覧
 
 
 // ログイン必須のルーティング
