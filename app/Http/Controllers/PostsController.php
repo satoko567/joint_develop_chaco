@@ -38,11 +38,8 @@ class PostsController extends Controller
                 'post' => $post,
             ];
             return view('posts.edit_post_form', $data); //posts.editビューを表示
-
-        } else {
-            abort(404); //404エラーを返す
-        }
-        
+        } 
+        abort(404); //404エラーを返す。
     }
 
     public function update(PostRequest $request, $id)
