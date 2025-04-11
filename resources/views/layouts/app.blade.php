@@ -18,4 +18,18 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
     </body>
+
+    {{-- 削除モーダル用javascript --}}
+    <script>
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget); //←モーダルを開くボタン
+            const message = button.data('title'); //← data-titleの値を取得
+            const url = button.data('url'); //← data-urlの値を取得
+            const btn_name = button.data('btn_name'); //← data-btn_nameの値を取得
+            const modal = $(this);
+            modal.find('#modal-message').text(message); //←モーダルのメッセージを変更
+            modal.find('#deleteForm').attr('action', url); //←モーダルformのactionを変更
+            modal.find('#btn_name').text(btn_name); //←モーダルのボタン名を変更
+        });
+    </script>
 </html>
