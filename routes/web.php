@@ -29,12 +29,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}/unlike', 'LikeController@unlike')->name('posts.unlike'); // いいね解除
     });
 
-    // 投稿画像関係
-    Route::prefix('/postImages')->group(function(){
-        Route::put('{id}', 'PostImagesController@update')->name('postImages.update'); // 投稿画像編集
-        Route::delete('{id}', 'PostImagesController@destroy')->name('postImages.destroy'); // 投稿画像削除
-    });
-
     // ユーザ関係(ログイン必要)
     Route::prefix('/users')->group(function(){
         Route::get('{user}/edit', 'UsersController@edit')->name('users.edit'); // ユーザ編集

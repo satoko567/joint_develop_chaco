@@ -3,9 +3,8 @@
         @csrf
         <div class="form-group">
             <textarea class="form-control" name="content">{{ old('content') }}</textarea>
-            <div class="form-group">
                 <input type="file" name="images[]" multiple class="form-control-file">
-            </div>
+                <small class="form-text text-muted d-flex justify-content-start">複数枚選択できます</small>
             @error('content')
             <p class="text-danger">{{ $message }}</p>
             @enderror

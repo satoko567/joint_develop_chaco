@@ -3,36 +3,54 @@
 @section('content')
 
 <h2 class="mt-5">投稿内容を編集する</h2>
-    <form method="POST" action="{{ route('posts.update', $post->id) }}">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
-                @error('content')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
-        </div>
-        <button type="submit" class="btn btn-primary">更新する</button>
-    </form>
+<form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+    <div class="form-group">
+        <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
+    </div>
+
+    @error('content')
+        <p class="text-danger">{{ $message }}</p>
+    @enderror
+
+    @if ($errors->has('new_images'))
+        <p class="text-danger">{{ $errors->first('new_images') }}</p>
+    @endif
+    @foreach ($errors->get('new_images.*') as $messages)
+        @foreach ($messages as $message)
+            <p class="text-danger">{{ $message }}</p>
+        @endforeach
+    @endforeach
+
+    @foreach ($errors->get('delete_images.*') as $messages)
+        @foreach ($messages as $message)
+            <p class="text-danger">{{ $message }}</p>
+        @endforeach
+    @endforeach
 
     <section class="img-edit">
-        <h2 class="mt-5">投稿画像を編集する</h2>
         @foreach ($post->images as $image)
-            <img alt="投稿画像" class="img-thumbnail clickable-image my-2" src="{{ asset('storage/' . $image->image_path) }}" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/'. $image->image_path) }}">
-                <form method="POST" action="{{ route('postImages.update', $image->id)}}" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <input type="file" name="image" accept="image/*" class="form-control mb-1">
-                    <button type="submit" class="btn btn-warning">画像を変更</button>
-                </form>
-                <form method="POST" action="{{ route('postImages.destroy', $image->id)}}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">画像を削除</button>
-                </form>
+        <div class="my-3 card p-3">
+            <img alt="投稿画像" class="img-thumbnail clickable-image my-1" src="{{ asset('storage/' . $image->image_path) }}" style="width: 200px; cursor: pointer;" data-image="{{ asset('storage/'. $image->image_path) }}">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="delete_images[]" value="{{ $image->id }}" id="delete_{{ $image->id }}">
+                <label class="form-check-label" for="delete_{{ $image->id }}">削除する</label>
+            </div>
+            <input type="file" name="images[{{ $image->id }}]" class="form-control-file mb-1">
+        </div>
         @endforeach
-        <a class="btn btn-secondary mt-3" href="/">トップページへ</a>
+
+        <section class="img-add my-4 card p-3">
+            <h4>新しい画像を追加する</h4>
+            <input type="file" name="new_images[]" multiple class="form-control-file">
+            <small class="form-text text-muted">複数枚選択できます</small>
         </section>
+
+    </section>
+
+    <button type="submit" class="btn btn-primary">更新する</button>
+</form>
 @endsection
 
 <!-- モーダル -->

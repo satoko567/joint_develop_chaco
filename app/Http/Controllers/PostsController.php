@@ -8,6 +8,7 @@ use App\PostImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Like;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -27,8 +28,8 @@ class PostsController extends Controller
             'content' => $request->validated()['content'],
         ]);
 
-        if($request->hasFile('images')){
-            foreach($request->file('images') as $image){
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
                 $path = $image->store('images', 'public');
 
                 PostImage::create([
@@ -70,6 +71,61 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save(); // 投稿を取得して更新
+
+        // 画像削除
+        if ($request->filled('delete_images')) {
+            $imageIds = $request->delete_images;
+
+            $images = PostImage::where('post_id', $post->id)->whereIn('id', $imageIds)->get();
+
+            foreach ($images as $image) {
+                Storage::delete('public/' . $image->image_path);
+                $image->delete();
+            }
+        }
+
+        // 画像変更
+        $uploadedImages = $request->file('images', []);
+
+        if (!empty($uploadedImages)) {
+            $imageIds = array_keys($uploadedImages);
+
+            $images = PostImage::where('post_id', $post->id)
+                ->whereIn('id', $imageIds)
+                ->get()
+                ->keyBy('id');
+
+            foreach ($uploadedImages as $imageId => $file) {
+                if ($file && $file->isValid() && isset($images[$imageId])) {
+                    $image = $images[$imageId];
+
+                    Storage::delete('public/' . $image->image_path);
+                    $image->image_path = $file->store('images', 'public');
+                    $image->save();
+                }
+            }
+        }
+
+        // 画像追加
+        $newFiles = $request->file('new_images', []);
+
+        $validNewFiles = array_filter($newFiles, fn($file) => $file && $file->isValid());
+
+        $insertData = [];
+
+        foreach ($validNewFiles as $file) {
+            $path = $file->store('images', 'public');
+            $insertData[] = [
+                'post_id' => $post->id,
+                'image_path' => $path,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        if (!empty($insertData)) {
+            PostImage::insert($insertData);
+        }
 
         return redirect('/'); //トップページにリダイレクト
     }
