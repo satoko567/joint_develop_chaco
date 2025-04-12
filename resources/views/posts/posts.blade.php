@@ -18,6 +18,10 @@
                 <p class="text-muted">{{ $post->created_at }}</p>
                 {{-- ここにいいねボタンを追加 --}}
                 <div class="d-inline-block">
+                {{-- 💬リプライリンク ← 追加する！ --}}
+                <a href="{{ route('replies.index', $post->id) }}" class="btn btn-light">
+                💬 {{ $post->replies->count() }}
+                </a>
                     <form method="POST" action="{{ route('posts.like', $post->id) }}" style="display:inline;">
                         @csrf
                         <button type="submit" class="btn btn-light"
