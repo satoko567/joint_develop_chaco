@@ -61,6 +61,12 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    // リプライとリレーション
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     // フォローリレーション(フォローしているユーザを取得)
     public function following()
     {
