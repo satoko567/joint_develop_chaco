@@ -51,34 +51,34 @@ class User extends Authenticatable
     }
 
     // ユーザがフォローしているか判定するメソッド
-    public function isFollow($postId)
+    public function isFollow($id)
     {
-        return $this->follows()->where('post_id', $postId)->exists();
+        return $this->follows()->where('post_id', $id)->exists();
     }
 
     // フォロー状態を作るメソッド
-    public function follow($postId)
+    public function follow($id)
     {
         // すでにフォローしている場合は何もしない
-        $exists = $this->isFollow($postId);
+        $exists = $this->isFollow($id);
         if ($exists) {
             return;
         } else {
         // フォローしていない場合は、フォローを追加
-        $this->follows()->attach($postId);
+        $this->follows()->attach($id);
         }
     }
 
     // フォローを解除するメソッド
-    public function unfollow($postId)
+    public function unfollow($id)
     {
         // フォローしていない場合は何もしない
-        $exists = $this->isFollow($postId);
+        $exists = $this->isFollow($id);
         if ($exists) {
             return;
         } else {
         // フォローしている場合は、フォローを解除
-        $this->follows()->detach($postId);
+        $this->follows()->detach($id);
         }
     }
 }

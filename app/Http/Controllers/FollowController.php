@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
-    public function store(Request $request, $postId)
+    public function store(Request $request, $id)
     {
         $user = $request->user();
-        $user->follow($postId);
+        $user->follow($id);
         return back();
     }
 
-    public function delete(Request $request, $postId)
+    public function delete(Request $request, $id)
     {
         $user = $request->user();
-        $user->unfollow($postId);
+        $user->unfollow($id);
         return back();
     }
 }

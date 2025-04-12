@@ -1,11 +1,11 @@
 @php
-    $postId = post()->post_id;
+    $exists = $user()->isFollow($id);
 @endphp
 
-<form method="POST" action="{{ route('follow.store', $postId) }}">
+<form method="POST" action="{{ route('follow.store', $post->id) }}">
     @csrf
     <button type="submit" class="btn btn-primary">
-        @if ($isFollow($postId))
+        @if ($exists)
             フォロー中
         @else
             フォローする

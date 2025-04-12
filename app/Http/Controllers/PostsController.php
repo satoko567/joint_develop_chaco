@@ -34,7 +34,7 @@ class PostsController extends Controller
         
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $data = [
-            'post' => $post,
+            'post' => $post, //idに該当する投稿データをこれに格納
         ];
         return view('posts.edit_post_form', $data); //posts.editビューを表示
     }
