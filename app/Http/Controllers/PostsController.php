@@ -12,7 +12,11 @@ class PostsController extends Controller
     // ユーザとその投稿一覧を表示するメソッド
     public function index()
     {
-        return view('posts.index');
+        $posts = Post::orderBy('id','desc')->paginate(10);
+
+        return view('posts.index',[
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -34,7 +38,7 @@ class PostsController extends Controller
         
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $data = [
-            'post' => $post, //idに該当する投稿データをこれに格納
+            'post' => $post, //idに該当する投稿データを
         ];
         return view('posts.edit_post_form', $data); //posts.editビューを表示
     }
@@ -44,6 +48,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
         $post->save(); //postテーブルに保存
-        return view('posts.index'); //投稿ボタンを押した後、トップページにリダイレクト
+        return redirect('/'); //投稿ボタンを押した後、トップページにリダイレクト
     }
 }
