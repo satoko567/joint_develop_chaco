@@ -10,24 +10,26 @@
         <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
     </div>
 
+<!-- 投稿エラー -->
     @error('content')
+    <p class="text-danger">{{ $message }}</p>
+@enderror
+<!-- 画像複数枚投稿エラー -->
+@error('new_images')
+    <p class="text-danger">{{ $message }}</p>
+@enderror
+<!-- 画像1枚に対してのエラー -->
+@for ($i = 0; $i < 4; $i++)
+    @error("new_images.$i")
         <p class="text-danger">{{ $message }}</p>
     @enderror
-
-    @if ($errors->has('new_images'))
-        <p class="text-danger">{{ $errors->first('new_images') }}</p>
-    @endif
-    @foreach ($errors->get('new_images.*') as $messages)
-        @foreach ($messages as $message)
-            <p class="text-danger">{{ $message }}</p>
-        @endforeach
-    @endforeach
-
-    @foreach ($errors->get('delete_images.*') as $messages)
-        @foreach ($messages as $message)
-            <p class="text-danger">{{ $message }}</p>
-        @endforeach
-    @endforeach
+@endfor
+<!-- 画像削除エラー -->
+@foreach ($post->images as $image)
+    @error("delete_images.{$loop->index}")
+        <p class="text-danger">{{ $message }}</p>
+    @enderror
+@endforeach
 
     <section class="img-edit">
         @foreach ($post->images as $image)
