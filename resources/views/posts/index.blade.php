@@ -14,4 +14,11 @@
     @if (Auth::check())
         @include('posts.new_post_form')
     @endif
+
+    {{-- 投稿一覧 --}}
+    @include ('posts.post', ['posts' => $posts])
+
+    <div class="pagination justify-content-center">
+        {{ $posts->links('pagination::bootstrap-4') }}
+    </div>
 @endsection
