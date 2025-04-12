@@ -1,5 +1,5 @@
 @php
-    $exists = $user()->isFollow($id);
+    //$exists = $user()->isFollow($id);
 @endphp
 
 <form method="POST" action="{{ route('follow.store', $post->id) }}">
