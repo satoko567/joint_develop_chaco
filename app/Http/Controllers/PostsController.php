@@ -13,10 +13,11 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
-
-        return view('posts.index',[
-            'posts' => $posts,
-        ]);
+        $users = User::all(); //全ユーザを取得
+        $data = [ //現状、viewに渡す変数は１個。だが、今後の拡張性を考えて、配列で書いておく。
+            'posts' => $posts, //index.bladeで、$postsと書いて使う。この中身は、ここで定義してある$posts。
+        ];
+        return view('posts.index', $data); //posts.indexビューを表示
     }
 
     /**

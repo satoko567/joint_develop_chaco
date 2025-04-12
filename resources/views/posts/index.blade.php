@@ -13,10 +13,8 @@
     {{-- ログインしていると、投稿フォームが表示される。してないと表示されない。 --}}
     @if (Auth::check())
         @include('posts.new_post_form')
-        @include('follow_button')
     @endif
 
     {{-- 投稿一覧 --}}
     @include ('posts.post', ['posts' => $posts])
-
 @endsection

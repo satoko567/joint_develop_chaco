@@ -47,7 +47,7 @@ class User extends Authenticatable
     // ユーザがフォローしている投稿を取得するメソッド 
     public function follows()
     {
-        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'follows', 'user_id', 'post_id')->withTimestamps();
     }
 
     // ユーザがフォローしているか判定するメソッド
@@ -75,10 +75,10 @@ class User extends Authenticatable
         // フォローしていない場合は何もしない
         $exists = $this->isFollow($id);
         if ($exists) {
-            return;
+            $this->follows()->detach($id);
         } else {
         // フォローしている場合は、フォローを解除
-        $this->follows()->detach($id);
+            return;
         }
     }
 }
