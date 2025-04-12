@@ -22,6 +22,9 @@
                 </div>
             </div>
         @endforeach
+        <div class="mt-3">
+        {{ $replies->links() }}
+        </div>
     @endif
 </div>
 @endsection
