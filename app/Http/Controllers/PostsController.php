@@ -28,17 +28,22 @@ class PostsController extends Controller
             'content' => $request->validated()['content'],
         ]);
 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('images', 'public');
+        $images = $request->file('images', []);
 
-                PostImage::create([
-                    'post_id' => $post->id,
-                    'image_path' => $path,
-                ]);
-            }
+        $validImages = array_filter($images, fn($image) => $image && $image->isValid());
+
+        $insertData = collect($validImages)->map(function ($image) use ($post) {
+            return [
+                'post_id' => $post->id,
+                'image_path' => $image->store('images', 'public'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        })->all();
+
+        if (!empty($insertData)) {
+            PostImage::insert($insertData);
         }
-
         return redirect('/');
     }
 
