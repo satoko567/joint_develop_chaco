@@ -47,11 +47,17 @@ class PostsController extends Controller
         return redirect('/');
     }
 
+    // 投稿削除処理
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
 
         if (auth()->id() === $post->user_id) {
+            $images = PostImage::where('post_id', $post->id)->get();
+            $pathsToDelete = $images->pluck('image_path')->map(fn($path) => 'public/' . $path);
+            Storage::delete($pathsToDelete->all());
+            PostImage::where('post_id', $post->id)->delete();
+
             $post->delete();
         }
 
