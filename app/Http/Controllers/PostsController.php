@@ -74,14 +74,14 @@ class PostsController extends Controller
 
         // 画像削除
         if ($request->filled('delete_images')) {
-            $imageIds = $request->delete_images;
+            $imagesToDelete = PostImage::where('post_id', $post->id)
+                ->whereIn('id', $request->delete_images)
+                ->get();
 
-            $images = PostImage::where('post_id', $post->id)->whereIn('id', $imageIds)->get();
+            $deletePaths = $imagesToDelete->pluck('image_path')->map(fn($path) => 'public/' . $path);
+            Storage::delete($deletePaths->all());
 
-            foreach ($images as $image) {
-                Storage::delete('public/' . $image->image_path);
-                $image->delete();
-            }
+            PostImage::whereIn('id', $imagesToDelete->pluck('id'))->delete();
         }
 
         // 画像変更
@@ -90,19 +90,32 @@ class PostsController extends Controller
         if (!empty($uploadedImages)) {
             $imageIds = array_keys($uploadedImages);
 
-            $images = PostImage::where('post_id', $post->id)
+
+            $imagesToUpdate = PostImage::where('post_id', $post->id)
                 ->whereIn('id', $imageIds)
                 ->get()
                 ->keyBy('id');
 
+            $updates = [];
             foreach ($uploadedImages as $imageId => $file) {
-                if ($file && $file->isValid() && isset($images[$imageId])) {
-                    $image = $images[$imageId];
-
+                if ($file && $file->isValid() && isset($imagesToUpdate[$imageId])) {
+                    $image = $imagesToUpdate[$imageId];
                     Storage::delete('public/' . $image->image_path);
-                    $image->image_path = $file->store('images', 'public');
-                    $image->save();
+                    $newPath = $file->store('images', 'public');
+
+                    $updates[] = [
+                        'id' => $image->id,
+                        'image_path' => $newPath,
+                        'updated_at' => now(),
+                    ];
                 }
+            }
+
+            foreach ($updates as $update) {
+                PostImage::where('id', $update['id'])->update([
+                    'image_path' => $update['image_path'],
+                    'updated_at' => $update['updated_at'],
+                ]);
             }
         }
 
@@ -111,17 +124,14 @@ class PostsController extends Controller
 
         $validNewFiles = array_filter($newFiles, fn($file) => $file && $file->isValid());
 
-        $insertData = [];
-
-        foreach ($validNewFiles as $file) {
-            $path = $file->store('images', 'public');
-            $insertData[] = [
+        $insertData = collect($validNewFiles)->map(function ($file) use ($post) {
+            return [
                 'post_id' => $post->id,
-                'image_path' => $path,
+                'image_path' => $file->store('images', 'public'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-        }
+        })->all();
 
         if (!empty($insertData)) {
             PostImage::insert($insertData);
