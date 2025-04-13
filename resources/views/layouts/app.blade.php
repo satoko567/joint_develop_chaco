@@ -16,6 +16,8 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
     <!-- css -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    @stack('styles')
 </head>
 
 <body>

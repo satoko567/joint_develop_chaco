@@ -14,5 +14,8 @@
             @if(auth()->check())
                 @include('posts.add_post')
             @endif
+        <div class="text-center mb-4">
+        <a href="{{ route('ranking.index') }}" class="btn btn-warning">👍 いいねランキングを見る</a>
+        </div>
     @include('posts.posts', ['posts' => $posts])
 @endsection
