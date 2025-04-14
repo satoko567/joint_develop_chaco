@@ -17,12 +17,12 @@ class RepliesController extends Controller
 
     public function store(ReplyRequest $request, Post $post)
     {
-    Reply::create([
-        'post_id' => $post->id,
-        'user_id' => auth()->id(),
-        'content' => $request->input('content'),
-    ]);
+        Reply::create([
+            'post_id' => $post->id,
+            'user_id' => auth()->id(),
+            'content' => $request->input('content'),
+        ]);
 
-    return redirect()->route('replies.index', $post->id);
+        return redirect()->route('replies.index', $post->id);
     }
 }
