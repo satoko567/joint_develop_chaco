@@ -62,23 +62,25 @@ class User extends Authenticatable
         // すでにフォローしている場合は何もしない
         $exists = $this->isFollow($id);
         if ($exists) {
-            return;
+            return false;
         } else {
         // フォローしていない場合は、フォローを追加
         $this->follows()->attach($id);
+            return true;
         }
     }
 
     // フォローを解除するメソッド
     public function unfollow($id)
     {
-        // フォローしていない場合は何もしない
+        // フォローしている場合は、フォローを解除
         $exists = $this->isFollow($id);
         if ($exists) {
             $this->follows()->detach($id);
+            return true;
         } else {
-        // フォローしている場合は、フォローを解除
-            return;
+        // フォローしていない場合は何もしない
+            return false;
         }
     }
 }

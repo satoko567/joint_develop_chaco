@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 @php
-    $exists = $post->user->isFollow($post->id);
+    $exists = Auth::user()->isFollow($post->id);
 @endphp
 
 @if ($exists)
