@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}', 'PostsController@destroy')->name('posts.destroy'); // 投稿削除
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); // 編集画面を表示
         Route::put('{id}', 'PostsController@update')->name('posts.update'); // 更新処理
+        Route::post('{post}/replies', 'RepliesController@store')->name('replies.store'); //リプライ投稿
+
 
         // いいね機能の追加
         Route::post('{id}/like', 'LikeController@like')->name('posts.like'); // いいね

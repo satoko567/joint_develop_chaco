@@ -26,5 +26,20 @@
         {{ $replies->links() }}
         </div>
     @endif
+    @if (Auth::check())
+             <form method="POST" action="{{ route('replies.store', $post->id) }}">
+        @csrf
+            <div class="mb-3">
+                <textarea name="content" class="form-control" rows="2" placeholder="リプライを入力してください">{{ old('content') }}</textarea>
+            @error('content')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+            </div>
+            <button type="submit" class="btn btn-primary">リプライする</button>
+        </form>
+    @endif
+        <div class="mb-3 mt-2">
+        <a href="{{ url('/') }}" class="btn btn-secondary">← トップページに戻る</a>
+        </div>
 </div>
 @endsection
