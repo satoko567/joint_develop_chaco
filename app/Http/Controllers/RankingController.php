@@ -10,6 +10,7 @@ class RankingController extends Controller
     {
         $rankingPosts = Post::with(['user', 'likes', 'replies']) // 必要な関連も読み込み
             ->withCount('likes')
+            ->having('likes_count', '>', 0)
             ->orderBy('likes_count', 'desc')
             ->take(5)
             ->get();
