@@ -12,7 +12,6 @@ class RankingController extends Controller
             ->withCount('likes')
             ->having('likes_count', '>', 0)
             ->orderBy('likes_count', 'desc')
-            ->take(5)
             ->get();
     
         return view('posts.ranking', compact('rankingPosts'));
