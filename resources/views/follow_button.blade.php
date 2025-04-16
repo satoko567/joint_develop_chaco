@@ -1,9 +1,9 @@
-@if (Auth::id()!== $post->user_id)
-    @php
-        $exists = Auth::check() ? Auth::user()->isFollow($post->id) : false;
-        $countFollowUsers = $post->followUsers()->count();
-    @endphp
+@php
+    $exists = Auth::check() ? Auth::user()->isFollow($post->id) : false;
+    $countFollowUsers = $post->followUsers()->count();
+@endphp
 
+@if (Auth::id()!== $post->user_id)
     @if ($exists)
         <form method="POST" action="{{ route('follow.delete', $post->id) }}">
             @csrf
@@ -28,7 +28,7 @@
                 sessionStorage.setItem('scrollPosition', window.scrollY);
             });
         });
-    
+
         // ページロード後に元の位置へスクロール
         window.addEventListener('load', function () {
             const scrollY = sessionStorage.getItem('scrollPosition');
@@ -38,4 +38,9 @@
             }
         });
     </script>
+
+@else
+    <span class="badge badge-info mb-4">
+        フォロー数：{{ $countFollowUsers}}
+    </span>
 @endif
