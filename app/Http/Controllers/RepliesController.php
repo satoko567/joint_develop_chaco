@@ -25,6 +25,7 @@ class RepliesController extends Controller
 
         return redirect()->route('replies.index', $post->id);
     }
+    
     public function edit(Reply $reply)
     {
         if ($reply->user_id !== auth()->id()) {
