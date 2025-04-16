@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +25,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}', 'PostsController@destroy')->name('posts.destroy'); // 投稿削除
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); // 編集画面を表示
         Route::put('{id}', 'PostsController@update')->name('posts.update'); // 更新処理
-        Route::post('{post}/replies', 'RepliesController@store')->name('replies.store'); //リプライ投稿
+    
+    //リプライ機能
+    Route::post('{post}/replies', 'RepliesController@store')->name('replies.store'); //投稿
+        Route::get('/replies/{reply}/edit', 'RepliesController@edit')->name('replies.edit');//編集画面の表示
+        Route::put('/replies/{reply}', 'RepliesController@update')->name('replies.update');//更新処理
+    Route::delete('replies/{reply}', 'RepliesController@destroy')->name('replies.destroy');//削除
+
 
 
         // いいね機能の追加

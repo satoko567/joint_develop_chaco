@@ -25,4 +25,20 @@ class RepliesController extends Controller
 
         return redirect()->route('replies.index', $post->id);
     }
+
+    public function destroy(Reply $reply)
+    {
+        // 本人チェック
+        if ($reply->user_id !== auth()->id()) {
+            abort(403, 'このリプライを削除する権限がありません。');
+        }
+
+        // 削除実行（SoftDeletes）
+        $reply->delete();
+
+        // 一覧ページにリダイレクト + 成功メッセージ
+        return redirect()->route('replies.index', $reply->post_id)
+                     ->with('success', 'リプライを削除しました。');
+    }
+
 }
