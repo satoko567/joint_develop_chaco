@@ -26,19 +26,38 @@ class RepliesController extends Controller
         return redirect()->route('replies.index', $post->id);
     }
 
+    public function edit(Reply $reply)
+    {
+        if ($reply->user_id !== auth()->id()) {
+            abort(403, '許可されていない操作です。');
+        }
+
+        return view('replies.edit', compact('reply'));
+    }
+
+    public function update(ReplyRequest $request, Reply $reply)
+    {
+        if ($reply->user_id !== auth()->id()) {
+            abort(403, '許可されていない操作です。');
+        }
+
+        $reply->update([
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect()->route('replies.index', $reply->post_id)
+                         ->with('success', 'リプライを更新しました。');
+    }
+
     public function destroy(Reply $reply)
     {
-        // 本人チェック
         if ($reply->user_id !== auth()->id()) {
             abort(403, 'このリプライを削除する権限がありません。');
         }
 
-        // 削除実行（SoftDeletes）
         $reply->delete();
 
-        // 一覧ページにリダイレクト + 成功メッセージ
         return redirect()->route('replies.index', $reply->post_id)
-                     ->with('success', 'リプライを削除しました。');
+                         ->with('success', 'リプライを削除しました。');
     }
-
 }
