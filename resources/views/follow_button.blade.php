@@ -9,14 +9,14 @@
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-link p-0 border-0 bg-transparent">
-                <i class="fa-regular fa-thumbs-up mb-3 mr-1"></i>{{$countFollowUsers}}
+                <i class="fa-solid fa-thumbs-up mb-3 mr-1"></i>{{$countFollowUsers}}
             </button>
         </form>
     @else
         <form method="POST" action="{{ route('follow.store', $post->id) }}">
             @csrf
             <button type="submit" class="btn btn-link p-0 border-0 bg-transparent">
-                <i class="fa-solid fa-thumbs-up mb-3 mr-1"></i>{{$countFollowUsers}}
+                <i class="fa-regular fa-thumbs-up mb-3 mr-1"></i>{{$countFollowUsers}}
             </button>
         </form>
     @endif
