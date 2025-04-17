@@ -17,5 +17,4 @@
 
     {{-- 投稿一覧 --}}
     @include ('posts.post', ['posts' => $posts])
-
 @endsection

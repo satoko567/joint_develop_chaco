@@ -13,10 +13,10 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
-
-        return view('posts.index',[
-            'posts' => $posts,
-        ]);
+        $data = [ //現状、viewに渡す変数は１個。だが、今後の拡張性を考えて、配列で書いておく。
+            'posts' => $posts, //index.bladeで、$postsと書いて使う。この中身は、ここで定義してある$posts。
+        ];
+        return view('posts.index', $data); //posts.indexビューを表示
     }
 
     /**
@@ -33,16 +33,16 @@ class PostsController extends Controller
         $post->save(); //postテーブルに保存
         return back(); //投稿ボタンを押した後、投稿フォームに戻る
     }
-    
+
     public function edit($id) //編集ボタンを押した投稿データの、idを取得
-    {
+    { 
         $post = Post::findOrFail($id); //選択した投稿に該当する、投稿データを取得。
         if (\Auth::id() === $post->user_id) { //自分の投稿以外は編集できないようにする。そのために、ログインユーザのidと、投稿データのidが一致しない場合はエラーを出す。
             $data = [
                 'post' => $post,
             ];
             return view('posts.edit_post_form', $data); //posts.editビューを表示
-        }
+        } 
         abort(404); //404エラーを返す。
     }
 
