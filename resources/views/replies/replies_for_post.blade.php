@@ -45,7 +45,7 @@
         </div>
     @endif
 
-    {{-- リプライ投稿フォーム --}}
+    {{-- リプライ投稿フォーム（ログインユーザーのみ） --}}
     @if (Auth::check())
         <form method="POST" action="{{ route('replies.store', $post->id) }}">
             @csrf
@@ -59,7 +59,7 @@
         </form>
     @endif
 
-    {{-- トップページへ戻る --}}
+    {{-- トップページに戻る --}}
     <div class="mb-3 mt-2">
         <a href="{{ url('/') }}" class="btn btn-secondary">← トップページに戻る</a>
     </div>
