@@ -49,6 +49,4 @@ class RepliesController extends Controller
         // 一覧ページにリダイレクト
         return redirect()->route('replies.index', $reply->post_id);
     }
-
-
 }

@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('{post}/replies', 'RepliesController@store')->name('replies.store'); //リプライ投稿
         Route::get('/replies/{reply}/edit', 'RepliesController@edit')->name('replies.edit');// リプライ編集画面の表示
         Route::put('/replies/{reply}', 'RepliesController@update')->name('replies.update');// リプライの更新処理
+        Route::get('/', [App\Http\Controllers\RepliesController::class, 'latest'])->name('replies.latest');//最新リプライの表示
 
 
         // いいね機能の追加
