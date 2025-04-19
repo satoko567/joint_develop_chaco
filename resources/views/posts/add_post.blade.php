@@ -6,15 +6,15 @@
             <label for="content">投稿内容</label>
             <textarea id="content" class="form-control" name="content" rows="3">{{ old('content') }}</textarea>
             @error('content')
-                <p class="text-danger mt-1">{{ $message }}</p>
+            <p class="text-danger mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div class="form-group text-left mt-3">
-            <input type="file" name="image" id="image" class="form-control-file multiple">
             <small class="form-text text-muted">この投稿は画像の添付が必要です。</small>
+            <input type="file" name="image" id="image" class="form-control-file multiple">
             @error('image')
-                <p class="text-danger mt-1">{{ $message }}</p>
+            <p class="text-danger mt-1">{{ $message }}</p>
             @enderror
         </div>
 
