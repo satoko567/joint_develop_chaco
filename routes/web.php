@@ -45,6 +45,14 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+// 管理者関係
+Route::group(['middleware' => 'admin'], function(){
+
+    Route::prefix('/admin')->group(function(){
+        Route::get('/', 'AdminController@show')->name('admin.show'); // 管理者画面表示
+    });
+});
+
 // ユーザー関係（ログイン不要）
 Route::prefix('/users')->group(function(){
     Route::get('/{id}','UsersController@show')->name('user.show'); // ユーザ詳細

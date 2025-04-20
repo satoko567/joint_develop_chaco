@@ -26,7 +26,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/'; // ログイン後はトップページへリダイレクト
+    protected function redirectTo()
+    {
+        if (auth()->check() && auth()->user()->is_admin) {
+            return '/admin';
+        }
+
+        return '/';
+    }
 
     /**
      * Create a new controller instance.
