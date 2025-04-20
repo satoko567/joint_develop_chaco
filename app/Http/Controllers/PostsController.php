@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
-use App\Http\Requests\PostUpdateRequest;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,7 +66,7 @@ class PostsController extends Controller
     }
 
     // 投稿編集処理
-    public function update(PostUpdateRequest $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
 

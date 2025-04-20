@@ -24,9 +24,14 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
+        $isUpdate = $this->routeIs('posts.update');
+
         return [
             'content' => ['required', 'max:140'],
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'], // ２MBまで投稿可能
+            'image' => array_merge(
+                $isUpdate ? ['nullable'] : ['required'],
+                ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            ),
         ];
     }
 
