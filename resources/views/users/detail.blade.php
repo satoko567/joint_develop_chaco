@@ -3,8 +3,8 @@
 
 <main class="row mt-5">
     <section class="user-card col-md-4">
-        <div class="card text-bg-light mb-3 bg-info">
-            <div class="card-header fs-auto pb-3 text-white d-flex justify-content-between">
+        <div class="card mb-3 bg-white">
+            <div class="card-header fs-auto pb-3 text-black d-flex justify-content-between">
                 <h3>{{ $user->name }}</h3>
                 @if(auth()->check() && auth()->user()->id !== $user->id)
                     @if(auth()->user()->isFollowing($user->id))
@@ -34,8 +34,8 @@
         </div>
     </section>
 
-    <section class="col-md-8">
-        <div class="card text-center">
+    <section class="col-md-8 bg-white">
+        <div class="card">
             <div class="card-header bg-white">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">

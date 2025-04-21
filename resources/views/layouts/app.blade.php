@@ -20,7 +20,7 @@
     @stack('styles')
 </head>
 
-<body>
+<body class="bg-light">
     @include('commons.header')
     <div class="container">
         @yield('content')

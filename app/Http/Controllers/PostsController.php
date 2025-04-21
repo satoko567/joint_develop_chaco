@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
-use App\PostImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Like;
@@ -23,27 +22,18 @@ class PostsController extends Controller
     // 投稿新規処理
     public function store(PostRequest $request)
     {
-        $post = Post::create([
+        $imagePath = null;
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
+
+        Post::create([
             'user_id' => auth()->id(),
             'content' => $request->validated()['content'],
+            'image_path' => $imagePath,
         ]);
 
-        $images = $request->file('images', []);
-
-        $validImages = array_filter($images, fn($image) => $image && $image->isValid());
-
-        $insertData = collect($validImages)->map(function ($image) use ($post) {
-            return [
-                'post_id' => $post->id,
-                'image_path' => $image->store('images', 'public'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        })->all();
-
-        if (!empty($insertData)) {
-            PostImage::insert($insertData);
-        }
         return redirect('/');
     }
 
@@ -53,10 +43,9 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (auth()->id() === $post->user_id) {
-            $images = PostImage::where('post_id', $post->id)->get();
-            $pathsToDelete = $images->pluck('image_path')->map(fn($path) => 'public/' . $path);
-            Storage::delete($pathsToDelete->all());
-            PostImage::where('post_id', $post->id)->delete();
+            if ($post->image_path) {
+                Storage::delete('public/' . $post->image_path);
+            }
 
             $post->delete();
         }
@@ -67,7 +56,7 @@ class PostsController extends Controller
     // 投稿編集画面
     public function edit($id)
     {
-        $post = Post::findOrFail($id); //投稿を取得（見つからなければ404エラー）
+        $post = Post::findOrFail($id);
 
         if (Auth::id() != $post->user_id) {
             abort(403, 'このページへのアクセス権限がありません');
@@ -76,79 +65,28 @@ class PostsController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-    // 投稿更新処理
+    // 投稿編集処理
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+
+        if (auth()->id() !== $post->user_id) {
+            abort(403, 'Unauthorized');
+        }
+
         $post->content = $request->content;
-        $post->save(); // 投稿を取得して更新
 
-        // 画像削除
-        if ($request->filled('delete_images')) {
-            $imagesToDelete = PostImage::where('post_id', $post->id)
-                ->whereIn('id', $request->delete_images)
-                ->get();
-
-            $deletePaths = $imagesToDelete->pluck('image_path')->map(fn($path) => 'public/' . $path);
-            Storage::delete($deletePaths->all());
-
-            PostImage::whereIn('id', $imagesToDelete->pluck('id'))->delete();
-        }
-
-        // 画像変更
-        $uploadedImages = $request->file('images', []);
-
-        if (!empty($uploadedImages)) {
-            $imageIds = array_keys($uploadedImages);
-
-
-            $imagesToUpdate = PostImage::where('post_id', $post->id)
-                ->whereIn('id', $imageIds)
-                ->get()
-                ->keyBy('id');
-
-            $updates = [];
-            foreach ($uploadedImages as $imageId => $file) {
-                if ($file && $file->isValid() && isset($imagesToUpdate[$imageId])) {
-                    $image = $imagesToUpdate[$imageId];
-                    Storage::delete('public/' . $image->image_path);
-                    $newPath = $file->store('images', 'public');
-
-                    $updates[] = [
-                        'id' => $image->id,
-                        'image_path' => $newPath,
-                        'updated_at' => now(),
-                    ];
-                }
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($post->image_path) {
+                Storage::delete('public/' . $post->image_path);
             }
 
-            foreach ($updates as $update) {
-                PostImage::where('id', $update['id'])->update([
-                    'image_path' => $update['image_path'],
-                    'updated_at' => $update['updated_at'],
-                ]);
-            }
+            $post->image_path = $request->file('image')->store('images', 'public');
         }
 
-        // 画像追加
-        $newFiles = $request->file('new_images', []);
+        $post->save();
 
-        $validNewFiles = array_filter($newFiles, fn($file) => $file && $file->isValid());
-
-        $insertData = collect($validNewFiles)->map(function ($file) use ($post) {
-            return [
-                'post_id' => $post->id,
-                'image_path' => $file->store('images', 'public'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        })->all();
-
-        if (!empty($insertData)) {
-            PostImage::insert($insertData);
-        }
-
-        return redirect('/'); //トップページにリダイレクト
+        return redirect('/')->with('status', '投稿を更新しました。');
     }
 
     // 投稿検索処理
