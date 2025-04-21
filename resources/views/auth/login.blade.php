@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+        <img class="w-50 mb-3 mx-auto d-block" src="{{ asset('images/top.png') }}" alt="トップ画像">
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
