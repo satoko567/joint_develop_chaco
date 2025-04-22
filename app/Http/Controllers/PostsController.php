@@ -53,4 +53,29 @@ class PostsController extends Controller
         $post->save(); //postテーブルに保存
         return redirect('/'); //投稿ボタンを押した後、トップページにリダイレクト
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('q');
+        $query = Post::query();
+
+        if (!empty($keyword)) {
+            // 半角/全角スペースで複数ワードを分割
+            $words = preg_split('/[\s　]+/u', $keyword);
+
+            foreach ($words as $word) {
+                if (trim($word) !== '') {
+                    $query->where('content', 'like', '%' . $word . '%');
+                }
+            }
+        }
+
+        $posts = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('posts.index', [
+            'posts' => $posts,
+            'keyword' => $keyword, // ハイライト用
+        ]);
+    }
+
 }
