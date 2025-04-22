@@ -43,7 +43,6 @@ class PostsController extends Controller
             $tagIds[] = $tag->id;
         }
         $post->tags()->sync($tagIds); // 投稿とタグを関連付け
-
         return back(); //投稿ボタンを押した後、投稿フォームに戻る
     }
 
