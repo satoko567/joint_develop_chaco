@@ -56,3 +56,10 @@ textarea{
     padding: 2px;
     white-space: pre-wrap;
 }
+
+.hr1 {
+    border: 1px;
+    height: 1px;
+    background-color: hsl(188, 63%, 42%);
+    margin: 20px 0;
+}

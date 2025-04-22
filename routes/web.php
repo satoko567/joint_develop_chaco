@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('unfollow/{id}', 'FollowController@delete')->name('follow.delete');
 });
 
+Route::get('tags/{id}', 'TagController@show')->name('tags.show');
 
 
 

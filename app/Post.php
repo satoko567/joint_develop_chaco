@@ -19,4 +19,9 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class, 'follows', 'post_id', 'user_id')->withTimestamps();
     }
+
+    public function tags()
+{
+    return $this->belongsToMany(Tag::class);
+}
 }

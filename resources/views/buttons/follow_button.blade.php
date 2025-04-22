@@ -40,7 +40,7 @@
     </script>
 
 @else
-    <span class="badge badge-info mb-4">
+    <span class="badge badge-info mb-2">
         フォロー数：{{ $countFollowUsers}}
     </span>
 @endif

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\User;
 use App\Post;
+use App\Tag;
 
 class PostsController extends Controller
 {
@@ -31,6 +32,18 @@ class PostsController extends Controller
         $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
         $post->user_id = $request->user()->id; //ログインユーザのidを、postテーブルのuser_idカラムに代入。user・postテーブルのリレーションを作る必要。ログインしてないと、user()はnullを返すから注意！
         $post->save(); //postテーブルに保存
+
+        // タグを保存
+        $tagNames = explode(',', $request->input('tags'));
+        $tagIds = [];
+        foreach ($tagNames as $name) {
+            $cleaned = trim(preg_replace('/^[#＃]/u', '', $name));
+            if ($cleaned === '') continue;
+            $tag = Tag::firstOrCreate(['name' => $cleaned]);
+            $tagIds[] = $tag->id;
+        }
+        $post->tags()->sync($tagIds); // 投稿とタグを関連付け
+
         return back(); //投稿ボタンを押した後、投稿フォームに戻る
     }
 
