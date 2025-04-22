@@ -59,7 +59,7 @@ Route::group(['middleware' => 'admin'], function(){
         Route::post('/users/{id}/toggle', 'AdminController@updateUser')->name('admin.users.update'); // ユーザ権限変更
         Route::delete('/users/{id}', 'AdminController@destroyUser')->name('admin.users.destroy'); // ユーザ削除
         Route::delete('/posts/{id}', 'AdminController@destroyPost')->name('admin.posts.destroy'); // 投稿削除
-        Route::delete('/replies/{id}', 'AdminUser@destroyReplies')->name('admin.replies.destroy'); // リプライ削除
+        Route::delete('/replies/{id}', 'AdminController@destroyReplies')->name('admin.replies.destroy'); // リプライ削除
     });
 });
 

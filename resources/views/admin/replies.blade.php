@@ -6,7 +6,7 @@
 
 <form method="GET" action="{{ route('admin.show.replies') }}" class="mb-4 d-flex gap-2 flex-wrap align-items-end">
     <div>
-        <label for="keyword" class="form-label">検索（ユーザー名・元投稿・リプライ内容）</label>
+        <label for="keyword" class="form-label">検索（ユーザー名・リプライ内容）</label>
         <input type="text" name="keyword" id="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="キーワードを入力">
     </div>
     <div>
@@ -26,10 +26,9 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div>
                     <small class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</small>
-                    <strong class="mx-2">{{ $post->user->name }}</strong>
+                    <strong class="mx-2">{{ optional($post->user)->name ?? ' ' }}</strong>
                 </div>
             </div>
-
             <div class="d-flex gap-4 align-items-start mb-3">
                 <div class="flex-shrink-0">
                     @if ($post->image_path)
@@ -57,7 +56,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <div>
                         <small class="text-muted">{{ $reply->created_at->format('Y-m-d H:i') }}</small>
-                        <span class="fw-bold mx-2">{{ $reply->user->name }}</span>
+                        <span class="fw-bold mx-2">{{ optional($reply->user)->name ?? ' ' }}</span>
                     </div>
                 </div>
                 <p class="mb-2">{{ $reply->content }}</p>

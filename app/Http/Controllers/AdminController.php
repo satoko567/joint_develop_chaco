@@ -69,9 +69,6 @@ class AdminController extends Controller
                 $q->where('content', 'like', '%' . $keyword . '%')
                     ->orWhereHas('user', function ($q2) use ($keyword) {
                         $q2->where('name', 'like', '%' . $keyword . '%');
-                    })
-                    ->orWhereHas('post', function ($q3) use ($keyword) {
-                        $q3->where('content', 'like', '%' . $keyword . '%');
                     });
             });
         }

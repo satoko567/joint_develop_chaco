@@ -12,7 +12,7 @@
     <div>
         <label for="is_admin" class="form-label ml-3">権限</label>
         <select name="is_admin" id="is_admin" class="form-select">
-            <option value="">-- 全て --</option>
+            <option value="">all</option>
             <option value="1" {{ request('is_admin') === '1' ? 'selected' : '' }}>admin</option>
             <option value="0" {{ request('is_admin') === '0' ? 'selected' : '' }}>general</option>
         </select>
