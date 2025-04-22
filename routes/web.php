@@ -27,11 +27,12 @@ Route::group(['middleware' => 'auth'], function () {
         // リプライ機能
         Route::post('{post}/replies', 'RepliesController@store')->name('replies.store'); // 投稿
 
-        Route::prefix('replies')->group(function () {
-            Route::get('{reply}/edit', 'RepliesController@edit')->name('replies.edit');     // 編集画面の表示
-            Route::put('{reply}', 'RepliesController@update')->name('replies.update');      // 更新処理
-            Route::delete('{reply}', 'RepliesController@destroy')->name('replies.destroy'); // 削除
-        });
+        // リプライ編集・更新・削除（{reply} が共通なので prefixでまとめる）
+    Route::prefix('replies/{reply}')->group(function () {
+        Route::get('edit', 'RepliesController@edit')->name('replies.edit');
+        Route::put('/', 'RepliesController@update')->name('replies.update');
+        Route::delete('/', 'RepliesController@destroy')->name('replies.destroy');
+    });
 
         // いいね機能の追加
         Route::post('{id}/like', 'LikeController@like')->name('posts.like'); // いいね
