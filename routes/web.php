@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +50,14 @@ Route::group(['middleware' => 'auth'], function(){
 Route::group(['middleware' => 'admin'], function(){
 
     Route::prefix('/admin')->group(function(){
-        Route::get('/', 'AdminController@show')->name('admin.show'); // 管理者画面表示
+        Route::get('/', 'AdminController@showDashboard')->name('admin.show.dashboard'); // 管理者画面表示
+        Route::get('/users', 'AdminController@showUsers')->name('admin.show.users'); // ユーザ編集画面表示 + 検索機能
+        Route::get('/posts', 'AdminController@showPosts')->name('admin.show.posts'); // 投稿編集画面表示 + 検索機能
+        Route::get('/replies', 'AdminController@showReplies')->name('admin.show.replies'); // リプライ編集画面 + 検索機能
+        Route::post('/users/{id}/toggle', 'AdminController@updateUser')->name('admin.users.update'); // ユーザ権限変更
+        Route::delete('/users/{id}', 'AdminController@destroyUser')->name('admin.users.destroy'); // ユーザ削除
+        Route::delete('/posts/{id}', 'AdminController@destroyPost')->name('admin.posts.destroy'); // 投稿削除
+        Route::delete('/replies/{id}', 'AdminUser@destroyReplies')->name('admin.replies.destroy'); // リプライ削除
     });
 });
 

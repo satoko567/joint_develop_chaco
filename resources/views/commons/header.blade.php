@@ -7,8 +7,16 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                
+
                 @if (Auth::check())
+
+                    <!-- 管理者権限があるユーザがログイン中のみ表示 -->
+                    @if(Auth::user()->is_admin)
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/admin">管理者画面</a>
+                        </li>
+                    @endif
+
                     <!-- ログイン中（ユーザー名表示 & ログアウトボタン） -->
                     <li class="nav-item">
                         <a href="{{ route('user.show', Auth::user()->id) }}" class="nav-link text-light">{{ Auth::user()->name }}</a>
