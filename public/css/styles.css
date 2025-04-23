@@ -11,6 +11,15 @@
     margin: 0 auto;
 }
 
+.card-body img.avatar {
+    width: 55px !important;
+    height: 55px !important;
+    object-fit: cover;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .formcontrol.custom-textarea {
     display: block;
     width: 10%;

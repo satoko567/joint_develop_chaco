@@ -6,7 +6,7 @@ use App\Tag;
 
 class TagController extends Controller
 {   
-    //タグボタンを押したら、そのタグが含まれる投稿を表示する
+    //タグボタンを押したら、そのタグが含まれる投稿を一覧表示する
     public function show($id)
     {
         $tag = Tag::findOrFail($id);
