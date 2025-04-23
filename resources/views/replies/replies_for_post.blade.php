@@ -11,6 +11,13 @@
         </a>
     </div>
 
+    {{-- 成功メッセージ --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if ($replies->isEmpty())
         <p>まだリプライはありません。</p>
     @else
@@ -20,9 +27,14 @@
                     <strong>{{ $reply->user->name }}</strong>：{{ $reply->content }}
                     <div class="text-muted small">{{ $reply->created_at->format('Y/m/d H:i') }}</div>
 
-                    {{-- 編集リンク：自分の投稿のみ表示 --}}
                     @if (Auth::id() === $reply->user_id)
                         <a href="{{ route('replies.edit', $reply->id) }}" class="btn btn-sm btn-outline-primary mt-2">編集する</a>
+
+                        <form method="POST" action="{{ route('replies.destroy', $reply->id) }}" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm mt-2">削除</button>
+                        </form>
                     @endif
                 </div>
             </div>

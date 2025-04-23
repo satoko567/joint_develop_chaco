@@ -15,7 +15,7 @@ Route::get('/posts/{post}/replies', 'User\RepliesController@index')->name('repli
 Route::get('/posts/ranking', 'User\RankingController@index')->name('ranking.index');//ランキング表示
 
 // ログイン必須のルーティング
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
 
     // 投稿関係
     Route::prefix('/posts')->group(function(){
@@ -23,10 +23,16 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}', 'User\PostsController@destroy')->name('posts.destroy'); // 投稿削除
         Route::get('{id}/edit', 'User\PostsController@edit')->name('posts.edit'); // 編集画面を表示
         Route::put('{id}', 'User\PostsController@update')->name('posts.update'); // 更新処理
-        Route::post('{post}/replies', 'User\RepliesController@store')->name('replies.store'); //リプライ投稿
-        Route::get('/replies/{reply}/edit', 'User\RepliesController@edit')->name('replies.edit');// リプライ編集画面の表示
-        Route::put('/replies/{reply}', 'User\RepliesController@update')->name('replies.update');// リプライの更新処理
 
+        // リプライ機能
+        Route::post('{post}/replies', 'User\RepliesController@store')->name('replies.store'); // リプライ投稿
+
+        // リプライ編集・更新・削除
+    Route::prefix('replies/{reply}')->group(function () {
+        Route::get('edit', 'User\RepliesController@edit')->name('replies.edit');
+        Route::put('/', 'User\RepliesController@update')->name('replies.update');
+        Route::delete('/', 'User\RepliesController@destroy')->name('replies.destroy');
+    });
 
         // いいね機能の追加
         Route::post('{id}/like', 'User\LikeController@like')->name('posts.like'); // いいね
@@ -43,7 +49,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow/{id}','User\FollowsController@follow')->name('user.follow'); // フォロー処理
         Route::delete('unfollow/{id}','User\FollowsController@unfollow')->name('user.unfollow'); // フォロー解除処理
     });
-
 });
 
 // 管理者ログインページ
@@ -76,7 +81,7 @@ Route::prefix('/users')->group(function(){
 });
 
 // ユーザ登録関係
-Route::prefix('/signup')->group(function(){
+Route::prefix('/signup')->group(function () {
     Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('signup'); // 登録画面表示
     Route::post('/', 'Auth\RegisterController@register')->name('signup.post'); // 登録処理
 });
