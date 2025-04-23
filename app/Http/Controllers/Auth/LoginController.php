@@ -28,10 +28,6 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {
-        if (auth()->check() && auth()->user()->is_admin) {
-            return '/admin';
-        }
-
         return '/';
     }
 

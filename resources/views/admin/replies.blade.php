@@ -26,7 +26,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div>
                     <small class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</small>
-                    <strong class="mx-2">{{ optional($post->user)->name ?? ' ' }}</strong>
+                    <strong class="mx-2">{{ optional($post->user)->name }}</strong>
                 </div>
             </div>
             <div class="d-flex gap-4 align-items-start mb-3">
@@ -56,7 +56,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <div>
                         <small class="text-muted">{{ $reply->created_at->format('Y-m-d H:i') }}</small>
-                        <span class="fw-bold mx-2">{{ optional($reply->user)->name ?? ' ' }}</span>
+                        <span class="fw-bold mx-2">{{ optional($reply->user)->name }}</span>
                     </div>
                 </div>
                 <p class="mb-2">{{ $reply->content }}</p>
