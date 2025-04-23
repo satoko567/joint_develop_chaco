@@ -53,4 +53,12 @@ class PostsController extends Controller
         $post->save(); //postテーブルに保存
         return redirect('/'); //投稿ボタンを押した後、トップページにリダイレクト
     }
+
+    public function delete($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete(); // 投稿を論理削除
+
+        return back();
+    }
 }
