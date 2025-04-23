@@ -26,7 +26,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/'; // ログイン後はトップページへリダイレクト
+    protected function redirectTo()
+    {
+        return '/';
+    }
 
     /**
      * Create a new controller instance.
