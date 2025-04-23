@@ -20,7 +20,7 @@
     vertical-align: middle;
 }
 
-.formcontrol.custom-textarea {
+.formgroup .formcontrol.custom-textarea {
     display: block;
     width: 10%;
     height: auto;
