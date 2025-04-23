@@ -15,8 +15,8 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        $latestReplies = Reply::with('user', 'post')->latest()->take(20)->get();
+        $posts = Post::with('likes')->orderBy('id', 'desc')->paginate(10); //投稿ごとに「いいねした人たち」も一緒に読み込む
+        $latestReplies = Reply::with('user', 'post')->latest()->take(10)->get();
 
         return view('welcome', [
             'posts' => $posts,
