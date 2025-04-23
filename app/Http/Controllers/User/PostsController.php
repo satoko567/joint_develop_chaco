@@ -9,14 +9,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Like;
 use Illuminate\Support\Facades\Storage;
+use App\Reply;
 
 class PostsController extends Controller
 {
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $latestReplies = Reply::with('user', 'post')->latest()->take(20)->get();
+
         return view('welcome', [
             'posts' => $posts,
+            'latestReplies' => $latestReplies,
         ]);
     }
 
