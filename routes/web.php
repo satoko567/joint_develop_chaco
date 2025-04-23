@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('/posts')->group(function(){
         Route::post('/', 'User\PostsController@store')->name('post.store'); // 新規投稿
         Route::delete('{id}', 'User\PostsController@destroy')->name('posts.destroy'); // 投稿削除
-        Route::get('{id}/edit', 'User\PostsController@edit')->name('posts.edit'); // 編集画面を表示
+        Route::get('{id}/edit', 'User\PostsController@edit')->name('posts.edit'); // 編集画面
         Route::put('{id}', 'User\PostsController@update')->name('posts.update'); // 更新処理
 
         // リプライ機能
@@ -29,9 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         // リプライ編集・更新・削除
     Route::prefix('replies/{reply}')->group(function () {
-        Route::get('edit', 'User\RepliesController@edit')->name('replies.edit');
-        Route::put('/', 'User\RepliesController@update')->name('replies.update');
-        Route::delete('/', 'User\RepliesController@destroy')->name('replies.destroy');
+        Route::get('edit', 'User\RepliesController@edit')->name('replies.edit'); //リプライ編集画面
+        Route::put('/', 'User\RepliesController@update')->name('replies.update'); //リプライ編集
+        Route::delete('/', 'User\RepliesController@destroy')->name('replies.destroy'); //リプライ削除
     });
 
         // いいね機能の追加
