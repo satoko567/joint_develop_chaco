@@ -23,7 +23,7 @@
 
         {{-- 右カラム：最新リプライ --}}
         <div style="width: 30%;">
-            @include('replies.latest-replies', ['latestReplies' => $latestReplies])
+            @include('replies.latest_replies', ['latestReplies' => $latestReplies])
         </div>
     </div>
 @endsection
