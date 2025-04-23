@@ -29,7 +29,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         if (\Auth::id() != $id) {
-                abort(403);
+            abort(403);
         }
         $user = User::findOrFail($id);
         $data = [
