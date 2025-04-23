@@ -1,0 +1,36 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="text-center">
+        <img class="w-50 mb-3 mx-auto d-block" src="{{ asset('images/admin_top.png') }}" alt="トップ画像">
+    </div>
+    <div class="text-center mt-3">
+        <h2 class="text-left d-inline-block">管理者ログインページです。</h2>
+    </div>
+    <div class="text-center">
+        <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
+    </div>
+    <div class="row mt-5 mb-5">
+        <div class="col-sm-6 offset-sm-3">
+
+            <form method="POST" action="{{ route('admin.login.post') }}">
+                @csrf
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                    @error('email')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input id="password" type="password" class="form-control" name="password">
+                    @error('password')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">ログイン</button>
+            </form>
+        </div>
+    </div>
+@endsection
