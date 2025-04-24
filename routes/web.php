@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         //ユーザ情報の編集
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}', 'USersController@update')->name('users.update');
         //ユーザ削除
         Route::delete('{id}', 'UsersController@delete')->name('users.delete');
     });
