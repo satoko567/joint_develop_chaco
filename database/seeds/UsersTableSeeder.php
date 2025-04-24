@@ -12,6 +12,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 10)->create(); // 10人分のデータを作成
+        factory(User::class, 20)->create(); // 20人分のデータを作成
     }
 }
