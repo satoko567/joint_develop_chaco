@@ -84,14 +84,14 @@ class PostsController extends Controller
     }
 
     public function edit($id) //編集ボタンを押した投稿データの、idを取得
-    { 
+    {
         $post = Post::findOrFail($id); //選択した投稿に該当する、投稿データを取得。
         if (\Auth::id() === $post->user_id) { //自分の投稿以外は編集できないようにする。そのために、ログインユーザのidと、投稿データのidが一致しない場合はエラーを出す。
             $data = [
                 'post' => $post,
             ];
             return view('posts.edit_post_form', $data); //posts.editビューを表示
-        } 
+        }
         abort(404); //404エラーを返す。
     }
 
