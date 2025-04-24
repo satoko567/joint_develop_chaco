@@ -1,6 +1,5 @@
 <ul class="list-unstyled">
     @foreach ($posts as $post)
-        @dump($post->content)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
@@ -10,7 +9,7 @@
                 <div class="text-left d-inline-block w-75">
                     {{-- 検索ワードを含む場合は、該当箇所をハイライト --}}
                     @php
-                        $content = e($post->content);
+                        $content = e($post->content); // XSS対策のエスケープ
                         $keyword = $keyword ?? null;
 
                         if (!empty($keyword)) {
@@ -25,17 +24,16 @@
                         }
                     @endphp
 
+                    {{-- 投稿内容 --}}
                     <p class="mb-2">{!! $content !!}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
 
                     {{-- フォローボタン --}}
                     @include('buttons.follow_button', ['post' => $post]) 
-                    {{-- 投稿内容
-                    <p class="mb-2">{{$post->content}}</p> --}}
                 </div>
 
+                {{-- タグの表示 --}}
                 <div class="text-left d-inline-block w-75">
-                    {{-- タグの表示 --}}
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-success">#{{ $tag->name }}</a>
                     @endforeach
@@ -47,7 +45,7 @@
                         <form method="" action="">
                             <button type="submit" class="btn btn-danger mt-3">削除</button>
                         </form>
-                        <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary">編集する</a>
+                        <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary mt-3">編集する</a>
                     </div>
                 @endif
             </div>

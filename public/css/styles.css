@@ -67,11 +67,12 @@ textarea{
 }
 
 .highlight {
-    background-color: #ff006a;
+    background-color: hsl(77, 100%, 50%);
     font-weight: bold;
     padding: 0 2px;
     border-radius: 2px;
 }
+
 .hr1 {
     border: 1px;
     height: 1px;
