@@ -66,18 +66,15 @@ textarea{
     white-space: pre-wrap;
 }
 
-<<<<<<< HEAD
 .highlight {
     background-color: #ff006a;
     font-weight: bold;
     padding: 0 2px;
     border-radius: 2px;
 }
-=======
 .hr1 {
     border: 1px;
     height: 1px;
     background-color: hsl(188, 63%, 42%);
     margin: 20px 0;
 }
->>>>>>> develop_b_kisaragi_sna

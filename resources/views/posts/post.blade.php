@@ -1,4 +1,3 @@
-@dump($keyword)
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         @dump($post->content)
@@ -30,7 +29,7 @@
                     <p class="text-muted">{{ $post->created_at }}</p>
 
                     {{-- フォローボタン --}}
-                    @include('follow_button', ['post' => $post]) 
+                    @include('buttons.follow_button', ['post' => $post]) 
                     {{-- 投稿内容
                     <p class="mb-2">{{$post->content}}</p> --}}
                 </div>
