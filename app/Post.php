@@ -22,6 +22,16 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    // いいねしているか判定
+    public function isLikedBy($user)
+    {
+        if (!$user) {
+            return false;
+        }
+        
+        return $this->likes->contains('user_id', $user->id);
+    }
+
     //リプライのリレーションを追加
     public function replies()
     {

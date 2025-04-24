@@ -121,21 +121,11 @@
                             <p class="text-muted">{{ $post->created_at }}</p>
                             {{-- ここにいいねボタンを追加 --}}
                             <div class="d-inline-block">
-                                {{-- 💬リプライリンク ← 追加する！ --}}
-                                <a href="{{ route('replies.index', $post->id) }}" class="btn btn-light">
-                                    💬 {{ $post->replies->count() }}
-                                </a>
-                                <form method="POST" action="{{ route('posts.like', $post->id) }}" style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-light"
-                                        @if (Auth::id() === $post->user_id) disabled @endif>
-                                        👍 {{ ($post->likes ?? collect([]))->count() }}
-                                    </button>
-                                </form>
+                                @include('posts.components._replies_likes_buttons', ['post' => $post])
                             </div>
                         </div>
                     </div>
-                    @include('posts.post_actions')
+                    @include('posts.components._post_actions')
                 </li>
             @endforeach
         </ul>
