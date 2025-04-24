@@ -10,16 +10,16 @@
                     {{-- 検索ワードを含む場合は、該当箇所をハイライト --}}
                     @php
                         $content = e($post->content); // XSS対策のエスケープ
-                        $keyword = $keyword ?? null;
+                        $keyword = $keyword ?? null; // $keywordが定義されてないなら、nullを代入。未定義エラーを防ぐ。
 
-                        if (!empty($keyword)) {
+                        if (!empty($keyword)) { // 検索キーワードが存在すれば、ハイライト処理に入る。
                             // 複数語対応：半角スペースまたは全角スペースで分割
                             $words = preg_split('/[\s　]+/u', $keyword);
 
-                            foreach ($words as $word) {
-                                if (trim($word) === '') continue;
-                                $pattern = '/' . preg_quote($word, '/') . '/iu'; // u:UTF-8, i:大文字小文字無視
-                                $content = preg_replace($pattern, '<span class="highlight">$0</span>', $content);
+                            foreach ($words as $word) { // 分割したキーワードを１つ１つ、処理する。
+                                if (trim($word) === '') continue; // trim()で空白を取り除く。空文字の時は、continueでスキップ。
+                                $pattern = '/' . preg_quote($word, '/') . '/iu'; // キーワード中に / や . などの特殊文字が含まれていた場合、それを正規表現の文字として無効化。 u:UTF-8, i:大文字小文字無視
+                                $content = preg_replace($pattern, '<span class="highlight">$0</span>', $content); // 投稿本文中のキーワードと一致した部分を <span class="highlight"> で囲む。 $0はキーワードが入る。
                             }
                         }
                     @endphp

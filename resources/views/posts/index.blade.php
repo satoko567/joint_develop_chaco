@@ -16,6 +16,7 @@
     @endif
 
         {{-- 検索バー --}}
+        {{-- 打ち込まれた内容データは、name="q"で取得できるようにした。 --}}
         <form action="{{ route('posts.search') }}" method="GET" class="form-inline mt-5 mb-3 justify-content-center">
             <input type="text" name="q" value="{{ old('q', $keyword ?? '') }}" class="form-control mr-2" placeholder="投稿を検索">
             <button type="submit" class="btn btn-outline-primary">検索</button>
