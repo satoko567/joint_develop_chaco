@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\User;
 use App\Post;
+use App\Tag;
 
 class PostsController extends Controller
 {
@@ -27,11 +28,59 @@ class PostsController extends Controller
      */
     public function store(PostRequest $request)
     {
+        // 投稿の保存処理*******************************************************************************************************************
         $post = new Post(); //Postモデルのインスタンスを作成＝postsテーブルに、新規レコードを作成
         $post->content = $request->content; //投稿内容をpostテーブルのcontentカラムに代入
         $post->user_id = $request->user()->id; //ログインユーザのidを、postテーブルのuser_idカラムに代入。user・postテーブルのリレーションを作る必要。ログインしてないと、user()はnullを返すから注意！
         $post->save(); //postテーブルに保存
-        return back(); //投稿ボタンを押した後、投稿フォームに戻る
+        //*******************************************************************************************************************
+
+        // タグの保存処理*******************************************************************************************************************
+        // タグ処理開始
+        $tagNamesRaw = explode(',', $request->input('tags', ''));
+        
+        // ① 前処理（trimのみ）→ 重複・空白除去
+        $cleanedNames = collect($tagNamesRaw)
+            ->map('trim')        // 前後の空白除去
+            ->filter()           // 空文字除去
+            ->unique()
+            ->values();          // インデックス再構成
+
+        if ($cleanedNames->isEmpty()) {
+            return back();
+        }
+
+        // ②既存のタグを一括取得（1回のSELECT）
+        $existingTags = Tag::whereIn('name', $cleanedNames)->get();
+
+        // ③既存名の一覧
+        $existingNames = $existingTags->pluck('name');
+
+        // ④DBに存在しない新規タグ名のみ抽出
+        $newTagNames = $cleanedNames->diff($existingNames);
+
+        // ⑤新規タグを一括でINSERT（1回のINSERT）
+        $insertData = $newTagNames->map(function ($name) {
+            return [
+                'name' => $name,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        });
+
+        if ($insertData->isNotEmpty()) {
+            Tag::insert($insertData->all());
+        }
+
+        // ⑥再度全タグを取得して、関連付け用のIDリストを作る（最終的に1回のSELECT）
+        $allTags = Tag::whereIn('name', $cleanedNames)->get();
+        $tagIds = $allTags->pluck('id');
+
+        // ⑦中間テーブルへの関連付け（1回のsync）
+        $post->tags()->sync($tagIds);
+
+        return back();
+        //*******************************************************************************************************************
     }
 
     public function edit($id) //編集ボタンを押した投稿データの、idを取得

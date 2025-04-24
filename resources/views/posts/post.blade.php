@@ -27,22 +27,33 @@
                     @endphp
 
                     <p class="mb-2">{!! $content !!}</p>
-
                     <p class="text-muted">{{ $post->created_at }}</p>
 
-                    @include('follow_button', ['post' => $post]) {{-- フォローボタン --}}
+                    {{-- フォローボタン --}}
+                    @include('follow_button', ['post' => $post]) 
+                    {{-- 投稿内容
+                    <p class="mb-2">{{$post->content}}</p> --}}
                 </div>
 
+                <div class="text-left d-inline-block w-75">
+                    {{-- タグの表示 --}}
+                    @foreach ($post->tags as $tag)
+                        <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-success">#{{ $tag->name }}</a>
+                    @endforeach
+                </div>
+
+                {{-- 投稿の削除・編集ボタン --}}
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         <form method="" action="">
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <button type="submit" class="btn btn-danger mt-3">削除</button>
                         </form>
                         <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>
         </li>
+        <hr class="hr1">
     @endforeach
 </ul>
 

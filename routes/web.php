@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/search', 'PostsController@search')->name('posts.search');
+Route::get('tags/{id}', 'TagController@show')->name('tags.show');
 
 
 

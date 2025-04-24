@@ -3,12 +3,12 @@
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1>
-                <i class="fab fa-telegram fa-lg pr-3"></i>
-                Topic Posts
+                <i class="fa-solid fa-book pr-3"></i>
+                学習共有プラットフォーム
             </h1>
         </div>
     </div>
-    <h5 class="description text-center">"○○"について140文字以内で会話しよう！</h5>
+    <h5 class="description text-center">今日の学習内容は？</h5>
 
     {{-- 検索バー --}}
     <form action="{{ route('posts.search') }}" method="GET" class="form-inline mb-3 justify-content-center">
