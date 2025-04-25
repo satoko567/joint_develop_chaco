@@ -15,6 +15,18 @@
         @include('posts.new_post_form')
     @endif
 
+        {{-- 検索バー --}}
+        {{-- 打ち込まれた内容データは、name="q"で取得できるようにした。 --}}
+        <form action="{{ route('posts.search') }}" method="GET" class="form-inline mt-5 mb-3 justify-content-center">
+            <input type="text" name="search_content" value="{{ old('search_content', $keyword ?? '') }}" class="form-control mr-2" placeholder="投稿を検索">
+            <button type="submit" class="btn btn-outline-primary">検索</button>
+        </form>
+
+    @if(isset($keyword))
+        <p class="text-muted text-center">「{{ $keyword }}」の検索結果</p>
+    @endif
+
+    <hr class="hr1">
     {{-- 投稿一覧 --}}
     @include ('posts.post', ['posts' => $posts])
 @endsection

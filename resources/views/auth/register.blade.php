@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fa-solid fa-face-grin-wide"></i>Topic Post</h1>
+        <h1><i class="fa-solid fa-book pr-3"></i>学習共有プラットフォーム</h1>
     </div>
     <div class="text-center mt-3">
-        <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
+        <p class="text-left d-inline-block">新規ユーザ登録すると、学習内容を投稿できるようになります</p>
     </div>
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
