@@ -105,7 +105,7 @@ class PostsController extends Controller
 
     public function search(Request $request)
     {
-        $keyword = $request->input('q');
+        $keyword = $request->input('search_content'); //検索ボックスに入力された値を取得
         $query = Post::query();
 
         if (!empty($keyword)) {
@@ -119,7 +119,7 @@ class PostsController extends Controller
             }
         }
 
-        $posts = $query->orderBy('created_at', 'desc')->paginate(10);
+        $posts = $query->with('user')->orderBy('created_at', 'desc')->paginate(10);
 
         return view('posts.index', [
             'posts' => $posts,
