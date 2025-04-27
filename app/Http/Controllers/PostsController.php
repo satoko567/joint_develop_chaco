@@ -38,7 +38,7 @@ class PostsController extends Controller
         // タグの保存処理*******************************************************************************************************************
         // タグ処理開始
         $tagNamesRaw = explode(',', $request->input('tags', ''));
-        
+
         // ① 前処理（trimのみ）→ 重複・空白除去
         $cleanedNames = collect($tagNamesRaw)
             ->map('trim')        // 前後の空白除去
@@ -127,4 +127,12 @@ class PostsController extends Controller
         ]);
     }
 
+
+    public function delete($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete(); // 投稿を論理削除
+
+        return back();
+    }
 }

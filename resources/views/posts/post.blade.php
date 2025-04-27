@@ -29,7 +29,7 @@
                     <p class="text-muted">{{ $post->created_at }}</p>
 
                     {{-- フォローボタン --}}
-                    @include('buttons.follow_button', ['post' => $post]) 
+                    @include('buttons.follow_button', ['post' => $post])
                 </div>
 
                 {{-- タグの表示 --}}
@@ -42,8 +42,10 @@
                 {{-- 投稿の削除・編集ボタン --}}
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
-                            <button type="submit" class="btn btn-danger mt-3">削除</button>
+                        <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                         <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary mt-3">編集する</a>
                     </div>

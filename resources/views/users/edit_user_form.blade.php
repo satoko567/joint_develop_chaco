@@ -30,7 +30,8 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
+            @include('buttons.user_withdrawal_button')
+            {{-- <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a> --}}
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
