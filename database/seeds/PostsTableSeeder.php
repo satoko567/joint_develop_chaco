@@ -14,15 +14,20 @@ class PostsTableSeeder extends Seeder
     {
         $users = DB::table('users')->get();
 
+        //投稿内容は「今日の気分」と仮定しました
         foreach ($users as $user) {
             DB::table('posts')->insert([
                 [
                     'user_id' => $user->id,
-                    'content' => 'シーダーのテスト投稿です',
+                    'content' => '今日はコーヒーが飲みたい',
                 ],
                 [
                     'user_id' => $user->id,
-                    'content' => 'シーダーから複数投稿のテストです',
+                    'content' => '今日の天気は晴れで気持ちがいい',
+                ],
+                [
+                    'user_id' => $user->id,
+                    'content' => '今日のご飯はお肉にしよう！',
                 ],
             ]);
         }
