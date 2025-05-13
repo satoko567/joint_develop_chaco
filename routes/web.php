@@ -10,6 +10,4 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\WelcomeController;
-
-Route::get('/', [welcomeController::class, 'index']);
+Route::get('/', 'PostsController@index');
