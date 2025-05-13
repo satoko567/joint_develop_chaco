@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\User;
 
 class PostsController extends Controller
 {
@@ -10,4 +9,17 @@ class PostsController extends Controller
     {
         return view('welcome');
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $users,
+        ];
+
+        return view('users.show',$data);
+    }    
+
 }
