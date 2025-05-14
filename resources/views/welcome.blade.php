@@ -18,3 +18,4 @@
             </form>
         </div>
         @include('posts.posts',['posts' => $posts])
+        {{-- @endsection 現状エラーになるためコメントアウトします。 --}}
