@@ -16,7 +16,7 @@ class PostsController extends Controller
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
-            'users' => $users,
+            'posts' => $posts,
         ];
 
         return view('users.show',$data);

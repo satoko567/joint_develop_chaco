@@ -11,7 +11,6 @@
 |
 */
 
-// ユーザ
 Route::get('/', 'PostsController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('user.show');
