@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -15,6 +16,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        if (Auth::id() != $id) {
+            abort(403);
+        }
         return view('users.edit', ['user' => $user]);
     }
 
