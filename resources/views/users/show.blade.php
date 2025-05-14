@@ -9,7 +9,7 @@
                 <div class="card-body text-center">
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email , 55) }}" alt="ユーザのアバター画像">
                         <div class="mt-3">
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="{{ '' }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
                 </div>
             </div>
