@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\User;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
+
+class UsersController extends Controller
+{
+    //ユーザ詳細(なりさんご担当)
+
+
+    // 編集画面
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        if (Auth::id() != $id) {
+            abort(403);
+        }
+        return view('users.edit', ['user' => $user]);
+    }
+
+    // 更新処理
+    public function update(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect('/');
+        // ユーザ詳細がマージされ次第、return redirect('/');の部分を下記コードに変更
+        // return redirect()->route('user.show', $user->id);
+    }
+
+    // 退会処理(ちゃこ担当)
+}
