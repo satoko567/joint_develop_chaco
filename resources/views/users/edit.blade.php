@@ -1,16 +1,9 @@
-{{-- @extends('layouts.app')
-@section('content')  layouts.appがマージされたら、コメントアウトを外す--}}
+@extends('layouts.app')
+@section('content')
     <div class="container mt-5 mb-5">
         <div class="mx-auto" style="max-width: 1150px;">
             <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-            @if (count($errors) > 0)
-                <ul class="alert alert-danger" role="alert">
-                    @foreach ($errors->all() as $error)
-                        <li class="ml-4">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            {{-- error_messagesがマージされたら、@include('commons.error_messages')へ変更 --}}
+            @include('commons.error_messages')
             <form method="POST" action="{{ route('user.update', $user->id) }}">
                 @csrf
                 @method('PUT')
@@ -61,4 +54,4 @@
         </div>
     </div>
     <div class="mb-5"></div>
-{{-- @endsection --}}
+@endsection
