@@ -1,10 +1,13 @@
-{{-- @extends('layouts.app') 理由：layouts.app はまだ未実装のため一時的に無効化。マージされたら元に戻します。 --}}
+@extends('layouts.app')
+
 @section('content')
-    <div class="center jumbotron bg-info">
+<div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
+    
+    
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">エラーメッセージが入る場所</div>
         <div class="text-center mb-3">
@@ -18,4 +21,4 @@
             </form>
         </div>
         @include('posts.posts',['posts' => $posts])
-        {{-- @endsection 現状エラーになるためコメントアウトします。 --}}
+        @endsection 
