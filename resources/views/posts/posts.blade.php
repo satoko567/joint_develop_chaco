@@ -10,16 +10,20 @@
                     <p class="mb-2">{{ $post->content }}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
+                @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                       <form method="POST" action="">   
+                            @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
+                @endif
             </div>
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
+<div class="m-auto" style="width: fit-content">
     {{ $posts->links('pagination::bootstrap-4') }}
 </div>
