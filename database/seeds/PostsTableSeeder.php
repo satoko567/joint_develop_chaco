@@ -22,7 +22,5 @@ class PostsTableSeeder extends Seeder
                 ]);
             }
         }
-
-        $this->call(UsersTableSeeder::class);
     }
 }
