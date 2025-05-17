@@ -15,12 +15,14 @@ class PostsTableSeeder extends Seeder
         $contents = ['test1', 'test2', 'てすと3'];
 
         foreach ($users as $user) {
-            foreach ($contents sa $content) {
+            foreach ($contents as $content) {
                 DB::table('posts')->insert([
                     'user_id' => $user->id,
                     'content' => $content,
                 ]);
             }
         }
+
+        $this->call(UsersTableSeeder::class);
     }
 }
