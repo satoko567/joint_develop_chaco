@@ -5,11 +5,9 @@
         @csrf
         @method('PUT')
         <div class="form-group mt-5">
-         <textarea id="content" class="form-control" name="content" rows=""></textarea> 
+         <textarea id="content" class="form-control" name="content" rows="5"></textarea> 
         </div>
         <button type="submit" class="btn btn-primary mt-5 mb-5">更新する</button>
         </div>
     </form>
-    <h2 class="mt-5">あなたの登録済み投稿</h2>
-    @include('posts.posts', ['posts' => $posts])
 @endsection

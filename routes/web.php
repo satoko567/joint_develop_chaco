@@ -16,12 +16,9 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('user.show');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
-        Route::get('create', 'PostsController@create')->name('post.create');
-        Route::post('', 'PostsController@store')->name('post.store');
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });
-}); 
+// }); 

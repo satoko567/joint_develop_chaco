@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
-use App\Http\Requests\PostRequest;
-
 
 class PostsController extends Controller
 {
@@ -24,14 +24,26 @@ class PostsController extends Controller
 
         return view('users.show',$data);
     }    
+   
+    public function edit($id)
+    {  
+        $user = \Auth::user();
+        $post = Post::findOrFail($id); 
+        // $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'post' => $post,
+            // 'posts' => $posts,
+        ];
+        return view('posts.edit', $data);
+    }
 
-    public function store(PostRequest $request)
+    public function update(PostRequest $request, $id)
     {
-        $post = new Post;       
+        $post = Post::findOrFail($id);
         $post->title = $request->title;
-        $post->user_id = $request->user()->id;
+        $post->post_id = $request->post()->id;
         $post->save();
         return back();
     }
-
 }
