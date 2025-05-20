@@ -35,5 +35,15 @@ class UsersController extends Controller
         // return redirect()->route('user.show', $user->id);
     }
 
-    // 退会処理(ちゃこ担当)
+    // 退会処理
+    public function destroy($id)
+    {
+        $user = Auth::user();
+        if (Auth::id() != $id) {
+            abort(403);
+        }
+        $user->delete();
+        Auth::logout();
+        return redirect('/');
+    }
 }
