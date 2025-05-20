@@ -9,21 +9,13 @@
     
     
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-    @if ($errors->any())
-      <div class="alert alert-danger w-75 m-auto mb-3">
-         <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-         </ul>
-      </div>
-    @endif
+    @include('commons.error_messages')
     @if (Auth::check())
         <div class="text-center mb-3">
             <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
                 @csrf
                 <div class="form-group">
-                    <textarea class="form-control" name="content" rows="3" placeholder="140字以内で投稿">{{ old('content') }}</textarea>
+                    <textarea class="form-control" name="content" rows="4" placeholder="140字以内で投稿">{{ old('content') }}</textarea>
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
