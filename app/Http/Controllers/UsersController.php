@@ -38,12 +38,12 @@ class UsersController extends Controller
     // 退会処理
     public function destroy($id)
     {
-        $user = Auth::user();
+        $user = User::findOrFail($id);
         if (Auth::id() != $id) {
             abort(403);
         }
+        $user->posts()->delete();
         $user->delete();
-        Auth::logout();
         return redirect('/');
     }
 }
