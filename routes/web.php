@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
        Route::put('', 'UsersController@update')->name('user.update');
        Route::delete('', 'UsersController@destroy')->name('user.delete');
    });
-   // 新規投稿、編集(なりさんご担当)、更新(なりさんご担当)、削除(清水さんご担当)
+   // 新規投稿、編集(なりさん担当)、更新(なりさん担当)、削除(清水さん担当)
    Route::prefix('posts')->group(function () {
        Route::post('', 'PostsController@store')->name('posts.store'); 
    });
