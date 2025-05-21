@@ -29,11 +29,9 @@ class PostsController extends Controller
     {  
         $user = \Auth::user();
         $post = Post::findOrFail($id); 
-        // $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
             'post' => $post,
-            // 'posts' => $posts,
         ];
         return view('posts.edit', $data);
     }
@@ -41,8 +39,8 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->title = $request->title;
-        $post->post_id = $request->post()->id;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
         $post->save();
         return back();
     }
