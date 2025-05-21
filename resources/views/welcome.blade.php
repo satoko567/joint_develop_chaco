@@ -9,7 +9,7 @@
     
     
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-    @include('commons.error_messages')
+    <div class="w-75 mx-auto mb-2 text-left">@include('commons.error_messages')</div>
     @if (Auth::check())
         <div class="text-center mb-3">
             <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
