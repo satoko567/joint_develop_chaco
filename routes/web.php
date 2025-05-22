@@ -15,3 +15,5 @@ Route::get('/', 'PostsController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('user.show');
 });
+Route::get('users/{id}/edit', 'UsersController@edit');
+Route::put('users/{id}', 'UsersController@update');
