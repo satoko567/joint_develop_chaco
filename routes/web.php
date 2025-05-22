@@ -17,3 +17,7 @@ Route::prefix('users')->group(function () {
 });
 Route::get('users/{id}/edit', 'UsersController@edit');
 Route::put('users/{id}', 'UsersController@update');
+
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
