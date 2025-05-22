@@ -6,7 +6,7 @@
         @csrf
         @method('PUT')
         <div class="form-group mt-5">
-            <textarea id="content" class="form-control" name="content" rows="5">{{ $post->content }}</textarea> 
+            <textarea id="content" class="form-control" name="content" rows="5">{{ $post->content }}</textarea>
         </div>
         <button type="submit" class="btn btn-primary mt-5 mb-5">更新する</button>
     </form>
