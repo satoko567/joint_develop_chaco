@@ -9,16 +9,17 @@ use App\Post;
 class PostsController extends Controller
 {   
     public function index()
-    {
-        if (Auth::id() != $post->user_id) {
-            abort(403);
-        }
-    
+    {       
         return view('welcome');
     }
 
     public function show($id)
     {
+
+        if (Auth::id() != $post->user_id) {
+            abort(403);
+        }
+    
         $user = User::findOrFail($id);
         // $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
