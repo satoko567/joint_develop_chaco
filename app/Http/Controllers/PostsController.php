@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 
+
 class PostsController extends Controller
 {   
     public function index()
@@ -15,10 +16,6 @@ class PostsController extends Controller
 
     public function show($id)
     {
-
-        if (Auth::id() != $post->user_id) {
-            abort(403);
-        }
     
         $user = User::findOrFail($id);
         // $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
@@ -34,6 +31,11 @@ class PostsController extends Controller
     {  
         $user = \Auth::user();
         $post = Post::findOrFail($id); 
+
+        if (Auth::id() != $post->user_id) {
+            abort(403);
+        }
+
         $data = [            
             'post' => $post,
         ];
