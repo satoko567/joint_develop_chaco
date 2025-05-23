@@ -1,4 +1,7 @@
 <ul class="list-unstyled">
+    @if ($posts->isEmpty())
+        <li class="text-center text-muted py-3">投稿が見つかりませんでした。</li>
+    @endif
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
@@ -25,5 +28,5 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">
-    {{ $posts->links('pagination::bootstrap-4') }}
+    {{ $posts->appends(['keyword' => $keyword])->links('pagination::bootstrap-4') }}
 </div>
