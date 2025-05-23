@@ -7,9 +7,13 @@ use App\User;
 use App\Post;
 
 class PostsController extends Controller
-{
+{   
     public function index()
     {
+        if (Auth::id() != $post->user_id) {
+            abort(403);
+        }
+    
         return view('welcome');
     }
 
@@ -29,8 +33,7 @@ class PostsController extends Controller
     {  
         $user = \Auth::user();
         $post = Post::findOrFail($id); 
-        $data = [
-            'user' => $user,
+        $data = [            
             'post' => $post,
         ];
         return view('posts.edit', $data);
