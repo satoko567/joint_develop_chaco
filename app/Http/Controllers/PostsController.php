@@ -49,6 +49,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return redirect("/");
     }
 }
