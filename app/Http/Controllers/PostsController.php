@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
-use App\User;
 use App\Post;
-
+use App\User;
 
 class PostsController extends Controller
 {   
     public function index()
-    {       
-        return view('welcome');
+    {
+        $posts = Post::orderBy('id','desc')->paginate(10);
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
     }
 
     public function show($id)
