@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "content-hash": "2be5b46626a338c96827315da91b750c",
+=======
     "content-hash": "627151e0cbe79b332a6cc5844ab18875",
+>>>>>>> develop_a_satsuki_sna
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
