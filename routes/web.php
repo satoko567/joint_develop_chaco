@@ -13,10 +13,10 @@
 
 Route::get('/', 'PostsController@index');
 Route::prefix('users')->group(function () {
-    Route::get('{id}', 'PostsController@show')->name('user.show');
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+    Route::put('{id}', 'UsersController@update')->name('user.update');
 });
-Route::get('users/{id}/edit', 'UsersController@edit');
-Route::put('users/{id}', 'UsersController@update');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
