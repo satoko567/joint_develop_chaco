@@ -28,12 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
    Route::prefix('users/{id}')->group(function () {
        Route::get('edit', 'UsersController@edit')->name('user.edit');
        Route::put('', 'UsersController@update')->name('user.update');
-   
+       Route::delete('', 'UsersController@destroy')->name('user.delete');
    });
-
-   // 投稿削除（ユーザーとは無関係なため外に出す）
-    Route::prefix('posts')->group(function () {
-        Route::delete('posts/{id}', 'PostsController@destroy')->name('posts.delete');
-        Route::post('','PostsController@store')->name('post.store');
-    });
+   // 新規投稿、編集(なりさん担当)、更新(なりさん担当)、削除(清水さん担当)
+   Route::prefix('posts')->group(function () {
+       Route::post('', 'PostsController@store')->name('posts.store'); 
+       Route::delete('posts/{id}', 'PostsController@destroy')->name('posts.delete');
+   });
 });

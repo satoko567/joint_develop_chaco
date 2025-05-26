@@ -1,4 +1,7 @@
 <ul class="list-unstyled">
+    @if ($posts->isEmpty())
+        <li class="text-center text-muted py-3">投稿が見つかりませんでした。</li>
+    @endif
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
@@ -12,12 +15,12 @@
                 </div>
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                       <form method="POST" action="{{ route('post.delete', $post->id) }}">   
+                       <form method="POST" action="{{ route('posts.delete', $post->id) }}">   
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="" class="btn btn-primary">編集する</a>   {{-- 編集ルート実装後に記述 --}}
                     </div>
                 @endif
             </div>
@@ -25,5 +28,5 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">
-    {{ $posts->links('pagination::bootstrap-4') }}
+    {{ $posts->appends(['keyword' => $keyword])->links('pagination::bootstrap-4') }}
 </div>
