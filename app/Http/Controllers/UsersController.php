@@ -4,29 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-<<<<<<< HEAD
-
-class UsersController extends Controller
-{
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $data = [
-        'user' => $user,
-        'posts' => $posts,
-        ];
-
-	    return view('users.show', $data);
-    } 
-}
-=======
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
     //ユーザ詳細(なりさんご担当)
+    public function show($id)
+    {
+        $user = User::findOrFail($id); // ユーザーが見つからなければ404エラー
+        return view('users.show', compact('user')); // ビューにデータを渡す
+    }
 
 
     // 編集画面
@@ -64,4 +52,3 @@ class UsersController extends Controller
         return redirect('/');
     }
 }
->>>>>>> 033ef9969393d5da162235cb35fb20816f4d2ad3

@@ -3842,8 +3842,6 @@
             "name": "thomaswelton/gravatarlib",
             "version": "0.1.1",
             "target-dir": "thomaswelton/GravatarLib",
-<<<<<<< HEAD
-=======
             "source": {
                 "type": "git",
                 "url": "https://github.com/thomaswelton/gravatarlib.git",
@@ -3970,7 +3968,6 @@
         {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.4",
->>>>>>> 033ef9969393d5da162235cb35fb20816f4d2ad3
             "source": {
                 "type": "git",
                 "url": "https://github.com/thomaswelton/gravatarlib.git",

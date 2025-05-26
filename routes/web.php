@@ -17,12 +17,9 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-<<<<<<< HEAD
 //ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
-=======
->>>>>>> 033ef9969393d5da162235cb35fb20816f4d2ad3
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');

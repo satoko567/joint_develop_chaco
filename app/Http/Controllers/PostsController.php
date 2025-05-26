@@ -9,11 +9,6 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
-<<<<<<< HEAD
-     public function index()
-    {
-        return view('welcome');
-=======
     public function index()
     { 
         $posts = Post::orderBy('id','desc')->paginate(10);
@@ -31,6 +26,17 @@ class PostsController extends Controller
          $post->save();
 
          return back();
->>>>>>> 033ef9969393d5da162235cb35fb20816f4d2ad3
     }
+
+    
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        // 投稿をユーザー情報込みで取得（ページネーション付き）
+        $posts = $user->posts()->with('user')->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('users.show', compact('user', 'posts'));
+    }
+
 }

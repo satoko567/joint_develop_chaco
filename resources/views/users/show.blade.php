@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')    
+
     <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -16,10 +16,15 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="" class="nav-link {{ Request::is() ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"><a href="{{ route('user.show', $user->id) }}">タイムライン</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+                   
+                
+    @include('posts.posts', ['posts' => $user->posts()->paginate(10)])
         </div>
     </div>
 @endsection
+
+
