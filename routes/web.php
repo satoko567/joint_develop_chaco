@@ -14,10 +14,14 @@
 Route::get('/', 'PostsController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
-    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-    Route::put('{id}', 'UsersController@update')->name('user.update');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+    });
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');

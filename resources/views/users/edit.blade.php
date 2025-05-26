@@ -4,6 +4,7 @@
         <form method="POST" action="{{ route('user.update', $user->id) }}">
         @csrf
         @method('PUT')
+        @include('commons.error_messages')
             <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
             <div class="form-group">
                 <label for="name">ユーザ名</label>
@@ -27,10 +28,9 @@
 
             <div class="d-flex justify-content-between">
                 <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-                <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary">更新する</a>
+                <button type="submit" class="btn btn-primary">更新する</button>
             </div>
         </form>
-        @include('commons.error_messages')
 
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
             <div class="modal-dialog">

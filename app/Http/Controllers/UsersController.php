@@ -24,6 +24,11 @@ class UsersController extends Controller
     {
         $user = \Auth::user();
         $user = User::findOrFail($id);
+
+        if (\Auth::id() != $id) {
+            abort(403);
+        }
+
         $data=[
             'user' => $user,
         ];
@@ -38,6 +43,6 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return back();
+        return redirect()->route('user.show', $user->id);
     }
 }
