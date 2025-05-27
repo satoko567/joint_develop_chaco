@@ -28,15 +28,5 @@ class PostsController extends Controller
          return back();
     }
 
-    
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-
-        // 投稿をユーザー情報込みで取得（ページネーション付き）
-        $posts = $user->posts()->with('user')->orderBy('created_at', 'desc')->paginate(10);
-
-        return view('users.show', compact('user', 'posts'));
-    }
 
 }
