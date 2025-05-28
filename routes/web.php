@@ -13,7 +13,7 @@
 
 Route::get('/', 'PostsController@index');
 Route::prefix('users')->group(function () {
-    Route::get('{id}', 'PostsController@show')->name('user.show');
+    Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -21,6 +21,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+    });
+
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
     });
 });
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
