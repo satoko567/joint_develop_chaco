@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
     //ユーザ詳細(なりさんご担当)
-
-
+    
     // 編集画面
     public function edit($id)
     {
@@ -46,4 +45,33 @@ class UsersController extends Controller
         $user->delete();
         return redirect('/');
     }
+
+    //自分がフォローしているユーザー一覧
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $followings,
+        ]; 
+        $data += $this->userCounts($user);
+        
+        return view('users.followings', $data);
+    }
+
+    //自分をフォローしているユーザー一覧
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $followers,
+        ];
+        $data += $this->userCounts($user);
+        
+        return view('users.followers', $data);
+    }
+
 }
