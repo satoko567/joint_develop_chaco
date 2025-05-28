@@ -24,7 +24,6 @@ class PostsController extends Controller
         ];
         return view('welcome', $data);
     }
-
     public function store(PostRequest $request)
     {
          $post = new Post;
