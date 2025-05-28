@@ -56,7 +56,7 @@ class User extends Authenticatable
     
     public function follow($userId)
     {
-        if($this->id === $userId || $this->isFollowing($userId)) 
+        if ($this->id === $userId || $this->isFollowing($userId)) 
         {
             return false;
         }    
