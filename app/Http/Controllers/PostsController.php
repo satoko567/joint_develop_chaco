@@ -24,18 +24,15 @@ class PostsController extends Controller
         ];
         return view('welcome', $data);
     }
-
     public function store(PostRequest $request)
     {
-         $post = new Post;
-         $post->content = $request->content;
-         $post->user_id = $request->user()->id;
-         $post->save();
-
-         return back();
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        
+        return back();
     }
-
-
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
