@@ -29,12 +29,11 @@ class Reply extends Model
     }
 
     // リプライ件数
-    public static function replyCount(Post $post)
+    public static function replyCounts(Post $post)
     {
         $countReplies = self::where('post_id', $post->id)
                             ->whereNull('deleted_at')
                             ->count();
-
         return [
             'countReplies' => $countReplies,
         ];

@@ -28,12 +28,11 @@ class PostsController extends Controller
         return view('welcome', $data);
     }
 
-    public function show($postId)
+    public function show($id)
     {
-        $post = Post::findOrFail($postId);
+        $post = Post::findOrFail($id);
         $post->load('user');
         $replies = $post->replies()->with('user')->orderBy('id', 'desc')->paginate(10);
-        $replyCount = Reply::replyCount($post)['countReplies'];
         $latestReply = Reply::latestReply($post);
         $hasReplied = false;
         if (Auth::check()) {
@@ -44,10 +43,10 @@ class PostsController extends Controller
         $data = [
             'post' => $post,
             'replies' => $replies,
-            'replyCount' => $replyCount,
             'latestReply' => $latestReply,
             'hasReplied' => $hasReplied,
         ];
+        $data += Reply::replyCounts($post);
         return view('posts.show', $data);
     }
 
@@ -66,6 +65,7 @@ class PostsController extends Controller
     // 投稿と一緒にリプライも論理削除されるように、
     // 「$post->deleteWithReplies();」を記載していただけるとありがたいです。
     // 清水さんのコードと合わせると下記のようになるかと思います。
+    // ※下記コードで動作確認完了
 
     // public function destroy($id)
     // {
@@ -90,4 +90,5 @@ class PostsController extends Controller
     // もし分からなければ、後で私の方で、リプライの修正ブランチを作成し、「$post->deleteWithReplies();」を
     // 後で記載いたしますので、ご心配には及びません。
     // ご不明点があれば、聞いてくださいね！
+    // ※※※「$post->deleteWithReplies();」を追記したらこのコメントアウトは削除してください ※※※
 }

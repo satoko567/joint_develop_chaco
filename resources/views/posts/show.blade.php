@@ -31,7 +31,7 @@
                 <p class="text-muted">※リプライするにはログインが必要です。</p>
             @endif
             <hr>
-            <h5>リプライ一覧（{{ $replyCount }} 件）</h5>
+            <h5>リプライ一覧（{{ $countReplies }} 件）</h5>
             @if ($replies->isEmpty())
                 <p class="text-muted">まだリプライはありません。</p>
             @else

@@ -37,9 +37,12 @@
                         </a>
                     </p>
                     <p class="mb-1 text-muted" style="font-size: 0.9em;">
-                        {{-- 今後ここに「いいね数」などを追加 --}}
-                        {{-- 例：| いいね {{ $post->likes_count }} 件 --}}
-                        {{-- 配置場所やデザインをカスタマイズしてもらって大丈夫です --}}
+                        {{-- 
+                            今後ここに「いいね数」などを追加
+                            例：| いいね {{ $post->favorites_count }} 件や 
+                            例：| いいね {{ $countFavorites}} など
+                            配置場所やデザインをカスタマイズしてもらって大丈夫です
+                         --}}
                         リプライ {{ $post->replies_count }} 件
                     </p>
                     <p class="text-muted">{{ $post->created_at }}</p>

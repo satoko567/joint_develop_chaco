@@ -19,7 +19,7 @@ class RepliesController extends Controller
         $reply->user_id = Auth::id();
         $reply->post_id = $post->id;
         $reply->save();
-        return back();
+        return redirect()->route('posts.show', $post);
     }
 
     // 編集画面

@@ -34,4 +34,13 @@ class ReplyRequest extends FormRequest
             'reply_body' => 'リプライ',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'reply_body.required' => 'リプライを入力してください。',
+            'reply_body.string'   => 'リプライは文字列で入力してください。',
+            'reply_body.max'      => 'リプライは、100文字以下にしてください。',
+        ];
+    }
 }
