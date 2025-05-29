@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
+
+    Route::post('/user', 'UsersController@withdrawal')->name('user.withdrawal');
 });
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
