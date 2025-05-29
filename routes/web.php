@@ -13,6 +13,9 @@
 
 Route::get('/', 'PostsController@index');
 
+// 投稿詳細ページ
+Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
+
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -24,8 +27,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-   // ユーザ詳細表示
-    
    // ユーザ編集、更新、退会
    Route::prefix('users/{id}')->group(function () {
        Route::get('edit', 'UsersController@edit')->name('user.edit');
@@ -37,9 +38,18 @@ Route::group(['middleware' => 'auth'], function () {
        Route::post('', 'PostsController@store')->name('posts.store'); 
    });
 
-//フォロー・フォロー解除
-Route::group(['prefix' => 'users/{id}'], function() {
-    Route::post('follow', 'FollowController@store')->name('follow');
-    Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
-   });
+    //フォロー・フォロー解除
+    Route::group(['prefix' => 'users/{id}'], function() {
+        Route::post('follow', 'FollowController@store')->name('follow');
+        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+    });
+    
+   // リプライ
+    Route::prefix('posts/{id}')->group(function () {
+        // 投稿、編集・更新、削除
+        Route::post('replies', 'RepliesController@store')->name('replies.store');
+        Route::get('replies/{id}/edit', 'RepliesController@edit')->name('replies.edit');
+        Route::put('replies/{id}', 'RepliesController@update')->name('replies.update');
+        Route::delete('replies/{id}', 'RepliesController@destroy')->name('replies.delete');
+    });
 });

@@ -28,7 +28,20 @@
             </div>
             <div class="">  {{-- 投稿本文 --}}
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
+                    <p class="mb-2">
+                        <a href="{{ route('posts.show', $post->id) }}"
+                        style="color: #212529; text-decoration: none; transition: color 0.2s;"
+                        onmouseover="this.style.color='#007bff'; this.style.textDecoration='underline';"
+                        onmouseout="this.style.color='#212529'; this.style.textDecoration='none';">
+                            {{ $post->content }}
+                        </a>
+                    </p>
+                    <p class="mb-1 text-muted" style="font-size: 0.9em;">
+                        {{-- 今後ここに「いいね数」などを追加 --}}
+                        {{-- 例：| いいね {{ $post->likes_count }} 件 --}}
+                        {{-- 配置場所やデザインをカスタマイズしてもらって大丈夫です --}}
+                        リプライ {{ $post->replies_count }} 件
+                    </p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if (Auth::id() === $post->user_id)  {{-- 投稿者のみ表示：削除・編集 --}}
