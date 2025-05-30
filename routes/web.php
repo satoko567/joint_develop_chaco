@@ -42,8 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'RepliesController@store')->name('replies.store');
         Route::get('{reply_id}/edit', 'RepliesController@edit')->name('replies.edit');
         Route::put('{reply_id}', 'RepliesController@update')->name('replies.update');
-        Route::delete('{reply_id}', 'RepliesController@destroy')->name('replies.delete');
     });
+    Route::delete('replies/{reply_id}', 'RepliesController@destroy')->name('replies.delete');
     //フォロー・フォロー解除
     Route::group(['prefix' => 'users/{id}'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');

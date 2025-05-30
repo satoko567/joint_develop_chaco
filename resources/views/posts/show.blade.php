@@ -1,4 +1,3 @@
-{{-- 投稿詳細：デザイン等、カスタマイズOK --}}
 @extends('layouts.app')
 @section('content')
     <div class="container">
@@ -35,37 +34,37 @@
             @if ($replies->isEmpty())
                 <p class="text-muted">まだリプライはありません。</p>
             @else
-            @foreach ($replies as $reply)
-                <div
-                    class="card mb-3 {{ $latestReply && $reply->id === $latestReply->id ? 'border border-info' : '' }}"
-                    @if ($latestReply && $reply->id === $latestReply->id)
-                        style="background-color: #f0fafd;"
-                    @endif
-                >
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <strong>
-                                {{ $reply->user->name }}
-                                @if ($latestReply && $reply->id === $latestReply->id)
-                                    <span class="badge border border-info text-info ms-2">最新</span>
-                                @endif
-                            </strong>
-                            <small class="text-muted">{{ $reply->created_at }}</small>
-                        </div>
-                        <p class="mt-2 mb-2">{{ $reply->content }}</p>
-                        @if (Auth::check() && Auth::id() === $reply->user_id)
-                            <div class="text-end">
-                                <a href="{{ route('replies.edit', [$post->id, $reply->id]) }}" class="btn btn-sm btn-outline-primary me-1">編集</a>
-                                <form action="{{ route('replies.delete', [$post->id, $reply->id]) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('本当に削除しますか？')">削除</button>
-                                </form>
-                            </div>
+                @foreach ($replies as $reply)
+                    <div
+                        class="card mb-3 {{ $latestReply && $reply->id === $latestReply->id ? 'border border-info' : '' }}"
+                        @if ($latestReply && $reply->id === $latestReply->id)
+                            style="background-color: #f0fafd;"
                         @endif
+                    >
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>
+                                    {{ $reply->user->name }}
+                                    @if ($latestReply && $reply->id === $latestReply->id)
+                                        <span class="badge border border-info text-info ms-2">最新</span>
+                                    @endif
+                                </strong>
+                                <small class="text-muted">{{ $reply->created_at }}</small>
+                            </div>
+                            <p class="mt-2 mb-2">{{ $reply->content }}</p>
+                            @if (Auth::check() && Auth::id() === $reply->user_id)
+                                <div class="text-end">
+                                    <a href="{{ route('replies.edit', ['post_id' => $post->id, 'reply_id' => $reply->id]) }}" class="btn btn-sm btn-outline-primary me-1">編集</a>
+                                    <form action="{{ route('replies.delete', ['reply_id' => $reply->id]) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('本当に削除しますか？')">削除</button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             @endif
         </div>
     </div>

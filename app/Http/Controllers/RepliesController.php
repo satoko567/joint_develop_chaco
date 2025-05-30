@@ -51,9 +51,8 @@ class RepliesController extends Controller
     }
 
     // 削除処理
-    public function destroy($postId, $replyId)
+    public function destroy($replyId)
     {
-        $post = Post::findOrFail($postId);
         $reply = Reply::findOrFail($replyId);
         if (Auth::id() !== $reply->user_id) {
             abort(403);
