@@ -20,6 +20,9 @@ Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+//ユーザ詳細
+Route::get('users/{id}', 'UsersController@show')->name('user.show');
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
