@@ -42,4 +42,11 @@ Route::group(['prefix' => 'users/{id}'], function() {
     Route::post('follow', 'FollowController@store')->name('follow');
     Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
    });
+
+//フォロー中・フォロワー一覧
+Route::get('users/{id}/followings', 'UsersController@followings')->name('users.followings');
+Route::get('users/{id}/followers', 'UsersController@followers')->name('users.followers');  
 });
+
+
+
