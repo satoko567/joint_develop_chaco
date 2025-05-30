@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')->withTimestamps();
@@ -90,5 +95,3 @@ class User extends Authenticatable
         ];
     }
 }
-
-
