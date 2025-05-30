@@ -24,8 +24,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-   // ユーザ詳細表示
-    
    // ユーザ編集、更新、退会
    Route::prefix('users/{id}')->group(function () {
        Route::get('edit', 'UsersController@edit')->name('user.edit');
@@ -35,11 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
    // 新規投稿、編集(なりさん担当)、更新(なりさん担当)、削除(清水さん担当)
    Route::prefix('posts')->group(function () {
        Route::post('', 'PostsController@store')->name('posts.store'); 
-   });
-
-//フォロー・フォロー解除
-Route::group(['prefix' => 'users/{id}'], function() {
-    Route::post('follow', 'FollowController@store')->name('follow');
-    Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+       Route::delete('posts/{id}', 'PostsController@destroy')->name('posts.delete');
    });
 });
