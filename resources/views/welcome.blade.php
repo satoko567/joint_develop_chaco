@@ -2,7 +2,7 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
+            <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>寺子屋＠プログラミング</h1>
         </div>
     </div>
     <h5 class="description text-center mb-3">"○○"について140字以内で会話しよう！</h5>
