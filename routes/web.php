@@ -33,6 +33,11 @@ Route::group(['middleware' => 'auth'], function () {
    // 新規投稿、編集(なりさん担当)、更新(なりさん担当)、削除(清水さん担当)
    Route::prefix('posts')->group(function () {
        Route::post('', 'PostsController@store')->name('posts.store'); 
-       Route::delete('posts/{id}', 'PostsController@destroy')->name('posts.delete');
+       Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
+   });
+   //フォロー・フォロー解除
+Route::group(['prefix' => 'users/{id}'], function() {
+    Route::post('follow', 'FollowController@store')->name('follow');
+    Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
    });
 });
