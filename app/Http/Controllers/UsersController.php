@@ -50,7 +50,7 @@ class UsersController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->paginate(10);
+        $followings = $user->followings()->paginate(9);
         $data = [
             'user' => $user,
             'users' => $followings,
@@ -64,7 +64,7 @@ class UsersController extends Controller
     public function followers($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->paginate(10);
+        $followers = $user->followers()->paginate(9);
         $data = [
             'user' => $user,
             'users' => $followers,
