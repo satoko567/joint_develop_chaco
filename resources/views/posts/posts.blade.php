@@ -5,7 +5,7 @@
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                <img class="mr-2 rounded-circle" src="" alt="ユーザのアバター画像">
                 {{--<p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a></p>--}} {{-- ユーザー名（詳細ページ完成後にリンクを復活） --}}
                 <p class="mt-3 mb-0 d-inline-block">{{ $post->user->name }}</p>
 
@@ -28,12 +28,28 @@
             </div>
             <div class="">  {{-- 投稿本文 --}}
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
+                    <p class="mb-2">
+                        <a href="{{ route('posts.show', $post->id) }}"
+                        style="color: #212529; text-decoration: none; transition: color 0.2s;"
+                        onmouseover="this.style.color='#007bff'; this.style.textDecoration='underline';"
+                        onmouseout="this.style.color='#212529'; this.style.textDecoration='none';">
+                            {{ $post->content }}
+                        </a>
+                    </p>
+                    <p class="mb-1 text-muted" style="font-size: 0.9em;">
+                        {{-- 
+                            今後ここに「いいね数」などを追加
+                            例：| いいね {{ $post->favorites_count }} 件や 
+                            例：| いいね {{ $countFavorites}} など
+                            配置場所やデザインをカスタマイズしてもらって大丈夫です
+                         --}}
+                        リプライ {{ $post->replies_count }} 件
+                    </p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if (Auth::id() === $post->user_id)  {{-- 投稿者のみ表示：削除・編集 --}}
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                       <form method="POST" action="">   {{-- 削除ルート実装後に記述 --}}
+                       <form method="POST" action="{{ route('posts.delete', $post->id) }}">   {{-- 削除ルート実装後に記述 --}}
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>

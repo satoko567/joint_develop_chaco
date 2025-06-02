@@ -10,7 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
     //ユーザ詳細(なりさんご担当)
-    
+       public function show($id)
+    {
+        $keyword = '';
+        $user = User::findOrFail($id); // ユーザーが見つからなければ404エラー
+        return view('users.show', compact('user', 'keyword')); // ビューにデータを渡す
+    }
+
+
     // 編集画面
     public function edit($id)
     {
