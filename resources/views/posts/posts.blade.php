@@ -61,7 +61,7 @@
                         </a>
                     </p>
                     <p class="text-muted small mb-1">リプライ {{ $post->replies_count }} 件</p>
-                    <p class="text-muted small">{{ $post->created_at->format('Y/m/d H:i') }}</p>
+                    <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
 
                 {{-- 🛠 編集・削除（投稿者のみ） --}}
