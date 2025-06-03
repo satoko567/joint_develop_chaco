@@ -46,4 +46,17 @@ class UsersController extends Controller
         $user->save();
         return redirect()->route('user.show', $user->id);
     }
+
+    public function withdrawal($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        if(Auth::id() !== $user->id){
+            abort(403);
+        }
+        $user->delete();
+
+        Auth::logout();
+        
+        return redirect("/");
+    }
 }
