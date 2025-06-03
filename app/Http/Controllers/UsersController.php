@@ -44,6 +44,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id)->with('success', '「ユーザ情報の更新」が完了しました！
+        ');
     }
 }
