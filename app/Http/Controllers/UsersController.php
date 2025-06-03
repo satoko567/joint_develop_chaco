@@ -47,4 +47,17 @@ class UsersController extends Controller
         return redirect()->route('user.show', $user->id)->with('success', '「ユーザ情報の更新」が完了しました！
         ');
     }
+
+    public function withdrawal($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        if(Auth::id() !== $user->id){
+            abort(403);
+        }
+        $user->delete();
+
+        Auth::logout();
+        
+        return redirect("/");
+    }
 }
