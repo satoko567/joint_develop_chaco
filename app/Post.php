@@ -20,13 +20,17 @@ class Post extends Model
         return $this->hasMany(Reply::class);
     }
 
-    // 投稿と関連するリプライ・画像をすべて削除する
-    public function deleteWithAssets()
+    // 投稿と関連するリプライをすべて削除する
+    public function deleteReplies()
+    {
+        $this->replies()->delete();
+    }
+    
+    // 投稿と関連する画像を削除する
+    public function deleteImage()
     {
         if ($this->image) {
             Storage::disk('public')->delete($this->image);
         }
-        $this->replies()->delete();
-        $this->delete();
     }
 }

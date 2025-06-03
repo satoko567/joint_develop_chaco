@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|max:1000',
-            'image' => 'nullable|image|max:5120', 
+            'image' => 'nullable|image|max:2048', 
         ];
     }
 
@@ -36,6 +36,12 @@ class PostRequest extends FormRequest
             'image' => '画像',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'image.image' => '画像ファイル（JPG・PNGなど）以外はアップロードできません。',
+            'image.max' => '画像は2MB以下のファイルを選択してください。',
+        ];
+    }
 }
-
-
