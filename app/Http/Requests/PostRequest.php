@@ -24,14 +24,16 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:1000'
+            'content' => 'required|max:1000',
+            'image' => 'nullable|image|max:5120', 
         ];
     }
 
     public function attributes()
     {
         return [
-            'content' => '投稿'
+            'content' => '投稿',
+            'image' => '画像',
         ];
     }
 }

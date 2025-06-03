@@ -48,12 +48,16 @@
 
                     {{-- 📷 投稿画像（常に表示：投稿者が画像を投稿していない場合はデフォルト） --}}
                     @php
-                        $imageUrl = $post->image_path
-                            ? asset('storage/' . $post->image_path)
-                            : asset('images/no_image.png'); // public/images/no_image.png にデフォルト画像を置く
+                        $imageUrl = $post->image
+                            ? asset('storage/' . $post->image)
+                            : asset('images/no_image.png');
                     @endphp
-                    <img src="{{ $imageUrl }}" class="img-fluid rounded mb-3" alt="投稿画像">
-
+                    <a href="{{ route('posts.show', $post->id) }}">
+                    <img src="{{ $imageUrl }}"
+                        class="img-fluid rounded mb-3 w-100"
+                        style="height: 200px; object-fit: contain; background-color: #f8f9fa;"
+                        alt="投稿画像">
+                    </a>
                     {{-- 📝 投稿内容 --}}
                     <p class="card-text mb-2" style="max-height: 120px; overflow: hidden; text-overflow: ellipsis;">
                         <a href="{{ route('posts.show', $post->id) }}" style="color: #212529; text-decoration: none;">

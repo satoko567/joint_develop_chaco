@@ -10,6 +10,15 @@
                     </strong>
                     <small class="text-muted">{{ $post->created_at }}</small>
                 </div>
+                @php
+                    $imageUrl = $post->image
+                        ? asset('storage/' . $post->image)
+                        : asset('images/no_image.png');
+                @endphp
+                <img src="{{ $imageUrl }}"
+                    class="img-fluid rounded mb-3 d-block mx-auto"
+                    style="max-height: 400px; object-fit: contain; background-color: #f8f9fa;"
+                    alt="投稿画像">
             </div>
             @include('commons.error_messages')
             @if (Auth::check() && Auth::id() !== $post->user_id)
