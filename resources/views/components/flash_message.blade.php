@@ -7,5 +7,5 @@
 @endif
 
 @if (session('error'))
-        <p>{{ session('error') }}</p>
+    <p>{{ session('error') }}</p>
 @endif

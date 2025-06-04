@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('components.flash-message')
+@include('components.flash_message')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>寺子屋＠プログラミング</h1>
