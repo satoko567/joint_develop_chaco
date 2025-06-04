@@ -48,9 +48,10 @@
 
                     {{-- 📷 投稿画像（常に表示：投稿者が画像を投稿していない場合はデフォルト） --}}
                     @php
+                        $defaultImage = config('constants.no_image_path');
                         $imageUrl = $post->image
                             ? asset('storage/' . $post->image)
-                            : asset('images/no_image.png');
+                            : asset($defaultImage);
                     @endphp
                     <a href="{{ route('posts.show', $post->id) }}">
                     <img src="{{ $imageUrl }}"

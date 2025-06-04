@@ -11,9 +11,10 @@
                     <small class="text-muted">{{ $post->created_at }}</small>
                 </div>
                 @php
+                    $defaultImage = config('constants.no_image_path');
                     $imageUrl = $post->image
                         ? asset('storage/' . $post->image)
-                        : asset('images/no_image.png');
+                        : asset($defaultImage);
                 @endphp
                 <img src="{{ $imageUrl }}"
                     class="img-fluid rounded mb-3 d-block mx-auto"
