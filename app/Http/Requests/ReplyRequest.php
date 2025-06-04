@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class ReplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,23 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:1000'
+            'reply_body' => 'required|string|max:100',
         ];
     }
 
     public function attributes()
     {
         return [
-            'content' => '投稿'
+            'reply_body' => 'リプライ',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'reply_body.required' => 'リプライを入力してください。',
+            'reply_body.string'   => 'リプライは文字列で入力してください。',
+            'reply_body.max'      => 'リプライは、100文字以下にしてください。',
         ];
     }
 }
-
-
