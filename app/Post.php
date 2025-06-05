@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -19,10 +20,17 @@ class Post extends Model
         return $this->hasMany(Reply::class);
     }
 
-    // 投稿を削除したら関連リプライも論理削除される
-    public function deleteWithReplies()
+    // 投稿と関連するリプライをすべて削除する
+    public function deleteReplies()
     {
         $this->replies()->delete();
-        $this->delete();
+    }
+    
+    // 投稿と関連する画像を削除する
+    public function deleteImage()
+    {
+        if ($this->image) {
+            Storage::disk('public')->delete($this->image);
+        }
     }
 }
