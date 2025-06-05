@@ -60,15 +60,12 @@ class PostsController extends Controller
     
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        if (\Auth::id() !== $post->user_id) {
-            return redirect()->back()->with('error', 'この投稿を削除する権限がありません。');
-        }
-        try {
-            $post->deleteWithReplies(); 
-            return redirect()->back()->with('success', '投稿を削除しました。');
-        } 
-        catch (\Exception $e) {
-            return redirect()->back()->with('error', '投稿の削除中にエラーが発生しました。');
-        }
+    $post = Post::findOrFail($id);
+    if (\Auth::id() === $post->user_id) {
+    $post->deleteImage();
+    $post->deleteReplies();
+    $post->delete();
     }
+    return redirect()->back();
+    }
+}
