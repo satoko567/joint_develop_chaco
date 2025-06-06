@@ -66,4 +66,14 @@ class PostsController extends Controller
         }
         return redirect()->back();
     }
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('post_images', 'public');
+            $post->image = $path;
+        }
+        $post->save();
+        return back();
+    }
 }
