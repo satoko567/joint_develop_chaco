@@ -20,7 +20,7 @@ class PostsController extends Controller
                 return $query->where('content', 'like', "%{$keyword}%");
             })
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(9);
         $data = [
             'keyword' => $keyword,
             'posts' => $posts,
@@ -32,7 +32,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->load('user');
-        $replies = $post->replies()->with('user')->orderBy('id', 'desc')->paginate(10);
+        $replies = $post->replies()->with('user')->orderBy('id', 'desc')->paginate(9);
         $latestReply = Reply::latestReply($post);
         $hasReplied = false;
         if (Auth::check() && Auth::id() !== $post->user_id) {
@@ -50,11 +50,15 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-         $post = new Post;
-         $post->content = $request->content;
-         $post->user_id = $request->user()->id;
-         $post->save();
-         return back();
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('post_images', 'public');
+            $post->image = $path;
+        }
+        $post->save();
+        return back();
     }
 
     //editメソッドを作成。動画編集のあたり
