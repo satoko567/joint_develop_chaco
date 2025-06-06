@@ -16,6 +16,9 @@ class RepliesController extends Controller
         $post = Post::findOrFail($postId);
         $reply = new Reply();
         $reply->content = $request->reply_body;
+        $reply->rating_service = $request->input('rating_service');
+        $reply->rating_cost = $request->input('rating_cost');
+        $reply->rating_quality = $request->input('rating_quality');
         $reply->user_id = Auth::id();
         $reply->post_id = $post->id;
         $reply->save();
@@ -46,6 +49,9 @@ class RepliesController extends Controller
             abort(403);
         }
         $reply->content = $request->reply_body;
+        $reply->rating_service = $request->input('rating_service') !== '' ? $request->input('rating_service') : null;
+        $reply->rating_cost = $request->input('rating_cost') !== '' ? $request->input('rating_cost') : null;
+        $reply->rating_quality = $request->input('rating_quality') !== '' ? $request->input('rating_quality') : null;
         $reply->save();
         return redirect()->route('posts.show', $post);
     }

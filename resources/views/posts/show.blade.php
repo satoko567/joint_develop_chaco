@@ -111,31 +111,37 @@
                             </div>
                             <p class="mt-2 mb-2">{{ $reply->content }}</p>
                             <ul class="list-unstyled ms-2">
-                            @if ($reply->rating_service)
                                 <li>
                                     接客・対応の満足度　：
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        <span style="color: {{ $i <= $reply->rating_service ? 'gold' : 'lightgray' }}">★</span>
-                                    @endfor
+                                    @if ($reply->rating_service !== null)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= $reply->rating_service ? 'gold' : 'lightgray' }}">★</span>
+                                        @endfor
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
                                 </li>
-                            @endif
-                            @if ($reply->rating_cost)
                                 <li>
                                     料金の妥当性について：
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        <span style="color: {{ $i <= $reply->rating_cost ? 'gold' : 'lightgray' }}">★</span>
-                                    @endfor
+                                    @if ($reply->rating_cost !== null)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= $reply->rating_cost ? 'gold' : 'lightgray' }}">★</span>
+                                        @endfor
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
                                 </li>
-                            @endif
-                            @if ($reply->rating_quality)
                                 <li>
                                     修理の仕上がり精度　：
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        <span style="color: {{ $i <= $reply->rating_quality ? 'gold' : 'lightgray' }}">★</span>
-                                    @endfor
+                                    @if ($reply->rating_quality !== null)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= $reply->rating_quality ? 'gold' : 'lightgray' }}">★</span>
+                                        @endfor
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
                                 </li>
-                            @endif
-                        </ul>
+                            </ul>
                             @if (Auth::check() && Auth::id() === $reply->user_id)
                                 <div class="text-end">
                                     <a href="{{ route('replies.edit', ['post_id' => $post->id, 'reply_id' => $reply->id]) }}" class="btn btn-sm btn-outline-primary me-1">編集</a>

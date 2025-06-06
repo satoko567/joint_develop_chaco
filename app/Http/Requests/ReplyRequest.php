@@ -25,6 +25,9 @@ class ReplyRequest extends FormRequest
     {
         return [
             'reply_body' => 'required|string|max:100',
+            'rating_service' => 'nullable|integer|min:1|max:5',
+            'rating_cost' => 'nullable|integer|min:1|max:5',
+            'rating_quality' => 'nullable|integer|min:1|max:5',
         ];
     }
 
@@ -32,6 +35,9 @@ class ReplyRequest extends FormRequest
     {
         return [
             'reply_body' => 'リプライ',
+            'rating_service' => '接客・対応',
+            'rating_cost' => '料金',
+            'rating_quality' => '技術',
         ];
     }
 

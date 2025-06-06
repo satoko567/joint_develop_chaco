@@ -21,6 +21,9 @@ class PostsController extends Controller
             })
             ->orderBy('id', 'desc')
             ->paginate(9);
+        foreach ($posts as $post) {
+            $post->average_ratings = Reply::averageRatingsForPost($post);
+        }
         $data = [
             'keyword' => $keyword,
             'posts' => $posts,
@@ -38,11 +41,13 @@ class PostsController extends Controller
         if (Auth::check() && Auth::id() !== $post->user_id) {
             $hasReplied = Reply::hasReplied(Auth::user(), $post);
         }
+        $averageRatings = Reply::averageRatingsForPost($post);
         $data = [
             'post' => $post,
             'replies' => $replies,
             'latestReply' => $latestReply,
             'hasReplied' => $hasReplied,
+            'averageRatings' => $averageRatings,
         ];
         $data += Reply::replyCounts($post);
         return view('posts.show', $data);
