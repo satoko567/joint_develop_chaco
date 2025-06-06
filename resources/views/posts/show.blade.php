@@ -22,9 +22,9 @@
                             </span>
                         </h5>
                         <small class="text-muted">
-                            接客：{{ $averageRatings['service'] !== null ? number_format($averageRatings['service'], 1) . '★' : '-' }}　
-                            料金：{{ $averageRatings['cost'] !== null ? number_format($averageRatings['cost'], 1) . '★' : '-' }}　
-                            技術：{{ $averageRatings['quality'] !== null ? number_format($averageRatings['quality'], 1) . '★' : '-' }}
+                            接客：{{ display_star_rating($averageRatings['service']) }}　
+                            料金：{{ display_star_rating($averageRatings['cost']) }}　
+                            技術：{{ display_star_rating($averageRatings['quality']) }}
                         </small>
                     </div>
                 @endif

@@ -50,38 +50,39 @@
                     @php
                         $overall = $post->average_ratings['overall'] ?? null;
                     @endphp
-                    <div class="mb-2">
-                        評価：
-                        @if (!empty($overall))
-                            <span class="fw-bold">{{ number_format($overall, 1) }}</span>
-                            <span class="star-rating">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @php
-                                        $fillRatio = $overall - $i + 1;
-                                        $fill = 0;
-
-                                        if ($fillRatio >= 1) {
-                                            $fill = 100;
-                                        } elseif ($fillRatio >= 0.75) {
-                                            $fill = 75;
-                                        } elseif ($fillRatio >= 0.5) {
-                                            $fill = 50;
-                                        } elseif ($fillRatio >= 0.25) {
-                                            $fill = 25;
-                                        } else {
+                    <a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: inherit;">
+                        <div class="mb-2">
+                            評価：
+                            @if (!empty($overall))
+                                <span class="fw-bold">{{ number_format($overall, 1) }}</span>
+                                <span class="star-rating">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @php
+                                            $fillRatio = $overall - $i + 1;
                                             $fill = 0;
-                                        }
-                                    @endphp
-                                    <span class="star">
-                                        <span class="star-fill" style="width: {{ $fill }}%;">★</span>
-                                        <span class="star-base">★</span>
-                                    </span>
-                                @endfor
-                            </span>
-                        @else
-                            <span class="text-muted">-</span>
-                        @endif
-                    </div>
+                                            if ($fillRatio >= 1) {
+                                                $fill = 100;
+                                            } elseif ($fillRatio >= 0.75) {
+                                                $fill = 75;
+                                            } elseif ($fillRatio >= 0.5) {
+                                                $fill = 50;
+                                            } elseif ($fillRatio >= 0.25) {
+                                                $fill = 25;
+                                            } else {
+                                                $fill = 0;
+                                            }
+                                        @endphp
+                                        <span class="star">
+                                            <span class="star-fill" style="width: {{ $fill }}%;">★</span>
+                                            <span class="star-base">★</span>
+                                        </span>
+                                    @endfor
+                                </span>
+                            @else
+                                <span class="text-muted">-</span>
+                            @endif
+                        </div>
+                    </a>
 
                     {{-- 📝 投稿内容 --}}
                     <p class="card-text mb-2" style="max-height: 120px; overflow: hidden; text-overflow: ellipsis;">
