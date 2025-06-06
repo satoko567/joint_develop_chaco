@@ -62,14 +62,12 @@ class PostsController extends Controller
     }
 
     //editメソッドを作成。動画編集のあたり
-     public function edit(SearchRequest $request, $id) //編集ボタンを押した投稿データの、idを取得
+     public function edit($id) //編集ボタンを押した投稿データの、idを取得
     { 
         $post = Post::findOrFail($id); //選択した投稿に該当する、投稿データを取得。
-        $keyword = $request->input('keyword');
         if (\Auth::id() === $post->user_id) { //自分の投稿以外は編集できないようにする。そのために、ログインユーザのidと、投稿データのidが一致しない場合はエラーを出す。
             $data = [
                 'post' => $post,
-                'keyword' => $keyword,
             ];
             return view('posts.edit', $data); //posts.editビューを表示
         } 

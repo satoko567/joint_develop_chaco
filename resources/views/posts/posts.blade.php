@@ -77,11 +77,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">削除</button>
                         </form>
-<<<<<<< HEAD
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>   {{-- 編集ルート実装後に記述 --}}
-=======
-                        <a href="" class="btn btn-sm btn-primary">編集する</a>
->>>>>>> develop_b_satsuki_sna
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>
