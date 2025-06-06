@@ -36,7 +36,10 @@ Route::group(['middleware' => 'auth'], function () {
     // 新規投稿、編集(なりさん担当)、更新(なりさん担当)、削除(清水さん担当)
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('posts.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); 
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
+
     // リプライ
     Route::group(['prefix' => 'posts/{post_id}/replies'], function () {
         Route::post('', 'RepliesController@store')->name('replies.store');
