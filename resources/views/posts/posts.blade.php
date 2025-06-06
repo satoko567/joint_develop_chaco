@@ -10,13 +10,13 @@
 
                     {{-- 👤 ユーザー情報 --}}
                     <div class="d-flex align-items-center mb-3">
-                        <img src="" class="rounded-circle mr-3" alt="ユーザのアバター画像">
+                        <img src="{{ Gravatar::src($post->user->email,55) }}" class="rounded-circle mr-3" alt="ユーザのアバター画像">
                         <div>
                             <p class="mb-1 font-weight-bold">{{ $post->user->name }}</p>
                             @if (Auth::check() && Auth::id() !== $post->user->id)
                                 <div>
                                     @if (Auth::user()->isFollowing($post->user->id))
-                                        <form method="POST" action="{{ route('unfollow', $post->user->id) }}">
+ <form method="POST" action="{{ route('unfollow', $post->user->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger">フォロー解除</button>
@@ -83,3 +83,4 @@
 <div class="d-flex justify-content-center">
     {{ $posts->appends(['keyword' => $keyword])->links('pagination::bootstrap-4') }}
 </div>
+                                       
