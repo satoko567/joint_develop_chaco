@@ -10,6 +10,34 @@
                     </strong>
                     <small class="text-muted">{{ $post->created_at }}</small>
                 </div>
+                @if ($averageRatings)
+                    <div class="mb-2">
+                        <h5 class="mb-1">
+                            平均評価：
+                            <span style="font-size: 1.5rem; color: #000;">
+                                {{ $averageRatings['overall'] !== null ? number_format($averageRatings['overall'], 1) : '-' }}
+                            </span>
+                            <span style="color: gold; font-size: 1.5rem;">
+                                {{ $averageRatings['overall'] !== null ? '★' : '' }}
+                            </span>
+                        </h5>
+                        <small class="text-muted">
+                            接客：{{ display_star_rating($averageRatings['service']) }}　
+                            料金：{{ display_star_rating($averageRatings['cost']) }}　
+                            技術：{{ display_star_rating($averageRatings['quality']) }}
+                        </small>
+                    </div>
+                @endif
+                @php
+                    $defaultImage = config('constants.no_image_path');
+                    $imageUrl = $post->image
+                        ? asset('storage/' . $post->image)
+                        : asset($defaultImage);
+                @endphp
+                <img src="{{ $imageUrl }}"
+                    class="img-fluid rounded mb-3 d-block mx-auto"
+                    style="max-height: 400px; object-fit: contain; background-color: #f8f9fa;"
+                    alt="投稿画像">
             </div>
             @include('commons.error_messages')
             @if (Auth::check() && Auth::id() !== $post->user_id)
@@ -21,6 +49,36 @@
                     <div class="form-group">
                         <label for="reply_body">リプライ内容</label>
                         <textarea name="reply_body" id="reply_body" class="form-control" rows="3">{{ old('reply_body') }}</textarea>
+                    </div>
+                    {{-- 接客・対応 --}}
+                    <div class="form-group mt-3">
+                        <label>接客・対応の満足度（1〜5☆）※任意</label><br>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <label class="me-2">
+                                <input type="radio" name="rating_service" value="{{ $i }}" {{ old('rating_service') == $i ? 'checked' : '' }}>
+                                {{ $i }}<span style="color: gold;">★</span>
+                            </label>
+                        @endfor
+                    </div>
+                    {{-- 料金の妥当性 --}}
+                    <div class="form-group mt-2">
+                        <label>料金の妥当性について（1〜5☆）※任意</label><br>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <label class="me-2">
+                                <input type="radio" name="rating_cost" value="{{ $i }}" {{ old('rating_cost') == $i ? 'checked' : '' }}>
+                                {{ $i }}<span style="color: gold;">★</span>
+                            </label>
+                        @endfor
+                    </div>
+                    {{-- 技術・仕上がり --}}
+                    <div class="form-group mt-2">
+                        <label>修理の仕上がり精度（1〜5☆）※任意</label><br>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <label class="me-2">
+                                <input type="radio" name="rating_quality" value="{{ $i }}" {{ old('rating_quality') == $i ? 'checked' : '' }}>
+                                {{ $i }}<span style="color: gold;">★</span>
+                            </label>
+                        @endfor
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">リプライする</button>
                 </form>
@@ -52,6 +110,38 @@
                                 <small class="text-muted">{{ $reply->created_at }}</small>
                             </div>
                             <p class="mt-2 mb-2">{{ $reply->content }}</p>
+                            <ul class="list-unstyled ms-2">
+                                <li>
+                                    接客・対応の満足度　：
+                                    @if ($reply->rating_service !== null)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= $reply->rating_service ? 'gold' : 'lightgray' }}">★</span>
+                                        @endfor
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </li>
+                                <li>
+                                    料金の妥当性について：
+                                    @if ($reply->rating_cost !== null)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= $reply->rating_cost ? 'gold' : 'lightgray' }}">★</span>
+                                        @endfor
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </li>
+                                <li>
+                                    修理の仕上がり精度　：
+                                    @if ($reply->rating_quality !== null)
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <span style="color: {{ $i <= $reply->rating_quality ? 'gold' : 'lightgray' }}">★</span>
+                                        @endfor
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </li>
+                            </ul>
                             @if (Auth::check() && Auth::id() === $reply->user_id)
                                 <div class="text-end">
                                     <a href="{{ route('replies.edit', ['post_id' => $post->id, 'reply_id' => $reply->id]) }}" class="btn btn-sm btn-outline-primary me-1">編集</a>
