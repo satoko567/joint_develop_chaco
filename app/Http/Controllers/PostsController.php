@@ -57,7 +57,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect("/");
+        return redirect()->route('posts.index')->with('success', '更新が完了しました！');
     }
 
     public function store(PostRequest $request)
@@ -66,7 +66,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-
-        return back();
+        return redirect()->route('posts.index')->with('success', '投稿が完了しました！');
     }
 }

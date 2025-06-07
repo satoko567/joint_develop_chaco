@@ -44,7 +44,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id)->with('success', '「ユーザ情報の更新」が完了しました！');
     }
 
     public function withdrawal($id, Request $request)
@@ -57,6 +57,6 @@ class UsersController extends Controller
 
         Auth::logout();
         
-        return redirect("/");
+        return redirect()->route('posts.index')->with('success', '退会が完了しました！');
     }
 }
