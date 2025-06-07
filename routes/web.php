@@ -30,7 +30,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-// ユーザ詳細表示
     
 // ユーザ編集、更新、退会
 Route::prefix('users/{id}')->group(function () {
@@ -60,8 +59,3 @@ Route::group(['prefix' => 'users/{id}'], function() {
 Route::get('users/{id}/followings', 'UsersController@followings')->name('users.followings');
 Route::get('users/{id}/followers', 'UsersController@followers')->name('users.followers');  
 });
-
-
-
-    
-
