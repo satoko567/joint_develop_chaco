@@ -17,6 +17,54 @@
                     @method('PUT')
                     <div class="form-group">
                         <textarea name="reply_body" id="reply_body" class="form-control" rows="3">{{ old('reply_body', $reply->content) }}</textarea>
+                        {{-- 接客・対応 --}}
+                        <div class="form-group mt-3">
+                            <label>接客・対応の満足度　（1〜5☆）※任意</label><br>
+                            <label class="me-2">
+                                <input type="radio" name="rating_service" value="" 
+                                    {{ old('rating_service', $reply->rating_service) === null ? 'checked' : '' }}>
+                                未選択
+                            </label>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <label class="me-2">
+                                    <input type="radio" name="rating_service" value="{{ $i }}" 
+                                        {{ old('rating_service', $reply->rating_service) == $i ? 'checked' : '' }}>
+                                    {{ $i }}<span style="color: gold;">★</span>
+                                </label>
+                            @endfor
+                        </div>
+                        {{-- 料金の妥当性 --}}
+                        <div class="form-group mt-3">
+                            <label>料金の妥当性について（1〜5☆）※任意</label><br>
+                            <label class="me-2">
+                                <input type="radio" name="rating_cost" value="" 
+                                    {{ old('rating_cost', $reply->rating_cost) === null ? 'checked' : '' }}>
+                                未選択
+                            </label>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <label class="me-2">
+                                    <input type="radio" name="rating_cost" value="{{ $i }}" 
+                                        {{ old('rating_cost', $reply->rating_cost) == $i ? 'checked' : '' }}>
+                                    {{ $i }}<span style="color: gold;">★</span>
+                                </label>
+                            @endfor
+                        </div>
+                        {{-- 技術・仕上がり --}}
+                        <div class="form-group mt-3">
+                            <label>修理の仕上がり精度（1〜5☆）※任意</label><br>
+                            <label class="me-2">
+                                <input type="radio" name="rating_quality" value="" 
+                                    {{ old('rating_quality', $reply->rating_quality) === null ? 'checked' : '' }}>
+                                未選択
+                            </label>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <label class="me-2">
+                                    <input type="radio" name="rating_quality" value="{{ $i }}" 
+                                        {{ old('rating_quality', $reply->rating_quality) == $i ? 'checked' : '' }}>
+                                    {{ $i }}<span style="color: gold;">★</span>
+                                </label>
+                            @endfor
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">更新する</button>
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-secondary mt-2">キャンセル</a>
