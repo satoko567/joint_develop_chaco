@@ -9,12 +9,18 @@ use App\User;
 
 class PostsController extends Controller
 {   
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        $keyword = $request->input('keyword');
+        $posts = Post::query(); 
+
+        if ($keyword) {
+            $posts->where('content', 'LIKE', "%{$keyword}%");
+        }
+
+        $posts = $posts->paginate(10);
+
+        return view('welcome', compact('posts', 'keyword'));
     }
 
     public function show($id)
