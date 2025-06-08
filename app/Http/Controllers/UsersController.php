@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    //ユーザ詳細(なりさんご担当)
+    //ユーザ詳細
        public function show($id)
     {
         $keyword = '';
@@ -55,30 +55,55 @@ class UsersController extends Controller
 
     //自分がフォローしているユーザー一覧
     public function followings($id)
-    {
-        $user = User::findOrFail($id);
-        $followings = $user->followings()->paginate(9);
-        $data = [
-            'user' => $user,
-            'users' => $followings,
-        ]; 
-        $data += $this->userCounts($user);
-        
-        return view('users.followings', $data);
+{
+    $user = User::findOrFail($id);
+    //検索キーワード取得（未入力ならnull）
+    $search = request('search');
+    //検索があればnameで絞り込み
+    $query = $user->followings();
+    if (!empty($search)) {
+        $query->where('name', 'like', '%' . $search . '%');
     }
+    //データ取得
+    $followings = $query->get();
+    $data = [
+        'user' => $user,
+        'users' => $followings,
+    ];
+    $data += $this->userCounts($user);
 
+    return view('users.followings', $data);
+}
+    
     //自分をフォローしているユーザー一覧
     public function followers($id)
+{
+    $user = User::findOrFail($id);
+    //検索キーワード取得
+    $search = request('search');
+    //検索があればnameで絞り込み
+    $query = $user->followers();
+    if (!empty($search)) {
+        $query->where('name', 'like', '%' . $search . '%');
+    }
+    // データ取得
+    $followers = $query->get();
+    $data = [
+        'user' => $user,
+        'users' => $followers,
+    ];
+    $data += $this->userCounts($user);
+
+    return view('users.followers', $data);
+}
+
+    protected function userCounts($user)
     {
-        $user = User::findOrFail($id);
-        $followers = $user->followers()->paginate(9);
-        $data = [
-            'user' => $user,
-            'users' => $followers,
-        ];
-        $data += $this->userCounts($user);
-        
-        return view('users.followers', $data);
+         return [
+         'count_posts' => $user->posts()->count(),
+         'count_followings' => $user->followings()->count(),
+         'count_followers' => $user->followers()->count(),
+         ];
     }
 
 }

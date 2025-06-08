@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('', 'UsersController@update')->name('user.update');
         Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
-    // 新規投稿、編集(なりさん担当)、更新(なりさん担当)、削除(清水さん担当)
+    // 新規投稿、編集、更新、削除
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); 

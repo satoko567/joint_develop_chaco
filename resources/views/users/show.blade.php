@@ -13,7 +13,7 @@
                     <div class="mt-3">
                         {{-- 自分のプロフィールなら編集ボタン --}}
                         @if($user->id == Auth::id())
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary w-50 mb-2">ユーザ情報の編集</a>
                         @endif 
 
                         {{-- 他人のプロフィールならフォローボタン --}}
@@ -22,20 +22,30 @@
                                 <form method="POST" action="{{ route('unfollow', $user->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-block">フォロー解除</button>
+                                    <button type="submit" class="btn btn-danger w-50">フォロー解除</button>
                                 </form>
                             @else
                                 <form method="POST" action="{{ route('follow', $user->id) }}">
                                     @csrf
-                                    <button type="submit" class="btn btn-success btn-block">フォローする</button>
+                                    <button type="submit" class="btn btn-success w-50">フォローする</button>
                                 </form>
                             @endif
                         @endif
 
-                        {{-- フォロー・フォロワーの数 --}}
-                        <div class="mt-3 text-light">
-                            <p>フォロー中：<a href="{{ route('users.followings', $user->id) }}" class="text-white">{{ $user->followings()->count() }}</a></p>
-                            <p>フォロワー：<a href="{{ route('users.followers', $user->id) }}" class="text-white">{{ $user->followers()->count() }}</a></p>
+                        {{-- フォロー・フォロワーの数 --}}                   
+                        <div class="d-flex justify-content-center text-light" style="gap: 4rem; margin-top: 1rem;">
+                            <div class="text-center" style="min-width: 100px;">
+                                <strong style="font-size: 1.4rem;">{{ number_format($user->followings()->count()) }}</strong><br>
+                                <a href="{{ route('users.followings', $user->id) }}" class="text-white text-decoration-none" style="font-size: 1.1rem;">
+                                   フォロー中
+                               </a>
+                            </div>
+                            <div class="text-center" style="min-width: 100px;">
+                                <strong style="font-size: 1.4rem;">{{ number_format($user->followers()->count()) }}</strong><br>
+                                <a href="{{ route('users.followers', $user->id) }}" class="text-white text-decoration-none" style="font-size: 1.1rem;">
+                                   フォロワー
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +72,7 @@
             </ul>
 
             {{-- 投稿一覧（タイムライン） --}}
-            @include('posts.posts', ['posts' => $user->posts()->paginate(10), 'keyword' => $keyword])
+            @include('posts.posts', ['posts' => $user->posts()->paginate(9), 'keyword' => $keyword])
         </div>
     </div>
 @endsection
