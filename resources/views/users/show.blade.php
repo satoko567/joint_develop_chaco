@@ -17,20 +17,7 @@
                         @endif 
 
                         {{-- 他人のプロフィールならフォローボタン --}}
-                        @if(Auth::id() != $user->id)
-                            @if (Auth::user()->isFollowing($user->id))
-                                <form method="POST" action="{{ route('unfollow', $user->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger w-50">フォロー解除</button>
-                                </form>
-                            @else
-                                <form method="POST" action="{{ route('follow', $user->id) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success w-50">フォローする</button>
-                                </form>
-                            @endif
-                        @endif
+                        @include('follow.follow_button', ['user' => $user])
 
                         {{-- フォロー・フォロワーの数 --}}                   
                         <div class="d-flex justify-content-center text-light" style="gap: 4rem; margin-top: 1rem;">
