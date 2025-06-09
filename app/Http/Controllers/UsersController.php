@@ -12,10 +12,10 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        // $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
-            // 'posts' => $posts,
+            'posts' => $posts,
         ];
 
         return view('users.show',$data);
@@ -44,6 +44,19 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id)->with('success', '「ユーザ情報の更新」が完了しました！');
+    }
+
+    public function withdrawal($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        if(Auth::id() !== $user->id){
+            abort(403);
+        }
+        $user->delete();
+
+        Auth::logout();
+        
+        return redirect()->route('posts.index')->with('success', '退会が完了しました！');
     }
 }

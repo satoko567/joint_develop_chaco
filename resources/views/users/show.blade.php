@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('components.flash_message')
 <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -21,6 +22,9 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+           
+            @include('posts.posts', ['posts' => $posts])
+
         </div>
 </div>
 @endsection

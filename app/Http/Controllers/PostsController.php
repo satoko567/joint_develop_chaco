@@ -9,12 +9,18 @@ use App\User;
 
 class PostsController extends Controller
 {   
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        $keyword = $request->input('keyword');
+        $posts = Post::query(); 
+
+        if ($keyword) {
+            $posts->where('content', 'LIKE', "%{$keyword}%");
+        }
+
+        $posts = $posts->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('welcome', compact('posts', 'keyword'));
     }
 
     public function show($id)
@@ -51,7 +57,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect("/");
+        return redirect()->route('post.index')->with('success', '更新が完了しました！');
     }
 
     public function store(PostRequest $request)
@@ -60,7 +66,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-
-        return back();
+        return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }
 }
