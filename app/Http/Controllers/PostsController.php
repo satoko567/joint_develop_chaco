@@ -66,6 +66,6 @@ class PostsController extends Controller
             $post->deleteReplies();
             $post->delete();
         }
-    return redirect()->back();
-    }
+        return redirect()->back();
+    }      
 }
