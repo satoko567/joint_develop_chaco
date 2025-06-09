@@ -50,12 +50,15 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-         $post = new Post;
-         $post->content = $request->content;
-         $post->user_id = $request->user()->id;
-         $post->save();
-        
-         return back();
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('post_images', 'public');
+            $post->image = $path;
+        }
+        $post->save();
+        return back();
     }
     
     public function destroy($id)
