@@ -1,4 +1,7 @@
-@foreach ($posts as $post)  
+@if ($posts->isEmpty())
+    <p class="text-center text-muted mt-4">一致する投稿はありませんでした。</p>
+@else
+@foreach ($posts as $post)
     <ul class="list-unstyled">
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
@@ -17,13 +20,14 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集する</a>
+                            <a href="" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>
         </li>
-    </ul>
+    </ul> 
 @endforeach
 <div class="m-auto" style="width: fit-content">
-    {{ $posts->links('pagination::bootstrap-4') }}
+        {{ $posts->appends(['keyword' => request('keyword')])->links('pagination::bootstrap-4') }}
 </div>
+@endif
