@@ -12,9 +12,7 @@
                 </a>
             </h5>
             {{-- フォローボタン --}}
-            @if (Auth::check() && Auth::id() !== $user->id)
-                @include('follow.follow_button', ['user' => $user])
-            @endif
+            @include('follow.follow_button', ['user' => $user])
         </div>
     </div>
 @endforeach
