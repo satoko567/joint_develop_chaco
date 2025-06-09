@@ -6,6 +6,7 @@
         <title>@yield('title', '修理どこがいい？クルマの名医ナビ')</title>
         <meta name="description" content="@yield('meta_description', '信頼できる自動車整備工場が口コミで見つかる車修理レビューアプリ')">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" ...>
+        <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     </head>
     <body>
         @include('commons.header')

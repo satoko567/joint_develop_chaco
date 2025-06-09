@@ -32,20 +32,6 @@
                         </div>
                     </div>
 
-                    {{-- 評価（★） --}}
-                    @if ($post->rating)
-                        <div class="mb-2">
-                            評価:
-                            @for ($i = 1; $i <= 5; $i++)
-                                @if ($i <= $post->rating)
-                                    <span style="color: gold;">★</span>
-                                @else
-                                    <span style="color: #ccc;">★</span>
-                                @endif
-                            @endfor
-                        </div>
-                    @endif
-
                     {{-- 📷 投稿画像（常に表示：投稿者が画像を投稿していない場合はデフォルト） --}}
                     @php
                         $defaultImage = config('constants.no_image_path');
@@ -59,6 +45,45 @@
                         style="height: 200px; object-fit: contain; background-color: #f8f9fa;"
                         alt="投稿画像">
                     </a>
+                    
+                    {{-- 評価（★） --}}
+                    @php
+                        $overall = $post->average_ratings['overall'] ?? null;
+                    @endphp
+                    <a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: inherit;">
+                        <div class="mb-2">
+                            評価：
+                            @if (!empty($overall))
+                                <span class="fw-bold">{{ number_format($overall, 1) }}</span>
+                                <span class="star-rating">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @php
+                                            $fillRatio = $overall - $i + 1;
+                                            $fill = 0;
+                                            if ($fillRatio >= 1) {
+                                                $fill = 100;
+                                            } elseif ($fillRatio >= 0.75) {
+                                                $fill = 75;
+                                            } elseif ($fillRatio >= 0.5) {
+                                                $fill = 50;
+                                            } elseif ($fillRatio >= 0.25) {
+                                                $fill = 25;
+                                            } else {
+                                                $fill = 0;
+                                            }
+                                        @endphp
+                                        <span class="star">
+                                            <span class="star-fill" style="width: {{ $fill }}%;">★</span>
+                                            <span class="star-base">★</span>
+                                        </span>
+                                    @endfor
+                                </span>
+                            @else
+                                <span class="text-muted">-</span>
+                            @endif
+                        </div>
+                    </a>
+
                     {{-- 📝 投稿内容 --}}
                     <p class="card-text mb-2" style="max-height: 120px; overflow: hidden; text-overflow: ellipsis;">
                         <a href="{{ route('posts.show', $post->id) }}" style="color: #212529; text-decoration: none;">
@@ -77,7 +102,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-sm btn-primary">編集する</a>
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>

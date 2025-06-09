@@ -18,6 +18,9 @@ class CreateRepliesTable extends Migration
             $table->bigInteger('post_id')->unsigned()->index();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->text('content');
+            $table->tinyInteger('rating_service')->unsigned()->nullable();
+            $table->tinyInteger('rating_cost')->unsigned()->nullable();
+            $table->tinyInteger('rating_quality')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
