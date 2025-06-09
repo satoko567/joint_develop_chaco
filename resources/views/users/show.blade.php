@@ -24,7 +24,6 @@
            
             @include('posts.posts', ['posts' => $posts])
 
-            {{ $posts->links() }}
         </div>
 </div>
 @endsection
