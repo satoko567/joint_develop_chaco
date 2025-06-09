@@ -10,7 +10,7 @@
 
                     {{-- 👤 ユーザー情報 --}}
                     <div class="d-flex align-items-center mb-3">
-                        <img src="" class="rounded-circle mr-3" alt="ユーザのアバター画像">
+                        <img src="{{ Gravatar::src($post->user->email,55) }}" class="rounded-circle mr-3" alt="ユーザのアバター画像">
                         <div>
                             <p class="mb-1 font-weight-bold">{{ $post->user->name }}</p>
                             @if (Auth::check() && Auth::id() !== $post->user->id)

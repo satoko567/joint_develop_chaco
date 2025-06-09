@@ -62,18 +62,10 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
+            $post->deleteImage();
+            $post->deleteReplies();
             $post->delete();
         }
         return redirect()->back();
-    }
-        $post = new Post;
-        $post->content = $request->content;
-        $post->user_id = $request->user()->id;
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('post_images', 'public');
-            $post->image = $path;
-        }
-        $post->save();
-        return back();
-    }
+    }      
 }
