@@ -65,6 +65,17 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+    
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->deleteImage();
+            $post->deleteReplies();
+            $post->delete();
+        }
+        return redirect()->back();
+    }      
 
     //editメソッドを作成。動画編集のあたり
     public function edit($id) //編集ボタンを押した投稿データの、idを取得
