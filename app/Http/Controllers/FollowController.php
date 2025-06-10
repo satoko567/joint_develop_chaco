@@ -8,7 +8,7 @@ class FollowController extends Controller
 {
     public function store($id)
     {
-        \Auth::user()->following($id);
+        \Auth::user()->follow($id);
         return back();
     }
 
