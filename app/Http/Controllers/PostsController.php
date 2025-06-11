@@ -94,6 +94,11 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $post->content = $request->input('content'); //投稿内容をpostテーブルのcontentカラムに代入
+        if ($request->hasFile('image')) {
+            $post->deleteImage();
+            $path = $request->file('image')->store('post_images', 'public');
+            $post->image = $path;
+        }
         $post->save(); //postテーブルに保存
         return redirect('/');              
     }
