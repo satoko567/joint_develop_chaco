@@ -18,7 +18,7 @@ class PostsController extends Controller
             $posts->where('content', 'LIKE', "%{$keyword}%");
         }
 
-        $posts = $posts->paginate(10);
+        $posts = $posts->latest()->paginate(10);
 
         return view('welcome', compact('posts', 'keyword'));
     }
@@ -54,17 +54,35 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+
+        if ($post->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/images');
+            $post->image_path = str_replace('public/', 'storage/', $path);
+        }
         $post->save();
+
         return redirect("/");
     }
 
     public function store(PostRequest $request)
     {
+        $path = null;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/images');
+            $path = str_replace('public/', 'storage/', $path); 
+        }
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+        $post->image_path = $path;
         $post->save();
 
         return back();
