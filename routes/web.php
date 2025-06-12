@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'UsersController@withdrawal')->name('user.withdrawal');
     });
 
+    Route::group(['prefix' => 'users/{id}'], function() {
+        Route::post('follow', 'FollowController@store')->name('follow');
+        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+    });
 });
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');

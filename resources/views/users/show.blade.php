@@ -6,6 +6,7 @@
             <div class="card bg-info">
                 <div class="card-header">
                     <h3 class="card-title text-light">{{$user->name}}</h3>
+                    @include('follow.follow_button', ['user' => $user])
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle" src="{{ Gravatar::src($user->email , 310) }}" alt="ユーザのアバター画像">
@@ -21,6 +22,9 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+           
+            @include('posts.posts', ['posts' => $posts])
+
         </div>
 </div>
 @endsection

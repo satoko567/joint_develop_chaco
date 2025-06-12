@@ -18,7 +18,7 @@ class PostsController extends Controller
             $posts->where('content', 'LIKE', "%{$keyword}%");
         }
 
-        $posts = $posts->latest()->paginate(10);
+        $posts = $posts->orderBy('created_at', 'desc')->paginate(10);
 
         return view('welcome', compact('posts', 'keyword'));
     }
@@ -67,8 +67,7 @@ class PostsController extends Controller
             $post->image_path = str_replace('public/', 'storage/', $path);
         }
         $post->save();
-
-        return redirect("/");
+        return redirect()->route('post.index')->with('success', '更新が完了しました！');
     }
 
     public function store(PostRequest $request)
@@ -84,7 +83,6 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->image_path = $path;
         $post->save();
-
-        return back();
+        return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }
 }
