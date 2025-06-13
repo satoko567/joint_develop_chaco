@@ -25,8 +25,8 @@ class PostsController extends Controller
 
     public function show($id)
     {
-    $post = Post::with('user', 'replies.user')->findOrFail($id);
-    return view('posts.show', compact('post'));
+        $post = Post::with('user', 'replies.user')->findOrFail($id);
+        return view('posts.show', compact('post'));
     }    
    
     public function edit($id)

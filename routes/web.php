@@ -40,6 +40,4 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'PostsController@index')->name('post.index');
-
-Route::get('posts/{id}/replies', 'ReplyController@index')->name('replies.index');
 Route::get('posts/{id}', 'PostsController@show')->name('post.show');

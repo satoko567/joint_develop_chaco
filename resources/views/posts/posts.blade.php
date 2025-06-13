@@ -16,7 +16,7 @@
                     </div>
                         <br>
                         <br>
-                        @if (Auth::id() === $post->user_id)
+                    @if (Auth::id() === $post->user_id)
                         <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                             <form method="POST" action="">
                                 @csrf
