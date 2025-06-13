@@ -85,4 +85,15 @@ class PostsController extends Controller
         $post->save();
         return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }
+    
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+
+        return redirect() ->back();
+    }
 }
