@@ -19,18 +19,18 @@
 @forelse ($post->replies as $reply)
 
 <div class="d-flex align-items-center mb-3">
+    <div class="d-flex align-items-start mb-3">
         {{-- リプライ者のアバター画像 --}}
         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
-        <div>
         {{-- 氏名 --}}
         <a href="{{ route('user.show', ['id' => $reply->user->id]) }}">{{ $reply->user->name }}</a>
         <small class="text-muted">
-        {{-- リプライ投稿日時 -- }}    
+        {{-- リプライ投稿日時 --}}    
         投稿日: {{ optional($reply->created_at)->diffForHumans() }}
         @if ($reply->updated_at && $reply->updated_at != $reply->created_at)
             ／更新: {{ optional($reply->updated_at)->diffForHumans() }}
         @endif
-    </small>
+        </small>
         {{-- e-mail --}}
         <div>
             <a href="mailto:{{ $reply->user->email }}">{{ $reply->user->email }}</a>
@@ -38,8 +38,8 @@
 
         {{-- 本文 --}}
         <div>{{ $reply->content }}</div>
-        </div>
     </div>
+</div>
 @empty
     <p class="text-muted mt-4">リプライはまだありません。</p>
 @endforelse
