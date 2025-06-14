@@ -17,7 +17,6 @@ class UsersController extends Controller
         return view('users.show', compact('user', 'keyword')); // ビューにデータを渡す
     }
 
-
     // 編集画面
     public function edit($id)
     {
@@ -28,7 +27,7 @@ class UsersController extends Controller
         return view('users.edit', ['user' => $user]);
     }
 
-    // 更新処理
+    // 更新処理(担当：なり)
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -36,9 +35,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect('/');
-        // ユーザ詳細がマージされ次第、return redirect('/');の部分を下記コードに変更
-        // return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id);
     }
 
     // 退会処理
