@@ -25,9 +25,12 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('user', 'replies.user')->findOrFail($id);
-        return view('posts.show', compact('post'));
-    }    
+        $post = Post::with('user')->findOrFail($id);
+    
+        $replies = $post->replies()->with('user')->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('posts.show', compact('post', 'replies'));
+    }       
    
     public function edit($id)
     {  

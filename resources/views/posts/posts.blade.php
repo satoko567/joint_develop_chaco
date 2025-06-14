@@ -17,24 +17,9 @@
                         </small>
                     </div>
                 </div>
-                <div class="">
-                    <div class="text-left d-inline-block w-75">
-                        <p class="mb-2">{{ $post->content }}</p>
-                        <p class="text-muted">{{ $post->created_at }}</p>
                         <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-outline-secondary btn-sm">💬リプライを見る</a>                   
-                    </div>
                         <br>
-                        <br>
-                    @if (Auth::id() === $post->user_id)
-                        <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                            <form method="POST" action="">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">削除</button>
-                            </form>
-                            <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集する</a>
-                        </div>
-                    @endif
+                        <br>                    
                 {{-- 投稿内容 --}}
                 <div class="d-flex gap-3">
                     <div class="flex-grow-1">
