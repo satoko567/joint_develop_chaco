@@ -20,16 +20,18 @@
     <div class="d-flex align-items-start mb-3">
         {{-- リプライ者のアバター画像 --}}
         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
-
         <div>
         {{-- 氏名 --}}
         <div>{{ $reply->user->name }}</div>
 
-        {{-- 本文 --}}
-        <div>{{ $reply->content }}</div>
-
         {{-- 投稿日時 --}}
         <div class="text-muted small">投稿日: {{ $reply->created_at }}</div>
+
+        {{-- e-mail --}}
+        <div>{{ $reply->user->email }}</div>
+
+        {{-- 本文 --}}
+        <div>{{ $reply->content }}</div>
         </div>
     </div>
 @empty
