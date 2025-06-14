@@ -10,6 +10,8 @@ class Post extends Model
     use SoftDeletes;
     
     
+    public $timestamps = true;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -20,5 +22,10 @@ class Post extends Model
     {
         return $this->hasMany(Reply::class);
     }
+    protected $fillable = [
+        'content',
+        'user_id',
+        'image_path',
+    ];
 
 }

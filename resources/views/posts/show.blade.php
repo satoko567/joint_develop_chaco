@@ -11,7 +11,7 @@
                 </div>
                 <div class="">
         <p>{{ $post->content }}</p>
-        <p class="text-muted">投稿日: {{ $post->created_at }}</p>
+        <p class="text-muted">{{ $post->created_at }}</p>
     </div>
 </div>
 {{-- リプライ一覧 --}}
