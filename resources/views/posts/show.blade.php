@@ -17,18 +17,24 @@
 {{-- リプライ一覧 --}}
 <h5 class="mt-4">リプライ一覧</h5>
 @forelse ($post->replies as $reply)
-    <div class="d-flex align-items-start mb-3">
+
+<div class="d-flex align-items-center mb-3">
         {{-- リプライ者のアバター画像 --}}
         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
         <div>
         {{-- 氏名 --}}
-        <div>{{ $reply->user->name }}</div>
-
-        {{-- 投稿日時 --}}
-        <div class="text-muted small">投稿日: {{ $reply->created_at }}</div>
-
+        <a href="{{ route('user.show', ['id' => $reply->user->id]) }}">{{ $reply->user->name }}</a>
+        <small class="text-muted">
+        {{-- リプライ投稿日時 -- }}    
+        投稿日: {{ optional($reply->created_at)->diffForHumans() }}
+        @if ($reply->updated_at && $reply->updated_at != $reply->created_at)
+            ／更新: {{ optional($reply->updated_at)->diffForHumans() }}
+        @endif
+    </small>
         {{-- e-mail --}}
-        <div>{{ $reply->user->email }}</div>
+        <div>
+            <a href="mailto:{{ $reply->user->email }}">{{ $reply->user->email }}</a>
+        </div>
 
         {{-- 本文 --}}
         <div>{{ $reply->content }}</div>
