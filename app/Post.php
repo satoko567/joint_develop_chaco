@@ -15,15 +15,15 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function reviews()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Review::class);
     }
 
-    // 投稿と関連するリプライをすべて削除する
-    public function deleteReplies()
+    // 投稿と関連するレビューをすべて削除する
+    public function deleteReviews()
     {
-        $this->replies()->delete();
+        $this->reviews()->delete();
     }
     
     // 投稿と関連する画像を削除する
