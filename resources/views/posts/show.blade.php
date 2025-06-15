@@ -22,8 +22,8 @@
                             </span>
                         </h5>
                         <small class="text-muted">
-                            接客：{{ display_star_rating($averageRatings['service']) }}
-                            料金：{{ display_star_rating($averageRatings['cost']) }}
+                            接客：{{ display_star_rating($averageRatings['service']) }}　
+                            料金：{{ display_star_rating($averageRatings['cost']) }}　
                             技術：{{ display_star_rating($averageRatings['quality']) }}
                         </small>
                     </div>

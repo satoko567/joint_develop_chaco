@@ -59,3 +59,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/{id}/followings', 'UsersController@followings')->name('users.followings');
     Route::get('users/{id}/followers', 'UsersController@followers')->name('users.followers');  
 });
+

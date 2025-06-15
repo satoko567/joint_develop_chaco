@@ -59,7 +59,7 @@
             </ul>
 
             {{-- 投稿一覧（タイムライン） --}}
-            @include('posts.posts', ['posts' => $user->posts()->paginate(9), 'keyword' => $keyword])
+            @include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
         </div>
     </div>
 @endsection
