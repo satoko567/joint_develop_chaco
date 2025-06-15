@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('content')
+
+@section('content')    
     <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-dark text-white shadow rounded">
@@ -8,13 +9,16 @@
                 </div>
                 <div class="card-body text-center">
                     <img class="rounded-circle img-fluid border border-light" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
+                    
                     <div class="mt-3">
                         {{-- 自分のプロフィールなら編集ボタン --}}
                         @if($user->id == Auth::id())
                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary w-50 mb-2">ユーザ情報の編集</a>
                         @endif 
+
                         {{-- 他人のプロフィールならフォローボタン --}}
                         @include('follow.follow_button', ['user' => $user])
+
                         {{-- フォロー・フォロワーの数 --}}                   
                         <div class="d-flex justify-content-center text-light" style="gap: 4rem; margin-top: 1rem;">
                             <div class="text-center" style="min-width: 100px;">
@@ -34,6 +38,7 @@
                 </div>
             </div>
         </aside>
+
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item">
@@ -52,6 +57,7 @@
                     </a>
                 </li>
             </ul>
+
             {{-- 投稿一覧（タイムライン） --}}
             @include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
         </div>
