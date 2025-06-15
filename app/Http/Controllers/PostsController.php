@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
-use App\Reply;
+use App\Review;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Support\Facades\Auth;
@@ -15,14 +15,14 @@ class PostsController extends Controller
     public function index(SearchRequest $request)
     {
         $keyword = $request->input('keyword');
-        $posts = Post::withCount('replies')
+        $posts = Post::withCount('reviews')
             ->when($keyword, function ($query, $keyword) {
                 return $query->where('content', 'like', "%{$keyword}%");
             })
             ->orderBy('id', 'desc')
             ->paginate(9);
         foreach ($posts as $post) {
-            $post->average_ratings = Reply::averageRatingsForPost($post);
+            $post->average_ratings = Review::averageRatingsForPost($post);
         }
         $data = [
             'keyword' => $keyword,
@@ -35,21 +35,21 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->load('user');
-        $replies = $post->replies()->with('user')->orderBy('id', 'desc')->paginate(9);
-        $latestReply = Reply::latestReply($post);
-        $hasReplied = false;
+        $reviews = $post->reviews()->with('user')->orderBy('id', 'desc')->paginate(10);
+        $latestReview = Review::latestReview($post);
+        $hasReviewed = false;
         if (Auth::check() && Auth::id() !== $post->user_id) {
-            $hasReplied = Reply::hasReplied(Auth::user(), $post);
+            $hasReviewed = Review::hasReviewed(Auth::user(), $post);
         }
-        $averageRatings = Reply::averageRatingsForPost($post);
+        $averageRatings = Review::averageRatingsForPost($post);
         $data = [
             'post' => $post,
-            'replies' => $replies,
-            'latestReply' => $latestReply,
-            'hasReplied' => $hasReplied,
+            'reviews' => $reviews,
+            'latestReview' => $latestReview,
+            'hasReviewed' => $hasReviewed,
             'averageRatings' => $averageRatings,
         ];
-        $data += Reply::replyCounts($post);
+        $data += Review::reviewCounts($post);
         return view('posts.show', $data);
     }
 
@@ -71,7 +71,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             $post->deleteImage();
-            $post->deleteReplies();
+            $post->deleteReviews();
             $post->delete();
         }
         return redirect()->back();
