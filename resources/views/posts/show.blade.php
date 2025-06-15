@@ -18,10 +18,7 @@
                 </small>
             </div>
         </div>
-
-        {{-- リプライボタン（リンクなしにしてもOK） --}}
-        <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-outline-secondary btn-sm">💬リプライを見る</a>                   
-
+       
         {{-- 投稿内容 --}}
         <div class="d-flex gap-3 mt-2">
             <div class="flex-grow-1">
@@ -82,7 +79,7 @@
 {{-- リプライ一覧 --}}
 <h5 class="mt-4">リプライ一覧</h5>
 
-@forelse ($post->replies as $reply)
+@forelse ($replies as $reply)
     <div class="card mb-4" style="width: 700px;">
         <div class="card-body">
             {{-- ユーザー情報 --}}
