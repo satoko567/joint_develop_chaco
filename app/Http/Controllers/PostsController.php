@@ -65,6 +65,17 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+    
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->deleteImage();
+            $post->deleteReplies();
+            $post->delete();
+        }
+        return redirect()->back();
+    }      
 
     //editメソッドを作成。動画編集のあたり
     public function edit($id) //編集ボタンを押した投稿データの、idを取得
@@ -83,6 +94,11 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
         $post->content = $request->input('content'); //投稿内容をpostテーブルのcontentカラムに代入
+        if ($request->hasFile('image')) {
+            $post->deleteImage();
+            $path = $request->file('image')->store('post_images', 'public');
+            $post->image = $path;
+        }
         $post->save(); //postテーブルに保存
         return redirect('/');              
     }
