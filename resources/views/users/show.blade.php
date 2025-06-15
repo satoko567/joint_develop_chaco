@@ -5,7 +5,7 @@
         <aside class="col-sm-4 mb-5">
             <div class="card bg-dark text-white shadow rounded">
                 <div class="card-header d-flex align-items-center justify-content-center" style="background-color: #495057; height: 60px; color: white; letter-spacing: 1px; font-weight: bold;">
-                    <h3 class="card-title text-light mb-0">{{ $user->name }}</h3>
+                    <h3 class="card-title text-light mb-1">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body text-center">
                     <img class="rounded-circle img-fluid border border-light" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
