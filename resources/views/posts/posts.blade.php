@@ -17,13 +17,13 @@
                         </small>
                     </div>
                 </div>
-                {{-- 投稿内容 --}}
+
+                {{-- 投稿内容と画像 --}}
                 <div class="d-flex gap-3">
                     <div class="flex-grow-1">
                         <p class="card-text mb-2">{{ $post->content }}</p>
                     </div>
 
-                    {{-- 投稿画像があれば表示 --}}
                     @if ($post->image_path)
                         <div class="mb-2" style="max-width: 200px;">
                             <img 
@@ -37,13 +37,13 @@
                         </div>
 
                         {{-- モーダル --}}
-                        <div class="modal fade" id="imageModal{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel{{ $post->id }}" aria-hidden="true">
+                        <div class="modal fade" id="imageModal{{ $post->id }}" tabindex="-1" role="dialog">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">画像表示</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-                                        <span aria-hidden="true">&times;</span>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span>&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body text-center">
@@ -54,25 +54,31 @@
                         </div>
                     @endif
                 </div>
-                {{-- ボタン類 --}}
-                @if (Auth::id() === $post->user_id)
-                    <div class="d-flex flex-wrap justify-content-end">
-                        <form method="POST" action="">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-light p-1" onclick="return confirm('本当に削除しますか？')">
-                                <img src="{{ asset('images/icons/ゴミ箱のアイコン素材.png') }}" alt="削除" style="width: 20px; height: 20px;">
-                            </button>
-                        </form>
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-light p-1 ml-3">
-                            <img src="{{ asset('images/icons/鉛筆のアイコン素材.png') }}" alt="編集" style="width: 20px; height: 20px;">
-                        </a>
-                    </div>
-                @endif
+
+                {{-- リプライ＋編集削除 --}}
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    {{-- リプライ --}}
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-outline-secondary btn-sm">
+                        💬リプライを見る
+                    </a>
+
+                    {{-- 編集・削除 --}}
+                    @if (Auth::id() === $post->user_id)
+                        <div class="d-flex">
+                            <form method="POST" action="">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-light p-1" onclick="return confirm('本当に削除しますか？')">
+                                    <img src="{{ asset('images/icons/ゴミ箱のアイコン素材.png') }}" alt="削除" style="width: 20px; height: 20px;">
+                                </button>
+                            </form>
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-light p-1 ml-3">
+                                <img src="{{ asset('images/icons/鉛筆のアイコン素材.png') }}" alt="編集" style="width: 20px; height: 20px;">
+                            </a>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     @endforeach
-    <div class="m-auto" style="width: fit-content">
-        {{ $posts->appends(['keyword' => request('keyword')])->links('pagination::bootstrap-4') }}
-    </div>
 @endif
