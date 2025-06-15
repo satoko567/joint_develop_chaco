@@ -17,6 +17,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
+        $data += $this->userCounts($user);
 
         return view('users.show',$data);
     }
@@ -58,5 +59,31 @@ class UsersController extends Controller
         Auth::logout();
         
         return redirect()->route('posts.index')->with('success', '退会が完了しました！');
+    }
+
+    public function follows($id)
+    {
+        $user = User::with('follows')->findOrFail($id);
+        $follows = $user->follows()->get();
+        $data=[
+            'user' => $user,
+            'follows' => $follows,  
+        ];
+        $data += $this->userCounts($user);
+        
+        return view('users.show', $data);   
+    }
+
+    public function followers($id)
+    {
+        $user = User::with('followers')->findOrFail($id);
+        $followers = $user->followers()->get();
+        $data=[
+            'user' => $user,
+            'followers' => $followers,  
+        ];
+        $data += $this->userCounts($user);
+        
+        return view('users.show', $data);   
     }
 }
