@@ -22,8 +22,8 @@
                             </span>
                         </h5>
                         <small class="text-muted">
-                            接客：{{ display_star_rating($averageRatings['service']) }}　
-                            料金：{{ display_star_rating($averageRatings['cost']) }}　
+                            接客：{{ display_star_rating($averageRatings['service']) }}
+                            料金：{{ display_star_rating($averageRatings['cost']) }}
                             技術：{{ display_star_rating($averageRatings['quality']) }}
                         </small>
                     </div>
@@ -112,7 +112,7 @@
                             <p class="mt-2 mb-2">{{ $reply->content }}</p>
                             <ul class="list-unstyled ms-2">
                                 <li>
-                                    接客・対応の満足度　：
+                                    接客・対応の満足度：
                                     @if ($reply->rating_service !== null)
                                         @for ($i = 1; $i <= 5; $i++)
                                             <span style="color: {{ $i <= $reply->rating_service ? 'gold' : 'lightgray' }}">★</span>
@@ -132,7 +132,7 @@
                                     @endif
                                 </li>
                                 <li>
-                                    修理の仕上がり精度　：
+                                    修理の仕上がり精度：
                                     @if ($reply->rating_quality !== null)
                                         @for ($i = 1; $i <= 5; $i++)
                                             <span style="color: {{ $i <= $reply->rating_quality ? 'gold' : 'lightgray' }}">★</span>
