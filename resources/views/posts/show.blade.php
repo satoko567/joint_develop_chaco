@@ -6,7 +6,7 @@
                 <h4>{{ $post->user->name }} さんの投稿</h4>
                 <div class="alert alert-info">
                     <strong>投稿内容：<br>
-                    {{ $post->content }}<br>
+                    <div class="text-break"> {{ $post->content }}</div>
                     </strong>
                     <small class="text-muted">{{ $post->created_at }}</small>
                 </div>
@@ -41,14 +41,14 @@
             </div>
             @include('commons.error_messages')
             @if (Auth::check() && Auth::id() !== $post->user_id)
-                @if ($hasReplied)
-                    <p class="text-muted">※あなたはこの投稿にすでにリプライしています</p>
+                @if ($hasReviewed)
+                    <p class="text-muted">※あなたはこの投稿にすでにレビューしています</p>
                 @endif
-                <form action="{{ route('replies.store', $post->id) }}" method="POST">
+                <form action="{{ route('reviews.store', $post->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="reply_body">リプライ内容</label>
-                        <textarea name="reply_body" id="reply_body" class="form-control" rows="3">{{ old('reply_body') }}</textarea>
+                        <label for="comment">レビュー内容</label>
+                        <textarea name="comment" id="comment" class="form-control" rows="3">{{ old('comment') }}</textarea>
                     </div>
                     {{-- 接客・対応 --}}
                     <div class="form-group mt-3">
@@ -80,42 +80,42 @@
                             </label>
                         @endfor
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2">リプライする</button>
+                    <button type="submit" class="btn btn-primary mt-2">レビューする</button>
                 </form>
             @elseif (Auth::check() && Auth::id() === $post->user_id)
-                <p class="text-muted">※自分の投稿にはリプライできません。</p>
+                <p class="text-muted">※自分の投稿にはレビューできません。</p>
             @else
-                <p class="text-muted">※リプライするにはログインが必要です。</p>
+                <p class="text-muted">※レビューするにはログインが必要です。</p>
             @endif
             <hr>
-            <h5>リプライ一覧（{{ $countReplies }} 件）</h5>
-            @if ($replies->isEmpty())
-                <p class="text-muted">まだリプライはありません。</p>
+            <h5>みんなのレビュー（{{ $countReviews }} 件）</h5>
+            @if ($reviews->isEmpty())
+                <p class="text-muted">まだレビューはありません。</p>
             @else
-                @foreach ($replies as $reply)
+                @foreach ($reviews as $review)
                     <div
-                        class="card mb-3 {{ $latestReply && $reply->id === $latestReply->id ? 'border border-info' : '' }}"
-                        @if ($latestReply && $reply->id === $latestReply->id)
+                        class="card mb-3 {{ $latestReview && $review->id === $latestReview->id ? 'border border-info' : '' }}"
+                        @if ($latestReview && $review->id === $latestReview->id)
                             style="background-color: #f0fafd;"
                         @endif
                     >
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <strong>
-                                    {{ $reply->user->name }}
-                                    @if ($latestReply && $reply->id === $latestReply->id)
+                                    {{ $review->user->name }}
+                                    @if ($latestReview && $review->id === $latestReview->id)
                                         <span class="badge border border-info text-info ms-2">最新</span>
                                     @endif
                                 </strong>
-                                <small class="text-muted">{{ $reply->created_at }}</small>
+                                <small class="text-muted">{{ $review->created_at }}</small>
                             </div>
-                            <p class="mt-2 mb-2">{{ $reply->content }}</p>
+                            <p class="mt-2 mb-2">{{ $review->comment }}</p>
                             <ul class="list-unstyled ms-2">
                                 <li>
-                                    接客・対応の満足度：
-                                    @if ($reply->rating_service !== null)
+                                    接客・対応の満足度　：
+                                    @if ($review->rating_service !== null)
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <span style="color: {{ $i <= $reply->rating_service ? 'gold' : 'lightgray' }}">★</span>
+                                            <span style="color: {{ $i <= $review->rating_service ? 'gold' : 'lightgray' }}">★</span>
                                         @endfor
                                     @else
                                         <span class="text-muted">-</span>
@@ -123,29 +123,29 @@
                                 </li>
                                 <li>
                                     料金の妥当性について：
-                                    @if ($reply->rating_cost !== null)
+                                    @if ($review->rating_cost !== null)
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <span style="color: {{ $i <= $reply->rating_cost ? 'gold' : 'lightgray' }}">★</span>
+                                            <span style="color: {{ $i <= $review->rating_cost ? 'gold' : 'lightgray' }}">★</span>
                                         @endfor
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </li>
                                 <li>
-                                    修理の仕上がり精度：
-                                    @if ($reply->rating_quality !== null)
+                                    修理の仕上がり精度　：
+                                    @if ($review->rating_quality !== null)
                                         @for ($i = 1; $i <= 5; $i++)
-                                            <span style="color: {{ $i <= $reply->rating_quality ? 'gold' : 'lightgray' }}">★</span>
+                                            <span style="color: {{ $i <= $review->rating_quality ? 'gold' : 'lightgray' }}">★</span>
                                         @endfor
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </li>
                             </ul>
-                            @if (Auth::check() && Auth::id() === $reply->user_id)
+                            @if (Auth::check() && Auth::id() === $review->user_id)
                                 <div class="text-end">
-                                    <a href="{{ route('replies.edit', ['post_id' => $post->id, 'reply_id' => $reply->id]) }}" class="btn btn-sm btn-outline-primary me-1">編集</a>
-                                    <form action="{{ route('replies.delete', ['reply_id' => $reply->id]) }}" method="POST" class="d-inline">
+                                    <a href="{{ route('reviews.edit', ['post_id' => $post->id, 'review_id' => $review->id]) }}" class="btn btn-sm btn-outline-primary me-1">編集</a>
+                                    <form action="{{ route('reviews.delete', ['review_id' => $review->id]) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('本当に削除しますか？')">削除</button>
@@ -159,6 +159,6 @@
         </div>
     </div>
     <div class="m-auto" style="width: fit-content">
-    {{ $replies->links('pagination::bootstrap-4') }}
+    {{ $reviews->links('pagination::bootstrap-4') }}
     </div>
 @endsection

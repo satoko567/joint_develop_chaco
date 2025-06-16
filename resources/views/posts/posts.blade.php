@@ -90,7 +90,7 @@
                            {{ Str::limit(strip_tags($post->content), 120, '... 続きを読む') }}
                         </a>
                     </p>
-                    <p class="text-muted small mb-1">リプライ {{ $post->replies_count }} 件</p>
+                    <p class="text-muted small mb-1">レビュー {{ $post->reviews_count }} 件</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
 

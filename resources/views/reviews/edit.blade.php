@@ -11,24 +11,24 @@
                     <small class="text-muted">{{ $post->created_at }}</small>
                 </div>
                 @include('commons.error_messages')
-                <h5 class="mt-4">リプライ内容を編集する</h5>
-                <form action="{{ route('replies.update', [$post->id, $reply->id]) }}" method="POST">
+                <h5 class="mt-4">レビュー内容を編集する</h5>
+                <form action="{{ route('reviews.update', [$post->id, $review->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <textarea name="reply_body" id="reply_body" class="form-control" rows="3">{{ old('reply_body', $reply->content) }}</textarea>
+                        <textarea name="comment" id="comment" class="form-control" rows="3">{{ old('comment', $review->comment) }}</textarea>
                         {{-- 接客・対応 --}}
                         <div class="form-group mt-3">
                             <label>接客・対応の満足度　（1〜5☆）※任意</label><br>
                             <label class="me-2">
                                 <input type="radio" name="rating_service" value="" 
-                                    {{ old('rating_service', $reply->rating_service) === null ? 'checked' : '' }}>
+                                    {{ old('rating_service', $review->rating_service) === null ? 'checked' : '' }}>
                                 未選択
                             </label>
                             @for ($i = 1; $i <= 5; $i++)
                                 <label class="me-2">
                                     <input type="radio" name="rating_service" value="{{ $i }}" 
-                                        {{ old('rating_service', $reply->rating_service) == $i ? 'checked' : '' }}>
+                                        {{ old('rating_service', $review->rating_service) == $i ? 'checked' : '' }}>
                                     {{ $i }}<span style="color: gold;">★</span>
                                 </label>
                             @endfor
@@ -38,13 +38,13 @@
                             <label>料金の妥当性について（1〜5☆）※任意</label><br>
                             <label class="me-2">
                                 <input type="radio" name="rating_cost" value="" 
-                                    {{ old('rating_cost', $reply->rating_cost) === null ? 'checked' : '' }}>
+                                    {{ old('rating_cost', $review->rating_cost) === null ? 'checked' : '' }}>
                                 未選択
                             </label>
                             @for ($i = 1; $i <= 5; $i++)
                                 <label class="me-2">
                                     <input type="radio" name="rating_cost" value="{{ $i }}" 
-                                        {{ old('rating_cost', $reply->rating_cost) == $i ? 'checked' : '' }}>
+                                        {{ old('rating_cost', $review->rating_cost) == $i ? 'checked' : '' }}>
                                     {{ $i }}<span style="color: gold;">★</span>
                                 </label>
                             @endfor
@@ -54,13 +54,13 @@
                             <label>修理の仕上がり精度（1〜5☆）※任意</label><br>
                             <label class="me-2">
                                 <input type="radio" name="rating_quality" value="" 
-                                    {{ old('rating_quality', $reply->rating_quality) === null ? 'checked' : '' }}>
+                                    {{ old('rating_quality', $review->rating_quality) === null ? 'checked' : '' }}>
                                 未選択
                             </label>
                             @for ($i = 1; $i <= 5; $i++)
                                 <label class="me-2">
                                     <input type="radio" name="rating_quality" value="{{ $i }}" 
-                                        {{ old('rating_quality', $reply->rating_quality) == $i ? 'checked' : '' }}>
+                                        {{ old('rating_quality', $review->rating_quality) == $i ? 'checked' : '' }}>
                                     {{ $i }}<span style="color: gold;">★</span>
                                 </label>
                             @endfor

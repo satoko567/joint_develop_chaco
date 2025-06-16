@@ -2,10 +2,9 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Reply extends Model
+class Review extends Model
 {
     use SoftDeletes;
 
@@ -19,8 +18,8 @@ class Reply extends Model
         return $this->belongsTo(User::class);
     }
 
-    // ユーザが、投稿にリプライをしたことがあるかの確認
-    public static function hasReplied(User $user, Post $post)
+    // ユーザが、投稿にレビューをしたことがあるかの確認
+    public static function hasReviewed(User $user, Post $post)
     {
         return self::where([
             'user_id' => $user->id,
@@ -28,19 +27,19 @@ class Reply extends Model
         ])->exists();
     }
 
-    // リプライ件数
-    public static function replyCounts(Post $post)
+    // レビュー件数
+    public static function reviewCounts(Post $post)
     {
-        $countReplies = self::where('post_id', $post->id)
+        $countReviews = self::where('post_id', $post->id)
                             ->whereNull('deleted_at')
                             ->count();
         return [
-            'countReplies' => $countReplies,
+            'countReviews' => $countReviews,
         ];
     }
 
-    // 最新リプライ
-    public static function latestReply(Post $post)
+    // 最新レビュー
+    public static function latestReview(Post $post)
     {
         return self::where('post_id', $post->id)
                     ->latest()
@@ -54,13 +53,13 @@ class Reply extends Model
         return $average ? round($average, 1) : null;
     }
 
-    // 投稿に対するリプライ評価の平均を計算
+    // 投稿に対するレビュー評価の平均を計算
     public static function averageRatingsForPost(Post $post)
     {
-        $replies = $post->replies()->whereNull('deleted_at');
-        $service = self::getRoundedAverage($replies, 'rating_service');
-        $cost    = self::getRoundedAverage($replies, 'rating_cost');
-        $quality = self::getRoundedAverage($replies, 'rating_quality');
+        $reviews = $post->reviews()->whereNull('deleted_at');
+        $service = self::getRoundedAverage($reviews, 'rating_service');
+        $cost    = self::getRoundedAverage($reviews, 'rating_cost');
+        $quality = self::getRoundedAverage($reviews, 'rating_quality');
         $values = collect([$service, $cost, $quality])->filter();
         $overall = $values->isNotEmpty() ? round($values->avg(), 1) : null;
         return [

@@ -36,20 +36,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('', 'UsersController@update')->name('user.update');
         Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
-    // 新規投稿、編集、更新、削除、リプライ機能
+    // 新規投稿、編集、更新、削除
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); 
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     }); 
-    // リプライ
-    Route::group(['prefix' => 'posts/{post_id}/replies'], function () {
-        Route::post('', 'RepliesController@store')->name('replies.store');
-        Route::get('{reply_id}/edit', 'RepliesController@edit')->name('replies.edit');
-        Route::put('{reply_id}', 'RepliesController@update')->name('replies.update');
+    // レビュー
+    Route::group(['prefix' => 'posts/{post_id}/reviews'], function () {
+        Route::post('', 'ReviewsController@store')->name('reviews.store');
+        Route::get('{review_id}/edit', 'ReviewsController@edit')->name('reviews.edit');
+        Route::put('{review_id}', 'ReviewsController@update')->name('reviews.update');
     });
-    Route::delete('replies/{reply_id}', 'RepliesController@destroy')->name('replies.delete');
+    Route::delete('reviews/{review_id}', 'ReviewsController@destroy')->name('reviews.delete');
     //フォロー・フォロー解除
     Route::group(['prefix' => 'users/{id}'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
