@@ -33,4 +33,24 @@ class Post extends Model
             Storage::disk('public')->delete($this->image);
         }
     }
+
+    // 投稿に対するリプライ評価の平均を計算
+    public function averageRatings()
+    {
+        $replies = $this->replies()->whereNull('deleted_at');
+        $serviceAvg = $replies->avg('rating_service');
+        $costAvg    = $replies->avg('rating_cost');
+        $qualityAvg = $replies->avg('rating_quality');
+        $service = $serviceAvg ? round($serviceAvg, 1) : null;
+        $cost = $costAvg ? round($costAvg, 1) : null;
+        $quality = $qualityAvg ? round($qualityAvg, 1) : null;
+        $values = collect([$service, $cost, $quality])->filter();
+        $overall = $values->isNotEmpty() ? round($values->avg(), 1) : null;
+        return [
+            'service' => $service,
+            'cost'    => $cost,
+            'quality' => $quality,
+            'overall' => $overall,
+        ];
+    }
 }
