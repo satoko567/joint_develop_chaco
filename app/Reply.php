@@ -46,4 +46,28 @@ class Reply extends Model
                     ->latest()
                     ->first();
     }
+
+    // 評価の平均を丸めて返す
+    public static function getRoundedAverage($collection, $key)
+    {
+        $average = $collection->avg($key);
+        return $average ? round($average, 1) : null;
+    }
+
+    // 投稿に対するリプライ評価の平均を計算
+    public static function averageRatingsForPost(Post $post)
+    {
+        $replies = $post->replies()->whereNull('deleted_at');
+        $service = self::getRoundedAverage($replies, 'rating_service');
+        $cost    = self::getRoundedAverage($replies, 'rating_cost');
+        $quality = self::getRoundedAverage($replies, 'rating_quality');
+        $values = collect([$service, $cost, $quality])->filter();
+        $overall = $values->isNotEmpty() ? round($values->avg(), 1) : null;
+        return [
+            'service' => $service,
+            'cost'    => $cost,
+            'quality' => $quality,
+            'overall' => $overall,
+        ];
+    }
 }
