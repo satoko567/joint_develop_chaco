@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,9 +15,15 @@ class UsersController extends Controller
     {
         $keyword = '';
         $user = User::findOrFail($id); // ユーザーが見つからなければ404エラー
-        return view('users.show', compact('user', 'keyword')); // ビューにデータを渡す
+        // 自分とフォロー中のユーザーIDを配列で取得
+        $followedUserIds = $user->followings()->pluck('users.id')->toArray();
+        $followedUserIds[] = $user->id;
+        // 投稿を取得（自分＋フォロー中）＆ページネーション
+        $posts = Post::whereIn('user_id', $followedUserIds)
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
+        return view('users.show', compact('user', 'posts', 'keyword')); // ビューにデータを渡す
     }
-
 
     // 編集画面
     public function edit($id)
@@ -105,5 +112,4 @@ class UsersController extends Controller
         'count_followers' => $user->followers()->count(),
         ];
     }
-
 }
