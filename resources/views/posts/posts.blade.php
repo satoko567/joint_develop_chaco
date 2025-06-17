@@ -4,6 +4,7 @@
     @foreach ($posts as $post)  
         <div class="card mb-4" style="width: 700px;">
             <div class="card-body">
+                
                 {{-- ユーザ―情報 --}}
                 <div class="d-flex align-items-center mb-3">
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
@@ -55,14 +56,15 @@
                     @endif
                 </div>
 
-                {{-- リプライ＋編集削除 --}}
+                {{-- リプライリンク＋編集削除 --}}
                 <div class="d-flex justify-content-between align-items-center mt-4">
-                    {{-- リプライ --}}
+                    
+                    {{-- リプライリンク --}}
                     <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-outline-secondary btn-sm">
                         💬リプライを見る
                     </a>
 
-                    {{-- 編集・削除 --}}
+                    {{-- 編集・削除ボタン（投稿者のみ） --}}
                     @if (Auth::id() === $post->user_id)
                         <div class="d-flex">
                             <form method="POST" action="">
@@ -77,7 +79,9 @@
                             </a>
                         </div>
                     @endif
+
                 </div>
+
             </div>
         </div>
     @endforeach
