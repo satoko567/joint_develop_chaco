@@ -53,9 +53,27 @@ class PostsController extends Controller
         return view('posts.show', $data);
     }
 
+    public function create()
+    {
+        $keyword = '';
+        $posts = Post::withCount('reviews')
+            ->with('user')
+            ->orderBy('id', 'desc')
+            ->paginate(9);
+        foreach ($posts as $post) {
+            $post->average_ratings = Review::averageRatingsForPost($post);
+        }
+        return view('posts.create', [
+            'posts' => $posts,
+            'keyword' => $keyword,
+        ]);
+    }
+
     public function store(PostRequest $request)
     {
         $post = new Post;
+        $post->shop_name = $request->shop_name;
+        $post->address = $request->address;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         if ($request->hasFile('image')) {
@@ -93,6 +111,8 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
+        $post->shop_name = $request->shop_name;
+        $post->address = $request->address;
         $post->content = $request->input('content'); //投稿内容をpostテーブルのcontentカラムに代入
         if ($request->hasFile('image')) {
             $post->deleteImage();
