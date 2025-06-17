@@ -56,15 +56,15 @@
                     @endif
                 </div>
 
-                {{-- リプライリンク＋編集削除 --}}
+                {{-- リプライ＋編集削除 --}}
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     
-                    {{-- リプライリンク --}}
+                    {{-- リプライ --}}
                     <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-outline-secondary btn-sm">
                         💬リプライを見る
                     </a>
 
-                    {{-- 編集・削除ボタン（投稿者のみ） --}}
+                    {{-- 編集・削除 --}}
                     @if (Auth::id() === $post->user_id)
                         <div class="d-flex">
                             <form method="POST" action="">
@@ -79,7 +79,6 @@
                             </a>
                         </div>
                     @endif
-
                 </div>
 
             </div>
