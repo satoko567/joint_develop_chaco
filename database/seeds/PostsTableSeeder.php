@@ -13,21 +13,25 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         $users = DB::table('users')->get();
-
-        //投稿内容は「今日の気分」と仮定しました
         foreach ($users as $user) {
             DB::table('posts')->insert([
                 [
                     'user_id' => $user->id,
-                    'content' => '今日はコーヒーが飲みたい',
+                    'shop_name' => 'コーヒー整備工場',
+                    'address' => '新潟県三条市カフェ通り1-1',
+                    'content' => 'コーヒー整備工場の接客はとても親切だ',
                 ],
                 [
                     'user_id' => $user->id,
-                    'content' => '今日の天気は晴れで気持ちがいい',
+                    'shop_name' => '青空モーターズ',
+                    'address' => '新潟県三条市晴れ町2-2',
+                    'content' => '青空モーターズは安価で安心な整備工場だ',
                 ],
                 [
                     'user_id' => $user->id,
-                    'content' => '今日のご飯はお肉にしよう！',
+                    'shop_name' => 'にくにくオート',
+                    'address' => '新潟県三条市焼肉通り3-3',
+                    'content' => 'にくにくオートは修理の技術がとても高くて素晴らしい',
                 ],
             ]);
         }

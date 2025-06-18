@@ -37,27 +37,20 @@
         </form>
     </div>
 </div>
-
-{{-- 投稿フォーム（ログインユーザーのみ） --}}
-@if (Auth::check())
-    <div class="container mb-4">
-        <div class="text-center">
-            <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" class="w-100">
-                @csrf
-                <div class="form-group">
-                    <textarea class="form-control" name="content" rows="3" placeholder="レビューを1000字以内で投稿">{{ old('content') }}</textarea>
-                </div>
-                <div class="form-group mt-2">
-                    <input type="file" name="image" class="form-control-file">
-                </div>
-                <div class="text-left mt-2">
-                    <button type="submit" class="btn btn-primary">投稿する</button>
-                </div>
-            </form>
-        </div>
-    </div>
-@endif
-
+<div class="welcome-button-group">
+    @if(Auth::check())
+        <a href="{{ route('posts.create') }}" class="welcome-button welcome-btn-about">
+            <i class="fas fa-pen mr-1"></i> 投稿する
+        </a>
+    @else
+        <a href="{{ route('register') }}" class="welcome-button welcome-btn-about">
+            <i class="fas fa-user-plus mr-1"></i> 無料登録で投稿
+        </a>
+    @endif
+    <a href="{{ url('/about') }}" class="welcome-button welcome-btn-about">
+        <i class="fas fa-user-circle mr-1"></i> 運営者紹介
+    </a>
+</div>
 {{-- エラーメッセージ --}}
 <div class="container mb-3">
     @include('commons.error_messages')

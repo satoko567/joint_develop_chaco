@@ -5,8 +5,8 @@
 <div class="row">
     @foreach ($posts as $post)
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
+            <div class="card h-100 shadow-sm d-flex flex-column">
+                <div class="card-body flex-grow-1">
 
                     {{-- 👤 ユーザー情報 --}}
                     <div class="d-flex align-items-center mb-3">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    {{-- 📷 投稿画像（常に表示：投稿者が画像を投稿していない場合はデフォルト） --}}
+                    {{-- 📷 投稿画像 --}}
                     @php
                         $defaultImage = config('constants.no_image_path');
                         $imageUrl = $post->image
@@ -40,19 +40,16 @@
                             : asset($defaultImage);
                     @endphp
                     <a href="{{ route('posts.show', $post->id) }}">
-                    <img src="{{ $imageUrl }}"
-                        class="img-fluid rounded mb-3 w-100"
-                        style="height: 200px; object-fit: contain; background-color: #f8f9fa;"
-                        alt="投稿画像">
+                        <img src="{{ $imageUrl }}" class="img-fluid rounded mb-3 w-100" style="height: 200px; object-fit: contain; background-color: #f8f9fa;" alt="投稿画像">
                     </a>
-                    
-                    {{-- 評価（★） --}}
+
+                    {{-- ⭐ 評価 --}}
                     @php
                         $overall = $post->average_ratings['overall'] ?? null;
                     @endphp
                     <a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: inherit;">
                         <div class="mb-2">
-                            評価：
+                            <small class="text-muted">評価：</small>
                             @if (!empty($overall))
                                 <span class="fw-bold">{{ number_format($overall, 1) }}</span>
                                 <span class="star-rating">
@@ -84,27 +81,39 @@
                         </div>
                     </a>
 
-                    {{-- 📝 投稿内容 --}}
-                    <p class="card-text mb-2" style="max-height: 120px; overflow: hidden; text-overflow: ellipsis;">
+                    {{-- 🛠 店舗情報 --}}
+                    <a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: inherit;">
+                        <h5 class="card-title mb-1 font-weight-bold">
+                            <i class="fas fa-wrench mr-1"></i>{{ $post->shop_name }}
+                        </h5>
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-map-marker-alt mr-1"></i>{{ $post->address }}
+                        </p>
+                    </a>
+
+                    {{-- 💬 投稿内容 --}}
+                    <p class="card-text mb-2" style="max-height: 100px; overflow: hidden;">
                         <a href="{{ route('posts.show', $post->id) }}" style="color: #212529; text-decoration: none;">
-                           {{ Str::limit(strip_tags($post->content), 120, '... 続きを読む') }}
+                            {{ Str::limit(strip_tags($post->content), 120, '... 続きを読む') }}
                         </a>
                     </p>
-                    <p class="text-muted small mb-1">レビュー {{ $post->reviews_count }} 件</p>
-                    <p class="text-muted">{{ $post->created_at }}</p>
-                </div>
 
-                {{-- 🛠 編集・削除（投稿者のみ） --}}
-                @if (Auth::id() === $post->user_id)
-                    <div class="card-footer bg-white d-flex justify-content-between">
-                        <form method="POST" action="">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">削除</button>
-                        </form>
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
-                    </div>
-                @endif
+                    {{-- 🗓 投稿日・レビュー数 --}}
+                    <p class="text-muted small mb-1">レビュー {{ $post->reviews_count }} 件</p>
+                    <p class="text-muted small">{{ $post->created_at }}</p>
+
+                    {{-- ✏️ 編集・削除 --}}
+                    @if (Auth::id() === $post->user_id)
+                        <div class="mt-3 d-flex justify-content-between">
+                            <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                            </form>
+                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">編集する</a>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     @endforeach

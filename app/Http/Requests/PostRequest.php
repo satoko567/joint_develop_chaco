@@ -24,6 +24,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
+            'shop_name' => 'required|string|max:100',
+            'address' => 'required|string|max:100',
             'content' => 'required|max:1000',
             'image' => 'nullable|image|max:2048', 
         ];
@@ -32,6 +34,8 @@ class PostRequest extends FormRequest
     public function attributes()
     {
         return [
+            'shop_name' => '整備工場名',
+            'address' => '住所',
             'content' => '投稿',
             'image' => '画像',
         ];
