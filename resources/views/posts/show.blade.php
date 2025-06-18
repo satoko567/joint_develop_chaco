@@ -1,5 +1,4 @@
 @extends('layouts.app')
-    @include('commons.error_messages')
 @section('content')
     @include('components.flash_message')
 
@@ -74,7 +73,7 @@
             @endif
         </div>
     </div>
-
+    @include('commons.error_messages')
     {{-- リプライ投稿フォーム --}}
     @auth
         <form action="{{ route('replies.store', $post->id) }}" method="POST" class="mt-4">
