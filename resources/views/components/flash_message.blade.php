@@ -7,5 +7,9 @@
 @endif
 
 @if (session('error'))
-    <p>{{ session('error') }}</p>
+    <div>
+        <span style="background-color: #FFCCCC;">
+            {{ session('error') }}
+        </span>
+    </div>
 @endif
