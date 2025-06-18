@@ -105,7 +105,7 @@
                     {{-- ✏️ 編集・削除 --}}
                     @if (Auth::id() === $post->user_id)
                         <div class="mt-3 d-flex justify-content-between">
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ route('posts.delete', $post->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">削除</button>
