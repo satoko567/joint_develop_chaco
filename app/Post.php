@@ -33,4 +33,9 @@ class Post extends Model
             Storage::disk('public')->delete($this->image);
         }
     }
+
+    // 経度、緯度をfillableに追加　マスアサインメント保護
+    protected $fillable = [
+        'content', 'image', 'lat', 'lng',
+    ];
 }

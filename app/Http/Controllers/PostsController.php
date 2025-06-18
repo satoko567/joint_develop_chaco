@@ -62,6 +62,10 @@ class PostsController extends Controller
             $path = $request->file('image')->store('post_images', 'public');
             $post->image = $path;
         }
+        //経度・緯度の保存処理（GoogleMapの位置情報）
+        $post->lat = $request->input('lat');
+        $post->lng = $request->input('lng');
+        
         $post->save();
         return back();
     }
