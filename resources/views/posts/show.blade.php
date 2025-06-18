@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+    @include('commons.error_messages')
 @section('content')
     @include('components.flash_message')
 

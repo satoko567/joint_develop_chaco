@@ -12,7 +12,7 @@ class RepliesController extends Controller
     public function store(Request $request, $postId)
     {
         $request->validate([
-            'content' => 'required|max:1000',
+            'content' => 'required|max:140',
         ]);
 
         $post = Post::findOrFail($postId);
