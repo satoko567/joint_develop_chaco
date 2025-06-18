@@ -13,8 +13,10 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::prefix('users/{id}')->group(function () {
+    Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('follows', 'UsersController@follows')->name('user.follows');
+    Route::get('followers', 'UsersController@followers')->name('user.followers');
 });
 
 Route::group(['middleware' => 'auth'], function () {
