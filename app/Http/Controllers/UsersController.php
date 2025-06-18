@@ -64,10 +64,10 @@ class UsersController extends Controller
     public function follows($id)
     {
         $user = User::with('follows')->findOrFail($id);
-        $follows = $user->follows()->get();
+        $followers = $user->follows()->get();
         $data=[
             'user' => $user,
-            'follows' => $follows,  
+            'followers' => $followers,  
         ];
         $data += $this->userCounts($user);
         

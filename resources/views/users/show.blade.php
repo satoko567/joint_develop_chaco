@@ -25,23 +25,8 @@
         {{-- 各タブの表示内容 --}}
         @if (Request::is('users/'. $user->id))
             @include('posts.posts', ['posts' => $posts])
-        @elseif (Request::is('users/' . $user->id . '/follows'))
-            {{-- フォロー中のユーザー一覧 --}}
-            @foreach ($follows as $follow)
-                <div class="media mb-3">
-                    <img class="mr-3 rounded-circle" src="{{ Gravatar::src($follow->email, 70) }}" alt="アイコン">
-                    <div class="media-body">
-                        <h5 class="mt-0">
-                            <a href="{{ route('user.show', $follow->id) }}">{{ $follow->name }}</a>
-                        </h5>
-                        @if (Auth::check() && Auth::id() !== $follow->id)
-                            @include('follow.follow_button', ['user' => $follow])
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        @elseif (Request::is('users/'. $user->id. '/followers'))
-            {{-- フォロワーの一覧表示 --}}
+        @else
+            {{-- フォローフォロワーの一覧表示 --}}
             @foreach ($followers as $follower)
                 <div class="media mb-3">
                     <img class="mr-3 rounded-circle" src="{{ Gravatar::src($follower->email, 70) }}" alt="アイコン">
