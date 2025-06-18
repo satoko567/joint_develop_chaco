@@ -16,6 +16,8 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index();
+            $table->string('shop_name', 100);
+            $table->string('address', 100);
             $table->text('content');
             $table->string('image')->nullable();
             $table->timestamps();

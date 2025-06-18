@@ -9,6 +9,9 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item">
+                        <a href="{{ route('posts.create') }}" class="nav-link text-light">投稿する</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="" class="nav-link text-light">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item">

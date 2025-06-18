@@ -34,6 +34,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">新規登録</button>
                 </form>
+                <div class="mt-2">
+                    <a href="{{ route('login') }}">ログインはこちら</a>
+                </div>
             </div>
         </div>
     </div>
