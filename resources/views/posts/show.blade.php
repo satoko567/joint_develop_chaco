@@ -6,21 +6,21 @@
                 <h4 class="fw-bold border-bottom pb-2 mb-3">
                     <i class="fas fa-user-circle me-2 text-secondary"></i> {{ $post->user->name }} さんの投稿
                 </h4>
-                @if ($averageRatings)
+                @if ($post->average_ratings)
                     <div class="mt-3 mb-3">
                         <h6 class="fw-bold mb-1">平均評価</h6>
                         <div class="d-flex align-items-center">
                             <span class="me-1" style="font-size: 1.4rem; color: #000;">
-                                {{ $averageRatings['overall'] !== null ? number_format($averageRatings['overall'], 1) : '-' }}
+                                {{ $post->average_ratings['overall'] !== null ? number_format($post->average_ratings['overall'], 1) : '-' }}
                             </span>
                             <span style="color: gold; font-size: 1.4rem;">
-                                {{ $averageRatings['overall'] !== null ? '★' : '' }}
+                                {{ $post->average_ratings['overall'] !== null ? '★' : '' }}
                             </span>
                         </div>
                         <small class="text-muted">
-                            接客：{{ display_star_rating($averageRatings['service']) }}／
-                            料金：{{ display_star_rating($averageRatings['cost']) }}／
-                            技術：{{ display_star_rating($averageRatings['quality']) }}
+                            接客：{{ display_star_rating($post->average_ratings['service']) }}／
+                            料金：{{ display_star_rating($post->average_ratings['cost']) }}／
+                            技術：{{ display_star_rating($post->average_ratings['quality']) }}
                         </small>
                     </div>
                 @endif
