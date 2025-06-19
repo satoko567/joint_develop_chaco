@@ -22,12 +22,12 @@
     <div class="container text-center">
         <h1 class="display-4 font-weight-bold custom-title">修理どこがいい？クルマの名医ナビ</h1>
         <p class="lead mt-3">信頼できる自動車整備工場が口コミで見つかる、車修理レビューアプリ</p>
-<div class="mt-4">
+        <div class="mt-4">
     <video controls width="100%" style="max-width: 720px;" class="mx-auto d-block">
         <source src="{{ asset('videos/sample.mp4') }}" type="video/mp4">
         お使いのブラウザは video タグをサポートしていません。
     </video>
-</div>
+        </div>
         {{-- 検索フォーム（共通化） --}}
         <form action="{{ url('/') }}" method="GET" class="mt-4 w-75 mx-auto">
             <div class="input-group">
