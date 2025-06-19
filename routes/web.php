@@ -42,3 +42,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'PostsController@index')->name('post.index');
 Route::get('posts/{id}', 'PostsController@show')->name('post.show');
+
+// タグ
+Route::get('/tags/{id}', 'TagController@search')->name('tags.search');

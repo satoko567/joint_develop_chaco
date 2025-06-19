@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Tag;
 
 class PostsController extends Controller
 {   
@@ -18,14 +19,15 @@ class PostsController extends Controller
             $posts->where('content', 'LIKE', "%{$keyword}%");
         }
 
-        $posts = $posts->orderBy('created_at', 'desc')->paginate(10);
+        $posts = $posts->with('tags')->orderBy('created_at', 'desc')->paginate(10);
+        $tags = Tag::all();
 
-        return view('welcome', compact('posts', 'keyword'));
+        return view('welcome', compact('posts', 'keyword', 'tags'));
     }
 
     public function show($id)
     {
-        $post = Post::with('user')->findOrFail($id);
+        $post = Post::with(['user', 'tags'])->findOrFail($id);
     
         $replies = $post->replies()->with('user')->orderBy('created_at', 'desc')->paginate(10);
 
@@ -41,8 +43,13 @@ class PostsController extends Controller
             abort(403);
         }
 
+        $tags = Tag::all();
+        $selectedTagIds = $post->tags->pluck('id')->toArray();
+
         $data = [            
             'post' => $post,
+            'tags' => $tags,
+            'selectedTagIds' => $selectedTagIds,
         ];
         return view('posts.edit', $data);
     }
@@ -63,6 +70,9 @@ class PostsController extends Controller
             $post->image_path = str_replace('public/', 'storage/', $path);
         }
         $post->save();
+
+        $post->tags()->sync($request->input('tags', []));
+        
         return redirect()->route('post.index')->with('success', '更新が完了しました！');
     }
 
@@ -79,6 +89,9 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->image_path = $path;
         $post->save();
+
+        $post->tags()->attach($request->tags);
+
         return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }
     
@@ -92,4 +105,11 @@ class PostsController extends Controller
 
         return redirect() ->back();
     }
+
+    public function create()
+    {
+        $tags = Tag::all();
+        return view('posts.form', compact('tags'));
+    }
+
 }
