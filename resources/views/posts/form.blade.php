@@ -5,6 +5,18 @@
             <div class="form-group mb-3">
                 <textarea name="content" id="content" class="form-control" rows="3" placeholder="いまどうしてる？">{{ old('content') }}</textarea>
             </div>
+
+            {{-- タグ選択 --}}
+            <div class="form-group mb-3 text-left">
+                <label>タグを選択:</label><br>
+                @foreach ($tags as $tag)
+                    <label class="mr-3">
+                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                            {{ (is_array(old('tags')) && in_array($tag->id, old('tags'))) ? 'checked' : '' }}>
+                        {{ $tag->name }}
+                    </label>
+                @endforeach
+            </div>
             {{-- 画像添付--}}
             <div class="form-group mb-3">
                 <div class="d-flex align-items-center">

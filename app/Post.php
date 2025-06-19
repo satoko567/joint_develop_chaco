@@ -28,4 +28,9 @@ class Post extends Model
         'image_path',
     ];
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }

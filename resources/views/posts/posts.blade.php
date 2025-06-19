@@ -56,6 +56,17 @@
                     @endif
                 </div>
 
+                {{-- タグ表示（リンク付き） --}}
+                @if ($post->tags->isNotEmpty())
+                    <div class="mb-2 text-left">
+                        @foreach ($post->tags as $tag)
+                            <a href="{{ route('tags.search', ['id' => $tag->id]) }}" class="badge badge-pill badge-info">
+                                #{{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
                 {{-- リプライ＋編集削除 --}}
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     

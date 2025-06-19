@@ -16,12 +16,25 @@
          </div>
       </div>
     </form>
+
+    {{-- タグ一覧 --}}
+    <div class="mb-4 text-center">
+        <div class="d-inline-flex flex-wrap justify-content-center">
+            @foreach ($tags as $tag)
+                <a href="{{ route('tags.search', ['id' => $tag->id]) }}"
+                class="btn btn-info m-2 px-2 py-0"
+                style="border: 1px solid #17A2B8; color: #17A2B8; border-radius: 20px; background-color: white; font-size: 14px;">
+                    #{{ $tag->name }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+
     @if (Auth::check())
         <div class="w-75 m-auto">@include('commons.error_messages')</div> 
         <div class="text-center mb-3">
             @include('posts.form')
         </div>
     @endif
-    @include('posts.posts', ['posts' => $posts])
-    </div>    
+    @include('posts.posts', ['posts' => $posts]) 
 @endsection

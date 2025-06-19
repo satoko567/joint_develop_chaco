@@ -32,6 +32,18 @@
             {{-- プレビュー画像 --}}
             <img id="preview" src="#" alt="画像プレビュー" class="img-fluid mb-2" style="display: none; max-height: 100px;">
         </div>
+        
+        {{-- タグの選択 --}}
+        <div class="form-group mt-4">
+            <label>タグを選択：</label><br>
+            @foreach ($tags as $tag)
+                <label class="mr-3">
+                    <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                        {{ in_array($tag->id, $selectedTagIds ?? []) ? 'checked' : '' }}>
+                    {{ $tag->name }}
+                </label>
+            @endforeach
+        </div>
         <button type="submit" class="btn btn-primary mt-5 mb-5">更新する</button>
     </form>
 @endsection
