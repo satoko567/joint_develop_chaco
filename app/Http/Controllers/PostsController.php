@@ -128,6 +128,6 @@ class PostsController extends Controller
             $post->image = $path;
         }
         $post->save(); //postテーブルに保存
-        return redirect('/');              
+        return redirect()->route('posts.show', $post->id);
     }
 }
