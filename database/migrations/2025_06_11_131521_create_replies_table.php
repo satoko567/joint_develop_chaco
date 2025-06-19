@@ -23,7 +23,7 @@ class CreateRepliesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
+    
 
     /**
      * Reverse the migrations.
