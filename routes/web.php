@@ -34,10 +34,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'UsersController@withdrawal')->name('user.withdrawal');
     });
 
+    Route::prefix('posts')->group(function () {
+        Route::get('{post_id}/replies/{reply}/edit', 'RepliesController@edit')->name('replies.edit');
+        Route::put('{post_id}/replies/{reply}', 'RepliesController@update')->name('replies.update');
+    });
+
     Route::group(['prefix' => 'users/{id}'], function() {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
+    
 });   
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');

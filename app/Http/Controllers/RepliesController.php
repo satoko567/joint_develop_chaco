@@ -32,4 +32,21 @@ class RepliesController extends Controller
         return redirect()->route('post.show', $postId)
             ->with('success', 'リプライを投稿しました！');
     }
+
+    public function edit($postId, Reply $reply)
+    {
+        return view('replies.edit', compact('reply', 'postId'));
+    }
+    
+    public function update(Request $request, $postId, Reply $reply)
+    {       
+        $request->validate([
+            'content' => 'required|max:140',
+        ]);
+
+        $reply->content = $request->content;
+        $reply->save();
+
+        return redirect()->route('post.show', $postId)->with('success', 'リプライを更新しました！');
+    }
 }
