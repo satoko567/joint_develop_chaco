@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::prefix('{post_id}/replies/{reply}')->group(function () {
             Route::get('edit', 'RepliesController@edit')->name('replies.edit');
-            Route::put('', 'RepliesController@update')->name('replies.update');
+            Route::put('/', 'RepliesController@update')->name('replies.update');
         });
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
