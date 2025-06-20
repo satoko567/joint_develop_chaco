@@ -125,8 +125,9 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'content' => [
+            'required' => '投稿内容は、必ず指定してください。',
+            'max' => '投稿内容は、:max文字以内で入力してください。',
         ],
     ],
     /*
@@ -143,5 +144,6 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'content' => '投稿内容',
     ],
 ];

@@ -90,7 +90,7 @@ class PostsController extends Controller
         $post->image_path = $path;
         $post->save();
 
-        $post->tags()->sync($request->input('tags', []));        
+        $post->tags()->attach($request->tags);        
         
         return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }

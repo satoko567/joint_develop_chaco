@@ -21,6 +21,10 @@ Route::prefix('users/{id}')->group(function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
+        Route::prefix('{post_id}/replies/{reply}')->group(function () {
+            Route::get('edit', 'RepliesController@edit')->name('replies.edit');
+            Route::put('', 'RepliesController@update')->name('replies.update');
+        });
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
@@ -32,11 +36,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}', 'UsersController@withdrawal')->name('user.withdrawal');
-    });
-
-    Route::prefix('posts')->group(function () {
-        Route::get('{post_id}/replies/{reply}/edit', 'RepliesController@edit')->name('replies.edit');
-        Route::put('{post_id}/replies/{reply}', 'RepliesController@update')->name('replies.update');
     });
 
     Route::group(['prefix' => 'users/{id}'], function() {
