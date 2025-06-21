@@ -20,9 +20,18 @@
 
             {{-- 投稿内容 --}}
             <div class="d-flex gap-3 mt-2">
-                <div class="flex-grow-1">
-                    <p class="card-text mb-2">{{ $post->content }}</p>
-                </div>
+            <div class="flex-grow-1">
+                <p class="card-text mb-2">{{ $post->content }}</p>
+
+                {{-- ✅ タグ表示を「投稿内容のすぐ下」に配置！ --}}
+                @if ($post->tags->isNotEmpty())
+                    <div class="mt-2">
+                        @foreach ($post->tags as $tag)
+                            <span class="badge badge-primary">{{ $tag->name }}</span>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
 
                 {{-- 投稿画像 --}}
                 @if ($post->image_path)
@@ -111,6 +120,15 @@
                         <p class="card-text mb-2">{{ $reply->content }}</p>
                     </div>
                 </div>
+
+                {{-- 編集ボタン（投稿者本人だけ表示） --}}
+                @if (Auth::id() === $reply->user_id)
+                    <div class="d-flex justify-content-end mt-2">
+                        <a href="{{ route('replies.edit', [$post->id, $reply->id]) }}" class="btn btn-sm btn-outline-secondary">
+                            編集
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     @empty

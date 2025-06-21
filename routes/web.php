@@ -21,6 +21,10 @@ Route::prefix('users/{id}')->group(function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
+        Route::prefix('{post_id}/replies/{reply}')->group(function () {
+            Route::get('edit', 'RepliesController@edit')->name('replies.edit');
+            Route::put('/', 'RepliesController@update')->name('replies.update');
+        });
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
@@ -38,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
+    
 });   
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
