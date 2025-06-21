@@ -52,7 +52,7 @@
             <i class="fas fa-user-plus mr-1"></i> 無料登録で投稿
         </a>
     @endif
-    <a href="{{ url('/about') }}" class="welcome-button welcome-btn-about">
+    <a href="{{ route('about.show') }}" class="welcome-button welcome-btn-about">
         <i class="fas fa-user-circle mr-1"></i> 運営者紹介
     </a>
 </div>

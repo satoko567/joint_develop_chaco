@@ -7,6 +7,9 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{{ route('about.show') }}" class="nav-link text-light">運営者紹介</a>
+                </li>
                 @if (Auth::check())
                     <li class="nav-item">
                         <a href="{{ route('posts.create') }}" class="nav-link text-light">投稿する</a>
