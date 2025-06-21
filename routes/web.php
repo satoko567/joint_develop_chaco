@@ -53,3 +53,7 @@ Route::get('posts/{id}', 'PostsController@show')->name('post.show');
 
 // タグ
 Route::get('/tags/{id}', 'TagController@search')->name('tags.search');
+// 新規タグ追加
+Route::post('/tags', 'TagController@store')->name('tags.store');
+// タグ削除
+Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');
