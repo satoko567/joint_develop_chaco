@@ -89,7 +89,7 @@ class PostsController extends Controller
         $post->lng = $request->input('lng');
         
         $post->save();
-        return back();
+        return back()->with('flash_message', '投稿しました。ありがとう！');
     }
     
     public function destroy($id)
@@ -100,7 +100,7 @@ class PostsController extends Controller
             $post->deleteReviews();
             $post->delete();
         }
-        return redirect()->back();
+        return redirect()->back()->with('flash_message', '投稿を削除しました');
     }      
 
     //editメソッドを作成。動画編集のあたり
@@ -128,6 +128,7 @@ class PostsController extends Controller
             $post->image = $path;
         }
         $post->save(); //postテーブルに保存
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)
+            ->with('flash_message', '投稿を更新しました');
     }
 }

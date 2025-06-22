@@ -22,7 +22,8 @@ class ReviewsController extends Controller
         $review->user_id = Auth::id();
         $review->post_id = $post->id;
         $review->save();
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', $post)
+            ->with('flash_message', 'レビューを投稿しました。ありがとう！');
     }
 
     // 編集画面
@@ -53,7 +54,8 @@ class ReviewsController extends Controller
         $review->rating_cost = $request->input('rating_cost') !== '' ? $request->input('rating_cost') : null;
         $review->rating_quality = $request->input('rating_quality') !== '' ? $request->input('rating_quality') : null;
         $review->save();
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', $post)
+            ->with('flash_message', 'レビューを更新しました');
     }
 
     // 削除処理
@@ -64,6 +66,6 @@ class ReviewsController extends Controller
             abort(403);
         }
         $review->delete();
-        return back();
+        return back()->with('flash_message', 'レビューを削除しました');
     }
 }

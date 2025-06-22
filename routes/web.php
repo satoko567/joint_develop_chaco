@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PostsController@index');
+Route::view('about', 'about.about')->name('about.show');
 
 // 投稿詳細ページ
 Route::get('post/{id}', 'PostsController@show')->name('posts.show');

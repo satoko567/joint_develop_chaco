@@ -12,6 +12,7 @@
         @include('commons.header')
         <main class="flex-grow-1">
             <div class="container">
+                @include('commons.success_message')
                 @yield('content')
             </div>
         </main>
