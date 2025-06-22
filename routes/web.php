@@ -42,8 +42,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
-    
+
+    // 新規タグ追加
+    Route::post('/tags', 'TagController@store')->name('tags.store');
+    // タグ削除
+    Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');
 });   
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -53,7 +58,3 @@ Route::get('posts/{id}', 'PostsController@show')->name('post.show');
 
 // タグ
 Route::get('/tags/{id}', 'TagController@search')->name('tags.search');
-// 新規タグ追加
-Route::post('/tags', 'TagController@store')->name('tags.store');
-// タグ削除
-Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');

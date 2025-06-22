@@ -1,6 +1,5 @@
 <div class="card mt-4 shadow-sm mx-auto" style="max-width: 800px;">
     <div class="card-body">
-        @include('commons.error_messages')
         @include('components.flash_message')
         <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
@@ -91,7 +90,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <strong>{{ $tag->name }}</strong>」タグを削除してもよろしいですか？
+                            「<strong>{{ $tag->name }}</strong>」タグを削除してもよろしいですか？
                         </div>
                         <div class="modal-footer">
                             <form action="{{ route('tags.destroy', $tag->id) }}" method="POST">
