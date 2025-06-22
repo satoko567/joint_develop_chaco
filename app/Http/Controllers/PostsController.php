@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Review;
+use App\Tag;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Support\Facades\Auth;
@@ -85,6 +86,11 @@ class PostsController extends Controller
             $post->image = $path;
         }
         $post->save();
+        $rawTags = $request->input('tags');
+        $tagNames = Tag::parseTagNames($rawTags);
+        if (!empty($tagNames)) {
+            Tag::syncToPost($post, $tagNames);
+        }
         return back()->with('flash_message', '投稿しました。ありがとう！');
     }
     
@@ -94,6 +100,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->deleteImage();
             $post->deleteReviews();
+            $post->detachTags();
             $post->delete();
         }
         return redirect()->back()->with('flash_message', '投稿を削除しました');
@@ -124,6 +131,13 @@ class PostsController extends Controller
             $post->image = $path;
         }
         $post->save(); //postテーブルに保存
+        $rawTags = $request->input('tags');
+        $tagNames = Tag::parseTagNames($rawTags);
+        if (!empty($tagNames)) {
+            Tag::syncToPost($post, $tagNames);
+        } else {
+            $post->detachTags();
+        }
         return redirect()->route('posts.show', $post->id)
             ->with('flash_message', '投稿を更新しました');
     }
