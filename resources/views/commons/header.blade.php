@@ -1,4 +1,4 @@
-<header class="mb-5">
+<header class="mb-0">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
         <a class="navbar-brand" href="/">寺子屋＠プログラミング</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">

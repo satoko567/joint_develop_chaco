@@ -3,21 +3,36 @@
     {{-- ▼ container の外にヒーロー画像を出すため、直接ここで閉じてから再開 --}}
     </div> {{-- ← layouts.app で開いている .container を一時閉じる --}}
 
-    {{-- ▼ 横幅100%のヒーロー画像 + タイトルを中央に重ねる --}}
     <div style="
-        background: url('{{ asset('images/hero.png') }}') no-repeat center center;
-        background-size: cover;
-        height: 80vh;
-        width: 100%;
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;">
-        <div class="text-white text-center" style="
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 2rem;
-            border-radius: 1rem;">
-            <h1 class="display-4 fw-bold">
+        background: url('{{ asset('images/hero.png') }}') no-repeat center top;
+        background-size: cover;
+        height: 95vh;
+        width: 100%;
+        margin-bottom: 2rem;">
+
+        {{-- 白のオーバーレイ --}}
+        <div style="
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.4);  /* 白半透明 */
+            z-index: 1;">
+        </div>
+
+        {{-- タイトル --}}
+        <div style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;">
+            <h1 class="text-center" style="
+                font-size: clamp(2.5rem, 6vw, 5rem); 
+                font-weight: 500; 
+                color: #17A2B8; 
+                text-shadow: 4px 4px 6px rgba(255, 255, 255, 0.85); 
+                white-space: nowrap;">
                 <i class="fas fa-chalkboard-teacher pr-2"></i>寺子屋＠プログラミング
             </h1>
         </div>
