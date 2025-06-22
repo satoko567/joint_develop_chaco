@@ -41,6 +41,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    protected function redirectTo()
+    {
+        session()->flash('flash_message', '会員登録が完了しました！');
+        return '/';
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
