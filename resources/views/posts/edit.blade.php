@@ -35,6 +35,13 @@
             <div class="text-left">
                 <button type="submit" class="btn btn-primary">更新する</button>
             </div>
+            <input type="hidden" name="lat" id="lat" value="{{ old('lat', $post->lat) }}">
+            <input type="hidden" name="lng" id="lng" value="{{ old('lng', $post->lng) }}">
         </form>
-    </div>
+    </div> 
+@endsection
+
+@section('scripts')
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
+    <script src="{{ asset('js/geocode.js') }}"></script>
 @endsection

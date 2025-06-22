@@ -34,6 +34,28 @@
                             <i class="fas fa-map-marker-alt me-2 text-secondary"></i>{{ $post->address }}
                         </p>
                     </div>
+                    @if ($post->lat && $post->lng)
+    <div class="mb-4">
+        <h6 class="fw-bold">地図</h6>
+        <div id="map" style="height: 400px;"></div>
+
+        <script>
+            function initMap() {
+                const location = { lat: {{ $post->lat }}, lng: {{ $post->lng }} };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 15,
+                    center: location,
+                });
+
+                new google.maps.Marker({
+                    position: location,
+                    map: map,
+                });
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap" async defer></script>
+    </div>
+@endif
 
                     <div class="mb-3">
                         <div class="fw-bold text-dark mb-1">投稿内容：</div>

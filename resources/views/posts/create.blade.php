@@ -25,6 +25,8 @@
             <div class="text-left">
                 <button type="submit" class="btn btn-primary">投稿する</button>
             </div>
+            <input type="hidden" name="lat" id="lat">
+            <input type="hidden" name="lng" id="lng">
         </form>
     </div>
     <div class="container mb-5">
@@ -33,4 +35,9 @@
         </h4>
         @include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
+    <script src="{{ asset('js/geocode.js') }}"></script>
 @endsection
