@@ -13,6 +13,8 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::get('/ranking/followers', 'UsersController@followerRanking')->name('ranking.followers');
+
 Route::prefix('users/{id}')->group(function () {
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('follows', 'UsersController@follows')->name('user.follows');

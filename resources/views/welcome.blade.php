@@ -36,5 +36,14 @@
             @include('posts.form')
         </div>
     @endif
-    @include('posts.posts', ['posts' => $posts]) 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    @include('posts.posts', ['posts' => $posts])
+                 </div>
+                 <div class="col-md-4"> 
+                    @include('users.follower_ranking', ['rankingUsers' => $rankingUsers])
+                </div>
+            </div>
+        </div>
 @endsection
