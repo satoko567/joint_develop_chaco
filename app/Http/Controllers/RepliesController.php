@@ -49,4 +49,12 @@ class RepliesController extends Controller
 
         return redirect()->route('post.show', $postId)->with('success', 'リプライを更新しました！');
     }
+
+    public function destroy($postId, Reply $reply)
+    {
+        $reply->delete();
+
+        return redirect()->route('post.show', $postId)->with('success', 'リプライを削除しました。');
+    }
+
 }
