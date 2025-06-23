@@ -5,17 +5,18 @@
 
     <div style="
         position: relative;
-        background: url('{{ asset('images/hero.png') }}') no-repeat center top;
+        background: url('{{ asset('images/hero.png') }}') no-repeat center center;
         background-size: cover;
-        height: 95vh;
+        aspect-ratio: 16 / 9;   /* 高さを自然に決める */
         width: 100%;
-        margin-bottom: 2rem;">
+        margin-bottom: 2rem;
+        overflow: hidden;">
 
         {{-- 白のオーバーレイ --}}
         <div style="
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.4);  /* 白半透明 */
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.6);  /* 白半透明 */
             z-index: 1;">
         </div>
 
@@ -26,20 +27,27 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
-            text-align: center;">
+            text-align: center;
+            width: 100%;">
             <h1 class="text-center" style="
-                font-size: clamp(2.5rem, 6vw, 5rem); 
-                font-weight: 500; 
-                color: #17A2B8; 
-                text-shadow: 4px 4px 6px rgba(255, 255, 255, 0.85); 
-                white-space: nowrap;">
+                font-size: clamp(2rem, 6vw, 5rem);
+                font-weight: 500;
+                color: #17A2B8;
+                text-shadow:
+                    -2px -2px 2px rgba(0, 0, 0, 0.9),
+                    4px 4px 7px rgba(255, 255, 255, 0.9);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 90%;
+                margin: 0 auto;">
                 <i class="fas fa-chalkboard-teacher pr-2"></i>寺子屋＠プログラミング
             </h1>
         </div>
     </div>
     <div class="container"> {{-- ← 再開 --}}
         <h5 class="description text-center mb-3">"プログラミング"について140字以内で会話しよう！</h5>
-        <form method="GET" action="{{ route('post.index') }}" class="mx-auto mt-4" style="width: 500px;">
+        <form method="GET" action="{{ route('post.index') }}" class="mx-auto mt-4 w-100" style="max-width: 500px;">
         <div class="form-group ">
             <div class="input-group">
                 <input type="text" name="keyword" class="form-control" placeholder="検索"  value="{{ old('keyword', $keyword) }}" autocomplete="on">
