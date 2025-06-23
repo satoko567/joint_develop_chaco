@@ -228,4 +228,7 @@ return [
 
     ],
 
+    // API_KEY
+    'GoogleMapsApiKey' => env('GOOGLE_MAPS_API_KEY'),
+
 ];
