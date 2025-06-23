@@ -30,7 +30,8 @@
                     value="{{ old('tags') ? str_replace('，', ',', old('tags')) : '' }}" placeholder="例：修理、車検、整備">
                 <small class="text-muted">
                     ※ タグは最大10個まで、1つのタグは20文字以内で入力してください。<br>
-                    ※ 全角カンマ（、）や読点（，）で区切っても自動で登録されます。
+                    ※ 全角カンマ（、）や読点（，）で区切っても自動で登録されます。<br>
+                    ※「#」を入れなくても登録されます。
                 </small>
             </div>
             <div class="form-group mb-4">

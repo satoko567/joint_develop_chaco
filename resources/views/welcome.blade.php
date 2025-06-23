@@ -29,7 +29,7 @@
             </video>
         </div>
         {{-- 検索フォーム（共通化） --}}
-        <form action="{{ url('/') }}" method="GET" class="mt-4 w-75 mx-auto">
+        <form action="{{ route('posts.index') }}" method="GET" class="mt-4 w-75 mx-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -42,10 +42,10 @@
         </form>
         <div class="text-center mt-3">
             <div>
-                <a href="{{ route('posts.byTagName', '車') }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#車</a>
-                <a href="{{ route('posts.byTagName', '車検') }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#車検</a>
-                <a href="{{ route('posts.byTagName', '対応が丁寧') }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#対応が丁寧</a>
-                <a href="{{ route('posts.byTagName', '価格が安い') }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#価格が安い</a>
+                <a href="{{ route('posts.index', ['keyword' => '修理']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#修理</a>
+                <a href="{{ route('posts.index', ['keyword' => '車検']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#車検</a>
+                <a href="{{ route('posts.index', ['keyword' => '対応が丁寧']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#対応が丁寧</a>
+                <a href="{{ route('posts.index', ['keyword' => '価格が安い']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#価格が安い</a>
             </div>
         </div>
     </div>

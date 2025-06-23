@@ -1,7 +1,5 @@
-@if (request()->routeIs('posts.byTagName') && empty($tag))
-    <p class="text-center text-muted py-3">該当のタグは見つかりませんでした。</p>
-@elseif ($posts->isEmpty())
-    <p class="text-center text-muted py-3">投稿が見つかりませんでした。</p>
+@if ($posts->isEmpty())
+    <p class="text-center text-muted py-3">該当する投稿やタグが見つかりませんでした。</p>
 @endif
 <div class="row">
     @foreach ($posts as $post)
@@ -101,7 +99,7 @@
                     @if ($post->tags->isNotEmpty())
                         <div class="mb-2">
                             @foreach ($post->tags as $tag)
-                                <a href="{{ route('posts.byTagName', $tag->name) }}" style="font-size: 0.8rem; color: #6c757d; margin-right: 0.4em; text-decoration: none;">
+                                <a href="{{ route('posts.index', ['keyword' => $tag->name]) }}" style="font-size: 0.8rem; color: #6c757d; margin-right: 0.4em; text-decoration: none;">
                                     #{{ $tag->name }}
                                 </a>
                             @endforeach

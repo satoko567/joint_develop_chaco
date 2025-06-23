@@ -17,30 +17,21 @@ class PostsController extends Controller
 {
     public function index(SearchRequest $request)
     {
-        $keyword = $request->input('keyword');
-        $tag = null;
-
+        $rawKeyword = $request->input('keyword');
+        $keyword = ltrim($rawKeyword, '#');
         $posts = $this->basePostQuery()
-            ->when(Str::startsWith($keyword, '#'), function ($query) use ($keyword, &$tag) {
-                $tagName = ltrim($keyword, '#');
-                $tag = Tag::where('name', $tagName)->first();
-
-                if ($tag) {
-                    return $query->whereHas('tags', function ($q) use ($tag) {
-                        $q->where('tags.id', $tag->id);
-                    });
-                } else {
-                    return $query->whereRaw('0 = 1');
-                }
-            }, function ($query) use ($keyword) {
-                return $query->when($keyword, function ($q, $kw) {
-                    return $q->where('content', 'like', "%{$kw}%");
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where(function ($subQuery) use ($keyword) {
+                    $subQuery->where('content', 'like', "%{$keyword}%")
+                        ->orWhereHas('tags', function ($tagQuery) use ($keyword) {
+                            $tagQuery->where('name', $keyword);
+                        });
                 });
             })
             ->paginate(9);
         $data = [
-            'keyword' => $keyword,
-            'tag' => $tag,
+            'keyword' => $rawKeyword,
+            'tag' => Tag::where('name', $keyword)->first(),
             'posts' => $posts,
         ];
         return view('welcome', $data);
@@ -49,14 +40,13 @@ class PostsController extends Controller
     public function indexByTagName($name)
     {
         $tag = Tag::where('name', $name)->first();
+        $posts = new LengthAwarePaginator([], 0, 9);
         if ($tag) {
             $posts = $this->basePostQuery()
                 ->whereHas('tags', function ($query) use ($tag) {
                     $query->where('tags.id', $tag->id);
                 })
                 ->paginate(9);
-        } else {
-            $posts = new LengthAwarePaginator([], 0, 9);
         }
         $data = [
             'tag' => $tag,
