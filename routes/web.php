@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PostsController@index');
+Route::get('/tags/name/{name}', 'PostsController@indexByTagName')->name('posts.byTagName');
 Route::view('about', 'about.about')->name('about.show');
 
 // 投稿詳細ページ

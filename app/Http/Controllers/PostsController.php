@@ -10,64 +10,67 @@ use App\Tag;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
     public function index(SearchRequest $request)
     {
         $keyword = $request->input('keyword');
-        $posts = Post::with(['user','reviews' => function ($query) {
-                    $query->whereNull('deleted_at');
+        $tag = null;
+
+        $posts = $this->basePostQuery()
+            ->when(Str::startsWith($keyword, '#'), function ($query) use ($keyword, &$tag) {
+                $tagName = ltrim($keyword, '#');
+                $tag = Tag::where('name', $tagName)->first();
+
+                if ($tag) {
+                    return $query->whereHas('tags', function ($q) use ($tag) {
+                        $q->where('tags.id', $tag->id);
+                    });
+                } else {
+                    return $query->whereRaw('0 = 1');
                 }
-            ])
-            ->withCount(['reviews' => function ($query) {
-                $query->whereNull('deleted_at');
-            }])
-            ->when($keyword, function ($query, $keyword) {
-                return $query->where('content', 'like', "%{$keyword}%");
+            }, function ($query) use ($keyword) {
+                return $query->when($keyword, function ($q, $kw) {
+                    return $q->where('content', 'like', "%{$kw}%");
+                });
             })
-            ->orderBy('id', 'desc')
             ->paginate(9);
         $data = [
             'keyword' => $keyword,
+            'tag' => $tag,
             'posts' => $posts,
         ];
         return view('welcome', $data);
     }
 
-    public function show($id)
+    public function indexByTagName($name)
     {
-        $post = Post::with('user')->findOrFail($id);
-        $reviews = $post->reviews()
-            ->with('user')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
-        $latestReview = Review::latestReview($post);
-        $hasReviewed = false;
-        if (Auth::check() && Auth::id() !== $post->user_id) {
-            $hasReviewed = Review::hasReviewed(Auth::user(), $post);
+        $tag = Tag::where('name', $name)->first();
+        if ($tag) {
+            $posts = $this->basePostQuery()
+                ->whereHas('tags', function ($query) use ($tag) {
+                    $query->where('tags.id', $tag->id);
+                })
+                ->paginate(9);
+        } else {
+            $posts = new LengthAwarePaginator([], 0, 9);
         }
         $data = [
-            'post' => $post,
-            'reviews' => $reviews,
-            'latestReview' => $latestReview,
-            'hasReviewed' => $hasReviewed,
+            'tag' => $tag,
+            'posts' => $posts,
+            'keyword' => null,
         ];
-        $data += Review::reviewCounts($post);
-        return view('posts.show', $data);
+        return view('welcome', $data);
     }
 
     public function create()
     {
         $keyword = '';
-        $posts = Post::with(['user', 'reviews' => function ($query) {
-            $query->whereNull('deleted_at');
-        }])
-        ->withCount(['reviews' => function ($query) {
-            $query->whereNull('deleted_at');
-        }])
-        ->orderBy('id', 'desc')
-        ->paginate(9);
+        $posts = $this->basePostQuery()->paginate(9);
+
         return view('posts.create', [
             'posts' => $posts,
             'keyword' => $keyword,
@@ -93,7 +96,29 @@ class PostsController extends Controller
         }
         return back()->with('flash_message', '投稿しました。ありがとう！');
     }
-    
+
+    public function show($id)
+    {
+        $post = Post::with(['user', 'tags'])->findOrFail($id);
+        $reviews = $post->reviews()
+            ->with('user')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+        $latestReview = Review::latestReview($post);
+        $hasReviewed = false;
+        if (Auth::check() && Auth::id() !== $post->user_id) {
+            $hasReviewed = Review::hasReviewed(Auth::user(), $post);
+        }
+        $data = [
+            'post' => $post,
+            'reviews' => $reviews,
+            'latestReview' => $latestReview,
+            'hasReviewed' => $hasReviewed,
+        ];
+        $data += Review::reviewCounts($post);
+        return view('posts.show', $data);
+    }
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
@@ -140,5 +165,20 @@ class PostsController extends Controller
         }
         return redirect()->route('posts.show', $post->id)
             ->with('flash_message', '投稿を更新しました');
+    }
+
+    private function basePostQuery()
+    {
+        return Post::with([
+                'user',
+                'tags',
+                'reviews' => function ($query) {
+                    $query->whereNull('deleted_at');
+                }
+            ])
+            ->withCount(['reviews' => function ($query) {
+                $query->whereNull('deleted_at');
+            }])
+            ->orderBy('id', 'desc');
     }
 }

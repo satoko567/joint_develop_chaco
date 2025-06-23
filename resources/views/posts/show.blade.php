@@ -39,7 +39,16 @@
                         <div class="fw-bold text-dark mb-1">投稿内容：</div>
                         <p class="mb-0 text-break">{{ $post->content }}</p>
                     </div>
-
+                    @if ($post->tags->isNotEmpty())
+                        <div class="mt-3">
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('posts.byTagName', $tag->name) }}"
+                                style="font-size: 0.85rem; color: #6c757d; margin-right: 0.5em; text-decoration: none;">
+                                    #{{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
                     <div class="text-end">
                         <small class="text-muted">投稿日：{{ $post->created_at }}</small>
                     </div>

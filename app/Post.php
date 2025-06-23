@@ -20,6 +20,11 @@ class Post extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id')->withTimestamps();
+    }
+
     // 投稿と関連するレビューをすべて削除する
     public function deleteReviews()
     {
@@ -32,6 +37,12 @@ class Post extends Model
         if ($this->image) {
             Storage::disk('public')->delete($this->image);
         }
+    }
+
+    // 投稿と関連するタグの紐付けを削除
+    public function detachTags()
+    {
+        $this->tags()->detach();
     }
 
     // 論理削除されていないレビューの各評価項目の平均値を連想配列で返すアクセサ
