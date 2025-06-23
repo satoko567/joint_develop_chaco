@@ -44,7 +44,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users/{id}'], function() {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
-    });    
+    });
+
+    // 新規タグ追加
+    Route::post('/tags', 'TagController@store')->name('tags.store');
+    // タグ削除
+    Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');
 });   
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
