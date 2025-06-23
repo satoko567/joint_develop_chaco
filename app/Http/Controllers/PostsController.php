@@ -37,25 +37,6 @@ class PostsController extends Controller
         return view('welcome', $data);
     }
 
-    public function indexByTagName($name)
-    {
-        $tag = Tag::where('name', $name)->first();
-        $posts = new LengthAwarePaginator([], 0, 9);
-        if ($tag) {
-            $posts = $this->basePostQuery()
-                ->whereHas('tags', function ($query) use ($tag) {
-                    $query->where('tags.id', $tag->id);
-                })
-                ->paginate(9);
-        }
-        $data = [
-            'tag' => $tag,
-            'posts' => $posts,
-            'keyword' => null,
-        ];
-        return view('welcome', $data);
-    }
-
     public function create()
     {
         $keyword = '';

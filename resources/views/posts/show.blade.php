@@ -42,7 +42,7 @@
                     @if ($post->tags->isNotEmpty())
                         <div class="mt-3">
                             @foreach ($post->tags as $tag)
-                                <a href="{{ route('posts.byTagName', $tag->name) }}"
+                                <a href="{{ route('posts.index', ['keyword' => $tag->name]) }}"
                                 style="font-size: 0.85rem; color: #6c757d; margin-right: 0.5em; text-decoration: none;">
                                     #{{ $tag->name }}
                                 </a>
