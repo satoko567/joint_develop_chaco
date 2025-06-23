@@ -24,11 +24,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('{post_id}/replies/{reply}')->group(function () {
             Route::get('edit', 'RepliesController@edit')->name('replies.edit');
             Route::put('/', 'RepliesController@update')->name('replies.update');
+            Route::delete('/', 'RepliesController@destroy')->name('replies.destroy');
         });
+
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
+        
         Route::post('{id}/replies', 'RepliesController@store')->name('replies.store');
     });
 
