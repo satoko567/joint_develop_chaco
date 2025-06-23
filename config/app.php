@@ -227,8 +227,5 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
-    // API_KEY
-    'GoogleMapsApiKey' => env('GOOGLE_MAPS_API_KEY'),
-
+    
 ];

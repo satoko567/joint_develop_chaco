@@ -38,6 +38,6 @@
 @endsection
 
 @section('scripts')
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('app.GoogleMapsApiKey') }}&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&libraries=places"></script>
     <script src="{{ asset('js/geocode.js') }}"></script>
 @endsection
