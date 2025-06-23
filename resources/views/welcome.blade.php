@@ -65,5 +65,29 @@
 <div class="container mb-5">
     <h3 class="text-center mb-3">🔧 新着レビュー</h3>              
 </div>
+<script>
+ window.difyChatbotConfig = {
+  token: 'bkjw6diZTdu9pzTv',
+  systemVariables: {
+    // user_id: 'YOU CAN DEFINE USER ID HERE',
+    // conversation_id: 'YOU CAN DEFINE CONVERSATION ID HERE, IT MUST BE A VALID UUID',
+  },
+ }
+</script>
+<script
+ src="https://udify.app/embed.min.js"
+ id="bkjw6diZTdu9pzTv"
+ defer>
+</script>
+<style>
+  #dify-chatbot-bubble-button {
+    background-color: #1C64F2 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 40rem !important;
+  }
+</style>
+
 @include('posts.posts',['posts' => $posts, 'keyword' => $keyword])
 @endsection
