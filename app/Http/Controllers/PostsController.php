@@ -22,7 +22,9 @@ class PostsController extends Controller
         $posts = $posts->with('tags')->orderBy('created_at', 'desc')->paginate(10);
         $tags = Tag::all();
 
-        return view('welcome', compact('posts', 'keyword', 'tags'));
+        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
+
+        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers'));
     }
 
     public function show($id)
@@ -90,7 +92,7 @@ class PostsController extends Controller
         $post->image_path = $path;
         $post->save();
 
-        $post->tags()->attach($request->tags);        
+        $post->tags()->attach($request->tags); 
         
         return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }
