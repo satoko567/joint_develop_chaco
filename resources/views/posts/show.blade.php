@@ -35,33 +35,42 @@
                         </p>
                     </div>
                     @if ($post->lat && $post->lng)
-    <div class="mb-4">
-        <h6 class="fw-bold">地図</h6>
-        <div id="map" style="height: 400px;"></div>
+                        <div class="mb-4">
+                            <h6 class="fw-bold">地図</h6>
+                            <div id="map" style="height: 400px;"></div>
 
-        <script>
-            function initMap() {
-                const location = { lat: {{ $post->lat }}, lng: {{ $post->lng }} };
-                const map = new google.maps.Map(document.getElementById("map"), {
-                    zoom: 15,
-                    center: location,
-                });
+                            <script>
+                                function initMap() {
+                                    const location = { lat: {{ $post->lat }}, lng: {{ $post->lng }} };
+                                    const map = new google.maps.Map(document.getElementById("map"), {
+                                        zoom: 15,
+                                        center: location,
+                                    });
 
-                new google.maps.Marker({
-                    position: location,
-                    map: map,
-                });
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&callback=initMap" async defer></script>
-    </div>
-@endif
-
+                                    new google.maps.Marker({
+                                        position: location,
+                                        map: map,
+                                    });
+                                }
+                            </script>
+                            <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&callback=initMap" async defer></script>
+                        </div>
+                    @endif
+                    
                     <div class="mb-3">
                         <div class="fw-bold text-dark mb-1">投稿内容：</div>
                         <p class="mb-0 text-break">{{ $post->content }}</p>
                     </div>
-
+                    @if ($post->tags->isNotEmpty())
+                        <div class="mt-3">
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('posts.index', ['keyword' => $tag->name]) }}"
+                                style="font-size: 0.85rem; color: #6c757d; margin-right: 0.5em; text-decoration: none;">
+                                    #{{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
                     <div class="text-end">
                         <small class="text-muted">投稿日：{{ $post->created_at }}</small>
                     </div>

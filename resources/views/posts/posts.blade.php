@@ -1,7 +1,6 @@
 @if ($posts->isEmpty())
-    <p class="text-center text-muted py-3">投稿が見つかりませんでした。</p>
+    <p class="text-center text-muted py-3">該当する投稿やタグが見つかりませんでした。</p>
 @endif
-
 <div class="row">
     @foreach ($posts as $post)
         <div class="col-md-4 mb-4">
@@ -97,6 +96,15 @@
                             {{ Str::limit(strip_tags($post->content), 120, '... 続きを読む') }}
                         </a>
                     </p>
+                    @if ($post->tags->isNotEmpty())
+                        <div class="mb-2">
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('posts.index', ['keyword' => $tag->name]) }}" style="font-size: 0.8rem; color: #6c757d; margin-right: 0.4em; text-decoration: none;">
+                                    #{{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
 
                     {{-- 🗓 投稿日・レビュー数 --}}
                     <p class="text-muted small mb-1">レビュー {{ $post->reviews_count }} 件</p>

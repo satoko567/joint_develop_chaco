@@ -6,29 +6,32 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Review;
+use App\Tag;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
     public function index(SearchRequest $request)
     {
-        $keyword = $request->input('keyword');
-        $posts = Post::with(['user','reviews' => function ($query) {
-                    $query->whereNull('deleted_at');
-                }
-            ])
-            ->withCount(['reviews' => function ($query) {
-                $query->whereNull('deleted_at');
-            }])
-            ->when($keyword, function ($query, $keyword) {
-                return $query->where('content', 'like', "%{$keyword}%");
+        $rawKeyword = $request->input('keyword');
+        $keyword = ltrim($rawKeyword, '#');
+        $posts = $this->basePostQuery()
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where(function ($subQuery) use ($keyword) {
+                    $subQuery->where('content', 'like', "%{$keyword}%")
+                        ->orWhereHas('tags', function ($tagQuery) use ($keyword) {
+                            $tagQuery->where('name', $keyword);
+                        });
+                });
             })
-            ->orderBy('id', 'desc')
             ->paginate(9);
         $data = [
-            'keyword' => $keyword,
+            'keyword' => $rawKeyword,
+            'tag' => Tag::where('name', $keyword)->first(),
             'posts' => $posts,
         ];
         return view('welcome', $data);
@@ -36,7 +39,7 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('user')->findOrFail($id);
+        $post = Post::with(['user', 'tags'])->findOrFail($id);
         $reviews = $post->reviews()
             ->with('user')
             ->orderBy('id', 'desc')
@@ -59,14 +62,7 @@ class PostsController extends Controller
     public function create()
     {
         $keyword = '';
-        $posts = Post::with(['user', 'reviews' => function ($query) {
-            $query->whereNull('deleted_at');
-        }])
-        ->withCount(['reviews' => function ($query) {
-            $query->whereNull('deleted_at');
-        }])
-        ->orderBy('id', 'desc')
-        ->paginate(9);
+        $posts = $this->basePostQuery()->paginate(9);
         return view('posts.create', [
             'posts' => $posts,
             'keyword' => $keyword,
@@ -87,8 +83,12 @@ class PostsController extends Controller
         //経度・緯度の保存処理（GoogleMapの位置情報）
         $post->lat = $request->input('lat');
         $post->lng = $request->input('lng');
-        
         $post->save();
+        $rawTags = $request->input('tags');
+        $tagNames = Tag::parseTagNames($rawTags);
+        if (!empty($tagNames)) {
+            Tag::syncToPost($post, $tagNames);
+        }
         return back()->with('flash_message', '投稿しました。ありがとう！');
     }
     
@@ -98,6 +98,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->deleteImage();
             $post->deleteReviews();
+            $post->detachTags();
             $post->delete();
         }
         return redirect()->back()->with('flash_message', '投稿を削除しました');
@@ -131,7 +132,29 @@ class PostsController extends Controller
             $post->image = $path;
         }
         $post->save(); //postテーブルに保存
+        $rawTags = $request->input('tags');
+        $tagNames = Tag::parseTagNames($rawTags);
+        if (!empty($tagNames)) {
+            Tag::syncToPost($post, $tagNames);
+        } else {
+            $post->detachTags();
+        }
         return redirect()->route('posts.show', $post->id)
             ->with('flash_message', '投稿を更新しました');
+    }
+
+    private function basePostQuery()
+    {
+        return Post::with([
+                'user',
+                'tags',
+                'reviews' => function ($query) {
+                    $query->whereNull('deleted_at');
+                }
+            ])
+            ->withCount(['reviews' => function ($query) {
+                $query->whereNull('deleted_at');
+            }])
+            ->orderBy('id', 'desc');
     }
 }

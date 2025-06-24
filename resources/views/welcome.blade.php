@@ -29,17 +29,25 @@
             </video>
         </div>
         {{-- 検索フォーム（共通化） --}}
-        <form action="{{ url('/') }}" method="GET" class="mt-4 w-75 mx-auto">
+        <form action="{{ route('posts.index') }}" method="GET" class="mt-4 w-75 mx-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
-            <span class="input-group-text">
-                <i class="fas fa-search"></i> {{-- 虫眼鏡アイコン --}}
-            </span>
-        </div>
-                <input id="keyword" type="text" name="keyword" class="form-control" placeholder="キーワード検索" value="{{ old('keyword', $keyword ?? '') }}">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i> {{-- 虫眼鏡アイコン --}}
+                    </span>
+                </div>
+                <input id="keyword" type="text" name="keyword" class="form-control" placeholder="キーワード検索 or タグ検索" value="{{ old('keyword', $keyword ?? '') }}">
                 <button class="btn btn-primary" type="submit">検索</button>
             </div>
         </form>
+        <div class="text-center mt-3">
+            <div>
+                <a href="{{ route('posts.index', ['keyword' => '修理']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#修理</a>
+                <a href="{{ route('posts.index', ['keyword' => '車検']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#車検</a>
+                <a href="{{ route('posts.index', ['keyword' => '対応が丁寧']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#対応が丁寧</a>
+                <a href="{{ route('posts.index', ['keyword' => '価格が安い']) }}" class="badge badge-secondary mx-1" style="font-size: 0.9rem;">#価格が安い</a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="welcome-button-group">
@@ -65,5 +73,5 @@
 <div class="container mb-5">
     <h3 class="text-center mb-3">🔧 新着レビュー</h3>              
 </div>
-@include('posts.posts',['posts' => $posts, 'keyword' => $keyword])
+@include('posts.posts', ['posts' => $posts, 'keyword' => $keyword, 'tag' => $tag ?? null])
 @endsection
