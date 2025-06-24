@@ -101,7 +101,7 @@ class PostsController extends Controller
             $post->detachTags();
             $post->delete();
         }
-        return redirect()->back()->with('flash_message', '投稿を削除しました');
+        return redirect()->route('posts.index')->with('flash_message', '投稿を削除しました');
     }      
 
     //editメソッドを作成。動画編集のあたり

@@ -1,18 +1,19 @@
 @extends('layouts.app')
+@section('title', '新規登録 | 修理どこがいい？クルマの名医ナビ')
+@section('meta_description', 'クルマ修理レビューアプリへの新規登録ページ。投稿やレビューでおすすめの整備工場をシェアしよう。')
 @section('content')
-    <div class="text-center">
-        <h1 class="d-flex align-items-center justify-content-center fs-3 fw-bold mb-4">
-            <i class="fab fa-telegram mr-3" style="font-size: 2.4rem;"></i> Topic Post
-        </h1>
-        <div class="mx-auto mb-5" style="max-width: 400px; text-align: left; padding-left: 2rem;">
-            <p class="fs-6">
-                新規ユーザ登録すると投稿で<br>
-                コミュニケーションができるようになります。
-            </p>
-        </div>
+    <div class="text-center my-4">
+        <h1><i class="fas fa-wrench fa-lg pr-2"></i>クルマの名医ナビ</h1>
+    </div>
+    <div class="text-center mt-3">
+        <p class="text-left d-inline-block mt-3">
+            新規登録すると、投稿やレビューで<br>
+            おすすめの整備工場をシェアできます！
+        </p>
+    </div>
         <div class="row mt-4 mb-5 justify-content-center">
             <div class="col-sm-6 text-left">
-                <h2 class="text-center mt-3" style="font-size: 1.75rem; margin-bottom: 3.5rem;">新規ユーザ登録</h2>
+                <h2 class="text-center mt-3" style="font-size: 1.75rem; margin-bottom: 3.5rem;">新規登録</h2>
                 @include('commons.error_messages')
                 <form method="POST" action="{{ route('signup.post') }}">
                     @csrf
