@@ -34,6 +34,10 @@ class Post extends Model
         }
     }
 
+    // 経度、緯度をfillableに追加　マスアサインメント保護
+    protected $fillable = [
+        'content', 'image', 'lat', 'lng',
+    ];
     // 論理削除されていないレビューの各評価項目の平均値を連想配列で返すアクセサ
     public function getAverageRatingsAttribute()
     {

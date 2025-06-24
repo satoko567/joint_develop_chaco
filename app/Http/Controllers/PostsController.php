@@ -84,6 +84,10 @@ class PostsController extends Controller
             $path = $request->file('image')->store('post_images', 'public');
             $post->image = $path;
         }
+        //経度・緯度の保存処理（GoogleMapの位置情報）
+        $post->lat = $request->input('lat');
+        $post->lng = $request->input('lng');
+        
         $post->save();
         return back()->with('flash_message', '投稿しました。ありがとう！');
     }
@@ -118,6 +122,9 @@ class PostsController extends Controller
         $post->shop_name = $request->shop_name;
         $post->address = $request->address;
         $post->content = $request->input('content'); //投稿内容をpostテーブルのcontentカラムに代入
+        $post->lat = $request->input('lat');
+        $post->lng = $request->input('lng');
+        
         if ($request->hasFile('image')) {
             $post->deleteImage();
             $path = $request->file('image')->store('post_images', 'public');

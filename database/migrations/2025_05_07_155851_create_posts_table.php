@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('address', 100);
             $table->text('content');
             $table->string('image')->nullable();
+            $table->decimal('lat', 10, 7)->nullable();
+            $table->decimal('lng', 10, 7)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
