@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h3>{{ $user->name }} さんがフォローしているユーザー</h3>
     {{-- フォロワー検索フォーム --}}
-    <form method="GET" action="{{ route(Route::currentRouteName(), $user->id) }}" class="mb-4 w-75 mx-auto">
+    <form method="GET" action="{{ route(Route::currentRouteName(), $user->id) }}" class="mx-auto mt-4 mb-5" style="max-width: 700px; width: 100%;">
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">

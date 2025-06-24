@@ -1,3 +1,15 @@
+.welcome-custom-title {
+    font-family: 'Anton', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+}
+
+.welcome-tags a {
+    font-size: 0.9rem;
+    margin: 0 0.25rem;
+    padding: 0.4rem 0.8rem;
+}
+
 .welcome-button {
     display: inline-flex;
     align-items: center;
@@ -39,4 +51,35 @@
     background-color: #343a40;
     color: #fff;
     border-color: #343a40;
+}
+
+@media (max-width: 576px) {
+    .search-form {
+        width: 100% !important;
+    }
+
+    .welcome-tags a {
+        font-size: 0.75rem;
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .welcome-button {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.05rem;
+    }
+
+    .welcome-button-group {
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .welcome-btn-about-last {
+        margin-bottom: 1.5rem;
+    }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="w-75 mx-auto">
+        <div class="mx-auto" style="max-width: 700px; width: 100%;">
             <div class="mb-4 b-3">
                 <h4>{{ $post->user->name }} さんの投稿</h4>
                 <div class="alert alert-info">

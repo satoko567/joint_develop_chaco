@@ -109,18 +109,6 @@
                     {{-- 🗓 投稿日・レビュー数 --}}
                     <p class="text-muted small mb-1">レビュー {{ $post->reviews_count }} 件</p>
                     <p class="text-muted small">{{ $post->created_at }}</p>
-
-                    {{-- ✏️ 編集・削除 --}}
-                    @if (Auth::id() === $post->user_id)
-                        <div class="mt-3 d-flex justify-content-between">
-                            <form method="POST" action="{{ route('posts.delete', $post->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">削除</button>
-                            </form>
-                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">編集する</a>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
