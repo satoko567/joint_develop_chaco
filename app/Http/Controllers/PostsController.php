@@ -37,37 +37,6 @@ class PostsController extends Controller
         return view('welcome', $data);
     }
 
-    public function create()
-    {
-        $keyword = '';
-        $posts = $this->basePostQuery()->paginate(9);
-
-        return view('posts.create', [
-            'posts' => $posts,
-            'keyword' => $keyword,
-        ]);
-    }
-
-    public function store(PostRequest $request)
-    {
-        $post = new Post;
-        $post->shop_name = $request->shop_name;
-        $post->address = $request->address;
-        $post->content = $request->content;
-        $post->user_id = $request->user()->id;
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('post_images', 'public');
-            $post->image = $path;
-        }
-        $post->save();
-        $rawTags = $request->input('tags');
-        $tagNames = Tag::parseTagNames($rawTags);
-        if (!empty($tagNames)) {
-            Tag::syncToPost($post, $tagNames);
-        }
-        return back()->with('flash_message', '投稿しました。ありがとう！');
-    }
-
     public function show($id)
     {
         $post = Post::with(['user', 'tags'])->findOrFail($id);
@@ -90,6 +59,39 @@ class PostsController extends Controller
         return view('posts.show', $data);
     }
 
+    public function create()
+    {
+        $keyword = '';
+        $posts = $this->basePostQuery()->paginate(9);
+        return view('posts.create', [
+            'posts' => $posts,
+            'keyword' => $keyword,
+        ]);
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post;
+        $post->shop_name = $request->shop_name;
+        $post->address = $request->address;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('post_images', 'public');
+            $post->image = $path;
+        }
+        //経度・緯度の保存処理（GoogleMapの位置情報）
+        $post->lat = $request->input('lat');
+        $post->lng = $request->input('lng');
+        $post->save();
+        $rawTags = $request->input('tags');
+        $tagNames = Tag::parseTagNames($rawTags);
+        if (!empty($tagNames)) {
+            Tag::syncToPost($post, $tagNames);
+        }
+        return back()->with('flash_message', '投稿しました。ありがとう！');
+    }
+    
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
@@ -121,6 +123,9 @@ class PostsController extends Controller
         $post->shop_name = $request->shop_name;
         $post->address = $request->address;
         $post->content = $request->input('content'); //投稿内容をpostテーブルのcontentカラムに代入
+        $post->lat = $request->input('lat');
+        $post->lng = $request->input('lng');
+        
         if ($request->hasFile('image')) {
             $post->deleteImage();
             $path = $request->file('image')->store('post_images', 'public');

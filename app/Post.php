@@ -10,6 +10,11 @@ class Post extends Model
 {
     use SoftDeletes;
 
+    // 経度、緯度をfillableに追加　マスアサインメント保護
+    protected $fillable = [
+        'content', 'image', 'lat', 'lng',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
