@@ -1,10 +1,18 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="w-75 mx-auto">
+        <div class="mx-auto" style="max-width: 700px; width: 100%;">
             <div class="mb-4 b-3">
                 <h4 class="fw-bold border-bottom pb-2 mb-3">
-                    <i class="fas fa-user-circle me-2 text-secondary"></i> {{ $post->user->name }} さんの投稿
+                    <i class="fas fa-user-circle me-2"></i>
+                    <a href="{{ route('user.show', $post->user->id) }}"
+                    class="text-dark fw-bold"
+                    style="text-decoration: none; transition: all 0.2s ease;"
+                    onmouseover="this.style.color='#0d6efd'; this.style.textDecoration='underline';"
+                    onmouseout="this.style.color=''; this.style.textDecoration='none';">
+                        {{ $post->user->name }}
+                    </a>
+                    さんの投稿
                 </h4>
                 @if ($post->average_ratings)
                     <div class="mt-3 mb-3">
@@ -34,25 +42,68 @@
                             <i class="fas fa-map-marker-alt me-2 text-secondary"></i>{{ $post->address }}
                         </p>
                     </div>
+                    @if ($post->lat && $post->lng)
+                        <div class="mb-4">
+                            <div id="map" style="height: 400px;"></div>
 
+                            <script>
+                                function initMap() {
+                                    const location = { lat: {{ $post->lat }}, lng: {{ $post->lng }} };
+                                    const map = new google.maps.Map(document.getElementById("map"), {
+                                        zoom: 15,
+                                        center: location,
+                                    });
+
+                                    new google.maps.Marker({
+                                        position: location,
+                                        map: map,
+                                    });
+                                }
+                            </script>
+                            <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&callback=initMap" async defer></script>
+                        </div>
+                    @endif
+                    
                     <div class="mb-3">
                         <div class="fw-bold text-dark mb-1">投稿内容：</div>
                         <p class="mb-0 text-break">{{ $post->content }}</p>
                     </div>
-
-                    <div class="text-end">
-                        <small class="text-muted">投稿日：{{ $post->created_at }}</small>
+                    @if ($post->tags->isNotEmpty())
+                        <div class="mt-1">
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('posts.index', ['keyword' => $tag->name]) }}"
+                                style="font-size: 0.85rem; color: #6c757d; margin-right: 0.5em; text-decoration: none;">
+                                    #{{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                    @if (Auth::check() && Auth::id() === $post->user_id)
+                        <div class="d-flex justify-content-between align-items-center mt-4" style="flex-wrap: nowrap;">
+                            <small class="text-muted">投稿日：{{ $post->created_at }}</small>
+                            <div class="d-flex gap-2" style="white-space: nowrap;">
+                                <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary mr-2">編集</a>
+                                <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('本当に削除しますか？')">削除</button>
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <div class="text-end">
+                            <small class="text-muted">投稿日：{{ $post->created_at }}</small>
+                        </div>
+                    @endif
+                </div>
+                @if ($post->image)
+                    <div class="text-center">
+                        <img src="{{ asset('storage/' . $post->image) }}"
+                            class="img-fluid rounded shadow-sm mb-3"
+                            style="max-height: 400px; object-fit: contain; background-color: #f8f9fa;"
+                            alt="投稿画像">
                     </div>
-                </div>
-                @php
-                    $defaultImage = config('constants.no_image_path');
-                    $imageUrl = $post->image
-                        ? asset('storage/' . $post->image)
-                        : asset($defaultImage);
-                @endphp
-                <div class="text-center">
-                    <img src="{{ $imageUrl }}" class="img-fluid rounded shadow-sm mb-3" style="max-height: 400px; object-fit: contain; background-color: #f8f9fa;" alt="投稿画像">
-                </div>
+                @endif
             </div>
             @include('commons.error_messages')
             @if (Auth::check() && Auth::id() !== $post->user_id)

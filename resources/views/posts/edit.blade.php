@@ -22,6 +22,16 @@
                 <textarea id="content" name="content" class="form-control" rows="5" 
                           placeholder="例：接客・対応、料金、修理の仕上がりなど">{{ old('content', $post->content) }}</textarea>
             </div>
+            <div class="form-group w-75 mb-3">
+                <label for="tags" class="form-label">タグ（※任意 カンマ区切りで入力）</label>
+                <input type="text" id="tags" name="tags" class="form-control"
+                    value="{{ old('tags', $post->tags->pluck('name')->implode(', ')) }}"
+                    placeholder="例：親切、安心、スピーディー">
+                <small class="text-muted">
+                    ※ タグは最大10個まで、1つのタグは20文字以内で入力してください。<br>
+                    ※ 全角カンマ（、）や読点（，）で区切っても自動で登録されます。
+                </small>
+            </div>
             @if ($post->image)
                 <div class="mb-3">
                     <p>現在の画像：</p>
@@ -35,6 +45,13 @@
             <div class="text-left">
                 <button type="submit" class="btn btn-primary">更新する</button>
             </div>
+            <input type="hidden" name="lat" id="lat">
+            <input type="hidden" name="lng" id="lng">
         </form>
-    </div>
+    </div> 
+@endsection
+
+@section('scripts')
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&libraries=places"></script>
+    <script src="{{ asset('js/geocode.js') }}"></script>
 @endsection

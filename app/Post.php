@@ -10,6 +10,11 @@ class Post extends Model
 {
     use SoftDeletes;
 
+    // 経度、緯度をfillableに追加　マスアサインメント保護
+    protected $fillable = [
+        'content', 'image', 'lat', 'lng',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -18,6 +23,11 @@ class Post extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id')->withTimestamps();
     }
 
     // 投稿と関連するレビューをすべて削除する
@@ -32,6 +42,12 @@ class Post extends Model
         if ($this->image) {
             Storage::disk('public')->delete($this->image);
         }
+    }
+
+    // 投稿と関連するタグの紐付けを削除
+    public function detachTags()
+    {
+        $this->tags()->detach();
     }
 
     // 論理削除されていないレビューの各評価項目の平均値を連想配列で返すアクセサ

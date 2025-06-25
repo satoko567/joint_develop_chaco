@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Tag;
 
 class PostRequest extends FormRequest
 {
@@ -27,7 +28,8 @@ class PostRequest extends FormRequest
             'shop_name' => 'required|string|max:100',
             'address' => 'required|string|max:100',
             'content' => 'required|max:1000',
-            'image' => 'nullable|image|max:2048', 
+            'image' => 'nullable|image|max:2048',
+            'tags' => 'nullable|string|max:255',
         ];
     }
 
@@ -38,6 +40,7 @@ class PostRequest extends FormRequest
             'address' => '住所',
             'content' => '投稿',
             'image' => '画像',
+            'tags' => 'タグ',
         ];
     }
 
@@ -47,5 +50,32 @@ class PostRequest extends FormRequest
             'image.image' => '画像ファイル（JPG・PNGなど）以外はアップロードできません。',
             'image.max' => '画像は2MB以下のファイルを選択してください。',
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        if ($this->has('tags')) {
+            $normalizedTags = str_replace('，', ',', $this->input('tags'));
+            $normalizedTags = preg_replace('/\s*,\s*/', ',', $normalizedTags);
+            $this->merge([
+                'tags' => trim($normalizedTags),
+            ]);
+        }
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $tagNames = Tag::parseTagNames($this->input('tags'));
+            if (count($tagNames) > 10) {
+                $validator->errors()->add('tags', 'タグは最大10個までです。');
+            }
+            foreach ($tagNames as $tag) {
+                if (mb_strlen($tag) > 20) {
+                    $validator->errors()->add('tags', '1つのタグは20文字以内で入力してください。');
+                    break;
+                }
+            }
+        });
     }
 }
