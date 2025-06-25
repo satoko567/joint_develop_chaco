@@ -61,15 +61,15 @@
 <!-- resources/views/layouts/app.blade.php など共通レイアウトの最後に追加 -->
 <style>
     #chatbot-iframe {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    height: 600px;
-    border: none;
-    z-index: 9999;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    border-radius: 12px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        height: 600px;
+        border: none;
+        z-index: 9999;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        border-radius: 12px;
     }
 </style>
 
