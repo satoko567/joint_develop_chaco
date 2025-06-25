@@ -53,6 +53,33 @@
         @include('commons.error_messages')
     </div>
 
+{{-- 新着レビュー --}}
+<div class="container mb-5">
+    <h3 class="text-center mb-3">🔧 新着レビュー</h3>              
+</div>
+<html>チャットに相談する。<p>
+<!-- resources/views/layouts/app.blade.php など共通レイアウトの最後に追加 -->
+<style>
+    #chatbot-iframe {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        height: 600px;
+        border: none;
+        z-index: 9999;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        border-radius: 12px;
+    }
+</style>
+
+<iframe 
+    id="chatbot-iframe"
+    src="https://cdn.botpress.cloud/webchat/v3.0/shareable.html?configUrl=https://files.bpcontent.cloud/2025/06/17/11/20250617111238-Z9IZ6SJ7.json"
+    allow="microphone; camera">
+</iframe>
+</html>
+@include('posts.posts',['posts' => $posts, 'keyword' => $keyword])
     {{-- 新着レビュー --}}
     <div class="container mb-5">
         <div class="text-center mb-3">
