@@ -19,6 +19,8 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('follows', 'UsersController@follows')->name('user.follows');
     Route::get('followers', 'UsersController@followers')->name('user.followers');
+    Route::get('icon/edit', 'UsersController@editIcon')->name('user.icon.edit');
+    Route::put('icon/update', 'UsersController@updateIcon')->name('user.icon.update');
 });
 
 Route::group(['middleware' => 'auth'], function () {

@@ -4,8 +4,7 @@
     <h2 class="mb-4">リプライの編集</h2>
 
     {{-- エラー表示 --}}
-    @include('commons.error_messages')
-
+    @include('components.flash_message')
     <form method="POST" action="{{ route('replies.update', [$postId, $reply->id]) }}">
         @csrf
         @method('PUT')

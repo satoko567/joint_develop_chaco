@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Gravatar;
 
 class User extends Authenticatable
 {
@@ -92,4 +92,13 @@ class User extends Authenticatable
     }
 
     protected $dates = ['deleted_at'];
+
+    public function getAvatarImageUrlAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar); // アップロード画像がある場合
+        } else {
+            return Gravatar::src($this->email, 310);  // なければGravatar
+        }
+    }
 }
