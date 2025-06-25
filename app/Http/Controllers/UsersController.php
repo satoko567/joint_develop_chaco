@@ -20,7 +20,7 @@ class UsersController extends Controller
         $followedUserIds[] = $user->id;
         // 投稿を取得（自分＋フォロー中）＆ページネーション
         $posts = Post::whereIn('user_id', $followedUserIds)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('Id', 'desc')
             ->paginate(9);
         return view('users.show', compact('user', 'posts', 'keyword')); // ビューにデータを渡す
     }
