@@ -44,7 +44,7 @@ class LoginController extends Controller
         return '/';
     }
 
-    protected function loggedOut(\Illuminate\Http\Request $request)
+    protected function loggedOut()
     {
         return redirect('/')->with('flash_message', 'ログアウトしました。またのご利用をお待ちしています！');
     }

@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'レビューを投稿')
+@section('title', '投稿フォーム | クルマの名医ナビ')
+@section('meta_description', '整備工場のおすすめ情報を投稿できるページです。実際に利用した体験をもとに、接客・価格・技術などのレビューを共有しましょう。')
 @section('content')
     <div class="container mt-4 mb-5">
         <h2 class="text-center mb-4"><i class="fas fa-wrench mr-1"></i>整備工場を投稿する</h2>
@@ -52,7 +53,6 @@
         @include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
     </div>
 @endsection
-
 @section('scripts')
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&libraries=places"></script>
     <script src="{{ asset('js/geocode.js') }}"></script>

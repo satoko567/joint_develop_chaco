@@ -10,22 +10,23 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    //ユーザ詳細
     public function show($id)
     {
         $keyword = '';
-        $user = User::findOrFail($id); // ユーザーが見つからなければ404エラー
-        // 自分とフォロー中のユーザーIDを配列で取得
+        $user = User::findOrFail($id);
         $followedUserIds = $user->followings()->pluck('users.id')->toArray();
         $followedUserIds[] = $user->id;
-        // 投稿を取得（自分＋フォロー中）＆ページネーション
         $posts = Post::whereIn('user_id', $followedUserIds)
             ->orderBy('id', 'desc')
             ->paginate(9);
-        return view('users.show', compact('user', 'posts', 'keyword')); // ビューにデータを渡す
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+            'keyword' => $keyword,
+        ];
+        return view('users.show', $data);
     }
 
-    // 編集画面
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -35,7 +36,6 @@ class UsersController extends Controller
         return view('users.edit', ['user' => $user]);
     }
 
-    // 更新処理(担当：なり)
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -47,37 +47,41 @@ class UsersController extends Controller
             ->with('flash_message', 'ユーザー情報を更新しました');
     }
 
-    // 退会処理
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        if (Auth::id() != $id) {
+        $user = User::with(['posts.tags', 'posts.reviews'])->findOrFail($id);
+        if (Auth::id() !== $user->id) {
             abort(403);
         }
-        $user->posts()->delete();
+        foreach ($user->posts as $post) {
+            $post->deleteImage();
+            $post->deleteReviews();
+            $post->detachTags();
+            $post->delete();
+        }
+        $user->reviews()->delete();
+        $user->followings()->detach();
+        $user->followers()->detach();
         $user->delete();
-        return redirect('/')->with('flash_message', '退会が完了しました。ご利用ありがとうございました');
+        return redirect()->route('posts.index')
+            ->with('flash_message', '退会が完了しました。ご利用ありがとうございました');
     }
 
     //自分がフォローしているユーザー一覧
     public function followings($id)
     {
         $user = User::findOrFail($id);
-        //検索キーワード取得（未入力ならnull）
         $search = request('search');
-        //検索があればnameで絞り込み
         $query = $user->followings();
         if (!empty($search)) {
             $query->where('name', 'like', '%' . $search . '%');
         }
-        //データ取得
         $followings = $query->get();
         $data = [
             'user' => $user,
             'users' => $followings,
         ];
-        $data += $this->userCounts($user);
-
+        $data += $user->userCounts();
         return view('users.followings', $data);
     }
         
@@ -85,30 +89,17 @@ class UsersController extends Controller
     public function followers($id)
     {
         $user = User::findOrFail($id);
-        //検索キーワード取得
         $search = request('search');
-        //検索があればnameで絞り込み
         $query = $user->followers();
         if (!empty($search)) {
             $query->where('name', 'like', '%' . $search . '%');
         }
-        // データ取得
         $followers = $query->get();
         $data = [
             'user' => $user,
             'users' => $followers,
         ];
-        $data += $this->userCounts($user);
-
+        $data += $user->userCounts();
         return view('users.followers', $data);
-    }
-
-    protected function userCounts($user)
-    {
-        return [
-        'count_posts' => $user->posts()->count(),
-        'count_followings' => $user->followings()->count(),
-        'count_followers' => $user->followers()->count(),
-        ];
     }
 }

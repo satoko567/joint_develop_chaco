@@ -21,11 +21,10 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    // ユーザー情報更新バリデーション
+
     public function rules()
     {
         $id = $this->route('id');
-
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,

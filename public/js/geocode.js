@@ -1,15 +1,12 @@
 function geocodeAddress() {
-    const address = document.getElementById('address').value;
+    const address = document.getElementById('address').value.trim();
+    if (!address) return;
     const geocoder = new google.maps.Geocoder();
-
     geocoder.geocode({ address: address }, function(results, status) {
-        if (status === 'OK') {
-            const location = results[0].geometry.location;
-            document.getElementById('lat').value = location.lat();
-            document.getElementById('lng').value = location.lng();
-        } else {
-            alert('住所の位置情報が取得できませんでした: ' + status);
-        }
+        if (status !== 'OK' || !results[0]) return;
+        const location = results[0].geometry.location;
+        document.getElementById('lat').value = location.lat();
+        document.getElementById('lng').value = location.lng();
     });
 }
 

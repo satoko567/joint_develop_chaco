@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-use App\User;
 use App\Review;
 use App\Tag;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -63,24 +60,24 @@ class PostsController extends Controller
     {
         $keyword = '';
         $posts = $this->basePostQuery()->paginate(9);
-        return view('posts.create', [
+        $data = [
             'posts' => $posts,
             'keyword' => $keyword,
-        ]);
+        ];
+        return view('posts.create', $data);
     }
 
     public function store(PostRequest $request)
     {
         $post = new Post;
-        $post->shop_name = $request->shop_name;
-        $post->address = $request->address;
-        $post->content = $request->content;
-        $post->user_id = $request->user()->id;
+        $post->shop_name = $request->input('shop_name');
+        $post->address   = $request->input('address');
+        $post->content   = $request->input('content');
+        $post->user_id   = Auth::id();
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('post_images', 'public');
             $post->image = $path;
         }
-        //経度・緯度の保存処理（GoogleMapの位置情報）
         $post->lat = $request->input('lat');
         $post->lng = $request->input('lng');
         $post->save();
@@ -91,47 +88,30 @@ class PostsController extends Controller
         }
         return back()->with('flash_message', '投稿しました。ありがとう！');
     }
-    
-    public function destroy($id)
-    {
-        $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id) {
-            $post->deleteImage();
-            $post->deleteReviews();
-            $post->detachTags();
-            $post->delete();
-        }
-        return redirect()->route('posts.index')->with('flash_message', '投稿を削除しました');
-    }      
 
-    //editメソッドを作成。動画編集のあたり
-    public function edit($id) //編集ボタンを押した投稿データの、idを取得
+    public function edit($id)
     { 
-        $post = Post::findOrFail($id); //選択した投稿に該当する、投稿データを取得。
-        if (\Auth::id() === $post->user_id) { //自分の投稿以外は編集できないようにする。そのために、ログインユーザのidと、投稿データのidが一致しない場合はエラーを出す。
-            $data = [
-                'post' => $post,
-            ];
-            return view('posts.edit', $data); //posts.editビューを表示
-        } 
-        abort(404); //404エラーを返す。
+        $post = Post::findOrFail($id);
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+        return view('posts.edit', ['post' => $post]);
     }
 
     public function update(PostRequest $request, $id)
     {
-        $post = Post::findOrFail($id); //idに該当する投稿データを取得。見つからなければ404エラーを返す
-        $post->shop_name = $request->shop_name;
-        $post->address = $request->address;
-        $post->content = $request->input('content'); //投稿内容をpostテーブルのcontentカラムに代入
+        $post = Post::findOrFail($id);
+        $post->shop_name = $request->input('shop_name');
+        $post->address   = $request->input('address');
+        $post->content = $request->input('content');
         $post->lat = $request->input('lat');
         $post->lng = $request->input('lng');
-        
         if ($request->hasFile('image')) {
             $post->deleteImage();
             $path = $request->file('image')->store('post_images', 'public');
             $post->image = $path;
         }
-        $post->save(); //postテーブルに保存
+        $post->save();
         $rawTags = $request->input('tags');
         $tagNames = Tag::parseTagNames($rawTags);
         if (!empty($tagNames)) {
@@ -141,6 +121,20 @@ class PostsController extends Controller
         }
         return redirect()->route('posts.show', $post->id)
             ->with('flash_message', '投稿を更新しました');
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+        $post->deleteImage();
+        $post->deleteReviews();
+        $post->detachTags();
+        $post->delete();
+        return redirect()->route('posts.index')
+            ->with('flash_message', '投稿を削除しました');
     }
 
     private function basePostQuery()
