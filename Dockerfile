@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip
 
-# Node.jsのインストール
+# Node.js のインストール
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
-# Composerを入れる
+# Composer をインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -24,18 +24,17 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# ✅ ここが重要：npm のキャッシュフォルダを別の場所に
+# ✅ ここが重要！npm のキャッシュ先を変更（root のフォルダを使わないように）
 ENV npm_config_cache=/var/www/html/.npm-cache
 
+# Composer install（本番環境用）
 RUN composer install --no-plugins --no-scripts --optimize-autoloader --no-dev
 
-# npm install / build は root でやる（上記キャッシュ指定でOK）
+# ✅ npm install / build は root 権限のまま安全に実行可能
 RUN npm install && npm run prod
 
-# 後でパーミッション変更
+# ✅ 最後にパーミッション調整
 RUN chown -R www-data:www-data /var/www/html
-
-USER www-data
 
 EXPOSE 8080
 
