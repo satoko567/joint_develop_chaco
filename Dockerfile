@@ -30,8 +30,9 @@ ENV npm_config_cache=/var/www/html/.npm-cache
 # Composer install（本番環境用）
 RUN composer install --no-plugins --no-scripts --optimize-autoloader --no-dev
 
-# ✅ npm install / build は root 権限のまま安全に実行可能
-RUN npm install && npm run prod
+# ✅ npm実行前に、publicディレクトリに書き込み権限を明示的に与える
+RUN mkdir -p public && chmod -R 777 public \
+    && npm install && npm run prod
 
 # ✅ 最後にパーミッション調整
 RUN chown -R www-data:www-data /var/www/html
