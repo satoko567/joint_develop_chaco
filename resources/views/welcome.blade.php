@@ -3,7 +3,22 @@
     {{-- ▼ container の外にヒーロー画像を出すため、直接ここで閉じてから再開 --}}
     </div> {{-- ← layouts.app で開いている .container を一時閉じる --}}
 
-    <div class="hero-section">
+    {{-- ヒーロー画像 --}}
+    <div style="
+        position: relative;
+        background-image: url('{{ asset('images/hero2.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 60vh;
+        min-height: 300px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;">
+
         <div class="hero-overlay"></div>
 
         <div>
