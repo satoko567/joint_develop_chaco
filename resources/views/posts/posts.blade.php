@@ -66,6 +66,13 @@
                         @endforeach
                     </div>
                 @endif
+                
+                <p>
+                    @if (isset($post->title))
+                        {{ $post->title }}
+                    @endif
+                </p>
+                @include('favorite.favorite_button', ['post' => $post])
 
                 {{-- リプライ＋編集削除 --}}
                 <div class="d-flex justify-content-between align-items-center mt-4">
