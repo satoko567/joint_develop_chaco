@@ -24,16 +24,17 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# Composer install（rootでOK）
+# ✅ ここが重要：npm のキャッシュフォルダを別の場所に
+ENV npm_config_cache=/var/www/html/.npm-cache
+
 RUN composer install --no-plugins --no-scripts --optimize-autoloader --no-dev
 
-# ✅ npm install / run prod は root のまま
+# npm install / build は root でやる（上記キャッシュ指定でOK）
 RUN npm install && npm run prod
 
-# ✅ あとで www-data に所有権を戻す（必要に応じて）
+# 後でパーミッション変更
 RUN chown -R www-data:www-data /var/www/html
 
-# 必要ならユーザー切り替え
 USER www-data
 
 EXPOSE 8080
