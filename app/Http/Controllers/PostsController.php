@@ -103,7 +103,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->shop_name = $request->input('shop_name');
         $post->address   = $request->input('address');
-        $post->content = $request->input('content');
+        $post->content   = $request->input('content');
         $post->lat = $request->input('lat');
         $post->lng = $request->input('lng');
         if ($request->hasFile('image')) {
