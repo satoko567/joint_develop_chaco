@@ -87,7 +87,7 @@ class UsersController extends Controller
         return view('users.show', $data);   
     }
 
-    public function editIcon($id)
+    public function editAvatar($id)
     {
         $user = User::findOrFail($id);
 
@@ -96,10 +96,10 @@ class UsersController extends Controller
             return redirect()->route('user.show', $id)->with('error', '不正な操作です。');
         }
 
-        return view('users.edit_icon', compact('user'));
+        return view('users.edit_avatar', compact('user'));
     }
 
-    public function updateIcon(Request $request, $id)
+    public function updateAvatar(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
@@ -108,9 +108,10 @@ class UsersController extends Controller
         }
 
         $request->validate([
-            'avatar' => 'nullable|image|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+        
+        // アップロードされた画像がある場合
         if ($request->hasFile('avatar')) {
             // 古い画像削除
             if ($user->avatar) {
@@ -121,8 +122,12 @@ class UsersController extends Controller
             $path = $request->file('avatar')->store('public/avatars');
             $user->avatar = str_replace('public/', '', $path);
             $user->save();
+
+            return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');
         }
 
-        return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');
+        // 画像がアップロードされていない場合
+        return redirect()->route('user.avatar.edit', $user->id)->with('info', '画像が選択されていません。');
     }
+    
 }

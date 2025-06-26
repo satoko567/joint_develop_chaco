@@ -14,7 +14,7 @@
                 @if (Auth::check() && Auth::id() === $user->id)
                     {{-- アイコン編集リンク --}}
                     <div>
-                        <a href="{{ route('user.icon.edit', $user->id) }}" class="text-light custom-underline">アイコンを変更する</a>
+                        <a href="{{ route('user.avatar.edit', $user->id) }}" class="text-light custom-underline">アイコンを変更する</a>
                     </div>
 
                     {{-- ユーザ情報の編集ボタン（本人だけに表示） --}}

@@ -8,7 +8,7 @@
 
     <div class="card mt-4 custom-card">
         <div class="card-body">
-            <form action="{{ route('user.icon.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('user.avatar.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
