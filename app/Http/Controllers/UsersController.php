@@ -108,10 +108,9 @@ class UsersController extends Controller
         }
 
         $request->validate([
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         
-        // アップロードされた画像がある場合
         if ($request->hasFile('avatar')) {
             // 古い画像削除
             if ($user->avatar) {
@@ -125,9 +124,6 @@ class UsersController extends Controller
 
             return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');
         }
-
-        // 画像がアップロードされていない場合
-        return redirect()->route('user.avatar.edit', $user->id)->with('info', '画像が選択されていません。');
     }
     
 }

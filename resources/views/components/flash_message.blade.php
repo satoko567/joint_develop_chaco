@@ -7,15 +7,6 @@
     </div>
 @endif
 
-@if (session('info'))
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        {{ session('info') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
-
 @if (session('error'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}

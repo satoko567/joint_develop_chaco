@@ -30,10 +30,7 @@
 
                     {{-- 非表示のファイル選択 --}}
                     <input type="file" name="avatar" id="image" class="d-none" accept="image/*">
-
-                    @error('avatar')
-                        <div class="text-danger mt-2">{{ $message }}</div>
-                    @enderror
+                    
                 </div>
 
                 <div class="text-center">
