@@ -58,7 +58,7 @@ class UsersController extends Controller
 
         Auth::logout();
         
-        return redirect()->route('posts.index')->with('success', '退会が完了しました！');
+        return redirect()->route('post.index')->with('success', '退会が完了しました！');
     }
 
     public function follows($id)

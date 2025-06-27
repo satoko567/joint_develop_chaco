@@ -1,3 +1,4 @@
+@include('components.flash_message')
 @if ($posts->isEmpty())
     <p class="text-center text-muted mt-4">一致する投稿はありませんでした。</p>
 @else
