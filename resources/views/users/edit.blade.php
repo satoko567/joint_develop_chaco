@@ -4,7 +4,7 @@
         <form method="POST" action="{{ route('user.update', $user->id) }}">
         @csrf
         @method('PUT')
-        @include('commons.error_messages')
+        @include('components.flash_message')
             <input type="hidden" name="id" value="{{ old('id', $user->id) }}" />
             <div class="form-group">
                 <label for="name">ユーザ名</label>

@@ -86,4 +86,44 @@ class UsersController extends Controller
         
         return view('users.show', $data);   
     }
+
+    public function editAvatar($id)
+    {
+        $user = User::findOrFail($id);
+
+        // 本人でない場合は拒否（セキュリティ）
+        if (auth()->id() !== $user->id) {
+            return redirect()->route('user.show', $id)->with('error', '不正な操作です。');
+        }
+
+        return view('users.edit_avatar', compact('user'));
+    }
+
+    public function updateAvatar(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if (auth()->id() !== $user->id) {
+            return redirect()->route('user.show', $id)->with('error', '不正な操作です。');
+        }
+
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        
+        if ($request->hasFile('avatar')) {
+            // 古い画像削除
+            if ($user->avatar) {
+                \Storage::delete('public/' . $user->avatar);
+            }
+
+            // 新しい画像保存
+            $path = $request->file('avatar')->store('public/avatars');
+            $user->avatar = str_replace('public/', '', $path);
+            $user->save();
+
+            return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');
+        }
+    }
+    
 }

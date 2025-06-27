@@ -1,6 +1,6 @@
+@include('components.flash_message')
 <div class="card mt-4 shadow-sm mx-auto" style="max-width: 800px;">
     <div class="card-body">
-        @include('components.flash_message')
         <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-3">
