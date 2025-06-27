@@ -51,45 +51,47 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')
+            ->withTimestamps();
     }
 
     public function followings()
     {
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id')
+            ->withTimestamps();
     }
     
-    public function follow($userId)
+    public function follow($id)
     {
-        if ($this->id === $userId || $this->isFollowing($userId)) 
+        if ($this->id === $id || $this->isFollowing($id)) 
         {
             return false;
         }    
-        $this->followings()->attach($userId);
+        $this->followings()->attach($id);
         return true;
     }   
 
-    public function unfollow($userId)
+    public function unfollow($id)
     {
-        if ($this->isFollowing($userId))  
+        if ($this->isFollowing($id))  
         {
-            $this->followings()->detach($userId);
+            $this->followings()->detach($id);
             return true;
         }
         return false;  
     }
 
-    public function isFollowing($userId)
+    public function isFollowing($id)
     {
-        return $this->followings()->where('users.id', $userId)->exists();
+        return $this->followings()->where('users.id', $id)->exists();
     }
 
     public function userCounts()
     {
         $countFollowings = $this->followings()->count();
         $countFollowers = $this->followers()->count();
-
         return [
+            'countPosts' => $this->posts()->count(),
             'countFollowings' => $countFollowings,
             'countFollowers' => $countFollowers,
         ];

@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', '投稿を編集')
+@section('title', '投稿内容を編集する | クルマの名医ナビ')
+@section('meta_description', '整備工場の投稿内容を編集できます。体験談やタグ、画像の修正が可能です。')
 @section('content')
     <div class="container mt-4 mb-5">
         <h2 class="text-center mb-4"><i class="fas fa-edit mr-1"></i>投稿内容を編集する</h2>
@@ -19,8 +20,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="content" class="form-label">おすすめポイント</label>
-                <textarea id="content" name="content" class="form-control" rows="5" 
-                          placeholder="例：接客・対応、料金、修理の仕上がりなど">{{ old('content', $post->content) }}</textarea>
+                <textarea id="content" name="content" class="form-control" rows="5" placeholder="例：接客・対応、料金、修理の仕上がりなど">{{ old('content', $post->content) }}</textarea>
             </div>
             <div class="form-group w-75 mb-3">
                 <label for="tags" class="form-label">タグ（※任意 カンマ区切りで入力）</label>
@@ -38,7 +38,7 @@
                     <img src="{{ asset('storage/' . $post->image) }}" alt="投稿画像" style="max-width: 200px;">
                 </div>
             @endif
-            <div class="form-group mb-4">
+            <div class="form-group w-75 mb-3">
                 <label for="image" class="form-label">画像を変更する（任意）</label>
                 <input type="file" id="image" name="image" class="form-control-file">
             </div>
@@ -50,7 +50,6 @@
         </form>
     </div> 
 @endsection
-
 @section('scripts')
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&libraries=places"></script>
     <script src="{{ asset('js/geocode.js') }}"></script>

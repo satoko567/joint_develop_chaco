@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'ログイン | 修理どこがいい？クルマの名医ナビ')
+@section('title', 'ログイン | クルマの名医ナビ')
 @section('meta_description', 'クルマ修理レビューアプリへのログインページ。口コミで信頼できる整備工場を見つけましょう。')
 @section('content')
     <div class="text-center my-4">
@@ -12,7 +12,7 @@
         </p>
     </div>
     <div class="text-center">
-        <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
+        <h3 class="login-title text-left d-inline-block mt-5">ログイン</h3>
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
@@ -29,7 +29,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">ログイン</button>
             </form>
-            <div class="mt-2"><a href="{{ route('register') }}">新規登録はこちら</a></div>
+            <div class="mt-2"><a href="{{ route('signup') }}">新規登録はこちら</a></div>
         </div>
     </div>
 @endsection

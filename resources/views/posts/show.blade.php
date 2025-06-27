@@ -1,15 +1,16 @@
 @extends('layouts.app')
+@section('title', '投稿の詳細とレビュー | クルマの名医ナビ')
+@section('meta_description', '整備工場の詳細な投稿内容とレビューの一覧を確認できるページです。利用者の評価や体験談をもとに信頼できる工場を見つけましょう。')
 @section('content')
     <div class="container">
         <div class="mx-auto" style="max-width: 700px; width: 100%;">
-            <div class="mb-4 b-3">
+            <div class="mb-4 mb-3">
                 <h4 class="fw-bold border-bottom pb-2 mb-3">
                     <i class="fas fa-user-circle me-2"></i>
-                    <a href="{{ route('user.show', $post->user->id) }}"
-                    class="text-dark fw-bold"
+                    <a href="{{ route('user.show', $post->user->id) }}" class="text-dark fw-bold"
                     style="text-decoration: none; transition: all 0.2s ease;"
-                    onmouseover="this.style.color='#0d6efd'; this.style.textDecoration='underline';"
-                    onmouseout="this.style.color=''; this.style.textDecoration='none';">
+                    onmouseover="this.style.textDecoration='underline';"
+                    onmouseout="this.style.textDecoration='none';">
                         {{ $post->user->name }}
                     </a>
                     さんの投稿
@@ -45,7 +46,6 @@
                     @if ($post->lat && $post->lng)
                         <div class="mb-4">
                             <div id="map" style="height: 400px;"></div>
-
                             <script>
                                 function initMap() {
                                     const location = { lat: {{ $post->lat }}, lng: {{ $post->lng }} };
@@ -53,7 +53,6 @@
                                         zoom: 15,
                                         center: location,
                                     });
-
                                     new google.maps.Marker({
                                         position: location,
                                         map: map,
@@ -63,7 +62,6 @@
                             <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.GoogleMapsApiKey') }}&callback=initMap" async defer></script>
                         </div>
                     @endif
-                    
                     <div class="mb-3">
                         <div class="fw-bold text-dark mb-1">投稿内容：</div>
                         <p class="mb-0 text-break">{{ $post->content }}</p>
@@ -106,7 +104,7 @@
                 @endif
             </div>
             @include('commons.error_messages')
-            @if (Auth::check() && Auth::id() !== $post->user_id)
+            @if (Auth::check())
                 @if ($hasReviewed)
                     <p class="text-muted">※あなたはこの投稿にすでにレビューしています</p>
                 @endif
@@ -116,7 +114,6 @@
                         <label for="comment">レビュー内容</label>
                         <textarea name="comment" id="comment" class="form-control" rows="3">{{ old('comment') }}</textarea>
                     </div>
-                    {{-- 接客・対応 --}}
                     <div class="form-group mt-3">
                         <label>接客・対応の満足度（1〜5☆）※任意</label><br>
                         @for ($i = 1; $i <= 5; $i++)
@@ -126,7 +123,6 @@
                             </label>
                         @endfor
                     </div>
-                    {{-- 料金の妥当性 --}}
                     <div class="form-group mt-2">
                         <label>料金の妥当性について（1〜5☆）※任意</label><br>
                         @for ($i = 1; $i <= 5; $i++)
@@ -136,7 +132,6 @@
                             </label>
                         @endfor
                     </div>
-                    {{-- 技術・仕上がり --}}
                     <div class="form-group mt-2">
                         <label>修理の仕上がり精度（1〜5☆）※任意</label><br>
                         @for ($i = 1; $i <= 5; $i++)
@@ -148,8 +143,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">レビューする</button>
                 </form>
-            @elseif (Auth::check() && Auth::id() === $post->user_id)
-                <p class="text-muted">※自分の投稿にはレビューできません。</p>
             @else
                 <p class="text-muted">※レビューするにはログインが必要です。</p>
             @endif

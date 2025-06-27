@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'ユーザ情報編集 | クルマの名医ナビ')
+@section('meta_description', '登録したユーザ情報（名前・メールアドレス・パスワードなど）を編集するページです。')
 @section('content')
     <div class="container mt-5 mb-5">
         <div class="mx-auto" style="max-width: 1150px;">
@@ -10,24 +12,20 @@
                 <input type="hidden" name="id" value="{{ $user->id }}" />
                 <div class="form-group">
                     <label for="name">ユーザ名</label>
-                    <input class="form-control" type="text" name="name" value="{{ old('name', $user->name) }}"/>
+                    <input id="name" class="form-control" type="text" name="name" value="{{ old('name', $user->name) }}" />
                 </div>
-
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input class="form-control" type="email" name="email" value="{{ old('email', $user->email) }}" />
+                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $user->email) }}" />
                 </div>
-
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input class="form-control" type="password" name="password" />
+                    <input id="password" class="form-control" type="password" name="password" />
                 </div>
-
                 <div class="form-group">
                     <label for="password_confirmation">パスワードの確認</label>
-                    <input class="form-control" type="password" name="password_confirmation" />
+                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" />
                 </div>
-
                 <div class="d-flex justify-content-between">
                     <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
                     <button type="submit" class="btn btn-primary">更新する</button>

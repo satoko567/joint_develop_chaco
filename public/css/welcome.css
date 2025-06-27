@@ -53,6 +53,26 @@
     border-color: #343a40;
 }
 
+.chatbot-round-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: white;
+    padding: 16px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-round-button:hover {
+    background-color: #00FFFF;
+}
+
 @media (max-width: 576px) {
     .search-form {
         width: 100% !important;
@@ -81,5 +101,12 @@
 
     .welcome-btn-about-last {
         margin-bottom: 1.5rem;
+    }
+
+    .chatbot-round-button {
+        padding: 10px 14px;
+        font-size: 13px;
+        bottom: 12px;
+        right: 12px;
     }
 }

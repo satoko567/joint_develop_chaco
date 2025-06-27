@@ -18,7 +18,6 @@ class CreateFollowersTable extends Migration
             $table->bigInteger('user_id')->unsigned()->index();
             $table->bigInteger('follower_id')->unsigned()->index();
             $table->timestamps();
-            //外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
             $table->unique(['user_id','follower_id']);

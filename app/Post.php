@@ -10,7 +10,6 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    // 経度、緯度をfillableに追加　マスアサインメント保護
     protected $fillable = [
         'content', 'image', 'lat', 'lng',
     ];
@@ -27,7 +26,8 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id')
+            ->withTimestamps();
     }
 
     // 投稿と関連するレビューをすべて削除する

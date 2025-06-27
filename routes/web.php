@@ -18,7 +18,7 @@ Route::view('about', 'about.about')->name('about.show');
 Route::get('post/{id}', 'PostsController@show')->name('posts.show');
 
 // ユーザ新規登録
-Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ユーザ詳細
@@ -41,9 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::get('create', 'PostsController@create')->name('posts.create');
         Route::post('', 'PostsController@store')->name('posts.store');
-        Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); 
         Route::put('{id}', 'PostsController@update')->name('posts.update');
+        Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
     }); 
     // レビュー
     Route::group(['prefix' => 'posts/{post_id}/reviews'], function () {

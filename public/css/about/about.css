@@ -45,13 +45,6 @@
     align-items: center;
 }
 
-@media (min-width: 768px) {
-    .member-list .card {
-        flex-direction: row;
-        align-items: stretch;
-    }
-}
-
 .member-img {
     width: 100%;
     max-width: 220px;
@@ -64,4 +57,11 @@
 .card-body {
     width: 100%;
     padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .member-list .card {
+        flex-direction: row;
+        align-items: stretch;
+    }
 }

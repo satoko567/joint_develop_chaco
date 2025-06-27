@@ -6,12 +6,18 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm d-flex flex-column">
                 <div class="card-body flex-grow-1">
-
-                    {{-- 👤 ユーザー情報 --}}
                     <div class="d-flex align-items-center mb-3">
                         <img src="{{ Gravatar::src($post->user->email,55) }}" class="rounded-circle mr-3" alt="ユーザのアバター画像">
                         <div>
-                            <p class="mb-1 font-weight-bold text-break">{{ $post->user->name }}</p>
+                        <p class="mb-1 font-weight-bold text-break">
+                            <a href="{{ route('user.show', $post->user->id) }}"
+                            class="text-dark fw-bold"
+                            style="text-decoration: none; transition: all 0.2s ease;"
+                            onmouseover="this.style.textDecoration='underline';"
+                            onmouseout="this.style.textDecoration='none';">
+                                {{ $post->user->name }}
+                            </a>
+                        </p>
                             @if (Auth::check() && Auth::id() !== $post->user->id)
                                 <div>
                                     @if (Auth::user()->isFollowing($post->user->id))
@@ -30,8 +36,6 @@
                             @endif
                         </div>
                     </div>
-
-                    {{-- 📷 投稿画像 --}}
                     @php
                         $defaultImage = config('constants.no_image_path');
                         $imageUrl = $post->image
@@ -41,8 +45,6 @@
                     <a href="{{ route('posts.show', $post->id) }}">
                         <img src="{{ $imageUrl }}" class="img-fluid rounded mb-3 w-100" style="height: 200px; object-fit: contain; background-color: #f8f9fa;" alt="投稿画像">
                     </a>
-
-                    {{-- ⭐ 評価 --}}
                     @php
                         $overall = $post->average_ratings['overall'] ?? null;
                     @endphp
@@ -79,8 +81,6 @@
                             @endif
                         </div>
                     </a>
-
-                    {{-- 🛠 店舗情報 --}}
                     <a href="{{ route('posts.show', $post->id) }}" style="text-decoration: none; color: inherit;">
                         <h5 class="card-title mb-1 font-weight-bold">
                             <i class="fas fa-wrench mr-1"></i>{{ $post->shop_name }}
@@ -89,8 +89,6 @@
                             <i class="fas fa-map-marker-alt mr-1"></i>{{ $post->address }}
                         </p>
                     </a>
-
-                    {{-- 💬 投稿内容 --}}
                     <p class="card-text mb-2" style="max-height: 100px; overflow: hidden;">
                         <a href="{{ route('posts.show', $post->id) }}" style="color: #212529; text-decoration: none;">
                             {{ Str::limit(strip_tags($post->content), 120, '... 続きを読む') }}
@@ -105,8 +103,6 @@
                             @endforeach
                         </div>
                     @endif
-
-                    {{-- 🗓 投稿日・レビュー数 --}}
                     <p class="text-muted small mb-1">レビュー {{ $post->reviews_count }} 件</p>
                     <p class="text-muted small">{{ $post->created_at }}</p>
                 </div>
@@ -114,7 +110,6 @@
         </div>
     @endforeach
 </div>
-
 <div class="d-flex justify-content-center">
     {{ $posts->appends(['keyword' => $keyword])->links('pagination::bootstrap-4') }}
 </div>

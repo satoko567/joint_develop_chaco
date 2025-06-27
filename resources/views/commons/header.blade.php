@@ -15,7 +15,7 @@
             <a href="{{ route('posts.create') }}" class="nav-link text-light">投稿する</a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link text-light">{{ Auth::user()->name }}</a>
+            <a href="{{ route('user.show', Auth::id()) }}" class="nav-link text-light">{{ Auth::user()->name }}</a>
           </li>
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a>
@@ -25,7 +25,7 @@
             <a href="{{ route('login') }}" class="nav-link text-light">ログイン</a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('register') }}" class="nav-link text-light">新規登録</a>
+            <a href="{{ route('signup') }}" class="nav-link text-light">新規登録</a>
           </li>
         @endif
       </ul>
