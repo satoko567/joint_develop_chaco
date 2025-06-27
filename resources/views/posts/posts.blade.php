@@ -7,7 +7,11 @@
                 
                 {{-- ユーザ―情報 --}}
                 <div class="d-flex align-items-center mb-3">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                    <img class="mr-2 rounded-circle" 
+                        src="{{ $post->user->avatar_image_url }}" 
+                        width="55" height="55"
+                        style="object-fit: cover;" 
+                        alt="ユーザのアバター画像">
                     <div>
                         <a href="{{ route('user.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a>
                         <small class="text-muted">

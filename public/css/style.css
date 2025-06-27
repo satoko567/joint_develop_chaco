@@ -46,3 +46,53 @@
         font-size: clamp(1.2rem, 5vw, 2.5rem);
     }
 }
+
+.card.bg-info {
+  min-height: 400px !important;
+}
+
+/* "アイコンを変更する"の下線 */
+.custom-underline {
+    position: relative;
+    display: inline-block;
+    text-decoration: none; /* 通常の下線は消す */
+}
+
+.custom-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* この値で下線との距離を調整 */
+    width: 100%;
+    height: 1px;
+    background-color: currentColor; /* 文字と同じ色の線 */
+}
+
+.custom-underline:hover {
+    text-decoration: none;
+}
+
+.custom-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #d1ecf1;
+}
+
+.avatar-preview {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.image-label {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.image-icon {
+    width: 32px;
+    height: 32px;
+}

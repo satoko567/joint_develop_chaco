@@ -82,7 +82,7 @@
             @endif
         </div>
     </div>
-    @include('commons.error_messages')
+    @include('components.flash_message')
     {{-- リプライ投稿フォーム --}}
     @auth
         <form action="{{ route('replies.store', $post->id) }}" method="POST" class="mt-4">

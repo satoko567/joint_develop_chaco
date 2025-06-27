@@ -40,7 +40,6 @@
         </div>
 
         @if (Auth::check())
-            <div class="w-75 m-auto">@include('commons.error_messages')</div> 
             <div class="text-center mb-3">
                 @include('posts.form')
             </div>
