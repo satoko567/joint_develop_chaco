@@ -123,5 +123,14 @@ class User extends Authenticatable
     }
 
     protected $dates = ['deleted_at'];
+    
+    public function getAvatarImageUrlAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/' . $this->avatar); // アップロード画像がある場合
+        } else {
+            return Gravatar::src($this->email, 310);  // なければGravatar
+        }
+    }
 
 }

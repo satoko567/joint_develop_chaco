@@ -50,6 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 
+    // タグの追加・削除（middleware: auth 内）
+    Route::post('/tags', 'TagController@store')->name('tags.store');
+    Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');
 });   
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
