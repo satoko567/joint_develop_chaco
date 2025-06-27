@@ -17,7 +17,7 @@
             @include('components.flash_message')
             <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" autocomplete="email" required>
+                <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" autocomplete="username" required>
             </div>
             <div class="form-group">
                 <label for="password">パスワード</label>
