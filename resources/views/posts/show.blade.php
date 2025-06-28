@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    @include('components.flash_message')
+@include('components.flash_message')
 
     <div class="card mb-4" style="width: 700px;">
         <div class="card-body">
             {{-- ユーザ―情報 --}}
             <div class="d-flex align-items-center mb-3">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                <img class="mr-2 rounded-circle" src="{{ $post->user->avatar_image_url }}" width="55" height="55" style="object-fit: cover;" alt="ユーザのアバター画像">
                 <div>
                     <a href="{{ route('user.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a>
                     <small class="text-muted">
@@ -82,7 +82,7 @@
             @endif
         </div>
     </div>
-    @include('components.flash_message')
+
     {{-- リプライ投稿フォーム --}}
     @auth
         <form action="{{ route('replies.store', $post->id) }}" method="POST" class="mt-4">
@@ -102,7 +102,7 @@
             <div class="card-body">
                 {{-- ユーザー情報 --}}
                 <div class="d-flex align-items-center mb-3">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
+                    <img class="mr-2 rounded-circle" src="{{ $reply->user->avatar_image_url }}" width="55" height="55" style="object-fit: cover;" alt="ユーザのアバター画像">
                     <div>
                         <a href="{{ route('user.show', ['id' => $reply->user->id]) }}">{{ $reply->user->name }}</a>
                         <small class="text-muted">
@@ -125,13 +125,17 @@
                 @if (Auth::id() === $reply->user_id)
                     <div class="d-flex justify-content-end mt-2 gap-2">
                         {{-- 編集ボタン --}}
-                        <a href="{{ route('replies.edit', [$post->id, $reply->id]) }}" class="btn btn-sm btn-outline-secondary mr-2">編集</a>
+                        <a href="{{ route('replies.edit', [$post->id, $reply->id]) }}" class="btn btn-light p-1">
+                            <img src="{{ asset('images/icons/鉛筆のアイコン素材.png') }}" alt="編集" style="width: 20px; height: 20px;">
+                        </a>
 
                         {{-- 削除フォーム --}}
                         <form method="POST" action="{{ route('replies.destroy', [$post->id, $reply->id]) }}" onsubmit="return confirm('本当に削除しますか？')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                            <button type="submit" class="btn btn-light p-1 ml-3">
+                                <img src="{{ asset('images/icons/ゴミ箱のアイコン素材.png') }}" alt="削除" style="width: 20px; height: 20px;">
+                            </button>
                         </form>
                     </div>
                 @endif

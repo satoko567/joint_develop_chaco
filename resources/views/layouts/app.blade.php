@@ -9,6 +9,17 @@
     </head>
     <body>
         @include('commons.header')
+
+        {{-- ▼ フラッシュメッセージ（退会完了時のみ表示） --}}
+        @if (session('success') === '退会が完了しました！')
+            <div class="alert alert-warning alert-dismissible fade show text-center mb-0 rounded-0" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <div class="container">  
             @yield('content')
         </div>

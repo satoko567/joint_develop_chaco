@@ -5,7 +5,7 @@
     <h1><i class="fab fa-telegram fa-lg pr-3"></i>寺子屋＠プログラミング</h1>
 </div>
 <div class="text-center mt-3">
-    <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
+    <p class="text-center d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
 </div>
 <div class="text-center">
     <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
