@@ -13,10 +13,14 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::get('/ranking/followers', 'UsersController@followerRanking')->name('ranking.followers');
+
 Route::prefix('users/{id}')->group(function () {
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('follows', 'UsersController@follows')->name('user.follows');
     Route::get('followers', 'UsersController@followers')->name('user.followers');
+    Route::get('avatar/edit', 'UsersController@editAvatar')->name('user.avatar.edit');
+    Route::put('avatar/update', 'UsersController@updateAvatar')->name('user.avatar.update');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -24,11 +28,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('{post_id}/replies/{reply}')->group(function () {
             Route::get('edit', 'RepliesController@edit')->name('replies.edit');
             Route::put('/', 'RepliesController@update')->name('replies.update');
+            Route::delete('/', 'RepliesController@destroy')->name('replies.destroy');
         });
+
         Route::post('', 'PostsController@store')->name('posts.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
+        
         Route::post('{id}/replies', 'RepliesController@store')->name('replies.store');
         
     });
@@ -54,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tags', 'TagController@store')->name('tags.store');
     Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');
 });   
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');

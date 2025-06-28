@@ -68,7 +68,7 @@
             {{-- 編集・削除ボタン --}}
             @if (Auth::id() === $post->user_id)
                 <div class="d-flex flex-wrap justify-content-end mt-3">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('post.destroy', $post->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-light p-1" onclick="return confirm('本当に削除しますか？')">
@@ -82,7 +82,7 @@
             @endif
         </div>
     </div>
-    @include('commons.error_messages')
+    @include('components.flash_message')
     {{-- リプライ投稿フォーム --}}
     @auth
         <form action="{{ route('replies.store', $post->id) }}" method="POST" class="mt-4">
@@ -121,12 +121,18 @@
                     </div>
                 </div>
 
-                {{-- 編集ボタン（投稿者本人だけ表示） --}}
+                {{-- 編集・削除ボタン（投稿者本人だけ表示） --}}
                 @if (Auth::id() === $reply->user_id)
-                    <div class="d-flex justify-content-end mt-2">
-                        <a href="{{ route('replies.edit', [$post->id, $reply->id]) }}" class="btn btn-sm btn-outline-secondary">
-                            編集
-                        </a>
+                    <div class="d-flex justify-content-end mt-2 gap-2">
+                        {{-- 編集ボタン --}}
+                        <a href="{{ route('replies.edit', [$post->id, $reply->id]) }}" class="btn btn-sm btn-outline-secondary mr-2">編集</a>
+
+                        {{-- 削除フォーム --}}
+                        <form method="POST" action="{{ route('replies.destroy', [$post->id, $reply->id]) }}" onsubmit="return confirm('本当に削除しますか？')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                        </form>
                     </div>
                 @endif
             </div>

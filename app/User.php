@@ -134,5 +134,4 @@ class User extends Authenticatable
             return Gravatar::src($this->email, 310);  // なければGravatar
         }
     }
-
 }
