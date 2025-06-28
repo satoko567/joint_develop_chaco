@@ -12,16 +12,15 @@
 </div>
 <div class="row mt-5 mb-5">
     <div class="col-sm-6 offset-sm-3">
-        <form method="POST" action="{{ route('login.post') }}" autocomplete="on">
+        <form method="POST" action="{{ route('login.post') }}">
             @csrf
-            @include('components.flash_message')
             <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" autocomplete="username" required>
+                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
             </div>
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input id="password" type="password" class="form-control" name="password" autocomplete="current-password" required>
+                <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
             </div>
             <button type="submit" class="btn btn-primary mt-2">ログイン</button>
         </form>
