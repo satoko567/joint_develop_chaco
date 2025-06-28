@@ -9,7 +9,7 @@
                 @include('follow.follow_button', ['user' => $user])
             </div>
             <div class="card-body text-center px-4 py-0">
-                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" width="180" height="180" style="object-fit: cover;" alt="ユーザのアバター画像">
+                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" width="250" height="250" style="object-fit: cover;" alt="ユーザのアバター画像">
 
                 @if (Auth::check() && Auth::id() === $user->id)
                     {{-- アイコン編集リンク --}}
@@ -38,7 +38,7 @@
             {{-- フォローフォロワーの一覧表示 --}}
             @foreach ($followers as $follower)
                 <div class="media mb-3">
-                    <img class="mr-3 rounded-circle" src="{{ Gravatar::src($follower->email, 70) }}" alt="アイコン">
+                    <img class="mr-3 rounded-circle" src="{{ $follower->avatar_image_url }}" width="70" height="70" style="object-fit: cover;" alt="アイコン">
                     <div class="media-body">
                         <h5 class="mt-0">
                             <a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a>

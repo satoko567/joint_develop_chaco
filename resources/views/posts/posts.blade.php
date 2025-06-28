@@ -1,4 +1,3 @@
-@include('components.flash_message')
 @if ($posts->isEmpty())
     <p class="text-center text-muted mt-4">一致する投稿はありませんでした。</p>
 @else
@@ -77,22 +76,22 @@
                     
                     {{-- リプライ --}}
                     <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-outline-secondary btn-sm">
-                        💬リプライを見る
+                        💬リプライ
                     </a>
 
                     {{-- 編集・削除 --}}
                     @if (Auth::id() === $post->user_id)
                         <div class="d-flex">
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-light p-1">
+                                <img src="{{ asset('images/icons/鉛筆のアイコン素材.png') }}" alt="編集" style="width: 20px; height: 20px;">
+                            </a>
                             <form method="POST" action="">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-light p-1" onclick="return confirm('本当に削除しますか？')">
+                                <button type="submit" class="btn btn-light p-1 ml-3" onclick="return confirm('本当に削除しますか？')">
                                     <img src="{{ asset('images/icons/ゴミ箱のアイコン素材.png') }}" alt="削除" style="width: 20px; height: 20px;">
                                 </button>
                             </form>
-                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-light p-1 ml-3">
-                                <img src="{{ asset('images/icons/鉛筆のアイコン素材.png') }}" alt="編集" style="width: 20px; height: 20px;">
-                            </a>
                         </div>
                     @endif
                 </div>
