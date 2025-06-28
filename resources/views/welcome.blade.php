@@ -17,6 +17,12 @@
       </div>
     </form>
 
+    @if ($posts->isEmpty())
+        <p class="text-center text-muted mt-4">
+            一致する投稿はありませんでした。
+        </p>
+    @endif
+
     {{-- タグ一覧 --}}
     <div class="mb-4 text-center">
         <div class="d-inline-flex flex-wrap justify-content-center">
@@ -36,6 +42,25 @@
             @include('posts.form')
         </div>
     @endif
+   
+    {{-- === タブナビゲーション === --}}
+    <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+            <a class="nav-link {{ $tab === 'all' ? 'active' : '' }}"
+            href="{{ route('post.index', ['tab' => 'all']) }}">
+                すべて
+            </a>
+        </li>
+        @if (Auth::check())
+            <li class="nav-item">
+                <a class="nav-link {{ $tab === 'follows' ? 'active' : '' }}"
+                href="{{ route('post.index', ['tab' => 'follows']) }}">
+                    フォロー中
+                </a>
+            </li>
+        @endif
+    </ul>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-8">

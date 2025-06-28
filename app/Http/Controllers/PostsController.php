@@ -12,19 +12,28 @@ class PostsController extends Controller
 {   
     public function index(Request $request)
     {
+        $tab = $request->input('tab', 'all');
         $keyword = $request->input('keyword');
-        $posts = Post::query(); 
+        $tags = Tag::all();
 
-        if ($keyword) {
-            $posts->where('content', 'LIKE', "%{$keyword}%");
+        if ($tab === 'all') {
+            $posts = Post::with(['tags', 'user'])->when($keyword, fn ($q) => $q->where('content', 'like', "%{$keyword}%"))->latest()->paginate(10);
         }
 
-        $posts = $posts->with('tags')->orderBy('created_at', 'desc')->paginate(10);
-        $tags = Tag::all();
+        else {
+            $userIds = [];
+
+            if (Auth::check()) {
+                $userIds = Auth::user()->follows()->pluck('users.id')->toArray();
+                $userIds[] = Auth::id();
+            }
+            if (empty($userIds)) $tab = 'all';
+            $posts = Post::whereIn('user_id', $userIds)->when($keyword, fn ($q) => $q->where('content', 'like', "%{$keyword}%"))->with(['tags', 'user'])->latest()->paginate(10);
+        }
 
         $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
 
-        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers'));
+        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab'));
     }
 
     public function show($id)
