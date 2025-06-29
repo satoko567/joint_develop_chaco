@@ -37,22 +37,6 @@ class UsersController extends Controller
 
         return view('users.edit', $data);
 
-        return view('users.show', [
-            'user' => $user,
-            'posts' => $posts,
-        ]);
-    }
-
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-
-        if ($user->id === \Auth::id()) {
-            return view('users.edit', [
-                'user' => $user,
-            ]);
-        }
-        abort(404);
     }
 
     public function update(UserRequest $request, $id)
@@ -102,20 +86,7 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         
         return view('users.show', $data);   
-        $user->password = bcrypt($request->password);
-        $user->save();
 
-        return redirect('/users/'. $user->id);
-    }
-
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        if (\Auth::id() === $user->id) {
-            $user->delete();
-        }
-
-        return redirect('/');
     }
 
     public function editAvatar($id)
