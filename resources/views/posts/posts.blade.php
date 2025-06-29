@@ -92,7 +92,7 @@
                             <a href="{{ route('post.edit', $post->id) }}" class="btn btn-light p-1">
                                 <img src="{{ asset('images/icons/鉛筆のアイコン素材.png') }}" alt="編集" style="width: 20px; height: 20px;">
                             </a>
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ route('post.destroy', $post->id) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-light p-1 ml-3" onclick="return confirm('本当に削除しますか？')">
