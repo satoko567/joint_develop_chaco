@@ -55,6 +55,17 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'followers', 'followed_id', 'user_id')->withTimestamps();
     }
 
+    //　いいね 
+    public function favoritesCount()
+    { 
+        return $this->posts()->withCount('favorites')->get()->sum('favorites_count');
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites')->withTimestamps();
+    }
+
     public function follow($userId)
     {
         $exist = $this->isFollow($userId);
@@ -102,3 +113,5 @@ class User extends Authenticatable
         }
     }
 }
+
+    

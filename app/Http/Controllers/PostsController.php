@@ -8,6 +8,7 @@ use App\Post;
 use App\User;
 use App\Tag;
 
+
 class PostsController extends Controller
 {   
     public function index(Request $request)
@@ -23,8 +24,9 @@ class PostsController extends Controller
         $tags = Tag::all();
 
         $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
+        $rankingUsers = User::withCount('favorites')->orderByDesc('favorites_count')->orderByDesc('updated_at')->take(10)->get();
 
-        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers'));
+        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'favorites'));
     }
 
     public function show($id)
