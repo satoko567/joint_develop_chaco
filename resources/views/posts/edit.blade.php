@@ -1,9 +1,8 @@
 @extends('layouts.app')
 @section('content')
-@include('components.flash_message')
-    <h2 class="mt-5">投稿を編集する</h2>        
-    <form method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
-        @include('commons.error_messages') 
+    <h2 class="mt-5 mb-5">投稿を編集する</h2>
+    @include('components.flash_message')    
+    <form method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data"> 
         @csrf
         @method('PUT')
         <div class="form-group mt-5">

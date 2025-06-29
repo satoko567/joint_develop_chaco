@@ -3,16 +3,25 @@
 @include('components.flash_message')
 <div class="row">
     <aside class="col-sm-4 mb-5">
-        <div class="card bg-info">
+        <div class="card bg-info" style="min-height: 400px;">
             <div class="card-header">
                 <h3 class="card-title text-light">{{$user->name}}</h3>
                 @include('follow.follow_button', ['user' => $user])
             </div>
-            <div class="card-body">
-                <img class="rounded-circle" src="{{ Gravatar::src($user->email , 310) }}" alt="ユーザのアバター画像">
-                    <div class="mt-3">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+            <div class="card-body text-center px-4 py-0">
+                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" width="250" height="250" style="object-fit: cover;" alt="ユーザのアバター画像">
+
+                @if (Auth::check() && Auth::id() === $user->id)
+                    {{-- アイコン編集リンク --}}
+                    <div>
+                        <a href="{{ route('user.avatar.edit', $user->id) }}" class="text-light custom-underline">アイコンを変更する</a>
                     </div>
+
+                    {{-- ユーザ情報の編集ボタン（本人だけに表示） --}}
+                    <div class="my-3">
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                    </div>
+                @endif
             </div>
         </div>
     </aside>
@@ -29,7 +38,7 @@
             {{-- フォローフォロワーの一覧表示 --}}
             @foreach ($followers as $follower)
                 <div class="media mb-3">
-                    <img class="mr-3 rounded-circle" src="{{ Gravatar::src($follower->email, 70) }}" alt="アイコン">
+                    <img class="mr-3 rounded-circle" src="{{ $follower->avatar_image_url }}" width="70" height="70" style="object-fit: cover;" alt="アイコン">
                     <div class="media-body">
                         <h5 class="mt-0">
                             <a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a>

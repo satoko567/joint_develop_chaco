@@ -5,7 +5,7 @@
     <h1><i class="fab fa-telegram fa-lg pr-3"></i>寺子屋＠プログラミング</h1>
 </div>
 <div class="text-center mt-3">
-    <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
+    <p class="text-center d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
 </div>
 <div class="text-center">
     <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
@@ -14,6 +14,7 @@
     <div class="col-sm-6 offset-sm-3">
         <form method="POST" action="{{ route('login.post') }}">
             @csrf
+            @include('components.flash_message')
             <div class="form-group">
                 <label for="email">メールアドレス</label>
                 <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">

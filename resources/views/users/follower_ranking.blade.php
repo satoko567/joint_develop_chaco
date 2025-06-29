@@ -17,18 +17,20 @@
             <div class="d-flex align-items-center justify-content-center mb-2">
                 {{-- ランキング表示（1位から3位はアイコン、それ以降は数字）--}}
                 @if ($displayRank === 1)
-                    <img src="{{ asset('images/icons/rank1.png') }}" alt="1位" style="width: 30px; height: 30px;">
+                    <img class="mr-3" src="{{ asset('images/icons/rank1.png') }}" alt="1位" style="width: 40px; height: 40px;">
                 @elseif ($displayRank === 2)
-                    <img src="{{ asset('images/icons/rank2.png') }}" alt="2位" style="width: 30px; height: 30px;">
+                    <img class="mr-3" src="{{ asset('images/icons/rank2.png') }}" alt="2位" style="width: 40px; height: 40px;">
                 @elseif ($displayRank === 3)
-                    <img src="{{ asset('images/icons/rank3.png') }}" alt="3位" style="width: 30px; height: 30px;">
+                    <img class="mr-3" src="{{ asset('images/icons/rank3.png') }}" alt="3位" style="width: 40px; height: 40px;">
                 @else
-                    <span class="mr-2" style="{{ $rankStyle }}">{{ $displayRank }}位</span>
+                    <span class="mr-3" style="{{ $rankStyle }}">{{ $displayRank }}位</span>
                 @endif
 
                 {{-- ユーザー情報 --}}
-                <div class="ml-2">
-                    <strong>{{ $user->name }}</strong><br>
+                <div>
+                    <a href="{{ route('user.show', ['id' => $user->id]) }}" class="ml-2 text-dark">
+                        <strong>{{ $user->name }}</strong><br>
+                    </a>
                     フォロワー数：{{ $user->followers_count }}人
                 </div>
             </div>
