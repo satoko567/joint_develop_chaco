@@ -95,6 +95,6 @@
     </div>
 @endforeach
 <div class="d-flex justify-content-center mt-4">
-    {{ $posts->links() }}
+    {{ $posts->appends(request()->query())->links() }}
 </div>
 
