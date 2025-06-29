@@ -14,7 +14,7 @@
 
                 <div class="text-center mb-4">
                     {{-- プレビュー用アイコン画像 --}}
-                    <img id="preview" src="{{ $user->avatar_image_url }}" class="avatar-preview" alt="現在のアイコン">
+                    <img id="preview" src="{{ $user->avatar_image_url }}" class="avatar-preview" alt="現在のアイコン" style="width: 300px; height: 300px; object-fit: cover; border-radius: 50%;">
 
                     {{-- 写真アイコンとファイル名表示 --}}
                     <div class="mt-2">

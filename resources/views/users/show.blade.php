@@ -36,19 +36,30 @@
             @include('posts.posts', ['posts' => $posts])
         @else
             {{-- フォローフォロワーの一覧表示 --}}
-            @foreach ($followers as $follower)
-                <div class="media mb-3">
-                    <img class="mr-3 rounded-circle" src="{{ $follower->avatar_image_url }}" width="70" height="70" style="object-fit: cover;" alt="アイコン">
-                    <div class="media-body">
-                        <h5 class="mt-0">
-                            <a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a>
-                        </h5>
-                        @if (Auth::check() && Auth::id() !== $follower->id)
-                            @include('follow.follow_button', ['user' => $follower])
-                        @endif
+            <div class="d-flex flex-column align-items-center">
+                @foreach ($followers as $follower)
+                    <div class="d-flex justify-content-center w-100">
+                        <div class="card mb-3 p-3" style="max-width: 400px; width: 100%;">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle mr-3" src="{{ $follower->avatar_image_url }}" width="50" height="50" style="object-fit: cover;" alt="アイコン">
+                                    <div>
+                                        <h5 class="mb-0">
+                                            <a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                @if (Auth::check() && Auth::id() !== $follower->id)
+                                    <div>
+                                        @include('follow.follow_button', ['user' => $follower])
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         @endif
     </div>
 </div>

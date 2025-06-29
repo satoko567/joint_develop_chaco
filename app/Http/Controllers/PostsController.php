@@ -114,7 +114,7 @@ class PostsController extends Controller
             $post->delete();
         }
 
-        return redirect() ->back();
+        return redirect()->route('post.index')->with('success', '投稿を削除しました。');
     }
 
     public function create()
