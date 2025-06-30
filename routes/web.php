@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
         
         Route::post('{id}/replies', 'RepliesController@store')->name('replies.store');
+        
     });
 
     Route::prefix('users')->group(function () {
@@ -50,10 +51,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
+     
+    // 良いね機能
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
 
-    // 新規タグ追加
+    // タグの追加・削除（middleware: auth 内）
     Route::post('/tags', 'TagController@store')->name('tags.store');
-    // タグ削除
     Route::delete('/tags/{id}', 'TagController@destroy')->name('tags.destroy');
 });   
 
@@ -66,3 +72,4 @@ Route::get('posts/{id}', 'PostsController@show')->name('post.show');
 
 // タグ
 Route::get('/tags/{id}', 'TagController@search')->name('tags.search');
+

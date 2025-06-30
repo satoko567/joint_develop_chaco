@@ -41,6 +41,12 @@
             </div>
         </form>
 
+        @if ($posts->isEmpty())
+            <p class="text-center text-muted mt-4">
+                一致する投稿はありませんでした。
+            </p>
+        @endif
+
         {{-- タグ一覧 --}}
         <div class="mb-4 text-center">
             <div class="d-inline-flex flex-wrap justify-content-center">
@@ -59,12 +65,29 @@
                 @include('posts.form')
             </div>
         @endif
-        <div class="container">
+    
+        {{-- === タブナビゲーション === --}}
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="nav-link {{ $tab === 'all' ? 'active' : '' }}"
+                    href="{{ route('post.index', ['tab' => 'all']) }}">すべて
+                </a>
+            </li>
+            @if (Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link {{ $tab === 'follows' ? 'active' : '' }}"
+                        href="{{ route('post.index', ['tab' => 'follows']) }}">MYタイムライン
+                    </a>
+                </li>
+            @endif
+        </ul>
+
+        <div class="container my-4">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-lg-8 col-md-8">
                     @include('posts.posts', ['posts' => $posts])
                 </div>
-                <div class="col-md-4"> 
+                <div class="col-lg-4 col-md-4"> 
                     @include('users.follower_ranking', ['rankingUsers' => $rankingUsers])
                 </div>
             </div>

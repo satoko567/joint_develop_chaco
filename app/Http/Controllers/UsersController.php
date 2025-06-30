@@ -36,6 +36,7 @@ class UsersController extends Controller
         ];
 
         return view('users.edit', $data);
+
     }
 
     public function update(UserRequest $request, $id)
@@ -85,6 +86,7 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         
         return view('users.show', $data);   
+
     }
 
     public function editAvatar($id)

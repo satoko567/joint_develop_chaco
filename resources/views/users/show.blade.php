@@ -9,7 +9,7 @@
                 @include('follow.follow_button', ['user' => $user])
             </div>
             <div class="card-body text-center px-4 py-0">
-                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" width="180" height="180" style="object-fit: cover;" alt="ユーザのアバター画像">
+                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" width="250" height="250" style="object-fit: cover;" alt="ユーザのアバター画像">
 
                 @if (Auth::check() && Auth::id() === $user->id)
                     {{-- アイコン編集リンク --}}
@@ -36,19 +36,30 @@
             @include('posts.posts', ['posts' => $posts])
         @else
             {{-- フォローフォロワーの一覧表示 --}}
-            @foreach ($followers as $follower)
-                <div class="media mb-3">
-                    <img class="mr-3 rounded-circle" src="{{ Gravatar::src($follower->email, 70) }}" alt="アイコン">
-                    <div class="media-body">
-                        <h5 class="mt-0">
-                            <a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a>
-                        </h5>
-                        @if (Auth::check() && Auth::id() !== $follower->id)
-                            @include('follow.follow_button', ['user' => $follower])
-                        @endif
+            <div class="d-flex flex-column align-items-center">
+                @foreach ($followers as $follower)
+                    <div class="d-flex justify-content-center w-100">
+                        <div class="card mb-3 p-3" style="max-width: 400px; width: 100%;">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle mr-3" src="{{ $follower->avatar_image_url }}" width="50" height="50" style="object-fit: cover;" alt="アイコン">
+                                    <div>
+                                        <h5 class="mb-0">
+                                            <a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                @if (Auth::check() && Auth::id() !== $follower->id)
+                                    <div>
+                                        @include('follow.follow_button', ['user' => $follower])
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         @endif
     </div>
 </div>
