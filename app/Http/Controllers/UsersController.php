@@ -125,5 +125,15 @@ class UsersController extends Controller
             return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');
         }
     }
+
+    public function favoriteRanking() 
+    {
+        $users = User::with('posts.favorites')->get()->sortByDesc(function ($user) {
+
+            return $user->favoritesCount();    
+        });
+
+        return view('users.favorite_ranking', compact('users'));
+    } 
     
-}
+    }
