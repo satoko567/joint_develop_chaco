@@ -120,8 +120,8 @@ class UsersController extends Controller
             }
 
             // 新しい画像保存
-            $path = $request->file('avatar')->store('public/avatars');
-            $user->avatar = str_replace('public/', '', $path);
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
             $user->save();
 
             return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');

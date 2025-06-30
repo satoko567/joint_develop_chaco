@@ -25,6 +25,8 @@ Route::prefix('users/{id}')->group(function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
+        // 画像削除
+        Route::delete('{post}/image', 'PostsController@destroyImage')->name('post.image.destroy');
         Route::prefix('{post_id}/replies/{reply}')->group(function () {
             Route::get('edit', 'RepliesController@edit')->name('replies.edit');
             Route::put('/', 'RepliesController@update')->name('replies.update');
