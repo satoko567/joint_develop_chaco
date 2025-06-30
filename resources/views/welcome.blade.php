@@ -76,7 +76,7 @@
             @if (Auth::check())
                 <li class="nav-item">
                     <a class="nav-link {{ $tab === 'follows' ? 'active' : '' }}"
-                        href="{{ route('post.index', ['tab' => 'follows']) }}">フォロー中
+                        href="{{ route('post.index', ['tab' => 'follows']) }}">MYタイムライン
                     </a>
                 </li>
             @endif
