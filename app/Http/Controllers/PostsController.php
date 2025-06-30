@@ -35,7 +35,7 @@ class PostsController extends Controller
         $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
         $favoriteRankingUsers = User::withCount('favorites')->orderByDesc('favorites_count')->orderByDesc('updated_at')->take(10)->get();
 
-        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab'));
+        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab', 'favorites'));
     }
 
     public function show($id)
