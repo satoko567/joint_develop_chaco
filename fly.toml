@@ -36,3 +36,7 @@ console_command = 'php /var/www/html/artisan tinker'
 [[services]]
   internal_port = 8080
   force_https = true
+
+[mounts]
+  source = "storage_volume"
+  ddestination = "/var/www/html/laravelapp/storage"
