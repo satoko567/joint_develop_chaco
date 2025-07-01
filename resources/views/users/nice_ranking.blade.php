@@ -6,7 +6,7 @@
             $displayRank = 0;
         @endphp
 
-        @foreach ($favoriteRanking as $index => $user)
+        @foreach ($favorites as $index => $user)
             @php
                 if ($user->favorites_count !== $prevCount) {
                     $displayRank = $index + 1;

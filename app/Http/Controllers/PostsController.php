@@ -33,7 +33,7 @@ class PostsController extends Controller
             ->paginate(10);
 
         $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
-        $favoriteRankingUsers = User::withCount('favorites')->orderByDesc('favorites_count')->orderByDesc('updated_at')->take(10)->get();
+        $favorites = User::withCount('favorites')->orderByDesc('favorites_count')->orderByDesc('updated_at')->take(10)->get();
 
         return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab', 'favorites'));
     }

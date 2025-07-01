@@ -30,8 +30,5 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function favorites()
-    {
-       return $this->hasMany(Favorite::class); 
-    }
+    
 }
