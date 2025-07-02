@@ -1,3 +1,5 @@
+#!/bin/bash
+
 FOLDER=/var/www/html/storage/app
 if [ ! -d "$FOLDER" ]; then
     echo "$FOLDER is not a directory, copying storage_ content to storage"
@@ -5,9 +7,3 @@ if [ ! -d "$FOLDER" ]; then
     echo "deleting storage_..."
     rm -rf /var/www/html/storage_
 fi
-
-
-:wq
-
-:wq:w
-#!/bin/bash
