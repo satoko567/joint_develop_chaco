@@ -40,4 +40,3 @@ console_command = 'php /var/www/html/artisan tinker'
 [mounts]
   source = "storage_volume"
   destination = "/var/www/html/laravelapp/storage/app"
-
