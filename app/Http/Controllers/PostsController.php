@@ -32,15 +32,13 @@ class PostsController extends Controller
             ->latest()
             ->paginate(10);
 
-        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
-$favorites = User::withCount([
-    'posts as likes_received_count' => function ($query) {
-        $query->join('favorites', 'posts.id', '=', 'favorites.post_id');
-    }
-                            ])
-            ->orderByDesc('likes_received_count')
-            ->take(10)
-            ->get();
+        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->take(10)->get();
+        $favorites = User::withCount([
+            'posts as likes_received_count' => function ($query) {
+                $query->join('favorites', 'posts.id', '=', 'favorites.post_id');
+            }
+        ])->orderByDesc('likes_received_count')->take(10)->get();
+
         return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab', 'favorites'));
     }
 
