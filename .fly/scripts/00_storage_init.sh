@@ -9,4 +9,5 @@ fi
 
 :wq
 
-:wq:wq
+:wq:w
+#!/bin/bash
