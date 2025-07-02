@@ -8,14 +8,13 @@
 
         @foreach ($favorites as $index => $user)
             @php
-                if ($user->favorites_count !== $prevCount) {
+                if ($user->likes_received_count !== $prevCount) {
                     $displayRank = $index + 1;
-                    $prevCount = $user->favorites_count;
+                    $prevCount = $user->likes_received_count;
                 }
                 $rankStyle = 'display: inline-block; width: 30px; height: 30px; text-align: center; line-height: 30px; vertical-align: middle;';
             @endphp
             <div class="d-flex align-items-center justify-content-center mb-2">
-                {{-- ランキング表示（1位から3位はアイコン、それ以降は数字）--}}
                 @if ($displayRank === 1)
                     <img class="mr-3" src="{{ asset('images/icons/rank1.png') }}" alt="1位" style="width: 40px; height: 40px;">
                 @elseif ($displayRank === 2)
@@ -26,16 +25,13 @@
                     <span class="mr-3" style="{{ $rankStyle }}">{{ $displayRank }}位</span>
                 @endif
 
-                {{-- ユーザー情報 --}}
                 <div>
                     <a href="{{ route('user.show', ['id' => $user->id]) }}" class="ml-2 text-dark">
                         <strong>{{ $user->name }}</strong><br>
                     </a>
-                    いいね！数：{{ $user->favorites_count }}人
+                    いいね！された数：{{ $user->likes_received_count }}件
                 </div>
             </div>
         @endforeach
     </div>
-</div>       
-
-            
+</div>
