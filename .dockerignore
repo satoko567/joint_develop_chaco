@@ -15,13 +15,15 @@ vendor
 # 2. Ignore common files/directories we don't need
 .vscode
 .idea
-**/*node_modules
-**.git
-**.gitignore
-**.gitattributes
-**.sass-cache
-**/*~
-**/*.log
-**/.DS_Store
-**/Thumbs.db
+node_modules
+.git
+.gitattributes
+.gitignore
+.sass-cache
+*~
+*.log
+.DS_Store
+Thumbs.db
 public/hot
+
+# ✅ .fly は含める（除外しない！）
