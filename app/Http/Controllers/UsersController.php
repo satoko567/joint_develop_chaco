@@ -129,15 +129,24 @@ class UsersController extends Controller
         }
     }
 
-    ppublic function favoriteRanking() 
-    {
-        $rankingUsers = User::select('users.*', DB::raw('COALESCE(SUM(fav_count), 0) as likes_received_count'))
-            ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
-            ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as fav_count FROM favorites GROUP BY post_id) as f'), 'posts.id', '=', 'f.post_id')
-            ->groupBy('users.id')
-            ->orderByDesc('likes_received_count')
-            ->take(10)
-            ->get();
+    public function favoriteRanking()
+{
+    $users = User::with('posts.favorites')->get()->sortByDesc(function ($user) {
+        return $user->favoritesCount();    
+    });
 
-        return view('users.nice_ranking', compact('rankingUsers'));
-    }
+    return view('users.favorite_ranking', compact('users'));
+}
+
+    public function niceRanking()
+{
+    $rankingUsers = User::select('users.*', DB::raw('COALESCE(SUM(fav_count), 0) as likes_received_count'))
+        ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+        ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as fav_count FROM favorites GROUP BY post_id) as f'), 'posts.id', '=', 'f.post_id')
+        ->groupBy('users.id')
+        ->orderByDesc('likes_received_count')
+        ->take(10)
+        ->get();
+
+    return view('users.nice_ranking', compact('rankingUsers'));
+}
