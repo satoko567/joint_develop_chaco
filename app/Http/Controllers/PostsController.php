@@ -9,6 +9,7 @@ use App\Tag;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Support\Facades\Auth;
+use Cloudinary\Cloudinary;
 
 class PostsController extends Controller
 {
@@ -75,9 +76,19 @@ class PostsController extends Controller
         $post->content   = $request->input('content');
         $post->user_id   = Auth::id();
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('post_images', 'public');
-            $post->image = $path;
-        }
+                $cloudinary = new Cloudinary([
+                    'cloud' => [
+                        'cloud_name' => config('cloudinary.cloud_name'),
+                        'api_key'    => config('cloudinary.api_key'),
+                        'api_secret' => config('cloudinary.api_secret'),
+                    ],
+                ]);
+                $uploadedUrl = $cloudinary->uploadApi()->upload(
+                    $request->file('image')->getRealPath()
+                )['secure_url'];
+
+                $post->image = $uploadedUrl;
+            }
         $post->lat = $request->input('lat');
         $post->lng = $request->input('lng');
         $post->save();
@@ -107,9 +118,17 @@ class PostsController extends Controller
         $post->lat = $request->input('lat');
         $post->lng = $request->input('lng');
         if ($request->hasFile('image')) {
-            $post->deleteImage();
-            $path = $request->file('image')->store('post_images', 'public');
-            $post->image = $path;
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => config('cloudinary.cloud_name'),
+                    'api_key'    => config('cloudinary.api_key'),
+                    'api_secret' => config('cloudinary.api_secret'),
+                ],
+            ]);
+            $uploadedUrl = $cloudinary->uploadApi()->upload(
+                $request->file('image')->getRealPath()
+            )['secure_url'];
+            $post->image = $uploadedUrl;
         }
         $post->save();
         $rawTags = $request->input('tags');
@@ -129,7 +148,7 @@ class PostsController extends Controller
         if (Auth::id() !== $post->user_id) {
             abort(403);
         }
-        $post->deleteImage();
+        // $post->deleteImage();
         $post->deleteReviews();
         $post->detachTags();
         $post->delete();
