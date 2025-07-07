@@ -1,3 +1,218 @@
-@import url("welcome.css");
-@import url("about/about.css");
-@import url("components/star-rating.css");
+.welcome-custom-title {
+  font-family: "Anton", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  letter-spacing: 1px;
+}
+
+.welcome-tags a {
+  font-size: 0.9rem;
+  margin: 0 0.25rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.welcome-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.2rem;
+  font-size: 1.25rem;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.welcome-button i {
+  font-size: 1.4rem;
+}
+
+.welcome-button:hover {
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+.welcome-btn-about {
+  background-color: white;
+  color: #343a40;
+  border: 2px solid #343a40;
+}
+
+.welcome-btn-about:hover {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #343a40;
+}
+
+.chatbot-round-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007BFF;
+  color: white;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.chatbot-round-button:hover {
+  background-color: #00FFFF;
+}
+
+@media (max-width: 576px) {
+  .search-form {
+    width: 100% !important;
+  }
+
+  .welcome-tags a {
+    font-size: 0.75rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .welcome-button {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .welcome-button-group {
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome-btn-about-last {
+    margin-bottom: 1.5rem;
+  }
+
+  .chatbot-round-button {
+    padding: 10px 14px;
+    font-size: 13px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+.about-header {
+  background-color: #343a40;
+  color: white;
+  padding: 3rem 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.about-header h1 {
+  font-family: "Anton", sans-serif;
+  font-size: 2.8rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+  color: #343a40;
+}
+
+.about-content h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #343a40;
+  padding-bottom: 0.5rem;
+}
+
+.about-content p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.about-content i {
+  margin-right: 0.5rem;
+}
+
+.member-list .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member-img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  width: 100%;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .member-list .card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.star-rating {
+  display: inline-flex;
+  font-size: 1.1rem;
+  line-height: 1;
+  gap: 0.1em;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  color: #ccc;
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+.star:last-child {
+  margin-right: 0;
+}
+
+.star-base {
+  position: relative;
+  z-index: 1;
+  color: #ccc;
+}
+
+.star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: 2;
+  color: gold;
+}
+
