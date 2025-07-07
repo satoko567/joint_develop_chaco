@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('shop_name', 100);
             $table->string('address', 100);
-            $table->text('content');
+            $table->string('content', 1000);
             $table->string('image')->nullable();
             $table->decimal('lat', 10, 7)->nullable();
             $table->decimal('lng', 10, 7)->nullable();
