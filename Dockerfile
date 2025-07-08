@@ -18,6 +18,7 @@ libpng-dev \
 libpq-dev \
 && docker-php-ext-install pdo_mysql pdo_pgsql
 
+RUN docker-php-ext-enable pdo_pgsql
 
 RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
 RUN /bin/sh -c a2enmod rewrite
