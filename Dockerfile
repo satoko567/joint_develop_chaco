@@ -16,7 +16,7 @@ unzip \
 vim \
 libpng-dev \
 libpq-dev \
-&& docker-php-ext-install pdo_mysql
+&& docker-php-ext-install pdo_mysql pdo_pgsql
 
 
 RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
@@ -24,3 +24,5 @@ RUN /bin/sh -c a2enmod rewrite
 
 COPY . /var/www/html
 RUN cd /var/www/html && composer install --no-dev --optimize-autoloader
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
