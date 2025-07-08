@@ -23,3 +23,4 @@ RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
 RUN /bin/sh -c a2enmod rewrite
 
 COPY . /var/www/html
+RUN cd /var/www/html && composer install --no-dev --optimize-autoloader
