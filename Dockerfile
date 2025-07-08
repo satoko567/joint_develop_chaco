@@ -9,14 +9,19 @@ RUN cd /usr/bin && curl -s http://getcomposer.org/installer | php && ln -s /usr/
 
 
 RUN apt-get update \
-&& apt-get install -y \
-git \
-zip \
-unzip \
-vim \
-libpng-dev \
-libpq-dev \
-&& docker-php-ext-install pdo_mysql pdo_pgsql
+  && apt-get install -y \
+    git \
+    zip \
+    unzip \
+    vim \
+    libpng-dev \
+    libpq-dev \
+    libssl-dev \
+    libxml2-dev \
+    libzip-dev \
+    libonig-dev \
+    libcurl4-openssl-dev \
+  && docker-php-ext-install pdo_mysql pdo_pgsql
 
 RUN docker-php-ext-enable pdo_pgsql
 
