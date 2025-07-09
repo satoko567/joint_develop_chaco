@@ -148,7 +148,7 @@ class PostsController extends Controller
         if (Auth::id() !== $post->user_id) {
             abort(403);
         }
-        // $post->deleteImage();
+        $post->deleteImage();
         $post->deleteReviews();
         $post->detachTags();
         $post->delete();
